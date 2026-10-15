@@ -54,9 +54,25 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
 # Add application
 COPY . /var/www/
 RUN touch /var/www/.env
+
+# A build from a plain git checkout (e.g. on a homelab) has no vendor/ and no country boundaries yet,
+# the release pipeline prepares those before building. Prepare them here when they are missing.
+# hadolint ignore=DL3018
+RUN if [ ! -f vendor/autoload.php ]; then \
+      apk add --no-cache --virtual .composer-deps git unzip \
+      && { composer install --no-dev --prefer-dist --no-scripts --no-interaction --optimize-autoloader \
+           || composer install --no-dev --prefer-dist --no-scripts --no-interaction --optimize-autoloader; } \
+      && apk del .composer-deps; \
+    fi
+RUN if [ ! -f resources/countries/index.json ]; then \
+      php bin/console app:geography:build-countries-asset \
+      && rm -rf var/cache var/*.geojson; \
+    fi
 RUN rm -Rf docker
 RUN mkdir -p /var/www/var/cache/dev
 RUN mkdir -p /var/www/var/log
