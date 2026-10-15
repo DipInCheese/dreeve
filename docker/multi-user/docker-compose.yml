@@ -31,6 +31,9 @@ services:
     volumes:
       - ./data:/var/www/users
     command: ["bin/console", "app:daemon:run"]
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f 'php bin/console app:daemon:run' > /dev/null"]
+      start_period: 60s
     depends_on:
       - app
     networks:
