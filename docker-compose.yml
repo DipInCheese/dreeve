@@ -30,6 +30,7 @@ services:
             - ./storage/files:/var/www/storage/files
             - ./storage/gear-maintenance:/var/www/storage/gear-maintenance
             - ./watch:/var/www/watch
+            - ./users:/var/www/users
         env_file: '.env.local'
         healthcheck:
           test: ["CMD", "curl", "-f", "http://localhost:2019/metrics"]
@@ -53,6 +54,7 @@ services:
         - ./storage/files:/var/www/storage/files
         - ./storage/gear-maintenance:/var/www/storage/gear-maintenance
         - ./watch:/var/www/watch
+        - ./users:/var/www/users
       env_file: ".env.local"
       healthcheck:
         test: [ "CMD", "sh", "-c", "test -f /var/www/storage/database/dreeve.db && echo 'ok' || exit 1" ]

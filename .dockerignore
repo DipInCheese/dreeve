@@ -9,6 +9,7 @@ tests
 ollama
 var
 storage
+users
 node_modules
 public/assets/images/readme
 public/css/tailwind.output.css

@@ -12,7 +12,7 @@ use App\Infrastructure\KeyValue\Key;
 use App\Infrastructure\KeyValue\KeyValue;
 use App\Infrastructure\KeyValue\Value;
 use App\Infrastructure\Serialization\Json;
-use App\Infrastructure\ValueObject\String\KernelProjectDir;
+use App\Infrastructure\ValueObject\String\DataDir;
 use App\Tests\ContainerTestCase;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
@@ -66,7 +66,7 @@ class ImportStatusTest extends ContainerTestCase
         $this->filesystem = new Filesystem(new InMemoryFilesystemAdapter());
         $this->keyValueStore = new DbalKeyValueStore($this->getConnection());
         $this->importStatus = new ImportStatus(
-            new WatchDirectory(KernelProjectDir::fromString('/project/dir'), $this->filesystem),
+            new WatchDirectory(DataDir::fromString('/project/dir'), $this->filesystem),
             new AutomationRulesBackfillQueue($this->keyValueStore),
         );
     }

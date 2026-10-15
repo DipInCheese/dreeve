@@ -2,6 +2,9 @@
 <?php
 
 use App\Infrastructure\Console\ConsoleApplication;
+use App\Infrastructure\Tenancy\InvalidTenant;
+use App\Infrastructure\Tenancy\TenantEnvironment;
+use App\Infrastructure\Tenancy\Tenants;
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
@@ -16,7 +19,21 @@ if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {
-    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+    $tenant = null;
+    $tenants = Tenants::discover(dirname(__DIR__));
+    if (!$tenants->isEmpty()) {
+        // Multi-user installation: every command runs for exactly one user, picked with DREEVE_USER.
+        $userName = (string) ($context[TenantEnvironment::USER_VARIABLE] ?? '');
+        if ('' === $userName) {
+            throw InvalidTenant::noneSelected($tenants);
+        }
+
+        $tenant = $tenants->findByName($userName);
+        $tenant->ensureDirectoriesExist();
+        new TenantEnvironment($tenants)->activate($tenant);
+    }
+
+    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $tenant);
 
     $application = new Application($kernel);
     ConsoleApplication::setApplication($application);

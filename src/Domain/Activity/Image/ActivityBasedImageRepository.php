@@ -10,7 +10,7 @@ use App\Domain\Image\ImageOrientation;
 use App\Domain\Image\ImagePath;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Exception\EntityNotFound;
-use App\Infrastructure\ValueObject\String\KernelProjectDir;
+use App\Infrastructure\ValueObject\String\DataDir;
 use App\Infrastructure\ValueObject\Time\Year;
 use App\Infrastructure\ValueObject\Time\Years;
 use Doctrine\DBAL\ArrayParameterType;
@@ -24,7 +24,7 @@ final readonly class ActivityBasedImageRepository implements ImageRepository
         private ActivityRepository $activityRepository,
         private FilesystemOperator $fileStorage,
         private SettingsRepository $settingsRepository,
-        private KernelProjectDir $kernelProjectDir,
+        private DataDir $dataDir,
     ) {
     }
 
@@ -42,7 +42,7 @@ final readonly class ActivityBasedImageRepository implements ImageRepository
             }
 
             foreach ($activity->getLocalImagePaths() as $localImagePath) {
-                $absoluteImagePath = $this->kernelProjectDir.'/storage'.$localImagePath;
+                $absoluteImagePath = $this->dataDir.'/storage'.$localImagePath;
                 $imageOrientation = ImageOrientation::LANDSCAPE;
                 if (file_exists($absoluteImagePath) && ($info = @getimagesize($absoluteImagePath)) !== false) {
                     $imageOrientation = ImageOrientation::fromWidthAndHeight($info[0], $info[1]);
@@ -81,7 +81,7 @@ final readonly class ActivityBasedImageRepository implements ImageRepository
 
             $randomImageIndex = array_rand($localImagePaths);
 
-            $absoluteImagePath = $this->kernelProjectDir.'/storage'.$localImagePaths[$randomImageIndex];
+            $absoluteImagePath = $this->dataDir.'/storage'.$localImagePaths[$randomImageIndex];
             $imageOrientation = ImageOrientation::LANDSCAPE;
             if (file_exists($absoluteImagePath) && ($info = @getimagesize($absoluteImagePath)) !== false) {
                 $imageOrientation = ImageOrientation::fromWidthAndHeight($info[0], $info[1]);

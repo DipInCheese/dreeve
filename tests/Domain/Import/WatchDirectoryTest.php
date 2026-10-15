@@ -6,7 +6,7 @@ namespace App\Tests\Domain\Import;
 
 use App\Domain\Import\ActivityFileName;
 use App\Domain\Import\WatchDirectory;
-use App\Infrastructure\ValueObject\String\KernelProjectDir;
+use App\Infrastructure\ValueObject\String\DataDir;
 use App\Infrastructure\ValueObject\String\Path;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
@@ -182,7 +182,7 @@ class WatchDirectoryTest extends TestCase
 
         $this->filesystem = new Filesystem(new InMemoryFilesystemAdapter());
         $this->watchDirectory = new WatchDirectory(
-            KernelProjectDir::fromString('/project/dir'),
+            DataDir::fromString('/project/dir'),
             $this->filesystem,
         );
     }

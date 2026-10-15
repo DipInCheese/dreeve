@@ -6,31 +6,31 @@ monolog:
         strava-api:
             type:  rotating_file
             max_files: 5
-            path: "%kernel.project_dir%/storage/files/logs/strava-api.log"
+            path: "%app.data_dir%/storage/files/logs/strava-api.log"
             level: debug
             channels: ["strava-api"]
         console-output:
             type: rotating_file
             max_files: 5
-            path: "%kernel.project_dir%/storage/files/logs/console-output.log"
+            path: "%app.data_dir%/storage/files/logs/console-output.log"
             level: debug
             channels: ["console-output"]
         daemon:
           type: rotating_file
           max_files: 5
-          path: "%kernel.project_dir%/storage/files/logs/daemon.log"
+          path: "%app.data_dir%/storage/files/logs/daemon.log"
           level: debug
           channels: ["daemon"]
         webhooks:
           type: rotating_file
           max_files: 5
-          path: "%kernel.project_dir%/storage/files/logs/webhooks.log"
+          path: "%app.data_dir%/storage/files/logs/webhooks.log"
           level: debug
           channels: ["webhooks"]
         errors:
           type: rotating_file
           max_files: 5
-          path: "%kernel.project_dir%/storage/files/logs/errors.log"
+          path: "%app.data_dir%/storage/files/logs/errors.log"
           level: error
           channels: ["errors"]
           formatter: monolog.formatter.errors

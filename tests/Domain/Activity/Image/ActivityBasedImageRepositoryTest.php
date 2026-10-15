@@ -12,7 +12,7 @@ use App\Domain\Activity\SportType\SportTypes;
 use App\Domain\Settings\SettingsGroup;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Exception\EntityNotFound;
-use App\Infrastructure\ValueObject\String\KernelProjectDir;
+use App\Infrastructure\ValueObject\String\DataDir;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use App\Infrastructure\ValueObject\Time\Year;
 use App\Infrastructure\ValueObject\Time\Years;
@@ -186,7 +186,7 @@ class ActivityBasedImageRepositoryTest extends ContainerTestCase
             $this->getContainer()->get(ActivityRepository::class),
             $this->fileStorage = $this->getContainer()->get('file.storage'),
             $this->getContainer()->get(SettingsRepository::class),
-            KernelProjectDir::fromString('var/www')
+            DataDir::fromString('var/www')
         );
     }
 }

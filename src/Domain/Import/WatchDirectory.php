@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Import;
 
-use App\Infrastructure\ValueObject\String\KernelProjectDir;
+use App\Infrastructure\ValueObject\String\DataDir;
 use App\Infrastructure\ValueObject\String\Path;
 use League\Flysystem\DirectoryListing;
 use League\Flysystem\FilesystemOperator;
@@ -16,7 +16,7 @@ final readonly class WatchDirectory
     private const string STAGING_FOLDER_NAME = self::FOLDER_NAME.'/.uploads';
 
     public function __construct(
-        private KernelProjectDir $projectDir,
+        private DataDir $dataDir,
         private FilesystemOperator $defaultStorage,
     ) {
     }
@@ -77,6 +77,6 @@ final readonly class WatchDirectory
 
     public function getAbsolutePathFor(StorageAttributes $file): Path
     {
-        return Path::fromString($this->projectDir.'/'.$file->path());
+        return Path::fromString($this->dataDir.'/'.$file->path());
     }
 }

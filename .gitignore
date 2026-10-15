@@ -36,6 +36,7 @@ phpstan.neon
 /ollama
 /mercure
 /watch
+/users
 *.db*
 ###> app-build ###
 
@@ -43,3 +44,9 @@ phpstan.neon
 /docs/dist
 /docs/.astro
 ###< docs ###
+
+###> multi-user ###
+/docker-compose.multi-user.yml
+/.env.multi-user
+/.env.cloudflared
+###< multi-user ###

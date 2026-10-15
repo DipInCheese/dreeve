@@ -1,0 +1,61 @@
+# Example setup for a multi-user installation, exposed through a Cloudflare Tunnel.
+# See docs/src/content/docs/getting-started/multi-user.mdx for the full walkthrough.
+#
+#   cp docker-compose.multi-user.example.yml docker-compose.multi-user.yml
+#   docker compose -f docker-compose.multi-user.yml up -d --build
+services:
+  app:
+    # Built from this fork, so the multi-user changes are included.
+    build:
+      context: ./
+      dockerfile: docker/app/Dockerfile
+    image: dreeve-multi-user:latest
+    container_name: dreeve
+    restart: unless-stopped
+    volumes:
+      # One sub directory per user: ./users/<name>/.env holds the user's settings,
+      # the user's database, files, render cache and watch folder are stored next to it.
+      - ./users:/var/www/users
+    # Settings shared by all users (TZ, PUID/PGID, FRANKENPHP_NUM_WORKERS, ...).
+    env_file: ./.env.multi-user
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2019/metrics"]
+      start_period: 60s
+    # No ports are published: the Cloudflare Tunnel reaches the app over the Docker network.
+    # Uncomment to also reach it on your local network (only on hostnames listed in an APP_URL).
+    # ports:
+    #   - 8080:8080
+    networks:
+      - dreeve-network
+
+  # Runs the recurring background tasks (Strava imports, notifications), one daemon per user.
+  daemon:
+    image: dreeve-multi-user:latest
+    container_name: dreeve-daemon
+    restart: unless-stopped
+    depends_on:
+      - app
+    volumes:
+      - ./users:/var/www/users
+    env_file: ./.env.multi-user
+    command: ['bin/console', 'app:daemon:run']
+    networks:
+      - dreeve-network
+
+  # Connects to Cloudflare and forwards every user's (sub)domain to the app container.
+  # Create the tunnel in the Cloudflare dashboard (Zero Trust > Networks > Tunnels), copy its
+  # token into .env.cloudflared as TUNNEL_TOKEN=..., and add a public hostname per user with
+  # service "http://app:8080".
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: dreeve-cloudflared
+    restart: unless-stopped
+    command: ['tunnel', '--no-autoupdate', 'run']
+    env_file: ./.env.cloudflared
+    depends_on:
+      - app
+    networks:
+      - dreeve-network
+
+networks:
+  dreeve-network:

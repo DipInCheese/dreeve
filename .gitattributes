@@ -1,3 +1,11 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.ttf binary
+*.fit binary
+*.gz binary
+*.zip binary
 docs/** linguist-documentation
 tests/** linguist-vendored
 public/libraries/** linguist-vendored

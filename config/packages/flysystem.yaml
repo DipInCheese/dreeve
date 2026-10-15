@@ -4,12 +4,12 @@ flysystem:
         default.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%'
+                directory: '%app.data_dir%'
                 lock: 0
         file.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/storage/files'
+                directory: '%app.data_dir%/storage/files'
                 lock: 0
         countries-geography.storage:
             adapter: 'local'
@@ -21,10 +21,10 @@ flysystem:
         database.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/storage/database'
+                directory: '%app.data_dir%/storage/database'
                 lock: 0
         build.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/build'
+                directory: '%app.data_dir%/build'
                 lock: 0

@@ -18,7 +18,7 @@ parameters:
     env(DEV_MODE_IS_ENABLED): 0
     env(LOCK_DSN): 'flock'
     env(TZ): ''
-    env(DATABASE_DIRECTORY): '%kernel.project_dir%/storage/database'
+    env(DATABASE_DIRECTORY): '%app.data_dir%/storage/database'
 
 services:
     # default configuration for services in *this* file
@@ -50,6 +50,11 @@ services:
         public: true
         factory: [ null, 'fromString' ]
         arguments: ['%kernel.project_dir%']
+
+    App\Infrastructure\ValueObject\String\DataDir:
+        public: true
+        factory: [ null, 'fromString' ]
+        arguments: ['%app.data_dir%']
 
     App\Infrastructure\Config\PlatformEnvironment:
         public: true
