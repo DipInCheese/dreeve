@@ -55,7 +55,9 @@ final readonly class GateRequestListener implements EventSubscriberInterface
             // and the owner must be able to manage users before setting up their own dashboard. Both stay
             // protected: the invite page by its token, the users pages by the firewall and the owner check.
             || str_starts_with($path, '/invite/')
-            || '/admin/users' === $path || str_starts_with($path, '/admin/users/');
+            || '/admin/users' === $path || str_starts_with($path, '/admin/users/')
+            // Users must be able to connect (or disconnect) Strava before they have any activities.
+            || '/admin/settings/strava' === $path || str_starts_with($path, '/admin/settings/strava/');
     }
 
     /**

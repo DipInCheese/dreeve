@@ -64,6 +64,8 @@ final readonly class Tenants implements \IteratorAggregate, \Countable
                 directory: $directory,
                 environment: [
                     ...Tenant::readEnvFile($directory),
+                    // A Strava connection set up in the admin panel wins over settings in the .env file.
+                    ...(StravaConnection::read($directory)?->toEnvironment() ?? []),
                     // The address always follows DREEVE_USER_URL, routing depends on it.
                     'APP_URL' => $userUrlTemplate->forUser($user->getName()),
                 ],
@@ -71,6 +73,29 @@ final readonly class Tenants implements \IteratorAggregate, \Countable
         }
 
         return self::fromArray($tenants);
+    }
+
+    /**
+     * A fingerprint of everything users are made of: the user registry and every user's settings
+     * (.env file and Strava connection). Changes whenever any of those change, so a running app can
+     * pick up new users and new settings without a restart.
+     */
+    public static function getSettingsRevision(string $projectDir): string
+    {
+        $usersDirectory = self::getUsersDirectory($projectDir);
+        $parts = [new UserRegistry($usersDirectory)->getRevision()];
+
+        $files = [
+            ...(glob($usersDirectory.'/*/'.Tenant::ENV_FILE_NAME) ?: []),
+            ...(glob($usersDirectory.'/*/'.StravaConnection::FILE_NAME) ?: []),
+        ];
+        sort($files);
+        clearstatcache();
+        foreach ($files as $file) {
+            $parts[] = $file.':'.@filemtime($file).':'.@filesize($file).':'.@hash_file('xxh128', $file);
+        }
+
+        return hash('xxh128', implode('|', $parts));
     }
 
     public static function singleUser(): self

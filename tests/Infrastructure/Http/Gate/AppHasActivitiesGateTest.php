@@ -69,7 +69,7 @@ class AppHasActivitiesGateTest extends ContainerTestCase
         $this->assertNull($decision->getResponse());
     }
 
-    #[DataProvider('provideExemptAdminPaths')]
+    #[DataProvider('provideStravaApiRedirectedAdminPaths')]
     public function testItRedirectsTheAdminPanelInStravaApiImportMode(string $path): void
     {
         $this->activityIdRepository
@@ -89,6 +89,32 @@ class AppHasActivitiesGateTest extends ContainerTestCase
         yield 'admin root' => ['/admin'];
         yield 'admin sub path' => ['/admin/settings/general'];
         yield 'admin login' => ['/admin/login'];
+    }
+
+    public static function provideStravaApiRedirectedAdminPaths(): iterable
+    {
+        yield 'admin root' => ['/admin'];
+        yield 'admin sub path' => ['/admin/settings/general'];
+    }
+
+    #[DataProvider('provideStravaApiAllowedAdminPaths')]
+    public function testItKeepsSigningInPossibleInStravaApiImportMode(string $path): void
+    {
+        $this->activityIdRepository
+            ->expects($this->once())
+            ->method('count')
+            ->willReturn(0);
+
+        $decision = new AppHasActivitiesGate($this->urlGenerator, ImportMode::STRAVA_API, $this->activityIdRepository)->handle(Request::create($path));
+
+        $this->assertTrue($decision->hasBeenApplied());
+        $this->assertNull($decision->getResponse());
+    }
+
+    public static function provideStravaApiAllowedAdminPaths(): iterable
+    {
+        yield 'admin login' => ['/admin/login'];
+        yield 'admin logout' => ['/admin/logout'];
     }
 
     #[\Override]

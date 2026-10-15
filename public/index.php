@@ -1,6 +1,5 @@
 <?php
 
-use App\Infrastructure\Tenancy\Registry\UserRegistry;
 use App\Infrastructure\Tenancy\Tenant;
 use App\Infrastructure\Tenancy\TenantEnvironment;
 use App\Infrastructure\Tenancy\TenantRouterKernel;
@@ -15,12 +14,10 @@ return function (array $context) {
         return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
     }
 
-    // Multi-user installation: every user is served by its own kernel, picked by hostname.
-    $registry = new UserRegistry(Tenants::getUsersDirectory(dirname(__DIR__)));
-
+    // Multi-user installation: every user is served by its own kernel, picked by address.
     return new TenantRouterKernel(
         loadTenants: static fn (): Tenants => Tenants::discover(dirname(__DIR__), $environment)->withSecrets(),
-        getRevision: $registry->getRevision(...),
+        getRevision: static fn (): string => Tenants::getSettingsRevision(dirname(__DIR__)),
         tenantEnvironment: new TenantEnvironment(),
         kernelFactory: static fn (Tenant $tenant): Kernel => new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $tenant),
     );

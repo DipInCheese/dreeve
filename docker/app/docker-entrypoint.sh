@@ -54,13 +54,14 @@ if [ -n "$PUID" ] && [ -n "$PGID" ] && [ "$(id -u)" = "0" ]; then
 fi
 
 # Multi-user installation: run one daemon per active user. Users are added, disabled and
-# removed while the app runs, so the list is checked every 30 seconds.
+# removed while the app runs, and their settings change (e.g. they connect Strava), so the
+# list is checked every 30 seconds: daemons are started, stopped and restarted to match.
 if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run" ]; then
-    RUNNING=""  # "name:pid" pairs
+    RUNNING=""  # "name:fingerprint:pid" entries
 
     stop_all() {
         for entry in $RUNNING; do
-            kill "${entry#*:}" 2>/dev/null || true
+            kill "${entry##*:}" 2>/dev/null || true
         done
         wait
         exit 0
@@ -68,19 +69,21 @@ if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run"
     trap stop_all TERM INT
 
     while :; do
-        if ! WANTED=$(active_users); then
+        if ! WANTED=$(php /var/www/bin/dreeve-users list --fingerprints); then
             echo "Could not read the users, retrying in 30 seconds"
-            WANTED=""
-            sleep 30
+            sleep 30 &
+            wait $! || true
             continue
         fi
 
         STILL_RUNNING=""
         for entry in $RUNNING; do
             user="${entry%%:*}"
-            pid="${entry#*:}"
-            if ! echo "$WANTED" | grep -qx "$user"; then
-                echo "[$user] user was disabled or removed, stopping its daemon"
+            fingerprint="${entry#*:}"
+            fingerprint="${fingerprint%%:*}"
+            pid="${entry##*:}"
+            if ! echo "$WANTED" | grep -qx "$user $fingerprint"; then
+                echo "[$user] user was disabled, removed or has new settings, stopping its daemon"
                 kill "$pid" 2>/dev/null || true
             elif kill -0 "$pid" 2>/dev/null; then
                 STILL_RUNNING="$STILL_RUNNING $entry"
@@ -90,18 +93,29 @@ if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run"
         done
         RUNNING="$STILL_RUNNING"
 
-        for user in $WANTED; do
+        echo "$WANTED" | while read -r user fingerprint; do
+            [ -n "$user" ] && echo "$user:$fingerprint"
+        done > /tmp/dreeve-wanted-users
+
+        while IFS=: read -r user fingerprint; do
             case " $RUNNING " in
                 *" $user:"*) ;;
                 *)
                     if DREEVE_USER="$user" php /var/www/bin/console app:db:wait-for-schema; then
                         echo "[$user] starting daemon"
                         DREEVE_USER="$user" "$@" &
-                        RUNNING="$RUNNING $user:$!"
+                        RUNNING="$RUNNING $user:$fingerprint:$!"
                     fi
                     ;;
             esac
-        done
+
+            # Someone just connected Strava: import right away instead of waiting for the schedule.
+            if [ -f "/var/www/users/$user/.strava-import-requested" ]; then
+                rm -f "/var/www/users/$user/.strava-import-requested"
+                echo "[$user] starting the first Strava import"
+                DREEVE_USER="$user" php /var/www/bin/console app:import:strava &
+            fi
+        done < /tmp/dreeve-wanted-users
 
         sleep 30 &
         wait $! || true

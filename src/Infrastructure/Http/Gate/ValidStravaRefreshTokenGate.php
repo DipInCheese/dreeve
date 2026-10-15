@@ -46,7 +46,8 @@ final class ValidStravaRefreshTokenGate extends ConditionalRedirectGate
 
     protected function allowedPaths(): array
     {
-        return [];
+        // Signing in stays possible: on a multi-user installation Strava is (re)connected from the admin panel.
+        return ['/admin/login', '/admin/logout'];
     }
 
     protected function redirectToRouteName(): string

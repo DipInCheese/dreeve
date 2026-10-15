@@ -17,6 +17,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,12 +35,19 @@ final readonly class StravaOAuthRequestHandler
         private Client $client,
         private ImportMode $importMode,
         private Environment $twig,
+        #[Autowire('%app.user%')]
+        private string $currentUser = '',
     ) {
     }
 
     #[Route(path: '/strava-oauth', name: 'strava_oauth', methods: ['GET'], priority: 2)]
     public function handle(Request $request): Response
     {
+        if ('' !== $this->currentUser) {
+            // Users of a multi-user installation connect Strava from their admin panel, no settings file involved.
+            return new RedirectResponse($request->getBasePath().'/admin/settings/strava', Response::HTTP_FOUND);
+        }
+
         if ($this->importMode->isFiles()) {
             return new HtmlResponse($this->twig->render('html/strava-oauth/not-available-in-file-import-mode.html.twig'));
         }
@@ -57,7 +65,7 @@ final readonly class StravaOAuthRequestHandler
             // Even though the docs state explicitly that this will not work, users still do this and "report issues".
             return new HtmlResponse($this->twig->render('html/strava-oauth/insufficient-scopes.html.twig', [
                 'stravaClientId' => $this->stravaClientId,
-                'returnUrl' => $request->getSchemeAndHttpHost().'/strava-oauth',
+                'returnUrl' => $request->getSchemeAndHttpHost().$request->getBasePath().'/strava-oauth',
             ]));
         }
 
@@ -78,7 +86,7 @@ final readonly class StravaOAuthRequestHandler
 
                     return new HtmlResponse($this->twig->render('html/strava-oauth/refresh-token.html.twig', [
                         'refreshToken' => $refreshToken,
-                        'url' => $request->getSchemeAndHttpHost(),
+                        'url' => $request->getSchemeAndHttpHost().$request->getBasePath(),
                     ]));
                 } catch (ClientException|RequestException $e) {
                     $error = $e->getMessage();
@@ -90,7 +98,7 @@ final readonly class StravaOAuthRequestHandler
 
             return new HtmlResponse($this->twig->render('html/strava-oauth/start-authorization.html.twig', [
                 'stravaClientId' => $this->stravaClientId,
-                'returnUrl' => $request->getSchemeAndHttpHost().'/strava-oauth',
+                'returnUrl' => $request->getSchemeAndHttpHost().$request->getBasePath().'/strava-oauth',
                 'error' => $error ?? null,
             ]));
         }

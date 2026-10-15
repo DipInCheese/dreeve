@@ -112,6 +112,13 @@
                         {{ "Dashboard"|trans }}
                     </a>
                 </li>
+                {% if canConnectStrava() %}
+                    <li>
+                        <a href="{{ relativeUrl(path('admin_strava_connection')) }}" {{ isActiveNavItem({'/admin/settings/strava': false}) ? 'aria-selected="true"' : '' }}>
+                            Strava
+                        </a>
+                    </li>
+                {% endif %}
                 {% if importMode.isStravaApi() %}
                     <li>
                         <a href="{{ relativeUrl(path('admin_settings', {'group': 'import'})) }}" {{ inImport ? 'aria-selected="true"' : '' }}>

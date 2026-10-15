@@ -84,6 +84,21 @@ class TenantRouterKernelTest extends TestCase
         $this->assertFalse($this->createdKernels['alice']->isShutDown);
     }
 
+    public function testKernelIsRebootedWhenTheSettingsOfAUserChange(): void
+    {
+        $this->routerKernel->handle(Request::create('https://alice.example.com/'));
+        $firstKernel = $this->createdKernels['alice'];
+
+        // Alice connected Strava: her settings changed.
+        $this->tenants[0] = Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://alice.example.com', 'STRAVA_CLIENT_ID' => 'new-client']);
+        $this->revision = 'r2';
+
+        $this->routerKernel->handle(Request::create('https://alice.example.com/'));
+        $this->assertTrue($firstKernel->isShutDown);
+        $this->assertNotSame($firstKernel, $this->createdKernels['alice']);
+        $this->assertSame('new-client', $this->createdKernels['alice']->stravaClientIdDuringRequest);
+    }
+
     public function testHandleUsersWithAnAddressPerPath(): void
     {
         $this->tenants = [

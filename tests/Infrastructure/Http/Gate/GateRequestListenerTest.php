@@ -119,6 +119,8 @@ class GateRequestListenerTest extends TestCase
         yield 'invite' => ['/invite/some-token'];
         yield 'users' => ['/admin/users'];
         yield 'remove user' => ['/admin/users/bob/remove'];
+        yield 'strava connection' => ['/admin/settings/strava'];
+        yield 'strava callback' => ['/admin/settings/strava/callback'];
     }
 
     public function testItDoesNothingForSubRequests(): void

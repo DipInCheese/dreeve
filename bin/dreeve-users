@@ -14,7 +14,8 @@ require dirname(__DIR__).'/vendor/autoload.php';
 const USAGE = <<<'USAGE'
 Usage: bin/dreeve-users <command> [name]
 
-  list               Active users, one per line
+  list               Active users, one per line (--fingerprints: with a
+                     fingerprint of their settings)
   status             All users with their address and status
   add <name>         Add a user and print an invite link
   invite <name>      Print a new invite link, also to reset a forgotten password
@@ -36,8 +37,10 @@ try {
 
     switch ($command) {
         case 'list':
-            foreach (Tenants::discover(dirname(__DIR__), $environment)->getNames() as $activeName) {
-                echo $activeName.PHP_EOL;
+            // With --fingerprints: "<name> <fingerprint>", the fingerprint changes with the user's settings.
+            $withFingerprints = '--fingerprints' === $name;
+            foreach (Tenants::discover(dirname(__DIR__), $environment) as $activeName => $tenant) {
+                echo $activeName.($withFingerprints ? ' '.$tenant->getFingerprint() : '').PHP_EOL;
             }
             break;
         case 'status':

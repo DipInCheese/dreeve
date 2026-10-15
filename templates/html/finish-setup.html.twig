@@ -15,6 +15,32 @@
 {% include 'html/navigation/top-nav-bar.html.twig' %}
 <section class="flex min-h-screen flex-col justify-center px-6 py-12 sm:px-12">
     <div class="mx-auto w-full max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow-xs">
+        {% if canConnectStrava() %}
+        {# Multi-user installation: everything happens in the browser, no terminal or settings files. #}
+        <h2 class="text-2xl font-bold tracking-tight">Welcome!</h2>
+        {% if importMode.isStravaApi() %}
+            <p class="mt-1 text-sm text-gray-500">Your Strava account is connected.</p>
+            <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                Your activities are being imported from Strava. A long history can take a few hours, Strava limits how fast
+                activities can be fetched. Refresh this page in a while.
+            </div>
+            <p class="mt-4 text-sm text-gray-500">
+                <a href="{{ relativeUrl(path('admin_strava_connection')) }}" class="font-medium text-primary hover:underline">Strava settings</a>
+            </p>
+        {% else %}
+            <p class="mt-1 text-sm text-gray-500">Let's get your activities in. Pick one of the options below, you will be asked to sign in first.</p>
+            <div class="mt-6 flex flex-col gap-3">
+                <a href="{{ relativeUrl(path('admin_strava_connection')) }}" class="block rounded-xl border border-gray-200 px-4 py-3 hover:border-primary hover:bg-orange-50">
+                    <span class="font-semibold">Connect Strava</span>
+                    <span class="mt-1 block text-sm text-gray-600">Import all your activities from Strava, and every new one automatically.</span>
+                </a>
+                <a href="{{ relativeUrl(path('admin_file_upload')) }}" class="block rounded-xl border border-gray-200 px-4 py-3 hover:border-primary hover:bg-orange-50">
+                    <span class="font-semibold">Upload activity files</span>
+                    <span class="mt-1 block text-sm text-gray-600"><code class="font-mono text-[13px]">.fit</code>, <code class="font-mono text-[13px]">.tcx</code> or <code class="font-mono text-[13px]">.gpx</code> files from your watch or app. They are imported within 5 minutes.</span>
+                </a>
+            </div>
+        {% endif %}
+        {% else -%}
         <h2 class="text-2xl font-bold tracking-tight">Finish setup</h2>
         {% if importMode.isStravaApi() %}
             <p class="mt-1 text-sm text-gray-500">Looks like you still need to import your Strava data.</p>
@@ -76,6 +102,7 @@
                 Refresh this page after the import has run.
             </div>
         {% endif %}
+        {%- endif %}
     </div>
 </section>
 </body>

@@ -100,24 +100,33 @@ docker compose exec app bin/dreeve-users invite alice
 
 ## Settings per user
 
-Settings in `.env` apply to every user. A single user's settings, such as their Strava API keys, go in
-`data/<name>/.env`:
+Settings in `.env` apply to every user. Most settings are made in each user's admin panel. For the few settings that
+only exist as environment variables, a single user's values go in `data/<name>/.env`, for example their own AI key:
 
 ```dotenv title="data/alice/.env"
-IMPORT_MODE=stravaApi
-STRAVA_CLIENT_ID=...
-STRAVA_CLIENT_SECRET=...
-STRAVA_REFRESH_TOKEN=...
+AI_API_KEY=...
 ```
 
-Restart to apply them: `docker compose restart`. `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the
+Changes are picked up within a minute, no restart needed. `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the
 whole installation and can not be set per user.
 
 ### Strava
 
-Each user connects their own Strava account and needs their own Strava API application. Follow the
-[Strava import](/importing/strava-import/) guide and set the application's *Authorization Callback Domain*
-to your Dreeve hostname, e.g. `dreeve.example.com`.
+Every user connects their own Strava account from the browser, no settings files involved. A new user's first
+visit offers **Connect Strava** next to uploading files; later it lives under **Admin panel → Settings → Strava**.
+
+Strava requires every user to create their own (free) Strava API application. Strava only lets a new application
+connect the account that created it, so one shared application does not work for several people. The Strava page in
+Dreeve shows exactly what to fill in on [strava.com/settings/api](https://www.strava.com/settings/api), including the
+*Authorization Callback Domain* (your Dreeve hostname, e.g. `dreeve.example.com`). The user then pastes the Client ID
+and Client Secret, approves the access on Strava, and is sent back to Dreeve.
+
+* The first import starts within a minute. A long history can take a few hours: Strava limits how fast activities can
+  be fetched. After that, new activities are imported every night; change when under **Settings → Daemon**.
+* Once Strava is connected, imports remove activities that are not on Strava, including uploaded files.
+* **Disconnect Strava** stops the imports, revokes Dreeve's access on Strava and keeps the imported activities.
+* The Strava application's secret and the access to Strava are stored in the user's data folder, readable by its
+  owner only, and are never shown again.
 
 ## Security
 

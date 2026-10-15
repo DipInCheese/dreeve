@@ -28,8 +28,9 @@ final class AppHasActivitiesGate extends ConditionalRedirectGate
     protected function allowedPaths(): array
     {
         if (!$this->importMode->isFiles()) {
-            // In Strava API mode the user still has to walk through the remaining setup steps.
-            return [];
+            // In Strava API mode the user still has to walk through the remaining setup steps. Signing in
+            // stays possible: on a multi-user installation Strava is managed from the admin panel.
+            return ['/admin/login', '/admin/logout'];
         }
 
         // Keep the admin panel reachable, it is the only way to upload files.

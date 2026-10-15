@@ -24,6 +24,8 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
     private ?string $loadedRevision = null;
     /** @var array<string, HttpKernelInterface&TerminableInterface> */
     private array $kernels = [];
+    /** @var array<string, string> */
+    private array $kernelFingerprints = [];
     private (HttpKernelInterface&TerminableInterface)|null $kernelOfLastRequest = null;
 
     /**
@@ -69,7 +71,11 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
         }
 
         $this->tenantEnvironment->activate($tenant);
-        $kernel = $this->kernels[$tenant->getName()] ??= ($this->kernelFactory)($tenant);
+        if (!isset($this->kernels[$tenant->getName()])) {
+            $this->kernels[$tenant->getName()] = ($this->kernelFactory)($tenant);
+            $this->kernelFingerprints[$tenant->getName()] = $tenant->getFingerprint();
+        }
+        $kernel = $this->kernels[$tenant->getName()];
         $this->kernelOfLastRequest = $kernel;
 
         return $kernel->handle($request, $type, $catch);
@@ -90,12 +96,18 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
         $this->tenants = ($this->loadTenants)();
         $this->loadedRevision = $revision;
 
-        // Shut down the kernels of users that were disabled or removed.
-        foreach (array_diff(array_keys($this->kernels), $this->tenants->getNames()) as $name) {
+        // Shut down the kernels of users that were disabled or removed, or whose settings changed
+        // (e.g. they connected Strava): the next request boots a kernel with the new settings.
+        foreach (array_keys($this->kernels) as $name) {
+            $tenant = in_array($name, $this->tenants->getNames(), true) ? $this->tenants->findByName($name) : null;
+            if ($tenant instanceof Tenant && $tenant->getFingerprint() === ($this->kernelFingerprints[$name] ?? null)) {
+                continue;
+            }
+
             if (method_exists($this->kernels[$name], 'shutdown')) {
                 $this->kernels[$name]->shutdown();
             }
-            unset($this->kernels[$name]);
+            unset($this->kernels[$name], $this->kernelFingerprints[$name]);
         }
 
         return $this->tenants;

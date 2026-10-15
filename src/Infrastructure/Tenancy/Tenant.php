@@ -119,6 +119,17 @@ final readonly class Tenant
     }
 
     /**
+     * Changes whenever anything the user's app is configured with changes.
+     */
+    public function getFingerprint(): string
+    {
+        $environment = $this->getEnvironment();
+        ksort($environment);
+
+        return hash('xxh128', $this->directory.'|'.json_encode($environment, JSON_THROW_ON_ERROR));
+    }
+
+    /**
      * The path this user lives under, e.g. "/alice" for https://dreeve.example.com/alice.
      * Empty when the user has a (sub)domain of its own.
      */

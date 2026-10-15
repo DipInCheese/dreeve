@@ -1,0 +1,83 @@
+{% extends "html/admin/page/template.html.twig" %}
+{% block main %}
+    {% autoescape false %}
+    <div class="flex max-w-3xl flex-col gap-4">
+        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
+            <h3 class="text-lg font-semibold mb-1">Strava</h3>
+            {% if connection and connection.isConnected() %}
+                <div class="mt-3 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                    {% if connection.getAthleteName() %}
+                        {{ "Connected to Strava as {name}."|trans({'{name}': '<strong>' ~ connection.getAthleteName()|e ~ '</strong>'}, 'admin') }}
+                    {% else %}
+                        {{ "Connected to Strava."|trans({}, 'admin') }}
+                    {% endif %}
+                    {% if connection.getConnectedOn() %}
+                        <span class="text-green-700">({{ connection.getConnectedOn()|date('d-m-Y H:i') }})</span>
+                    {% endif %}
+                </div>
+                <div class="mt-4 space-y-2 text-sm text-gray-600">
+                    {% if isImportRunning %}
+                        <p>{{ "The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched."|trans({}, 'admin') }}</p>
+                    {% endif %}
+                    <p>
+                        {{ "New activities are imported automatically every night. Change when under {link}."|trans({
+                            '{link}': '<a class="font-medium text-primary hover:underline" href="' ~ relativeUrl(path('admin_settings', {'group': 'daemon'})) ~ '">' ~ "Daemon"|trans({}, 'admin') ~ '</a>'
+                        }, 'admin') }}
+                    </p>
+                </div>
+                <form method="post" action="{{ relativeUrl(path('admin_strava_disconnect')) }}" class="mt-6 border-t border-gray-200 pt-4">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                    <p class="mb-3 text-sm text-gray-600">{{ "Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept."|trans({}, 'admin') }}</p>
+                    <button type="submit" class="btn--danger">{{ "Disconnect Strava"|trans({}, 'admin') }}</button>
+                </form>
+            {% else %}
+                <p class="text-sm text-gray-600">
+                    {{ "Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes."|trans({}, 'admin') }}
+                </p>
+
+                <h4 class="mt-6 font-semibold">{{ "1. Create your Strava API application"|trans({}, 'admin') }}</h4>
+                <p class="mt-1 text-sm text-gray-600">
+                    {{ "Open {link} while signed in to Strava and fill in:"|trans({
+                        '{link}': '<a class="font-medium text-primary hover:underline" href="https://www.strava.com/settings/api" target="_blank" rel="noopener noreferrer">strava.com/settings/api</a>'
+                    }, 'admin') }}
+                </p>
+                <dl class="mt-3 grid grid-cols-1 gap-x-4 gap-y-2 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm sm:grid-cols-[max-content_1fr]">
+                    <dt class="text-gray-500">Application Name</dt>
+                    <dd class="font-mono">Dreeve</dd>
+                    <dt class="text-gray-500">Category</dt>
+                    <dd class="font-mono">Data Importer</dd>
+                    <dt class="text-gray-500">Website</dt>
+                    <dd class="font-mono break-all">{{ websiteUrl|e }}</dd>
+                    <dt class="text-gray-500">Authorization Callback Domain</dt>
+                    <dd class="font-mono break-all">{{ callbackDomain|e }}</dd>
+                </dl>
+                <p class="mt-2 text-xs text-gray-500">{{ "Strava also asks for an icon, any image will do."|trans({}, 'admin') }}</p>
+
+                <h4 class="mt-6 font-semibold">{{ "2. Connect"|trans({}, 'admin') }}</h4>
+                <p class="mt-1 text-sm text-gray-600">{{ "Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access."|trans({}, 'admin') }}</p>
+                {% if numberOfActivities > 0 %}
+                    <div class="mt-3 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+                        {{ "You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports."|trans({'{count}': numberOfActivities}, 'admin') }}
+                    </div>
+                {% endif %}
+                <form method="post" action="{{ relativeUrl(path('admin_strava_connect')) }}" class="mt-4 flex flex-col gap-4" autocomplete="off">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                    <div>
+                        <label for="strava-client-id">Client ID</label>
+                        <input type="text" id="strava-client-id" name="clientId" required inputmode="numeric" pattern="[0-9]{1,12}" maxlength="12"
+                               value="{{ connection ? connection.getClientId()|e : '' }}" class="mt-1">
+                    </div>
+                    <div>
+                        <label for="strava-client-secret">Client Secret</label>
+                        <input type="password" id="strava-client-secret" name="clientSecret" maxlength="128" autocomplete="off" {{ connection ? '' : 'required' }}
+                               placeholder="{{ connection ? "Leave empty to keep the saved one"|trans({}, 'admin') : '' }}" class="mt-1">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn--primary">{{ "Connect with Strava"|trans({}, 'admin') }}</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endautoescape %}
+{% endblock main %}
