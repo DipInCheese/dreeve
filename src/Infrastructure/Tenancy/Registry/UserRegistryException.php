@@ -41,6 +41,11 @@ final class UserRegistryException extends \RuntimeException
         return new self(sprintf('The user registry "%s" is not valid JSON. Restore it from a backup', $path));
     }
 
+    public static function couldNotMoveData(string $directory, string $removedDirectory): self
+    {
+        return new self(sprintf('Could not move "%s" to "%s", the user was not removed. Check the permissions of the data directory', $directory, $removedDirectory));
+    }
+
     public static function couldNotWrite(string $path): self
     {
         return new self(sprintf('Could not write the user registry "%s", check the permissions of the data directory', $path));

@@ -211,8 +211,8 @@ final readonly class UserRegistry
                 if (!is_dir($removedDirectory) && !mkdir($removedDirectory, 0o700, true) && !is_dir($removedDirectory)) {
                     throw UserRegistryException::couldNotWrite($removedDirectory);
                 }
-                if (!rename($directory, $removedDirectory.'/'.$name.'-'.$now->format('Ymd-His'))) {
-                    throw UserRegistryException::couldNotWrite($directory);
+                if (!@rename($directory, $removedDirectory.'/'.$name.'-'.$now->format('Ymd-His'))) {
+                    throw UserRegistryException::couldNotMoveData($directory, $removedDirectory);
                 }
             }
 

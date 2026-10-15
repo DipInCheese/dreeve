@@ -116,6 +116,9 @@ class GateRequestListenerTest extends TestCase
         yield 'web debug toolbar' => ['/_wdt/abc123'];
         yield 'css asset' => ['/css/app.css'];
         yield 'stored image' => ['/files/gear/bike.png'];
+        yield 'invite' => ['/invite/some-token'];
+        yield 'users' => ['/admin/users'];
+        yield 'remove user' => ['/admin/users/bob/remove'];
     }
 
     public function testItDoesNothingForSubRequests(): void
