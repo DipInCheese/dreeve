@@ -40,7 +40,7 @@ services:
     networks:
       - dreeve
 
-  # Connects to Cloudflare, which forwards every user's subdomain to the app.
+  # Connects to Cloudflare, which forwards your Dreeve hostname to the app.
   # Only gets the tunnel token, nothing else from .env.
   cloudflared:
     image: cloudflare/cloudflared:latest

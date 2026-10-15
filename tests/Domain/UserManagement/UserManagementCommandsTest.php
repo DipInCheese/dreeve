@@ -130,6 +130,7 @@ class UserManagementCommandsTest extends TestCase
     {
         yield 'missing name' => [static fn (): AddUser => AddUser::fromPayload([]), 'A "name" is required.'];
         yield 'invalid name' => [static fn (): AddUser => AddUser::fromPayload(['name' => '../alice']), 'Use 1 to 63 lowercase letters, digits and dashes for the name, starting and ending with a letter or digit.'];
+        yield 'reserved name' => [static fn (): AddUser => AddUser::fromPayload(['name' => 'gear']), '"gear" can not be used as user name, Dreeve uses it for its own pages. Pick another name.'];
         yield 'invalid status' => [static fn (): ChangeUserStatus => ChangeUserStatus::fromPayload(['name' => 'bob', 'status' => 'deleted']), 'A "status" of "disabled" or "enabled" is required.'];
     }
 

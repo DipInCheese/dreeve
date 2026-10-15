@@ -75,9 +75,33 @@ class TenantsTest extends TestCase
         $this->assertSame('https://bob.example.com', $bob['APP_URL']);
         $this->assertSame('bob', $bob['ADMIN_USERNAME']);
 
-        $this->assertSame('bob', $tenants->findByHost('BOB.example.com')?->getName());
-        $this->assertNull($tenants->findByHost('carol.example.com'));
-        $this->assertNull($tenants->findByHost('example.com'));
+        $this->assertSame('bob', $tenants->findForRequest('BOB.example.com', '/')?->getName());
+        $this->assertNull($tenants->findForRequest('carol.example.com', '/'));
+        $this->assertNull($tenants->findForRequest('example.com', '/bob'));
+    }
+
+    public function testDiscoverWithAnAddressPerPath(): void
+    {
+        $now = new \DateTimeImmutable();
+        $this->registry->add('alice', true, $now);
+        $this->registry->add('bob', false, $now);
+
+        $tenants = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://dreeve.example.com/{user}']);
+
+        $alice = $tenants->findByName('alice');
+        $this->assertSame('https://dreeve.example.com/alice', $alice->getEnvironment()['APP_URL']);
+        $this->assertSame('dreeve.example.com', $alice->getHost());
+        $this->assertSame('/alice', $alice->getBasePath());
+
+        $this->assertSame('alice', $tenants->findForRequest('dreeve.example.com', '/alice')?->getName());
+        $this->assertSame('alice', $tenants->findForRequest('DREEVE.example.com', '/alice/admin/login')?->getName());
+        $this->assertSame('bob', $tenants->findForRequest('dreeve.example.com', '/bob/')?->getName());
+        $this->assertNull($tenants->findForRequest('dreeve.example.com', '/'));
+        $this->assertNull($tenants->findForRequest('dreeve.example.com', ''));
+        $this->assertNull($tenants->findForRequest('dreeve.example.com', '/carol/admin'));
+        $this->assertNull($tenants->findForRequest('dreeve.example.com', '/alicex'));
+        $this->assertNull($tenants->findForRequest('dreeve.example.com', '/Alice'));
+        $this->assertNull($tenants->findForRequest('other.example.com', '/alice'));
     }
 
     public function testFindByNameWhenUnknown(): void
@@ -131,7 +155,7 @@ class TenantsTest extends TestCase
 
     public function testFromArrayItShouldThrowOnDuplicateHost(): void
     {
-        $this->expectExceptionObject(InvalidTenant::duplicateHost('same.example.com', 'alice', 'bob'));
+        $this->expectExceptionObject(InvalidTenant::duplicateAddress('same.example.com', 'alice', 'bob'));
 
         Tenants::fromArray([
             Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://same.example.com']),

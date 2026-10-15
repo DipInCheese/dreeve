@@ -119,6 +119,17 @@ final readonly class Tenant
     }
 
     /**
+     * The path this user lives under, e.g. "/alice" for https://dreeve.example.com/alice.
+     * Empty when the user has a (sub)domain of its own.
+     */
+    public function getBasePath(): string
+    {
+        $path = parse_url($this->environment['APP_URL'] ?? '', PHP_URL_PATH);
+
+        return is_string($path) ? rtrim($path, '/') : '';
+    }
+
+    /**
      * Fills in APP_SECRET when the user does not set one: generated once and kept in the
      * user's directory, only readable by its owner. Also creates the user's directories.
      */

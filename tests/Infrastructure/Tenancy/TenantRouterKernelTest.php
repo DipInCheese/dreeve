@@ -84,6 +84,36 @@ class TenantRouterKernelTest extends TestCase
         $this->assertFalse($this->createdKernels['alice']->isShutDown);
     }
 
+    public function testHandleUsersWithAnAddressPerPath(): void
+    {
+        $this->tenants = [
+            Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice']),
+            Tenant::fromEnvironment('bob', '/users/bob', ['APP_URL' => 'https://dreeve.example.com/bob']),
+        ];
+        $this->revision = 'paths';
+
+        $response = $this->routerKernel->handle(Request::create('https://dreeve.example.com/alice/admin/login?x=1'));
+        $this->assertSame('alice:/admin/login', $response->getContent());
+        // The user's path is the base of the app: routing ignores it, generated URLs start with it.
+        $request = $this->createdKernels['alice']->lastRequest;
+        $this->assertSame('/alice', $request?->getBaseUrl());
+        $this->assertSame('/alice', $request?->getBasePath());
+        $this->assertSame('/admin/login', $request?->getPathInfo());
+        $this->assertSame('https://dreeve.example.com/alice/admin/login?x=1', $request?->getUri());
+
+        $this->assertSame('bob:/', $this->routerKernel->handle(Request::create('https://dreeve.example.com/bob/'))->getContent());
+
+        // Without the trailing slash, the user's address redirects to the root of its app.
+        $response = $this->routerKernel->handle(Request::create('https://dreeve.example.com/alice?x=1'));
+        $this->assertSame(Response::HTTP_MOVED_PERMANENTLY, $response->getStatusCode());
+        $this->assertSame('/alice/?x=1', $response->headers->get('Location'));
+
+        foreach (['/', '/carol/', '/alicex/admin', '/admin/login'] as $unknownPath) {
+            $response = $this->routerKernel->handle(Request::create('https://dreeve.example.com'.$unknownPath));
+            $this->assertSame(Response::HTTP_NOT_FOUND, $response->getStatusCode(), $unknownPath);
+        }
+    }
+
     public function testTerminate(): void
     {
         $request = Request::create('https://bob.example.com/');
@@ -146,6 +176,7 @@ final class FakeTenantKernel implements HttpKernelInterface, TerminableInterface
     public int $terminatedRequests = 0;
     public bool $isShutDown = false;
     public ?string $stravaClientIdDuringRequest = null;
+    public ?Request $lastRequest = null;
 
     public function __construct(
         private readonly string $name,
@@ -155,6 +186,7 @@ final class FakeTenantKernel implements HttpKernelInterface, TerminableInterface
     public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
     {
         ++$this->handledRequests;
+        $this->lastRequest = $request;
         $this->stravaClientIdDuringRequest = $_SERVER['STRAVA_CLIENT_ID'] ?? null;
 
         return new Response($this->name.':'.$request->getPathInfo());

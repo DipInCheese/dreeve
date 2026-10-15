@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Tenancy;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -42,12 +43,29 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
     {
         $this->kernelOfLastRequest = null;
 
-        if (!($tenant = $this->getTenants()->findByHost($request->getHost())) instanceof Tenant) {
+        $path = (string) parse_url($request->getRequestUri(), PHP_URL_PATH);
+        if (!($tenant = $this->getTenants()->findForRequest($request->getHost(), $path)) instanceof Tenant) {
             return new Response(
                 content: 'Not found',
                 status: Response::HTTP_NOT_FOUND,
                 headers: ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'no-store'],
             );
+        }
+
+        if ('' !== ($basePath = $tenant->getBasePath())) {
+            if ($path === $basePath) {
+                $query = $request->getQueryString();
+
+                return new RedirectResponse($basePath.'/'.(null === $query ? '' : '?'.$query), Response::HTTP_MOVED_PERMANENTLY);
+            }
+
+            // The user lives under a path, e.g. /alice: make Symfony treat it as the base of the app,
+            // so routing ignores it and every URL Symfony generates starts with it.
+            $request->server->set('SCRIPT_NAME', $basePath.'/index.php');
+            $request->server->set('PHP_SELF', $basePath.'/index.php');
+            if ('index.php' !== basename((string) $request->server->get('SCRIPT_FILENAME', ''))) {
+                $request->server->set('SCRIPT_FILENAME', 'index.php');
+            }
         }
 
         $this->tenantEnvironment->activate($tenant);

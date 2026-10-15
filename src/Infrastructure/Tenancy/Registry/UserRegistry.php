@@ -23,6 +23,22 @@ final readonly class UserRegistry
     public const string INVITE_VALIDITY = '+7 days';
     private const string NAME_PATTERN = '/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/';
 
+    /**
+     * With addresses like https://dreeve.example.com/{user}, the user name is the first part of
+     * every URL of that user. It can not be the first part of a URL of Dreeve itself (its pages
+     * and static files), or links of that user would become ambiguous.
+     */
+    public const array RESERVED_NAMES = [
+        // Pages and endpoints, see ReservedUserNamesTest.
+        'activities', 'admin', 'api', 'badge', 'badges', 'best-efforts', 'challenges', 'chat', 'dashboard',
+        'eddington', 'files', 'finish-setup', 'gear', 'heatmap', 'invite', 'milestones', 'monthly-stats',
+        'photos', 'rewind', 'segments', 'strava', 'strava-oauth',
+        // Static files in public/.
+        'assets', 'css', 'js', 'libraries',
+        // Kept free for the future.
+        'activity', 'login', 'logout', 'segment', 'settings', 'setup', 'user', 'users', 'www',
+    ];
+
     public function __construct(
         private string $usersDirectory,
     ) {
@@ -31,6 +47,11 @@ final readonly class UserRegistry
     public static function isValidName(string $name): bool
     {
         return 1 === preg_match(self::NAME_PATTERN, $name);
+    }
+
+    public static function isReservedName(string $name): bool
+    {
+        return in_array($name, self::RESERVED_NAMES, true);
     }
 
     public function exists(): bool
@@ -102,6 +123,9 @@ final readonly class UserRegistry
     {
         if (!self::isValidName($name)) {
             throw UserRegistryException::invalidName($name);
+        }
+        if (self::isReservedName($name)) {
+            throw UserRegistryException::reservedName($name);
         }
 
         $token = $this->generateInviteToken();

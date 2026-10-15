@@ -5,6 +5,9 @@ framework:
         # Store sessions in the kernel's cache dir, which is separate for every user of a multi-user installation.
         handler_id: session.handler.native_file
         save_path: '%kernel.cache_dir%/sessions'
+        # Separate per user of a multi-user installation, see Kernel::getKernelParameters().
+        name: '%app.session_name%'
+        cookie_path: '%app.cookie_path%'
     # Set TRUSTED_PROXIES to an empty value to stop trusting forwarded headers altogether.
     trusted_proxies: '%env(string:TRUSTED_PROXIES)%'
     trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-port' ]

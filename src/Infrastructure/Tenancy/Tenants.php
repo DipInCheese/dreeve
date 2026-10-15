@@ -17,12 +17,12 @@ final readonly class Tenants implements \IteratorAggregate, \Countable
 
     /**
      * @param array<string, Tenant> $tenants
-     * @param array<string, string> $tenantNamesByHost
+     * @param array<string, string> $tenantNamesByAddress
      */
     private function __construct(
         private bool $isMultiUser,
         private array $tenants,
-        private array $tenantNamesByHost,
+        private array $tenantNamesByAddress,
     ) {
     }
 
@@ -84,19 +84,20 @@ final readonly class Tenants implements \IteratorAggregate, \Countable
     public static function fromArray(array $tenants): self
     {
         $tenantsByName = [];
-        $tenantNamesByHost = [];
+        $tenantNamesByAddress = [];
 
         foreach ($tenants as $tenant) {
-            $host = (string) $tenant->getHost();
-            if (isset($tenantNamesByHost[$host])) {
-                throw InvalidTenant::duplicateHost($host, $tenantNamesByHost[$host], $tenant->getName());
+            // The address is the hostname plus the path the user lives under, e.g. "dreeve.example.com/alice".
+            $address = $tenant->getHost().$tenant->getBasePath();
+            if (isset($tenantNamesByAddress[$address])) {
+                throw InvalidTenant::duplicateAddress($address, $tenantNamesByAddress[$address], $tenant->getName());
             }
 
             $tenantsByName[$tenant->getName()] = $tenant;
-            $tenantNamesByHost[$host] = $tenant->getName();
+            $tenantNamesByAddress[$address] = $tenant->getName();
         }
 
-        return new self(true, $tenantsByName, $tenantNamesByHost);
+        return new self(true, $tenantsByName, $tenantNamesByAddress);
     }
 
     /**
@@ -129,9 +130,18 @@ final readonly class Tenants implements \IteratorAggregate, \Countable
         return $this->tenants[$name] ?? throw InvalidTenant::unknown($name, $this);
     }
 
-    public function findByHost(string $host): ?Tenant
+    /**
+     * Finds the user a request is for: by hostname and the first part of the path
+     * (https://dreeve.example.com/alice/...), or by hostname only (https://alice.example.com/...).
+     */
+    public function findForRequest(string $host, string $path): ?Tenant
     {
-        $name = $this->tenantNamesByHost[strtolower($host)] ?? null;
+        $host = strtolower($host);
+        $firstSegment = explode('/', ltrim($path, '/'), 2)[0];
+
+        $name = ('' !== $firstSegment ? $this->tenantNamesByAddress[$host.'/'.$firstSegment] ?? null : null)
+            ?? $this->tenantNamesByAddress[$host]
+            ?? null;
 
         return null === $name ? null : $this->tenants[$name];
     }

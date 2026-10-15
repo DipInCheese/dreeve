@@ -48,7 +48,7 @@ final readonly class StravaOAuthRequestHandler
             $this->strava->verifyAccessToken();
 
             // Already authorized, load app.
-            return new RedirectResponse('/', Response::HTTP_FOUND);
+            return new RedirectResponse($request->getBasePath().'/', Response::HTTP_FOUND);
         } catch (\Exception $e) {
         }
 

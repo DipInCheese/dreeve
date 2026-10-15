@@ -1,5 +1,14 @@
 # Path-routing rules cover every path directive EXCEPT the PHP front-controller handle.
 (paths) {
+	# Multi-user installations with an address per path (https://dreeve.example.com/alice): the
+	# static files are the same for every user, so /alice/css/app.css is served from /css/app.css.
+	# Only for paths that do not exist as a file, and only into the static directories.
+	@userStaticFile {
+		not file {path}
+		path_regexp userStatic ^/[a-z0-9-]+(/(?:assets|css|js|libraries)/[^/].*)$
+	}
+	rewrite @userStaticFile {re.userStatic.1}
+
 	# Cache static assets.
 	handle /assets/* {
 		header {

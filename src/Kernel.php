@@ -64,6 +64,11 @@ class Kernel extends BaseKernel
             // Root directory of everything the app writes: storage/, build/ and watch/.
             'app.data_dir' => $this->tenant?->getDataDirectory() ?? $this->getProjectDir(),
             'app.user' => $this->tenant?->getName() ?? '',
+            // Users of a multi-user installation can share one hostname (https://dreeve.example.com/alice):
+            // their cookies get their own name and are only sent along to their own path.
+            'app.cookie_path' => ('' !== ($basePath = $this->tenant?->getBasePath() ?? '') ? $basePath : '/'),
+            'app.session_name' => $this->tenant instanceof Tenant ? 'dreeve_session_'.$this->tenant->getName() : 'PHPSESSID',
+            'app.remember_me_name' => $this->tenant instanceof Tenant ? 'dreeve_remember_me_'.$this->tenant->getName() : 'REMEMBERME',
         ];
     }
 

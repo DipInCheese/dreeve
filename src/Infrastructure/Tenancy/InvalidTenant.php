@@ -16,15 +16,15 @@ final class InvalidTenant extends \RuntimeException
         return new self(sprintf('User "%s" can not set "%s" in its .env file, it applies to the whole installation', $name, $variable));
     }
 
-    public static function duplicateHost(string $host, string $firstUser, string $secondUser): self
+    public static function duplicateAddress(string $address, string $firstUser, string $secondUser): self
     {
-        return new self(sprintf('Users "%s" and "%s" both use host "%s", every user needs its own (sub)domain', $firstUser, $secondUser, $host));
+        return new self(sprintf('Users "%s" and "%s" both use address "%s", every user needs its own address', $firstUser, $secondUser, $address));
     }
 
     public static function invalidUserUrl(string $template): self
     {
         return new self(sprintf(
-            '%s "%s" is not valid. It must start with the user name as subdomain, e.g. https://{user}.example.com',
+            '%s "%s" is not valid. Use https://dreeve.example.com/{user} or https://{user}.example.com',
             UserUrlTemplate::VARIABLE,
             $template,
         ));
@@ -32,7 +32,7 @@ final class InvalidTenant extends \RuntimeException
 
     public static function missingUserUrl(): self
     {
-        return new self(sprintf('This installation has users, but %s is not set. Set it to e.g. https://{user}.example.com', UserUrlTemplate::VARIABLE));
+        return new self(sprintf('This installation has users, but %s is not set. Set it to e.g. https://dreeve.example.com/{user}', UserUrlTemplate::VARIABLE));
     }
 
     public static function unknown(string $name, Tenants $tenants): self

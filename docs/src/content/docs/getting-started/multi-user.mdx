@@ -1,11 +1,11 @@
 ---
 title: "Multiple users"
-description: "Run one Dreeve installation for as many people as you like, each on their own subdomain with their own data and admin login."
+description: "Run one Dreeve installation for as many people as you like, each with their own address, data and admin login."
 ---
 
-One Dreeve installation can serve as many people as you like. Every user gets their own **subdomain**,
-**data** (database, photos, caches), **settings**, **admin login** and **Strava connection**.
-Users never see each other's data.
+One Dreeve installation can serve as many people as you like. Every user gets their own **address**
+(e.g. `https://dreeve.example.com/alice`), **data** (database, photos, caches), **settings**, **admin login**
+and **Strava connection**. Users never see each other's data.
 
 You, the **owner**, have a dashboard like everyone else, plus a **Users** page in your admin panel to add,
 invite, disable and remove users. New users get an **invite link** to pick their own password.
@@ -36,7 +36,7 @@ Fill in `.env`:
 DREEVE_IMAGE=ghcr.io/<github-user>/dreeve:multi-user
 TZ=Europe/Brussels
 TUNNEL_TOKEN=eyJh...
-DREEVE_USER_URL=https://{user}.example.com
+DREEVE_USER_URL=https://dreeve.example.com/{user}
 DREEVE_OWNER=alice
 ```
 
@@ -47,7 +47,7 @@ docker compose up -d
 docker compose logs app
 ```
 
-The logs show a link like `https://alice.example.com/invite/...`. Open it, pick your password and sign in
+The logs show a link like `https://dreeve.example.com/alice/invite/...`. Open it, pick your password and sign in
 with username `alice`. You are now the owner.
 
 ## Cloudflare Tunnel
@@ -55,28 +55,33 @@ with username `alice`. You are now the owner.
 1. In the Cloudflare dashboard, go to **Zero Trust → Networks → Tunnels → Create a tunnel** and choose **Cloudflared**.
 2. Copy the token (the long value after `--token`) into `TUNNEL_TOKEN` in `.env`. You can skip the install
    instructions, the tunnel already runs in the `cloudflared` container.
-3. Add one **public hostname** with a wildcard, so every user works without further changes:
+3. Add one **public hostname** for Dreeve. Cloudflare creates the DNS record for it:
 
    | Subdomain | Domain        | Service type | URL        |
    |-----------|---------------|--------------|------------|
-   | `*`       | `example.com` | HTTP         | `app:8080` |
+   | `dreeve`  | `example.com` | HTTP         | `app:8080` |
 
-4. Cloudflare does not create a DNS record for wildcard hostnames. In **DNS → Records**, add a `CNAME` record
-   with name `*` and as target `<tunnel-id>.cfargotunnel.com` (proxied). The tunnel id is shown on the tunnel's page.
-
-Dreeve picks the user from the subdomain. Subdomains without a user get a plain "Not found".
+Dreeve picks the user from the first part of the path: `https://dreeve.example.com/alice` is Alice,
+`https://dreeve.example.com/bob` is Bob. Any other path gets a plain "Not found".
 
 :::tip
 Your Dreeve pages are reachable by anyone who knows the address. To limit who can open them, put a
 [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/)
-application in front of `*.example.com`. Leave `/invite/*` open, or invited users can not pick their password.
+application in front of `dreeve.example.com`. Leave `/*/invite/*` open, or invited users can not pick their password.
+:::
+
+:::note[A subdomain per user]
+`DREEVE_USER_URL=https://{user}.example.com` gives every user a subdomain instead (`alice.example.com`). That needs a
+wildcard hostname (`*`) in the tunnel and a wildcard `CNAME` DNS record. Subdomains keep users apart in the browser as
+well; with paths, all users share one browser origin (see [Security](#security)).
 :::
 
 ## Managing users
 
 Sign in, open your admin panel and go to **Users**:
 
-* **Add user**: pick a name (lowercase letters, digits and dashes). It becomes the user's subdomain and username.
+* **Add user**: pick a name (lowercase letters, digits and dashes). It becomes part of the user's address and their
+  username. Names Dreeve uses for its own pages, such as `admin`, `api` or `gear`, can not be used.
   You get an invite link to send to them.
 * **New invite link**: when someone forgot their password, or did not use their link in time.
   Their old password keeps working until they pick a new one.
@@ -112,7 +117,7 @@ whole installation and can not be set per user.
 
 Each user connects their own Strava account and needs their own Strava API application. Follow the
 [Strava import](/importing/strava-import/) guide and set the application's *Authorization Callback Domain*
-to the user's address, e.g. `alice.example.com`.
+to your Dreeve hostname, e.g. `dreeve.example.com`.
 
 ## Security
 
@@ -121,7 +126,11 @@ to the user's address, e.g. `alice.example.com`.
 * Invite links are random 256-bit tokens. Only a hash of them is stored, they work once and expire after 7 days.
 * After 5 failed sign-ins within 15 minutes, signing in is blocked for that username and IP address for a while.
 * Every user gets a random `APP_SECRET`, generated on first start and stored in their data folder.
-* Each user's data, caches and sessions are kept apart. A login for one user is not valid for another.
+* Each user's data, caches and sessions are kept apart. A login for one user is not valid for another, and every
+  user's session cookie is only sent to their own path.
+* With an address per path, all users share one browser origin. Should Dreeve ever have a bug that lets someone
+  inject a script into a page, that script could act on behalf of other users signed in in the same browser.
+  With a subdomain per user, the browser keeps users fully apart. Only invite people you trust, or use subdomains.
 * Only the owner can manage users; for everyone else the **Users** page does not exist.
 * The `cloudflared` container only receives the tunnel token, and no ports are published on your machine.
 

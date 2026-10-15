@@ -23,6 +23,9 @@ final readonly class UserName
         if (!UserRegistry::isValidName($name)) {
             throw CouldNotDeserializeCommand::invalidPayload('Use 1 to 63 lowercase letters, digits and dashes for the name, starting and ending with a letter or digit.');
         }
+        if (UserRegistry::isReservedName($name)) {
+            throw CouldNotDeserializeCommand::invalidPayload(sprintf('"%s" can not be used as user name, Dreeve uses it for its own pages. Pick another name.', $name));
+        }
 
         return $name;
     }

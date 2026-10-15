@@ -48,6 +48,13 @@ class CaddyfileFileAccessTest extends TestCase
         yield 'nested activity photo is not served by Caddy' => ['/files/activities/2024/secret.jpg', 404, null];
         yield 'non-image file is not served by Caddy' => ['/files/secret.txt', 404, null];
         yield 'log file is not served by Caddy' => ['/files/strava.log', 404, null];
+        // Multi-user installations with an address per path (https://dreeve.example.com/alice).
+        yield 'asset of a user path is served and cached' => ['/alice/assets/app.css', 200, 'max-age=86400'];
+        yield 'image of a user path is not served by Caddy' => ['/alice/files/sample.png', 404, null];
+        yield 'activity photo of a user path is not served by Caddy' => ['/alice/files/activities/secret.jpg', 404, null];
+        yield 'user path can not escape the static directories' => ['/alice/assets/../../storage/files/secret.txt', 404, null];
+        yield 'user path can not escape with encoded dots' => ['/alice/assets/%2e%2e/%2e%2e/storage/files/secret.txt', 404, null];
+        yield 'user path only rewrites into static directories' => ['/alice/storage/files/secret.txt', 404, null];
     }
 
     public static function setUpBeforeClass(): void

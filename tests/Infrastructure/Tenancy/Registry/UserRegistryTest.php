@@ -70,6 +70,13 @@ class UserRegistryTest extends TestCase
         yield 'too long' => [str_repeat('a', 64)];
     }
 
+    public function testAddItShouldThrowOnReservedName(): void
+    {
+        $this->expectExceptionObject(UserRegistryException::reservedName('admin'));
+
+        $this->registry->add('admin', true, $this->now);
+    }
+
     public function testAcceptInvite(): void
     {
         $token = $this->registry->add('alice', true, $this->now);

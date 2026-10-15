@@ -19,6 +19,19 @@ class KernelTest extends TestCase
         $parameters = $this->callProtected($kernel, 'getKernelParameters');
         $this->assertSame($kernel->getProjectDir(), $parameters['app.data_dir']);
         $this->assertSame('', $parameters['app.user']);
+        $this->assertSame('/', $parameters['app.cookie_path']);
+        $this->assertSame('PHPSESSID', $parameters['app.session_name']);
+        $this->assertSame('REMEMBERME', $parameters['app.remember_me_name']);
+    }
+
+    public function testWithTenantWithAnAddressPerPath(): void
+    {
+        $tenant = Tenant::fromEnvironment('first-user', '/var/www/users/first-user', ['APP_URL' => 'https://dreeve.example.com/first-user']);
+        $parameters = $this->callProtected(new Kernel('prod', false, $tenant), 'getKernelParameters');
+
+        $this->assertSame('/first-user', $parameters['app.cookie_path']);
+        $this->assertSame('dreeve_session_first-user', $parameters['app.session_name']);
+        $this->assertSame('dreeve_remember_me_first-user', $parameters['app.remember_me_name']);
     }
 
     public function testWithTenant(): void
@@ -33,6 +46,8 @@ class KernelTest extends TestCase
         $parameters = $this->callProtected($kernel, 'getKernelParameters');
         $this->assertSame('/var/www/users/first-user', $parameters['app.data_dir']);
         $this->assertSame('first-user', $parameters['app.user']);
+        $this->assertSame('/', $parameters['app.cookie_path']);
+        $this->assertSame('dreeve_session_first-user', $parameters['app.session_name']);
     }
 
     private function callProtected(Kernel $kernel, string $method): mixed

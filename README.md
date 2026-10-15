@@ -30,7 +30,7 @@
 
 > [!NOTE]
 > **Multi-user fork.** This fork runs one Dreeve installation for as many people as you like, each on their own
-> subdomain with their own data and login. The owner invites users from the admin panel.
+> address (e.g. `https://dreeve.example.com/alice`) with their own data and login. The owner invites users from the admin panel.
 > Setup: [docs/src/content/docs/getting-started/multi-user.mdx](docs/src/content/docs/getting-started/multi-user.mdx).
 
 ## 📸 Showcase

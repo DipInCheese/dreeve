@@ -41,7 +41,9 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 7 days
-                path: /
+                # Separate per user of a multi-user installation, see Kernel::getKernelParameters().
+                name: '%app.remember_me_name%'
+                path: '%app.cookie_path%'
             logout:
                 path: admin_logout
                 target: admin_login

@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Domain\Activity\ActivityIdRepository;
 use App\Infrastructure\Http\HtmlResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,11 +23,11 @@ final readonly class FinishSetupRequestHandler
     }
 
     #[Route(path: '/finish-setup', name: 'finish_setup', methods: ['GET'], priority: 2)]
-    public function handle(): Response
+    public function handle(?Request $request = null): Response
     {
         if ($this->activityIdRepository->count() > 0) {
             // The app is ready, load it.
-            return new RedirectResponse('/', Response::HTTP_FOUND);
+            return new RedirectResponse(($request?->getBasePath() ?? '').'/', Response::HTTP_FOUND);
         }
 
         return new HtmlResponse($this->twig->render('html/finish-setup.html.twig'));

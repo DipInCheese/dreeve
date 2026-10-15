@@ -11,6 +11,11 @@ final class UserRegistryException extends \RuntimeException
         return new self(sprintf('"%s" is not a valid user name. Use 1 to 63 lowercase letters, digits and dashes, starting and ending with a letter or digit', $name));
     }
 
+    public static function reservedName(string $name): self
+    {
+        return new self(sprintf('"%s" can not be used as user name, Dreeve uses it for its own pages. Pick another name', $name));
+    }
+
     public static function alreadyExists(string $name): self
     {
         return new self(sprintf('User "%s" already exists', $name));
