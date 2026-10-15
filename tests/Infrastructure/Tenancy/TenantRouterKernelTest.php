@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 
 class TenantRouterKernelTest extends TestCase
 {
-    private const array VARIABLES = ['DATABASE_DIRECTORY', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'];
+    private const array VARIABLES = ['DATABASE_DIRECTORY', 'ADMIN_USERNAME', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'];
 
     /** @var array<string, FakeTenantKernel> */
     private array $createdKernels = [];

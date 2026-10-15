@@ -25,6 +25,7 @@ class TenantsTest extends TestCase
         $this->assertSame(
             [
                 'DATABASE_DIRECTORY' => __DIR__.'/fixtures/valid/users/alice/storage/database',
+                'ADMIN_USERNAME' => 'alice',
                 'APP_URL' => 'https://Alice.example.com',
                 'STRAVA_CLIENT_ID' => 'alice-client',
                 'AI_API_KEY' => 'alice-ai-key',
@@ -75,7 +76,7 @@ class TenantsTest extends TestCase
     public function testGetAllEnvironmentVariableNames(): void
     {
         $this->assertSame(
-            ['DATABASE_DIRECTORY', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'],
+            ['DATABASE_DIRECTORY', 'ADMIN_USERNAME', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'],
             Tenants::discover(__DIR__.'/fixtures/valid')->getAllEnvironmentVariableNames()
         );
     }

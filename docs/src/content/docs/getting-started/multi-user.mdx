@@ -1,146 +1,156 @@
 ---
 title: "Multiple users"
-description: "Run one Dreeve installation for several people, each with their own (sub)domain, data, Strava account and admin login."
+description: "Run one Dreeve installation for several people, each on their own (sub)domain with their own data, Strava account and admin login."
 ---
 
-One Dreeve installation can serve several people. Every user gets:
+One Dreeve installation can serve several people. Every user gets their own **(sub)domain**, **data**
+(database, photos, caches), **settings**, **admin login** and **Strava connection**.
+Users never see each other's data.
 
-* their own **(sub)domain**, e.g. `https://alice.example.com` and `https://bob.example.com`;
-* their own **database, files, photos, render cache and watch folder**;
-* their own **settings and admin login**;
-* their own **Strava connection** (or file imports) and background imports.
+This page sets it up behind a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/),
+so nothing on your network has to be opened up.
 
-Users never see each other's data: each request is handled by a copy of the app that only knows
-about the user the (sub)domain belongs to.
+## Installation
 
-## How it works
+You need a machine with Docker and a domain on Cloudflare.
 
-Every sub directory of `users/` that contains a `.env` file is a user. The directory name is the user's name
-(lowercase letters, digits and dashes).
-
-```text
-users/
-├── alice/
-│   ├── .env            <- Alice's settings and secrets
-│   ├── storage/        <- created automatically: database and files
-│   ├── build/          <- created automatically: render cache
-│   └── watch/          <- drop Alice's .fit/.tcx/.gpx files here
-└── bob/
-    ├── .env
-    └── ...
+```bash
+mkdir dreeve && cd dreeve
+curl -o docker-compose.yml https://raw.githubusercontent.com/DipInCheese/dreeve/feature/multi-user/docker/multi-user/docker-compose.yml
+curl -o .env https://raw.githubusercontent.com/DipInCheese/dreeve/feature/multi-user/docker/multi-user/example.env
+chmod 600 .env
+nano .env
 ```
 
-The `APP_URL` in a user's `.env` decides which hostname belongs to that user. Requests on a hostname that
-does not belong to any user get a plain "Not found".
+Fill in `.env`:
 
-When there is no `users/` directory, or it contains no `.env` files, Dreeve behaves exactly like a normal
-single-user installation.
-
-## Setting it up
-
-### 1. Shared settings
-
-Settings that apply to the whole installation go in `.env.multi-user`, next to the compose file:
-
-```dotenv title=".env.multi-user"
-# Valid timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+```dotenv title=".env"
 TZ=Europe/Brussels
+TUNNEL_TOKEN=eyJh...
 
-# Anything every user shares can go here too, e.g. one AI key for everyone:
-# AI_API_KEY=...
+DREEVE_USERS=alice,bob
 
-# PUID=1000
-# PGID=1000
+ALICE_URL=https://alice.example.com
+ALICE_PASSWORD=a-long-password-for-alice
+
+BOB_URL=https://bob.example.com
+BOB_PASSWORD=a-long-password-for-bob
 ```
 
-### 2. One `.env` per user
+Start it:
 
-Every variable from the regular [.env](/getting-started/installation/#env) can be set per user,
-except `APP_ENV`, `APP_DEBUG`, `TRUSTED_PROXIES`, `TZ`, `PUID` and `PGID`, which apply to the whole installation.
-A user's value wins over the shared one.
-
-```dotenv title="users/alice/.env"
-APP_URL=https://alice.example.com
-APP_SECRET=a-long-random-string-only-for-alice
-
-ADMIN_USERNAME=alice
-# Use single quotes, see "Admin password" below.
-ADMIN_PASSWORD_HASH='$2y$13$...'
-
-IMPORT_MODE=stravaApi
-STRAVA_CLIENT_ID=...
-STRAVA_CLIENT_SECRET=...
-STRAVA_REFRESH_TOKEN=...
+```bash
+docker compose up -d
 ```
 
-:::caution
-Every user needs their own `APP_URL` hostname. Two users on the same hostname, or a user without `APP_URL`,
-stop the app from starting.
+That's it. Open `https://alice.example.com` and log in with username `alice`.
+
+## Cloudflare Tunnel
+
+1. In the Cloudflare dashboard, go to **Zero Trust → Networks → Tunnels → Create a tunnel** and choose **Cloudflared**.
+2. Copy the token (the long value after `--token`) into `TUNNEL_TOKEN` in `.env`. You can skip the install instructions, the tunnel already runs in the `cloudflared` container.
+3. Add a **public hostname** per user, all pointing at the same service:
+
+   | Public hostname       | Service type | URL        |
+   |-----------------------|--------------|------------|
+   | `alice.example.com`   | HTTP         | `app:8080` |
+   | `bob.example.com`     | HTTP         | `app:8080` |
+
+Dreeve picks the user from the hostname. Any other hostname gets a plain "Not found".
+
+:::tip
+Your Dreeve pages are reachable by anyone who knows the address. To limit who can open them, put a
+[Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/)
+application in front of the hostnames, e.g. allowing only your own email addresses.
 :::
 
-### 3. Docker Compose
+## Users and settings
 
-This fork ships `docker-compose.multi-user.example.yml`. It builds the image from the fork and runs three
-containers: the app, the daemon (one background worker per user) and a Cloudflare Tunnel.
+* `DREEVE_USERS` lists the users: lowercase letters, digits and dashes, separated by commas.
+* Every setting of a user starts with the user's name in capitals, dashes become underscores:
+  user `bob-smith` uses `BOB_SMITH_URL`, `BOB_SMITH_PASSWORD`, ...
+* `<NAME>_URL` (required) is the address the user opens Dreeve on.
+* `<NAME>_PASSWORD` is the admin password, at least 12 characters. The admin username is the user's name,
+  change it with `<NAME>_USERNAME`. Without a password the admin panel stays locked.
+* **Every** [Dreeve setting](/getting-started/installation/#env) works per user with the prefix,
+  e.g. `ALICE_IMPORT_MODE=stravaApi` or `ALICE_AI_API_KEY=...`. Without a prefix, a setting applies to every user.
+* `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the whole installation and can not be set per user.
 
-```bash
-> cp docker-compose.multi-user.example.yml docker-compose.multi-user.yml
-> docker compose -f docker-compose.multi-user.yml up -d --build
-```
+Wrap values that contain `$` or `#` in single quotes: `ALICE_PASSWORD='pa$$word#1'`.
 
-Only `./users` is mounted. Back it up and you have backed up every user.
-
-### 4. Cloudflare Tunnel
-
-1. In the Cloudflare dashboard, go to **Zero Trust → Networks → Tunnels** and create a tunnel of type *Cloudflared*.
-2. Copy the tunnel token into `.env.cloudflared`:
-   ```dotenv title=".env.cloudflared"
-   TUNNEL_TOKEN=eyJh...
-   ```
-3. Add a **public hostname** for every user, all pointing at the same service:
-
-   | Public hostname       | Service            |
-   |-----------------------|--------------------|
-   | `alice.example.com`   | `http://app:8080`  |
-   | `bob.example.com`     | `http://app:8080`  |
-
-   Cloudflare passes the hostname on to Dreeve, which uses it to pick the user.
-
-Adding a user later is: create `users/<name>/.env`, add a public hostname to the tunnel and run
-`docker compose -f docker-compose.multi-user.yml up -d --force-recreate`.
-
-## Admin password
-
-Generate the hash for a user from inside the app container. With multiple users every console command needs
-to know which user it runs for, set it with `DREEVE_USER`:
+After changing `.env`, apply it with:
 
 ```bash
-> docker compose -f docker-compose.multi-user.yml exec -e DREEVE_USER=alice app bin/console security:hash-password
+docker compose up -d
 ```
 
-Put the hash in the user's `.env` between **single quotes**. Unquoted or in double quotes, the `$` characters
-are read as variables and the hash breaks.
+### Adding a user
+
+Add the name to `DREEVE_USERS`, add `<NAME>_URL` and `<NAME>_PASSWORD`, run `docker compose up -d`
+and add the hostname to the Cloudflare Tunnel.
+
+## Security
+
+* Passwords are hashed (bcrypt) when the app starts. The hash is stored in the user's data folder and is
+  only recalculated when the password changes. The plain password is never stored by Dreeve, but it does
+  stay in your `.env`: keep that file private (`chmod 600 .env`).
+* Every user gets a random `APP_SECRET`, generated on first start and stored in their data folder.
+  Both secret files are only readable by their owner.
+* Each user's data, caches and login sessions are kept apart. A login for one user is not valid for another.
+* The `cloudflared` container only receives the tunnel token.
+* No ports are published on your machine; all traffic comes in through the tunnel.
+
+## Data and backups
+
+Everything lives in `./data`, one folder per user:
+
+```text
+data/
+├── alice/
+│   ├── storage/      <- database, photos and files
+│   ├── build/        <- render cache
+│   └── watch/        <- drop .fit/.tcx/.gpx files here to import them
+└── bob/
+```
+
+Back up `./data` and `.env`, and you have backed up everything.
+
+## Updating
+
+```bash
+docker compose pull && docker compose up -d
+```
 
 ## Strava
 
 Each user connects their own Strava account and needs their own Strava API application. Follow the
-[Strava import](/importing/strava-import/) guide per user, and set the application's
-*Authorization Callback Domain* to the user's hostname, e.g. `alice.example.com`.
+[Strava import](/importing/strava-import/) guide and set the application's *Authorization Callback Domain*
+to the user's hostname, e.g. `alice.example.com`. Then add the user's settings:
 
-Webhook subscriptions are per user as well:
-
-```bash
-> docker compose -f docker-compose.multi-user.yml exec -e DREEVE_USER=alice app bin/console app:strava:webhooks-create
+```dotenv title=".env"
+ALICE_IMPORT_MODE=stravaApi
+ALICE_STRAVA_CLIENT_ID=...
+ALICE_STRAVA_CLIENT_SECRET=...
+ALICE_STRAVA_REFRESH_TOKEN=...
 ```
 
 ## Console commands
 
-Every `bin/console` command runs for one user. Without `DREEVE_USER` the command stops and lists the configured users:
+Console commands run for one user at a time, pick the user with `DREEVE_USER`:
 
 ```bash
-> docker compose -f docker-compose.multi-user.yml exec -e DREEVE_USER=bob app bin/console app:import:files
+docker compose exec -e DREEVE_USER=alice app bin/console app:strava:webhooks-create
 ```
 
 ## Logs
 
-Each user's logs are written to `users/<name>/storage/files/logs/`.
+```bash
+docker compose logs -f app
+```
+
+Each user's own logs are in `data/<name>/storage/files/logs/`.
+
+## Advanced: settings in files
+
+Instead of (or next to) `.env`, a user's settings can live in `data/<name>/.env`, without prefix.
+Settings in the main `.env` win. A folder with such a file is a user even when it is not listed in `DREEVE_USERS`.

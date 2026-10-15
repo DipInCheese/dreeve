@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+// Prints the name of every user of a multi-user installation, one per line.
+// Prints nothing for a single-user installation. Used by the Docker entrypoint.
+
+use App\Infrastructure\Tenancy\Tenants;
+
+require dirname(__DIR__).'/vendor/autoload.php';
+
+try {
+    $tenants = Tenants::discover(dirname(__DIR__), [...getenv(), ...$_SERVER, ...$_ENV]);
+} catch (\RuntimeException $e) {
+    fwrite(STDERR, 'Invalid user configuration: '.$e->getMessage().PHP_EOL);
+    exit(1);
+}
+
+foreach ($tenants->getNames() as $name) {
+    echo $name.PHP_EOL;
+}

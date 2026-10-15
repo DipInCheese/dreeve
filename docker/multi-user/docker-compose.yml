@@ -1,0 +1,54 @@
+# Dreeve, multi-user edition, exposed through a Cloudflare Tunnel.
+#
+#   1. Put this file and .env (from example.env) in an empty folder.
+#   2. Fill in .env.
+#   3. docker compose up -d
+#
+# Everything Dreeve stores ends up in ./data, one sub folder per user. Back up that folder.
+name: dreeve
+
+services:
+  app:
+    image: ghcr.io/dipincheese/dreeve:multi-user
+    container_name: dreeve
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/var/www/users
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2019/metrics"]
+      start_period: 60s
+    # No ports are published: Cloudflare reaches the app over the internal Docker network.
+    networks:
+      - dreeve
+
+  # Recurring background work (imports, notifications), one worker per user.
+  daemon:
+    image: ghcr.io/dipincheese/dreeve:multi-user
+    container_name: dreeve-daemon
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/var/www/users
+    command: ["bin/console", "app:daemon:run"]
+    depends_on:
+      - app
+    networks:
+      - dreeve
+
+  # Connects to Cloudflare, which forwards every user's (sub)domain to the app.
+  # Only gets the tunnel token, none of the passwords or other settings.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: dreeve-cloudflared
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Set TUNNEL_TOKEN in .env}
+    depends_on:
+      - app
+    networks:
+      - dreeve
+
+networks:
+  dreeve:

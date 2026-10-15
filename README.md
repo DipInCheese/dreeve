@@ -28,6 +28,11 @@
   <a href="https://www.buymeacoffee.com/ingelbrecht" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;" ></a>
 </p>
 
+> [!NOTE]
+> **Multi-user fork.** This fork runs one Dreeve installation for several people, each on their own (sub)domain
+> with their own data and login. Setup: [docs/src/content/docs/getting-started/multi-user.mdx](docs/src/content/docs/getting-started/multi-user.mdx),
+> image: `ghcr.io/dipincheese/dreeve:multi-user`.
+
 ## 📸 Showcase
 
 https://github.com/user-attachments/assets/2789c961-f04f-4804-b6eb-88d45e62687c

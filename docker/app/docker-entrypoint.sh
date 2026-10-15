@@ -3,12 +3,13 @@ set -e
 
 echo "date.timezone=\"${TZ:-UTC}\"" > "${PHP_INI_DIR}/conf.d/timezone.ini"
 
-# Multi-user installation: every sub directory of /var/www/users with a .env file is a user.
-USERS=""
-for env_file in /var/www/users/*/.env; do
-    [ -f "$env_file" ] || continue
-    USERS="$USERS $(basename "$(dirname "$env_file")")"
-done
+# Multi-user installation: users come from DREEVE_USERS and/or /var/www/users/<name>/.env.
+# Stops here with a clear message when the user configuration is invalid.
+USERS=$(php /var/www/bin/dreeve-users)
+USERS=$(echo $USERS)
+if [ -n "$USERS" ]; then
+    echo "Multi-user installation, users: $USERS"
+fi
 
 # Runs a console command once, or once for every user on a multi-user installation.
 console_for_each_user() {

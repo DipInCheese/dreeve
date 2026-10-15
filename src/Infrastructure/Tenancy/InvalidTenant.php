@@ -28,7 +28,42 @@ final class InvalidTenant extends \RuntimeException
 
     public static function missingHost(string $name): self
     {
-        return new self(sprintf('User "%s" needs an APP_URL in its .env file, it decides on which (sub)domain the user is reached', $name));
+        return new self(sprintf(
+            'User "%s" has no URL. Set %sURL=https://%s.your-domain.com, it decides on which (sub)domain the user is reached',
+            $name,
+            Tenants::getVariablePrefix($name),
+            $name,
+        ));
+    }
+
+    public static function duplicateName(string $name): self
+    {
+        return new self(sprintf('User "%s" is configured more than once', $name));
+    }
+
+    public static function overlappingNames(string $name, string $otherName): self
+    {
+        return new self(sprintf(
+            'User names "%s" and "%s" can not be combined: the settings of "%2$s" (%s...) would also be read as settings of "%1$s". Rename one of them',
+            $name,
+            $otherName,
+            Tenants::getVariablePrefix($otherName),
+        ));
+    }
+
+    public static function reservedName(string $name): self
+    {
+        return new self(sprintf('User name "%s" is reserved because its settings would clash with the settings of the app itself, pick another name', $name));
+    }
+
+    public static function passwordTooShort(string $name, int $minLength): self
+    {
+        return new self(sprintf('The password of user "%s" is too short, use at least %d characters', $name, $minLength));
+    }
+
+    public static function passwordAndPasswordHash(string $name): self
+    {
+        return new self(sprintf('User "%s" has both a password and a password hash, set only one of them', $name));
     }
 
     public static function unknown(string $name, Tenants $tenants): self

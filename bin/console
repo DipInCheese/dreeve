@@ -20,7 +20,7 @@ require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {
     $tenant = null;
-    $tenants = Tenants::discover(dirname(__DIR__));
+    $tenants = Tenants::discover(dirname(__DIR__), [...getenv(), ...$context]);
     if (!$tenants->isEmpty()) {
         // Multi-user installation: every command runs for exactly one user, picked with DREEVE_USER.
         $userName = (string) ($context[TenantEnvironment::USER_VARIABLE] ?? '');
@@ -28,8 +28,8 @@ return function (array $context) {
             throw InvalidTenant::noneSelected($tenants);
         }
 
-        $tenant = $tenants->findByName($userName);
-        $tenant->ensureDirectoriesExist();
+        $tenant = $tenants->findByName($userName)->withSecrets();
+        $tenants->removePasswordsFromSuperglobals();
         new TenantEnvironment($tenants)->activate($tenant);
     }
 

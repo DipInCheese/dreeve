@@ -45,8 +45,3 @@ phpstan.neon
 /docs/.astro
 ###< docs ###
 
-###> multi-user ###
-/docker-compose.multi-user.yml
-/.env.multi-user
-/.env.cloudflared
-###< multi-user ###
