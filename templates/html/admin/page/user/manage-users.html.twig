@@ -1,0 +1,96 @@
+{% extends "html/admin/page/template.html.twig" %}
+{% block main %}
+    {% autoescape false %}
+    {% set overviewUrl = redirectUrl(relativeUrl(path('admin_manage_users'))) %}
+    <div class="flex flex-col gap-4">
+        {% for inviteLink in inviteLinks %}
+            <div class="p-4 bg-white border border-green-200 rounded-lg shadow-xs">
+                <h3 class="text-base font-semibold">
+                    {{ "Invite link for {name}"|trans({'{name}': inviteLink.name|e}, 'admin') }}
+                </h3>
+                <p class="mt-1 text-sm text-gray-600">
+                    {{ "Send this link to {name}. It works once, is valid for 7 days and is only shown now."|trans({'{name}': inviteLink.name|e}, 'admin') }}
+                </p>
+                <input type="text" readonly value="{{ inviteLink.url|e }}" onclick="this.select()" aria-label="{{ "Invite link"|trans({}, 'admin') }}" class="mt-3 font-mono text-sm">
+            </div>
+        {% endfor %}
+
+        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
+            <h3 class="text-lg font-semibold mb-1">
+                {{ "Users"|trans({}, 'admin') }}
+            </h3>
+            <p class="mb-4 text-sm text-gray-600">
+                {{ "Every user has their own address, data and admin login. New users get an invite link to pick their password."|trans({}, 'admin') }}
+            </p>
+            <form data-dispatch-command="{{ addUserCommand }}" data-redirect="{{ overviewUrl }}" class="mb-4 flex flex-wrap items-end gap-3">
+                <div data-form-error class="form-error hidden w-full" role="alert"></div>
+                <div>
+                    <label for="user-name" class="mt-0! text-xs text-gray-500">{{ "Name"|trans }}</label>
+                    <input type="text" id="user-name" name="name" required maxlength="63" pattern="[a-z0-9]([a-z0-9-]*[a-z0-9])?" autocomplete="off" placeholder="alice">
+                </div>
+                <button type="submit" data-has-loading-state class="group btn--add">
+                    <span class="label">{{ "Add user"|trans({}, 'admin') }}</span>
+                    <span class="label--loading">{{ "Adding..."|trans({}, 'admin') }}</span>
+                </button>
+                <p class="w-full text-xs text-gray-500">
+                    {{ "Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with."|trans({'{url}': exampleUserUrl|e}, 'admin') }}
+                </p>
+            </form>
+            <div class="relative overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-left">{{ "Name"|trans }}</th>
+                        <th scope="col" class="text-left">{{ "Address"|trans({}, 'admin') }}</th>
+                        <th scope="col" class="text-left">{{ "Status"|trans({}, 'admin') }}</th>
+                        <th scope="col" class="narrow sticky-actions"><span class="sr-only">{{ "Actions"|trans({}, 'admin') }}</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td class="text-left font-medium">
+                                {{ user.name|e }}
+                                {% if user.isOwner %}<span class="ml-1 text-xs text-gray-500">({{ "owner"|trans({}, 'admin') }})</span>{% endif %}
+                            </td>
+                            <td class="text-left"><a href="{{ user.url|e }}" class="hover:underline" rel="noopener">{{ user.url|e }}</a></td>
+                            <td class="text-left">
+                                {% if user.isDisabled %}
+                                    {{ "Disabled"|trans({}, 'admin') }}
+                                {% elseif not user.hasPassword %}
+                                    {{ "Invited"|trans({}, 'admin') }}
+                                {% else %}
+                                    {{ "Active"|trans({}, 'admin') }}
+                                {% endif %}
+                            </td>
+                            <td class="narrow sticky-actions">
+                                <div class="flex justify-end gap-2">
+                                    {% if not user.isDisabled %}
+                                        <form data-dispatch-command="{{ inviteUserCommand }}" data-redirect="{{ overviewUrl }}">
+                                            <input type="hidden" name="name" value="{{ user.name|e }}">
+                                            <button type="submit" class="btn--secondary" title="{{ "Creates a new invite link, e.g. to reset a forgotten password"|trans({}, 'admin') }}">
+                                                {{ "New invite link"|trans({}, 'admin') }}
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    {% if not user.isOwner %}
+                                        <form data-dispatch-command="{{ changeUserStatusCommand }}" data-redirect="{{ overviewUrl }}">
+                                            <input type="hidden" name="name" value="{{ user.name|e }}">
+                                            <input type="hidden" name="status" value="{{ user.isDisabled ? 'enabled' : 'disabled' }}">
+                                            <button type="submit" class="btn--secondary">
+                                                {{ user.isDisabled ? "Enable"|trans({}, 'admin') : "Disable"|trans({}, 'admin') }}
+                                            </button>
+                                        </form>
+                                        <a href="{{ relativeUrl(path('admin_remove_user', {'name': user.name})) }}" class="btn--danger">{{ "Remove"|trans({}, 'admin') }}</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endautoescape %}
+{% endblock main %}

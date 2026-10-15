@@ -1,0 +1,64 @@
+{% autoescape false %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>{{ "Pick your password"|trans({}, 'admin') }} | {{ appName }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="theme-color" content="#F26822">
+        <meta name="robots" content="noindex">
+        <meta name="js-dist-url" content="{{ relativeUrl('js/dist/') }}">
+        <link rel="icon" type="image/x-icon" href="{{ relativeUrl('assets/images/logo.svg') }}">
+        <link href="{{ relativeUrl(asset('css/dist/tailwind.min.css')) }}" rel="stylesheet"/>
+        <script>
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+        </script>
+    </head>
+    <body class="min-h-screen bg-gray-50 text-gray-900 antialiased admin">
+    <section class="flex min-h-screen flex-col justify-center px-6 py-12 sm:px-12">
+        <div class="mx-auto w-full max-w-sm">
+            <img class="mx-auto h-12 w-auto" src="{{ relativeUrl('assets/images/logo.svg') }}" alt="{{ appName }}">
+            <h1 class="mt-6 text-center text-2xl font-bold tracking-tight">{{ appName }}</h1>
+            {% if isValid %}
+                <p class="mt-1 text-center text-sm text-gray-500">
+                    {{ "Welcome {name}! Pick a password for your admin panel."|trans({'{name}': userName|e}, 'admin') }}
+                </p>
+                <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs">
+                    {% if error %}
+                        <div class="mb-4 overflow-hidden rounded-xl border border-red-200 bg-red-100/60 text-red-700">
+                            <p class="px-4 py-3 text-sm">{{ error|e }}</p>
+                        </div>
+                    {% endif %}
+                    <form class="space-y-4" method="post">
+                        {# Lets password managers store the password with the right username. #}
+                        <input type="text" name="username" value="{{ userName|e }}" autocomplete="username" readonly class="hidden" aria-hidden="true" tabindex="-1">
+                        <div>
+                            <label for="password">{{ "Password"|trans({}, 'admin') }}</label>
+                            <input type="password" id="password" name="password" autocomplete="new-password" required autofocus minlength="{{ minPasswordLength }}" class="mt-1">
+                            <p class="mt-1 text-xs text-gray-500">{{ "Use at least {minLength} characters."|trans({'{minLength}': minPasswordLength}, 'admin') }}</p>
+                        </div>
+                        <div>
+                            <label for="password_repeat">{{ "Repeat password"|trans({}, 'admin') }}</label>
+                            <input type="password" id="password_repeat" name="password_repeat" autocomplete="new-password" required minlength="{{ minPasswordLength }}" class="mt-1">
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                        <button type="submit" data-has-loading-state class="group w-full btn--primary btn--large">
+                            <span class="label">{{ "Save password"|trans({}, 'admin') }}</span>
+                            <span class="label--loading">{{ "Saving..."|trans({}, 'admin') }}</span>
+                        </button>
+                        <p class="text-xs text-gray-500">
+                            {{ "Afterwards, sign in with username {name}."|trans({'{name}': '<strong>' ~ userName|e ~ '</strong>'}, 'admin') }}
+                        </p>
+                    </form>
+                </div>
+            {% else %}
+                <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs text-sm text-gray-600">
+                    {{ "This invite link is invalid or has expired. Ask the owner of this installation for a new one."|trans({}, 'admin') }}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    <script src="{{ relativeUrl(asset('js/dist/admin.min.js')) }}" type="module"></script>
+    </body>
+    </html>
+{% endautoescape %}

@@ -29,9 +29,9 @@
 </p>
 
 > [!NOTE]
-> **Multi-user fork.** This fork runs one Dreeve installation for several people, each on their own (sub)domain
-> with their own data and login. Setup: [docs/src/content/docs/getting-started/multi-user.mdx](docs/src/content/docs/getting-started/multi-user.mdx),
-> image: `ghcr.io/dipincheese/dreeve:multi-user`.
+> **Multi-user fork.** This fork runs one Dreeve installation for as many people as you like, each on their own
+> subdomain with their own data and login. The owner invites users from the admin panel.
+> Setup: [docs/src/content/docs/getting-started/multi-user.mdx](docs/src/content/docs/getting-started/multi-user.mdx).
 
 ## 📸 Showcase
 

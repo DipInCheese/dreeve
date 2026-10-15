@@ -21,16 +21,16 @@ require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 return function (array $context) {
     $tenant = null;
     $tenants = Tenants::discover(dirname(__DIR__), [...getenv(), ...$context]);
-    if (!$tenants->isEmpty()) {
+    if ($tenants->isMultiUser()) {
         // Multi-user installation: every command runs for exactly one user, picked with DREEVE_USER.
+        // Managing the users themselves is done with bin/dreeve-users.
         $userName = (string) ($context[TenantEnvironment::USER_VARIABLE] ?? '');
         if ('' === $userName) {
             throw InvalidTenant::noneSelected($tenants);
         }
 
         $tenant = $tenants->findByName($userName)->withSecrets();
-        $tenants->removePasswordsFromSuperglobals();
-        new TenantEnvironment($tenants)->activate($tenant);
+        new TenantEnvironment()->activate($tenant);
     }
 
     $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $tenant);

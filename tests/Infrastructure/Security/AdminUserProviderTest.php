@@ -5,6 +5,7 @@ namespace App\Tests\Infrastructure\Security;
 use App\Infrastructure\Security\AdminPasswordHash;
 use App\Infrastructure\Security\AdminUserName;
 use App\Infrastructure\Security\AdminUserProvider;
+use App\Infrastructure\ValueObject\String\DataDir;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -68,6 +69,38 @@ class AdminUserProviderTest extends TestCase
 
         $this->assertTrue($provider->supportsClass(InMemoryUser::class));
         $this->assertFalse($provider->supportsClass(UserInterface::class));
+    }
+
+    public function testLoadUserByIdentifierForUserOfMultiUserInstallation(): void
+    {
+        $dataDir = sys_get_temp_dir().'/dreeve-admin-user-provider-'.bin2hex(random_bytes(5));
+        mkdir($dataDir);
+        $provider = new AdminUserProvider(
+            AdminUserName::fromString('alice'),
+            // The installation-wide hash is never used for a user of a multi-user installation.
+            AdminPasswordHash::fromString('installation-hash'),
+            DataDir::fromString($dataDir),
+            'alice',
+        );
+
+        try {
+            // No password picked yet: the admin panel stays locked.
+            try {
+                $provider->loadUserByIdentifier('alice');
+                $this->fail('Expected UserNotFoundException');
+            } catch (UserNotFoundException) {
+            }
+
+            file_put_contents($dataDir.'/.admin-password-hash', "users-hash\n");
+            $this->assertEquals('users-hash', $provider->loadUserByIdentifier('alice')->getPassword());
+
+            // A new password is picked up right away.
+            file_put_contents($dataDir.'/.admin-password-hash', "new-hash\n");
+            $this->assertEquals('new-hash', $provider->refreshUser(new InMemoryUser('alice', 'users-hash', ['ROLE_ADMIN']))->getPassword());
+        } finally {
+            @unlink($dataDir.'/.admin-password-hash');
+            rmdir($dataDir);
+        }
     }
 
     public function testRefreshUserItShouldThrowWhenUserIsNotSupported(): void

@@ -14,10 +14,14 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 
 class TenantRouterKernelTest extends TestCase
 {
-    private const array VARIABLES = ['DATABASE_DIRECTORY', 'ADMIN_USERNAME', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'];
+    private const array VARIABLES = ['DATABASE_DIRECTORY', 'ADMIN_USERNAME', 'ADMIN_PASSWORD_HASH', 'APP_URL', 'STRAVA_CLIENT_ID', 'DREEVE_USER'];
 
     /** @var array<string, FakeTenantKernel> */
     private array $createdKernels = [];
+    /** @var Tenant[] */
+    private array $tenants;
+    private string $revision = 'r1';
+    private int $loadCount = 0;
     private TenantRouterKernel $routerKernel;
     /** @var array<string, mixed> */
     private array $originalEnv;
@@ -35,10 +39,11 @@ class TenantRouterKernelTest extends TestCase
         $response = $this->routerKernel->handle(Request::create('https://alice.example.com/gear'));
         $this->assertSame('alice:/gear', $response->getContent());
 
-        // Kernels are booted once per user and reused afterwards.
+        // Kernels are booted once per user and reused afterwards, users are loaded once.
         $this->assertSame(['alice', 'bob'], array_keys($this->createdKernels));
         $this->assertSame(2, $this->createdKernels['alice']->handledRequests);
         $this->assertSame(1, $this->createdKernels['bob']->handledRequests);
+        $this->assertSame(1, $this->loadCount);
     }
 
     public function testHandleActivatesTheEnvironmentOfTheUser(): void
@@ -58,6 +63,25 @@ class TenantRouterKernelTest extends TestCase
         $this->assertSame('Not found', $response->getContent());
         $this->assertEmpty($this->createdKernels);
         $this->assertArrayNotHasKey('DREEVE_USER', $_SERVER);
+    }
+
+    public function testUsersAreReloadedWhenTheRegistryChanges(): void
+    {
+        $this->routerKernel->handle(Request::create('https://alice.example.com/'));
+        $this->routerKernel->handle(Request::create('https://bob.example.com/'));
+
+        // Bob is removed and Carol is added.
+        $this->tenants = [
+            $this->tenants[0],
+            Tenant::fromEnvironment('carol', '/users/carol', ['APP_URL' => 'https://carol.example.com']),
+        ];
+        $this->revision = 'r2';
+
+        $this->assertSame('carol:/', $this->routerKernel->handle(Request::create('https://carol.example.com/'))->getContent());
+        $this->assertSame(Response::HTTP_NOT_FOUND, $this->routerKernel->handle(Request::create('https://bob.example.com/'))->getStatusCode());
+        $this->assertSame(2, $this->loadCount);
+        $this->assertTrue($this->createdKernels['bob']->isShutDown);
+        $this->assertFalse($this->createdKernels['alice']->isShutDown);
     }
 
     public function testTerminate(): void
@@ -87,10 +111,18 @@ class TenantRouterKernelTest extends TestCase
             unset($_ENV[$variable], $_SERVER[$variable]);
         }
 
-        $tenants = Tenants::discover(__DIR__.'/fixtures/valid');
+        $this->tenants = [
+            Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://alice.example.com', 'STRAVA_CLIENT_ID' => 'alice-client']),
+            Tenant::fromEnvironment('bob', '/users/bob', ['APP_URL' => 'https://bob.example.com', 'STRAVA_CLIENT_ID' => 'bob-client']),
+        ];
         $this->routerKernel = new TenantRouterKernel(
-            tenants: $tenants,
-            tenantEnvironment: new TenantEnvironment($tenants),
+            loadTenants: function (): Tenants {
+                ++$this->loadCount;
+
+                return Tenants::fromArray($this->tenants);
+            },
+            getRevision: fn (): string => $this->revision,
+            tenantEnvironment: new TenantEnvironment(),
             kernelFactory: fn (Tenant $tenant): FakeTenantKernel => $this->createdKernels[$tenant->getName()] = new FakeTenantKernel($tenant->getName()),
         );
     }
@@ -112,6 +144,7 @@ final class FakeTenantKernel implements HttpKernelInterface, TerminableInterface
 {
     public int $handledRequests = 0;
     public int $terminatedRequests = 0;
+    public bool $isShutDown = false;
     public ?string $stravaClientIdDuringRequest = null;
 
     public function __construct(
@@ -130,5 +163,10 @@ final class FakeTenantKernel implements HttpKernelInterface, TerminableInterface
     public function terminate(Request $request, Response $response): void
     {
         ++$this->terminatedRequests;
+    }
+
+    public function shutdown(): void
+    {
+        $this->isShutDown = true;
     }
 }

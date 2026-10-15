@@ -1,20 +1,88 @@
 #!/usr/bin/env php
 <?php
 
-// Prints the name of every user of a multi-user installation, one per line.
-// Prints nothing for a single-user installation. Used by the Docker entrypoint.
+// Manages the users of a multi-user installation from the command line, e.g.
+//   docker compose exec app bin/dreeve-users invite alice
+// Most of this is also possible from the "Users" page in the owner's admin panel.
 
 use App\Infrastructure\Tenancy\Tenants;
+use App\Infrastructure\Tenancy\UserAdministration;
+use App\Infrastructure\Tenancy\UserUrlTemplate;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-try {
-    $tenants = Tenants::discover(dirname(__DIR__), [...getenv(), ...$_SERVER, ...$_ENV]);
-} catch (\RuntimeException $e) {
-    fwrite(STDERR, 'Invalid user configuration: '.$e->getMessage().PHP_EOL);
-    exit(1);
-}
+const USAGE = <<<'USAGE'
+Usage: bin/dreeve-users <command> [name]
 
-foreach ($tenants->getNames() as $name) {
-    echo $name.PHP_EOL;
+  list               Active users, one per line
+  status             All users with their address and status
+  add <name>         Add a user and print an invite link
+  invite <name>      Print a new invite link, also to reset a forgotten password
+  disable <name>     Block a user, the data is kept
+  enable <name>      Unblock a user
+  remove <name>      Remove a user, the data is moved to users/.removed/
+  bootstrap          Create the owner (DREEVE_OWNER) on first start and print
+                     an invite link until the owner has picked a password
+
+USAGE;
+
+$environment = [...getenv(), ...$_SERVER, ...$_ENV];
+$command = $argv[1] ?? '';
+$name = $argv[2] ?? '';
+$now = new DateTimeImmutable();
+
+try {
+    $administration = UserAdministration::fromProjectDir(dirname(__DIR__), (string) ($environment[UserUrlTemplate::VARIABLE] ?? ''));
+
+    switch ($command) {
+        case 'list':
+            foreach (Tenants::discover(dirname(__DIR__), $environment)->getNames() as $activeName) {
+                echo $activeName.PHP_EOL;
+            }
+            break;
+        case 'status':
+            foreach ($administration->findAll() as $user) {
+                $status = match (true) {
+                    $user->isDisabled() => 'disabled',
+                    !$administration->hasPassword($user->getName()) => 'invited',
+                    default => 'active',
+                };
+                printf("%-24s %-9s %s%s\n", $user->getName(), $status, $administration->getUserUrl($user->getName()), $user->isOwner() ? '  (owner)' : '');
+            }
+            break;
+        case 'add':
+            echo 'Invite link for '.$name.', valid for 7 days:'.PHP_EOL.$administration->addUser($name, $now).PHP_EOL;
+            break;
+        case 'invite':
+            echo 'Invite link for '.$name.', valid for 7 days:'.PHP_EOL.$administration->createInviteUrl($name, $now).PHP_EOL;
+            break;
+        case 'disable':
+        case 'enable':
+            $administration->setDisabled($name, 'disable' === $command);
+            echo sprintf('User %s is %sd', $name, $command).PHP_EOL;
+            break;
+        case 'remove':
+            $administration->remove($name, $now);
+            echo sprintf('User %s is removed, the data was moved to users/.removed/', $name).PHP_EOL;
+            break;
+        case 'bootstrap':
+            if (!$administration->isMultiUser()) {
+                break;
+            }
+            $owner = trim((string) ($environment['DREEVE_OWNER'] ?? ''));
+            if ($inviteUrl = $administration->bootstrapOwner($owner, $now)) {
+                echo PHP_EOL.'=================================================================='.PHP_EOL;
+                echo ' Welcome to Dreeve! Open this link to pick your password:'.PHP_EOL;
+                echo ' '.$inviteUrl.PHP_EOL;
+                echo ' The link works once and is valid for 7 days.'.PHP_EOL;
+                echo '=================================================================='.PHP_EOL.PHP_EOL;
+            }
+            break;
+        default:
+            fwrite(STDERR, USAGE);
+            exit('' === $command ? 0 : 1);
+    }
+} catch (RuntimeException $e) {
+    fwrite(STDERR, $e->getMessage().PHP_EOL);
+    exit(1);
 }

@@ -29,6 +29,10 @@ security:
         main:
             lazy: true
             provider: admin_provider
+            # At most 5 failed sign-ins per 15 minutes, per username and IP address.
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
             form_login:
                 login_path: admin_login
                 check_path: admin_login

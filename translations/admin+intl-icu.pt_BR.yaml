@@ -42,13 +42,17 @@ Activity: Atividade
 'Add service': 'Adicionar serviço'
 'Add task': 'Adicionar tarefa'
 'Add tile layer': 'Adicionar camada de mapa'
+'Add user': 'Add user'
 'Add weight': 'Adicionar peso'
 'Add widget': 'Adicionar widget'
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adicione arquivos {fit}, {tcx} ou {gpx}. Eles são processados a cada poucos minutos.'
+Adding...: Adding...
+Address: Address
 Admin: Admin
 'Admin panel': 'Painel de administração'
 'Admin username': 'Nome de usuário do admin'
 'Advanced (per-date & per-sport-type overrides)': 'Avançado (substituições por data e por tipo de esporte)'
+'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
 'Age-based estimate': 'Estimativa baseada na idade'
 'All associated maintenance tasks and logs will be removed. This action cannot be undone.': 'Todas as tarefas de manutenção e registros associados serão removidos. Esta ação não pode ser desfeita.'
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
@@ -71,6 +75,7 @@ Apply: Aplicar
 'Are you sure you want to delete {name}?': 'Tem certeza de que deseja excluir {name}?'
 'Are you sure you want to delete {task} on {component} for {gear}, performed on {date}?': 'Tem certeza de que deseja excluir {task} no componente {component} para o equipamento {gear}, realizado em {date}?'
 'Are you sure you want to remove the {widget} widget?': 'Tem certeza de que deseja remover o widget {widget}?'
+'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Atribuir equipamento'
 'Athlete settings': 'Configurações do atleta'
 'Attached to': 'Vinculado a'
@@ -114,6 +119,7 @@ Configured: Configurado
 'Connected sensors': 'Sensores conectados'
 'Continues to next rule': 'Continua para a próxima regra'
 'Copy this API key': 'Copiar esta chave da API'
+'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': 'Expressão Cron'
 "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Expressão Cron especificando quando a ação deve ser executada, ex. '0 14 * * *' executa todos os dias às 14:00. Consulte crontab.guru para obter ajuda."
 Custom: Custom
@@ -133,6 +139,7 @@ Delete: Excluir
 Deleting...: Excluindo...
 Description: Descrição
 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Instruções detalhadas estão disponíveis {linkOpen}na documentação{linkClose}.'
+Disable: Disable
 Disabled: Desativado
 Distance: Distância
 'Do not download activity photos': 'Não baixar fotos de atividades'
@@ -155,6 +162,7 @@ Edit: Editar
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Elevação
+Enable: Enable
 'Enable AI integration': 'Ativar integração de IA'
 'Enable Strava webhooks': 'Ativar webhooks do Strava'
 Enabled: Ativado
@@ -166,6 +174,7 @@ Endpoint: Endpoint
 'Enter your password': 'Digite sua senha'
 'Enter your username': 'Digite seu nome de usuário'
 Every: 'A cada'
+'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 FTP: FTP
 'FTP history (cycling)': 'Histórico de FTP (ciclismo)'
 'FTP history (running)': 'Histórico de FTP (corrida)'
@@ -225,6 +234,9 @@ Info: Informações
 Integrations: Integrações
 'Intro text': 'Texto de introdução'
 'Invalid CSRF token.': 'Token CSRF inválido.'
+'Invite link': 'Invite link'
+'Invite link for {name}': 'Invite link for {name}'
+Invited: Invited
 Label: Rótulo
 'Last name': Sobrenome
 Latitude: Latitude
@@ -238,6 +250,7 @@ Locale: Localidade
 Log: Registro
 'Log maintenance': 'Registrar manutenção'
 Longitude: Longitude
+'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': 'Registro de manutenção'
 'Maintenance logs will appear here once maintenance has been registered.': 'Os registros de manutenção aparecerão aqui assim que a manutenção for registrada.'
 'Maintenance tasks': 'Tarefas de manutenção'
@@ -265,6 +278,7 @@ Monday: Segunda-feira
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': 'Tempo em movimento'
+'New invite link': 'New invite link'
 'No activities imported yet.': 'Nenhuma atividade importada ainda.'
 'No activities match the current filters.': 'Nenhuma atividade corresponde aos filtros atuais.'
 'No activity found for that ID.': 'Nenhuma atividade encontrada para esse ID.'
@@ -316,6 +330,7 @@ Password: Senha
 'Pick a device you already recorded with, or type a new name.': 'Escolha um dispositivo com o qual você já gravou ou digite um novo nome.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
 'Pick the rules you want to apply to see which activities would change.': 'Escolha as regras que você deseja aplicar para ver quais atividades mudariam.'
+'Pick your password': 'Pick your password'
 'Polyline color': 'Cor da polilinha'
 'Preview selection': 'Pré-visualizar seleção'
 'Processed on': 'Processado em'
@@ -340,10 +355,12 @@ Remove: Remover
 'Remove installation': 'Remove installation'
 'Remove task': 'Remover tarefa'
 'Remove tile layer': 'Remover camada de mapa'
+'Remove user': 'Remove user'
 'Remove widget': 'Remover widget'
 Removing...: Removendo...
 'Render the map tiles in greyscale': 'Renderizar as camadas do mapa em escala de cinza'
 "Reorder widgets and set each widget's width.": 'Reordene os widgets e defina a largura de cada widget.'
+'Repeat password': 'Repeat password'
 'Require a login for the entire app': 'Exigir login para todo o aplicativo'
 'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.': 'Exigir login para todo o aplicativo, não apenas para o painel de administração. Recomendado quando sua instância for acessível pela internet, o que é necessário para o webhook do Strava.'
 'Reset dashboard to default': 'Restaurar o painel para o padrão'
@@ -362,6 +379,7 @@ Rules: Regras
 'Rules to apply': 'Regras a aplicar'
 Saturday: Sábado
 Save: Salvar
+'Save password': 'Save password'
 'Save settings': 'Salvar configurações'
 Saved: Salvo
 Saving...: Salvando...
@@ -384,6 +402,7 @@ Security: Segurança
 'Select sensors': 'Selecionar sensores'
 'Select sport types': 'Selecionar tipos de esporte'
 'Select the serviced gear…': 'Selecione o equipamento revisado…'
+'Send this link to {name}. It works once, is valid for 7 days and is only shown now.': 'Send this link to {name}. It works once, is valid for 7 days and is only shown now.'
 'Sends a notification after every successful import.': 'Envia uma notificação após cada importação bem-sucedida.'
 'Sends a notification when a new app version is available. Requires a configured notification service.': 'Envia uma notificação quando uma nova versão do aplicativo está disponível. Requer um serviço de notificação configurado.'
 'Sends a notification when gear maintenance is due. Requires a configured notification service.': 'Envia uma notificação quando a manutenção do equipamento está vencida. Requer um serviço de notificação configurado.'
@@ -423,6 +442,7 @@ Source: Fonte
 'Start date': 'Data de início'
 'Start date and time': 'Data e hora de início'
 'Starts near': 'Começa perto de'
+Status: Status
 'Stop processing further rules when this rule matches': 'Parar o processamento de regras posteriores quando esta regra corresponder'
 'Stops after match': 'Para após corresponder'
 'Stops here': 'Para aqui'
@@ -472,12 +492,14 @@ Tasks: Tarefas
 'The name of the gear assigned to the activity': 'O nome do equipamento atribuído à atividade'
 'The number of activities recorded with the gear': 'O número de atividades registradas com o equipamento'
 "The page you're looking for doesn't exist or may have been moved.": 'A página que você está procurando não existe ou pode ter sido movida.'
+'The passwords do not match.': 'The passwords do not match.'
 'The segment has been created. Its efforts will show up after the next import run.': 'The segment has been created. Its efforts will show up after the next import run.'
 'The sport type, e.g. "Walk" or "Trail Run"': 'O tipo de esporte, ex: "Caminhada" ou "Corrida em trilha"'
 'The start date, optionally with a custom PHP date format': 'A data de início, opcionalmente com um formato de data PHP personalizado'
 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.': 'As URLs das camadas do mapa usadas para renderizar os mapas. Adicione mais de uma para empilhá-las, por exemplo, para sobrepor nomes de locais em uma camada de satélite.'
 'The total distance ridden with the gear': 'A distância total percorrida com o equipamento'
 'The unit system used to render distances, elevations, temperatures, etc.': 'O sistema de unidades usado para renderizar distâncias, elevações, temperaturas, etc.'
+'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'A área de visualização em que o mapa de calor é aberto. Tanto o centro quanto o nível de zoom são necessários; deixe-os vazios para se ajustar automaticamente à sua área mais ativa.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'A largura deste widget precisa ser configurada na página de configurações do painel. Ele não redimensionará automaticamente com base no número de atividades configuradas.'
 'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'O tipo de treino definido no Strava (Prova, Treino ou Longão), vazio para a maioria das atividades'
@@ -486,6 +508,7 @@ Tasks: Tarefas
 'This action cannot be undone.': 'Esta ação não pode ser desfeita.'
 'This activity has no GPS data.': 'This activity has no GPS data.'
 'This component is fitted to multiple gears, pick the one you serviced.': 'Este componente está instalado em vários equipamentos, escolha aquele em que você fez a manutenção.'
+'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Isso remove apenas o registro de importação; a atividade importada é mantida.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Esta página mostra uma chave diferente a cada vez que é aberta, e apenas aquela no seu arquivo de ambiente é aplicada.'
 "This value is imported from Strava and can't be edited here.": 'Este valor é importado do Strava e não pode ser editado aqui.'
@@ -515,8 +538,10 @@ Until: Until
 'Upload files': 'Enviar arquivos'
 Uploaded: Enviado
 Uploading...: Enviando...
+'Use at least {minLength} characters.': 'Use at least {minLength} characters.'
 'Used to calculate the training load of this activity': 'Usado para calcular a carga de treinamento desta atividade'
 Username: 'Nome de usuário'
+Users: Users
 'Verify token': 'Token de verificação'
 Warning: Aviso
 'Weather and reverse geocoding have been retrieved.': 'Clima e geocodificação reversa foram obtidos.'
@@ -525,6 +550,7 @@ Webhooks: Webhooks
 Wednesday: Quarta-feira
 Weekday: 'Dia da semana'
 Weekdays: 'Dias da semana'
+'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
 'What is my FTP?': 'Qual é o meu FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Quando marcado, nenhuma outra regra será processada assim que esta corresponder. Desmarque para permitir que regras posteriores também sejam executadas. Elas podem sobrescrever as alterações desta regra.'
 'When disabled, gear marked as retired is left out of the chart.': 'Quando desativado, o equipamento marcado como aposentado é deixado fora do gráfico.'
@@ -581,6 +607,7 @@ minutes: minutos
 'on or after': 'em ou após'
 'on or before': 'em ou antes de'
 'outside radius': 'fora do raio'
+owner: owner
 then: então
 'within radius': 'dentro do raio'
 '{count} files ready to upload': '{count} arquivos prontos para enviar'

@@ -19,6 +19,7 @@ parameters:
     env(LOCK_DSN): 'flock'
     env(TZ): ''
     env(DATABASE_DIRECTORY): '%app.data_dir%/storage/database'
+    env(DREEVE_USER_URL): ''
 
 services:
     # default configuration for services in *this* file
@@ -141,3 +142,7 @@ services:
         arguments:
             $format: "[%%datetime%%] %%channel%%.%%level_name%%: %%message%%\n"
             $allowInlineLineBreaks: true
+
+    App\Infrastructure\Tenancy\UserAdministration:
+        factory: [ null, 'fromProjectDir' ]
+        arguments: ['%kernel.project_dir%', '%env(string:DREEVE_USER_URL)%']

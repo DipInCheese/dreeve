@@ -42,13 +42,17 @@ Activity: Tevékenység
 'Add service': 'Szerviz hozzáadása'
 'Add task': 'Feladat hozzáadása'
 'Add tile layer': 'Csempe-réteg hozzáadása'
+'Add user': 'Add user'
 'Add weight': 'Testsúly hozzáadása'
 'Add widget': 'Widget hozzáadása'
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adj hozzá {fit}, {tcx} vagy {gpx} fájlokat. Néhány percenként feldolgozásra kerülnek.'
+Adding...: Adding...
+Address: Address
 Admin: Admin
 'Admin panel': Adminfelület
 'Admin username': 'Admin felhasználónév'
 'Advanced (per-date & per-sport-type overrides)': 'Speciális (dátum és sporttípus szerinti felülírások)'
+'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
 'Age-based estimate': 'Életkor alapú becslés'
 'All associated maintenance tasks and logs will be removed. This action cannot be undone.': 'Minden kapcsolódó karbantartási feladat és napló törlődik. Ez a művelet nem vonható vissza.'
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
@@ -71,6 +75,7 @@ Apply: Alkalmaz
 'Are you sure you want to delete {name}?': 'Biztosan törölni szeretnéd: {name}?'
 'Are you sure you want to delete {task} on {component} for {gear}, performed on {date}?': 'Biztosan törölni szeretnéd a(z) {task} feladatot a(z) {component} komponensen a(z) {gear} felszereléshez, amely {date} napon történt?'
 'Are you sure you want to remove the {widget} widget?': 'Biztosan el szeretnéd távolítani a(z) {widget} widgetet?'
+'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Felszerelés hozzárendelése'
 'Athlete settings': 'Sportoló beállításai'
 'Attached to': 'Hozzárendelve ehhez'
@@ -114,6 +119,7 @@ Configured: Beállítva
 'Connected sensors': 'Csatlakoztatott érzékelők'
 'Continues to next rule': 'Folytatja a következő szabállyal'
 'Copy this API key': 'Másold ki ezt az API-kulcsot'
+'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': 'Cron kifejezés'
 "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": 'Cron kifejezés, amely megadja, mikor fusson a művelet, pl. a „0 14 * * *" minden nap 14:00-kor fut. Segítségért lásd: crontab.guru.'
 Custom: Custom
@@ -133,6 +139,7 @@ Delete: Törlés
 Deleting...: 'Törlés folyamatban...'
 Description: Leírás
 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Részletes útmutató elérhető {linkOpen}a dokumentációban{linkClose}.'
+Disable: Disable
 Disabled: Letiltva
 Distance: Távolság
 'Do not download activity photos': 'Do not download activity photos'
@@ -155,6 +162,7 @@ Edit: Szerkesztés
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Szintemelkedés
+Enable: Enable
 'Enable AI integration': 'AI-integráció engedélyezése'
 'Enable Strava webhooks': 'Strava webhookok engedélyezése'
 Enabled: Engedélyezve
@@ -166,6 +174,7 @@ Endpoint: Végpont
 'Enter your password': 'Add meg a jelszavad'
 'Enter your username': 'Add meg a felhasználóneved'
 Every: Minden
+'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 FTP: FTP
 'FTP history (cycling)': 'FTP-előzmények (kerékpározás)'
 'FTP history (running)': 'FTP-előzmények (futás)'
@@ -225,6 +234,9 @@ Info: Infó
 Integrations: Integrációk
 'Intro text': 'Bevezető szöveg'
 'Invalid CSRF token.': 'Érvénytelen CSRF-token.'
+'Invite link': 'Invite link'
+'Invite link for {name}': 'Invite link for {name}'
+Invited: Invited
 Label: Címke
 'Last name': Vezetéknév
 Latitude: Szélesség
@@ -238,6 +250,7 @@ Locale: Nyelv
 Log: Napló
 'Log maintenance': 'Karbantartás naplózása'
 Longitude: Hosszúság
+'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': 'Karbantartási napló'
 'Maintenance logs will appear here once maintenance has been registered.': 'A karbantartási naplók itt jelennek meg, miután rögzítettél egy karbantartást.'
 'Maintenance tasks': 'Karbantartási feladatok'
@@ -265,6 +278,7 @@ Monday: Hétfő
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Mozgásidő
+'New invite link': 'New invite link'
 'No activities imported yet.': 'Még nincs importált tevékenység.'
 'No activities match the current filters.': 'Egyetlen tevékenység sem felel meg a jelenlegi szűrőknek.'
 'No activity found for that ID.': 'Nem található tevékenység ehhez az azonosítóhoz.'
@@ -316,6 +330,7 @@ Password: Jelszó
 'Pick a device you already recorded with, or type a new name.': 'Válassz egy eszközt, amellyel már rögzítettél, vagy írj be egy új nevet.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
 'Pick the rules you want to apply to see which activities would change.': 'Válaszd ki az alkalmazandó szabályokat, hogy lásd, mely tevékenységek változnának.'
+'Pick your password': 'Pick your password'
 'Polyline color': 'Vonallánc színe'
 'Preview selection': 'Kiválasztás előnézete'
 'Processed on': 'Feldolgozva ekkor'
@@ -340,10 +355,12 @@ Remove: Eltávolítás
 'Remove installation': 'Remove installation'
 'Remove task': 'Feladat eltávolítása'
 'Remove tile layer': 'Csempe-réteg eltávolítása'
+'Remove user': 'Remove user'
 'Remove widget': 'Widget eltávolítása'
 Removing...: Eltávolítás...
 'Render the map tiles in greyscale': 'A térképcsempék szürkeárnyalatos megjelenítése'
 "Reorder widgets and set each widget's width.": 'Rendezd át a widgeteket, és állítsd be mindegyik szélességét.'
+'Repeat password': 'Repeat password'
 'Require a login for the entire app': 'Bejelentkezés megkövetelése a teljes alkalmazáshoz'
 'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.': 'Bejelentkezés megkövetelése a teljes alkalmazáshoz, nem csak az adminfelülethez. Ajánlott, ha a példányod elérhető az internetről, aminek a Strava webhookhoz így is lennie kell.'
 'Reset dashboard to default': 'Dashboard visszaállítása alapértelmezettre'
@@ -362,6 +379,7 @@ Rules: Szabályok
 'Rules to apply': 'Alkalmazandó szabályok'
 Saturday: Szombat
 Save: Mentés
+'Save password': 'Save password'
 'Save settings': 'Beállítások mentése'
 Saved: Mentve
 Saving...: Mentés...
@@ -384,6 +402,7 @@ Security: Biztonság
 'Select sensors': 'Érzékelők kiválasztása'
 'Select sport types': 'Sporttípusok kiválasztása'
 'Select the serviced gear…': 'Válaszd ki a szervizelt felszerelést…'
+'Send this link to {name}. It works once, is valid for 7 days and is only shown now.': 'Send this link to {name}. It works once, is valid for 7 days and is only shown now.'
 'Sends a notification after every successful import.': 'Értesítést küld minden sikeres importálás után.'
 'Sends a notification when a new app version is available. Requires a configured notification service.': 'Értesítést küld, ha új alkalmazásverzió érhető el. Beállított értesítési szolgáltatást igényel.'
 'Sends a notification when gear maintenance is due. Requires a configured notification service.': 'Értesítést küld, ha esedékes a felszerelés karbantartása. Beállított értesítési szolgáltatást igényel.'
@@ -423,6 +442,7 @@ Source: Forrás
 'Start date': 'Start date'
 'Start date and time': 'Kezdő dátum és idő'
 'Starts near': 'A közelében kezdődik'
+Status: Status
 'Stop processing further rules when this rule matches': 'A további szabályok feldolgozásának leállítása, ha ez a szabály illeszkedik'
 'Stops after match': 'Illeszkedés után leáll'
 'Stops here': 'Itt leáll'
@@ -472,12 +492,14 @@ Tasks: Feladatok
 'The name of the gear assigned to the activity': 'A tevékenységhez rendelt felszerelés neve'
 'The number of activities recorded with the gear': 'A felszereléssel rögzített tevékenységek száma'
 "The page you're looking for doesn't exist or may have been moved.": 'A keresett oldal nem létezik, vagy áthelyezték.'
+'The passwords do not match.': 'The passwords do not match.'
 'The segment has been created. Its efforts will show up after the next import run.': 'The segment has been created. Its efforts will show up after the next import run.'
 'The sport type, e.g. "Walk" or "Trail Run"': 'A sporttípus, pl. „Walk" vagy „Trail Run"'
 'The start date, optionally with a custom PHP date format': 'A kezdő dátum, opcionálisan egyéni PHP dátumformátummal'
 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.': 'A térképek megjelenítéséhez használt csempe-réteg URL-ek. Adj hozzá többet is az egymásra helyezéshez, például helynevek rárakásához egy műholdas rétegre.'
 'The total distance ridden with the gear': 'A felszereléssel megtett teljes távolság'
 'The unit system used to render distances, elevations, temperatures, etc.': 'A távolságok, szintemelkedések, hőmérsékletek stb. megjelenítéséhez használt mértékegységrendszer.'
+'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'A nézet, amelyen a hőtérkép megnyílik. A középpont és a nagyítási szint is szükséges; hagyd üresen, hogy automatikusan a legaktívabb területedhez igazodjon.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'Ennek a widgetnek a szélességét a dashboard beállításai oldalon kell megadni. Nem méreteződik automatikusan a beállított tevékenységek száma alapján.'
 'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'Az edzéstípus a Stravában beállítva (Verseny, Edzés vagy Hosszú futás), a legtöbb tevékenységnél üres'
@@ -486,6 +508,7 @@ Tasks: Feladatok
 'This action cannot be undone.': 'Ez a művelet nem vonható vissza.'
 'This activity has no GPS data.': 'This activity has no GPS data.'
 'This component is fitted to multiple gears, pick the one you serviced.': 'Ez a komponens több felszerelésre is fel van szerelve, válaszd ki azt, amelyiket szervizelted.'
+'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Ez csak az importálási rekordot távolítja el, az importált tevékenység megmarad.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Ez az oldal minden megnyitáskor más kulcsot mutat, és csak a környezeti fájlodban lévő érvényesül.'
 "This value is imported from Strava and can't be edited here.": 'Ez az érték a Stravából van importálva, és itt nem szerkeszthető.'
@@ -515,8 +538,10 @@ Until: Until
 'Upload files': 'Fájlok feltöltése'
 Uploaded: Feltöltve
 Uploading...: Feltöltés...
+'Use at least {minLength} characters.': 'Use at least {minLength} characters.'
 'Used to calculate the training load of this activity': 'Used to calculate the training load of this activity'
 Username: Felhasználónév
+Users: Users
 'Verify token': 'Ellenőrző token'
 Warning: Figyelmeztetés
 'Weather and reverse geocoding have been retrieved.': 'Weather and reverse geocoding have been retrieved.'
@@ -525,6 +550,7 @@ Webhooks: Webhookok
 Wednesday: Szerda
 Weekday: 'Hét napja'
 Weekdays: 'Hét napjai'
+'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
 'What is my FTP?': 'Mi az én FTP-m?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Ha be van jelölve, ennek a szabálynak az illeszkedése után nem kerül feldolgozásra több szabály. Szüntesd meg a jelölést, hogy a későbbi szabályok is fussanak. Ezek felülírhatják ennek a szabálynak a módosításait.'
 'When disabled, gear marked as retired is left out of the chart.': 'Ha ki van kapcsolva, a nyugdíjazottként megjelölt felszerelés kimarad a diagramból.'
@@ -581,6 +607,7 @@ minutes: perc
 'on or after': 'on or after'
 'on or before': 'on or before'
 'outside radius': 'sugáron kívül'
+owner: owner
 then: akkor
 'within radius': 'sugáron belül'
 '{count} files ready to upload': '{count} fájl készen áll a feltöltésre'

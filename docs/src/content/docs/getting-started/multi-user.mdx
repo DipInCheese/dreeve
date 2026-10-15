@@ -1,14 +1,22 @@
 ---
 title: "Multiple users"
-description: "Run one Dreeve installation for several people, each on their own (sub)domain with their own data, Strava account and admin login."
+description: "Run one Dreeve installation for as many people as you like, each on their own subdomain with their own data and admin login."
 ---
 
-One Dreeve installation can serve several people. Every user gets their own **(sub)domain**, **data**
-(database, photos, caches), **settings**, **admin login** and **Strava connection**.
+One Dreeve installation can serve as many people as you like. Every user gets their own **subdomain**,
+**data** (database, photos, caches), **settings**, **admin login** and **Strava connection**.
 Users never see each other's data.
+
+You, the **owner**, have a dashboard like everyone else, plus a **Users** page in your admin panel to add,
+invite, disable and remove users. New users get an **invite link** to pick their own password.
 
 This page sets it up behind a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/),
 so nothing on your network has to be opened up.
+
+:::note
+Replace `<github-user>` below with the GitHub account of the fork you use. The fork publishes its
+image to `ghcr.io/<github-user>/dreeve:multi-user`.
+:::
 
 ## Installation
 
@@ -16,8 +24,8 @@ You need a machine with Docker and a domain on Cloudflare.
 
 ```bash
 mkdir dreeve && cd dreeve
-curl -o docker-compose.yml https://raw.githubusercontent.com/DipInCheese/dreeve/feature/multi-user/docker/multi-user/docker-compose.yml
-curl -o .env https://raw.githubusercontent.com/DipInCheese/dreeve/feature/multi-user/docker/multi-user/example.env
+curl -o docker-compose.yml https://raw.githubusercontent.com/<github-user>/dreeve/feature/multi-user/docker/multi-user/docker-compose.yml
+curl -o .env https://raw.githubusercontent.com/<github-user>/dreeve/feature/multi-user/docker/multi-user/example.env
 chmod 600 .env
 nano .env
 ```
@@ -25,80 +33,97 @@ nano .env
 Fill in `.env`:
 
 ```dotenv title=".env"
+DREEVE_IMAGE=ghcr.io/<github-user>/dreeve:multi-user
 TZ=Europe/Brussels
 TUNNEL_TOKEN=eyJh...
-
-DREEVE_USERS=alice,bob
-
-ALICE_URL=https://alice.example.com
-ALICE_PASSWORD=a-long-password-for-alice
-
-BOB_URL=https://bob.example.com
-BOB_PASSWORD=a-long-password-for-bob
+DREEVE_USER_URL=https://{user}.example.com
+DREEVE_OWNER=alice
 ```
 
-Start it:
+Start it and read the logs:
 
 ```bash
 docker compose up -d
+docker compose logs app
 ```
 
-That's it. Open `https://alice.example.com` and log in with username `alice`.
+The logs show a link like `https://alice.example.com/invite/...`. Open it, pick your password and sign in
+with username `alice`. You are now the owner.
 
 ## Cloudflare Tunnel
 
 1. In the Cloudflare dashboard, go to **Zero Trust → Networks → Tunnels → Create a tunnel** and choose **Cloudflared**.
-2. Copy the token (the long value after `--token`) into `TUNNEL_TOKEN` in `.env`. You can skip the install instructions, the tunnel already runs in the `cloudflared` container.
-3. Add a **public hostname** per user, all pointing at the same service:
+2. Copy the token (the long value after `--token`) into `TUNNEL_TOKEN` in `.env`. You can skip the install
+   instructions, the tunnel already runs in the `cloudflared` container.
+3. Add one **public hostname** with a wildcard, so every user works without further changes:
 
-   | Public hostname       | Service type | URL        |
-   |-----------------------|--------------|------------|
-   | `alice.example.com`   | HTTP         | `app:8080` |
-   | `bob.example.com`     | HTTP         | `app:8080` |
+   | Subdomain | Domain        | Service type | URL        |
+   |-----------|---------------|--------------|------------|
+   | `*`       | `example.com` | HTTP         | `app:8080` |
 
-Dreeve picks the user from the hostname. Any other hostname gets a plain "Not found".
+4. Cloudflare does not create a DNS record for wildcard hostnames. In **DNS → Records**, add a `CNAME` record
+   with name `*` and as target `<tunnel-id>.cfargotunnel.com` (proxied). The tunnel id is shown on the tunnel's page.
+
+Dreeve picks the user from the subdomain. Subdomains without a user get a plain "Not found".
 
 :::tip
 Your Dreeve pages are reachable by anyone who knows the address. To limit who can open them, put a
 [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/)
-application in front of the hostnames, e.g. allowing only your own email addresses.
+application in front of `*.example.com`. Leave `/invite/*` open, or invited users can not pick their password.
 :::
 
-## Users and settings
+## Managing users
 
-* `DREEVE_USERS` lists the users: lowercase letters, digits and dashes, separated by commas.
-* Every setting of a user starts with the user's name in capitals, dashes become underscores:
-  user `bob-smith` uses `BOB_SMITH_URL`, `BOB_SMITH_PASSWORD`, ...
-* `<NAME>_URL` (required) is the address the user opens Dreeve on.
-* `<NAME>_PASSWORD` is the admin password, at least 12 characters. The admin username is the user's name,
-  change it with `<NAME>_USERNAME`. Without a password the admin panel stays locked.
-* **Every** [Dreeve setting](/getting-started/installation/#env) works per user with the prefix,
-  e.g. `ALICE_IMPORT_MODE=stravaApi` or `ALICE_AI_API_KEY=...`. Without a prefix, a setting applies to every user.
-* `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the whole installation and can not be set per user.
+Sign in, open your admin panel and go to **Users**:
 
-Wrap values that contain `$` or `#` in single quotes: `ALICE_PASSWORD='pa$$word#1'`.
+* **Add user**: pick a name (lowercase letters, digits and dashes). It becomes the user's subdomain and username.
+  You get an invite link to send to them.
+* **New invite link**: when someone forgot their password, or did not use their link in time.
+  Their old password keeps working until they pick a new one.
+* **Disable / Enable**: blocks or unblocks a user. Their data is kept.
+* **Remove**: the user's address stops working. Their data is not deleted but moved to `data/.removed/`.
 
-After changing `.env`, apply it with:
+Invite links work once, are valid for 7 days and are only shown when they are created.
+
+The same is possible from the command line, which also helps when you are locked out yourself:
 
 ```bash
-docker compose up -d
+docker compose exec app bin/dreeve-users status
+docker compose exec app bin/dreeve-users add bob
+docker compose exec app bin/dreeve-users invite alice
 ```
 
-### Adding a user
+## Settings per user
 
-Add the name to `DREEVE_USERS`, add `<NAME>_URL` and `<NAME>_PASSWORD`, run `docker compose up -d`
-and add the hostname to the Cloudflare Tunnel.
+Settings in `.env` apply to every user. A single user's settings, such as their Strava API keys, go in
+`data/<name>/.env`:
+
+```dotenv title="data/alice/.env"
+IMPORT_MODE=stravaApi
+STRAVA_CLIENT_ID=...
+STRAVA_CLIENT_SECRET=...
+STRAVA_REFRESH_TOKEN=...
+```
+
+Restart to apply them: `docker compose restart`. `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the
+whole installation and can not be set per user.
+
+### Strava
+
+Each user connects their own Strava account and needs their own Strava API application. Follow the
+[Strava import](/importing/strava-import/) guide and set the application's *Authorization Callback Domain*
+to the user's address, e.g. `alice.example.com`.
 
 ## Security
 
-* Passwords are hashed (bcrypt) when the app starts. The hash is stored in the user's data folder and is
-  only recalculated when the password changes. The plain password is never stored by Dreeve, but it does
-  stay in your `.env`: keep that file private (`chmod 600 .env`).
+* Passwords are picked by the users themselves through the invite link; nobody else ever sees them.
+  They are stored as a hash in the user's data folder, readable by its owner only.
+* Invite links are random 256-bit tokens. Only a hash of them is stored, they work once and expire after 7 days.
+* After 5 failed sign-ins within 15 minutes, signing in is blocked for that username and IP address for a while.
 * Every user gets a random `APP_SECRET`, generated on first start and stored in their data folder.
-  Both secret files are only readable by their owner.
-* Each user's data, caches and login sessions are kept apart. A login for one user is not valid for another.
-* The `cloudflared` container only receives the tunnel token.
-* No ports are published on your machine; all traffic comes in through the tunnel.
+* Each user's data, caches and sessions are kept apart. A login for one user is not valid for another.
+* Only the owner can manage users; for everyone else the **Users** page does not exist.
+* The `cloudflared` container only receives the tunnel token, and no ports are published on your machine.
 
 ## Data and backups
 
@@ -106,11 +131,13 @@ Everything lives in `./data`, one folder per user:
 
 ```text
 data/
+├── .users.json       <- the users and pending invites
 ├── alice/
 │   ├── storage/      <- database, photos and files
 │   ├── build/        <- render cache
 │   └── watch/        <- drop .fit/.tcx/.gpx files here to import them
-└── bob/
+├── bob/
+└── .removed/         <- data of removed users
 ```
 
 Back up `./data` and `.env`, and you have backed up everything.
@@ -119,19 +146,6 @@ Back up `./data` and `.env`, and you have backed up everything.
 
 ```bash
 docker compose pull && docker compose up -d
-```
-
-## Strava
-
-Each user connects their own Strava account and needs their own Strava API application. Follow the
-[Strava import](/importing/strava-import/) guide and set the application's *Authorization Callback Domain*
-to the user's hostname, e.g. `alice.example.com`. Then add the user's settings:
-
-```dotenv title=".env"
-ALICE_IMPORT_MODE=stravaApi
-ALICE_STRAVA_CLIENT_ID=...
-ALICE_STRAVA_CLIENT_SECRET=...
-ALICE_STRAVA_REFRESH_TOKEN=...
 ```
 
 ## Console commands
@@ -149,8 +163,3 @@ docker compose logs -f app
 ```
 
 Each user's own logs are in `data/<name>/storage/files/logs/`.
-
-## Advanced: settings in files
-
-Instead of (or next to) `.env`, a user's settings can live in `data/<name>/.env`, without prefix.
-Settings in the main `.env` win. A folder with such a file is a user even when it is not listed in `DREEVE_USERS`.

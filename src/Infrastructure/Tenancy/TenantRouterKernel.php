@@ -13,18 +13,26 @@ use Symfony\Component\HttpKernel\TerminableInterface;
  * Front kernel of a multi-user installation. It picks the user by the hostname of the
  * request and hands the request to that user's own kernel. Every user's kernel has its
  * own container, database, files and caches, so users never see each other's data.
+ *
+ * Users are added, disabled and removed while the app runs: the users are reloaded
+ * whenever the user registry changes.
  */
 final class TenantRouterKernel implements HttpKernelInterface, TerminableInterface
 {
+    private ?Tenants $tenants = null;
+    private ?string $loadedRevision = null;
     /** @var array<string, HttpKernelInterface&TerminableInterface> */
     private array $kernels = [];
     private (HttpKernelInterface&TerminableInterface)|null $kernelOfLastRequest = null;
 
     /**
+     * @param \Closure(): Tenants                                         $loadTenants
+     * @param \Closure(): string                                          $getRevision
      * @param \Closure(Tenant): (HttpKernelInterface&TerminableInterface) $kernelFactory
      */
     public function __construct(
-        private readonly Tenants $tenants,
+        private readonly \Closure $loadTenants,
+        private readonly \Closure $getRevision,
         private readonly TenantEnvironment $tenantEnvironment,
         private readonly \Closure $kernelFactory,
     ) {
@@ -34,7 +42,7 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
     {
         $this->kernelOfLastRequest = null;
 
-        if (!($tenant = $this->tenants->findByHost($request->getHost())) instanceof Tenant) {
+        if (!($tenant = $this->getTenants()->findByHost($request->getHost())) instanceof Tenant) {
             return new Response(
                 content: 'Not found',
                 status: Response::HTTP_NOT_FOUND,
@@ -52,5 +60,26 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
     public function terminate(Request $request, Response $response): void
     {
         $this->kernelOfLastRequest?->terminate($request, $response);
+    }
+
+    private function getTenants(): Tenants
+    {
+        $revision = ($this->getRevision)();
+        if ($this->tenants instanceof Tenants && $revision === $this->loadedRevision) {
+            return $this->tenants;
+        }
+
+        $this->tenants = ($this->loadTenants)();
+        $this->loadedRevision = $revision;
+
+        // Shut down the kernels of users that were disabled or removed.
+        foreach (array_diff(array_keys($this->kernels), $this->tenants->getNames()) as $name) {
+            if (method_exists($this->kernels[$name], 'shutdown')) {
+                $this->kernels[$name]->shutdown();
+            }
+            unset($this->kernels[$name]);
+        }
+
+        return $this->tenants;
     }
 }

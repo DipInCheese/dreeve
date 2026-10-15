@@ -3,22 +3,24 @@ set -e
 
 echo "date.timezone=\"${TZ:-UTC}\"" > "${PHP_INI_DIR}/conf.d/timezone.ini"
 
-# Multi-user installation: users come from DREEVE_USERS and/or /var/www/users/<name>/.env.
-# Stops here with a clear message when the user configuration is invalid.
-USERS=$(php /var/www/bin/dreeve-users)
-USERS=$(echo $USERS)
-if [ -n "$USERS" ]; then
-    echo "Multi-user installation, users: $USERS"
+# Multi-user installation (DREEVE_USER_URL is set): the users live in the user registry.
+MULTI_USER=""
+if [ -n "$DREEVE_USER_URL" ]; then
+    MULTI_USER="1"
 fi
 
-# Runs a console command once, or once for every user on a multi-user installation.
+active_users() {
+    php /var/www/bin/dreeve-users list
+}
+
+# Runs a console command once, or once for every active user on a multi-user installation.
 console_for_each_user() {
-    if [ -z "$USERS" ]; then
+    if [ -z "$MULTI_USER" ]; then
         php /var/www/bin/console "$@"
         return
     fi
 
-    for user in $USERS; do
+    for user in $(active_users); do
         echo "[$user] bin/console $*"
         DREEVE_USER="$user" php /var/www/bin/console "$@"
     done
@@ -28,11 +30,15 @@ console_for_each_user() {
 # volume, so only one of them may migrate. The web container is the migrator, every other
 # container waits for it to finish before touching the database.
 if [ "$1" = "frankenphp" ]; then
+    if [ -n "$MULTI_USER" ]; then
+        # Creates the owner on the very first start and prints the link to pick a password.
+        php /var/www/bin/dreeve-users bootstrap
+    fi
     console_for_each_user app:db:migrate --no-interaction
     console_for_each_user app:cache:render:clear --with-version-check
-else
+elif [ -z "$MULTI_USER" ]; then
     echo 'Waiting for the database schema to be up to date...'
-    console_for_each_user app:db:wait-for-schema
+    php /var/www/bin/console app:db:wait-for-schema
     echo 'Database schema updated, starting daemon'
 fi
 
@@ -47,27 +53,58 @@ if [ -n "$PUID" ] && [ -n "$PGID" ] && [ "$(id -u)" = "0" ]; then
     echo "Permissions have been set"
 fi
 
-# Multi-user installation: run one daemon per user. When one of them stops, stop
-# them all, so the container exits and Docker's restart policy brings it back up.
-if [ -n "$USERS" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run" ]; then
-    PIDS=""
-    for user in $USERS; do
-        DREEVE_USER="$user" "$@" &
-        PIDS="$PIDS $!"
-    done
+# Multi-user installation: run one daemon per active user. Users are added, disabled and
+# removed while the app runs, so the list is checked every 30 seconds.
+if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run" ]; then
+    RUNNING=""  # "name:pid" pairs
 
-    trap 'kill $PIDS 2>/dev/null; wait; exit 0' TERM INT
+    stop_all() {
+        for entry in $RUNNING; do
+            kill "${entry#*:}" 2>/dev/null || true
+        done
+        wait
+        exit 0
+    }
+    trap stop_all TERM INT
 
     while :; do
-        for pid in $PIDS; do
-            if ! kill -0 "$pid" 2>/dev/null; then
-                echo "A daemon stopped, stopping the daemons of all users"
-                kill $PIDS 2>/dev/null || true
-                wait
-                exit 1
+        if ! WANTED=$(active_users); then
+            echo "Could not read the users, retrying in 30 seconds"
+            WANTED=""
+            sleep 30
+            continue
+        fi
+
+        STILL_RUNNING=""
+        for entry in $RUNNING; do
+            user="${entry%%:*}"
+            pid="${entry#*:}"
+            if ! echo "$WANTED" | grep -qx "$user"; then
+                echo "[$user] user was disabled or removed, stopping its daemon"
+                kill "$pid" 2>/dev/null || true
+            elif kill -0 "$pid" 2>/dev/null; then
+                STILL_RUNNING="$STILL_RUNNING $entry"
+            else
+                echo "[$user] daemon stopped, it will be restarted"
             fi
         done
-        sleep 5
+        RUNNING="$STILL_RUNNING"
+
+        for user in $WANTED; do
+            case " $RUNNING " in
+                *" $user:"*) ;;
+                *)
+                    if DREEVE_USER="$user" php /var/www/bin/console app:db:wait-for-schema; then
+                        echo "[$user] starting daemon"
+                        DREEVE_USER="$user" "$@" &
+                        RUNNING="$RUNNING $user:$!"
+                    fi
+                    ;;
+            esac
+        done
+
+        sleep 30 &
+        wait $! || true
     done
 fi
 

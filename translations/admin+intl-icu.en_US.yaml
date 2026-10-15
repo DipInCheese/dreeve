@@ -42,13 +42,17 @@ Activity: Activity
 'Add service': 'Add service'
 'Add task': 'Add task'
 'Add tile layer': 'Add tile layer'
+'Add user': 'Add user'
 'Add weight': 'Add weight'
 'Add widget': 'Add widget'
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.'
+Adding...: Adding...
+Address: Address
 Admin: Admin
 'Admin panel': 'Admin panel'
 'Admin username': 'Admin username'
 'Advanced (per-date & per-sport-type overrides)': 'Advanced (per-date & per-sport-type overrides)'
+'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
 'Age-based estimate': 'Age-based estimate'
 'All associated maintenance tasks and logs will be removed. This action cannot be undone.': 'All associated maintenance tasks and logs will be removed. This action cannot be undone.'
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
@@ -71,6 +75,7 @@ Apply: Apply
 'Are you sure you want to delete {name}?': 'Are you sure you want to delete {name}?'
 'Are you sure you want to delete {task} on {component} for {gear}, performed on {date}?': 'Are you sure you want to delete {task} on {component} for {gear}, performed on {date}?'
 'Are you sure you want to remove the {widget} widget?': 'Are you sure you want to remove the {widget} widget?'
+'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Assign gear'
 'Athlete settings': 'Athlete settings'
 'Attached to': 'Attached to'
@@ -114,6 +119,7 @@ Configured: Configured
 'Connected sensors': 'Connected sensors'
 'Continues to next rule': 'Continues to next rule'
 'Copy this API key': 'Copy this API key'
+'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': 'Cron expression'
 "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help."
 Custom: Custom
@@ -133,6 +139,7 @@ Delete: Delete
 Deleting...: Deleting...
 Description: Description
 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.'
+Disable: Disable
 Disabled: Disabled
 Distance: Distance
 'Do not download activity photos': 'Do not download activity photos'
@@ -155,6 +162,7 @@ Edit: Edit
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Elevation
+Enable: Enable
 'Enable AI integration': 'Enable AI integration'
 'Enable Strava webhooks': 'Enable Strava webhooks'
 Enabled: Enabled
@@ -166,6 +174,7 @@ Endpoint: Endpoint
 'Enter your password': 'Enter your password'
 'Enter your username': 'Enter your username'
 Every: Every
+'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 FTP: FTP
 'FTP history (cycling)': 'FTP history (cycling)'
 'FTP history (running)': 'FTP history (running)'
@@ -225,6 +234,9 @@ Info: Info
 Integrations: Integrations
 'Intro text': 'Intro text'
 'Invalid CSRF token.': 'Invalid CSRF token.'
+'Invite link': 'Invite link'
+'Invite link for {name}': 'Invite link for {name}'
+Invited: Invited
 Label: Label
 'Last name': 'Last name'
 Latitude: Latitude
@@ -238,6 +250,7 @@ Locale: Locale
 Log: Log
 'Log maintenance': 'Log maintenance'
 Longitude: Longitude
+'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': 'Maintenance log'
 'Maintenance logs will appear here once maintenance has been registered.': 'Maintenance logs will appear here once maintenance has been registered.'
 'Maintenance tasks': 'Maintenance tasks'
@@ -265,6 +278,7 @@ Monday: Monday
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': 'Moving time'
+'New invite link': 'New invite link'
 'No activities imported yet.': 'No activities imported yet.'
 'No activities match the current filters.': 'No activities match the current filters.'
 'No activity found for that ID.': 'No activity found for that ID.'
@@ -316,6 +330,7 @@ Password: Password
 'Pick a device you already recorded with, or type a new name.': 'Pick a device you already recorded with, or type a new name.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
 'Pick the rules you want to apply to see which activities would change.': 'Pick the rules you want to apply to see which activities would change.'
+'Pick your password': 'Pick your password'
 'Polyline color': 'Polyline color'
 'Preview selection': 'Preview selection'
 'Processed on': 'Processed on'
@@ -340,10 +355,12 @@ Remove: Remove
 'Remove installation': 'Remove installation'
 'Remove task': 'Remove task'
 'Remove tile layer': 'Remove tile layer'
+'Remove user': 'Remove user'
 'Remove widget': 'Remove widget'
 Removing...: Removing...
 'Render the map tiles in greyscale': 'Render the map tiles in greyscale'
 "Reorder widgets and set each widget's width.": "Reorder widgets and set each widget's width."
+'Repeat password': 'Repeat password'
 'Require a login for the entire app': 'Require a login for the entire app'
 'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.': 'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.'
 'Reset dashboard to default': 'Reset dashboard to default'
@@ -362,6 +379,7 @@ Rules: Rules
 'Rules to apply': 'Rules to apply'
 Saturday: Saturday
 Save: Save
+'Save password': 'Save password'
 'Save settings': 'Save settings'
 Saved: Saved
 Saving...: Saving...
@@ -384,6 +402,7 @@ Security: Security
 'Select sensors': 'Select sensors'
 'Select sport types': 'Select sport types'
 'Select the serviced gear…': 'Select the serviced gear…'
+'Send this link to {name}. It works once, is valid for 7 days and is only shown now.': 'Send this link to {name}. It works once, is valid for 7 days and is only shown now.'
 'Sends a notification after every successful import.': 'Sends a notification after every successful import.'
 'Sends a notification when a new app version is available. Requires a configured notification service.': 'Sends a notification when a new app version is available. Requires a configured notification service.'
 'Sends a notification when gear maintenance is due. Requires a configured notification service.': 'Sends a notification when gear maintenance is due. Requires a configured notification service.'
@@ -423,6 +442,7 @@ Source: Source
 'Start date': 'Start date'
 'Start date and time': 'Start date and time'
 'Starts near': 'Starts near'
+Status: Status
 'Stop processing further rules when this rule matches': 'Stop processing further rules when this rule matches'
 'Stops after match': 'Stops after match'
 'Stops here': 'Stops here'
@@ -472,12 +492,14 @@ Tasks: Tasks
 'The name of the gear assigned to the activity': 'The name of the gear assigned to the activity'
 'The number of activities recorded with the gear': 'The number of activities recorded with the gear'
 "The page you're looking for doesn't exist or may have been moved.": "The page you're looking for doesn't exist or may have been moved."
+'The passwords do not match.': 'The passwords do not match.'
 'The segment has been created. Its efforts will show up after the next import run.': 'The segment has been created. Its efforts will show up after the next import run.'
 'The sport type, e.g. "Walk" or "Trail Run"': 'The sport type, e.g. "Walk" or "Trail Run"'
 'The start date, optionally with a custom PHP date format': 'The start date, optionally with a custom PHP date format'
 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.': 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.'
 'The total distance ridden with the gear': 'The total distance ridden with the gear'
 'The unit system used to render distances, elevations, temperatures, etc.': 'The unit system used to render distances, elevations, temperatures, etc.'
+'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr'
 'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'The workout type as set on Strava (Race, Workout or Long run), empty for most activities'
@@ -486,6 +508,7 @@ Tasks: Tasks
 'This action cannot be undone.': 'This action cannot be undone.'
 'This activity has no GPS data.': 'This activity has no GPS data.'
 'This component is fitted to multiple gears, pick the one you serviced.': 'This component is fitted to multiple gears, pick the one you serviced.'
+'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'This only removes the import record, the imported activity is kept.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'This page shows a different key every time it is opened, and only the one in your environment file is applied.'
 "This value is imported from Strava and can't be edited here.": "This value is imported from Strava and can't be edited here."
@@ -515,8 +538,10 @@ Until: Until
 'Upload files': 'Upload files'
 Uploaded: Uploaded
 Uploading...: Uploading...
+'Use at least {minLength} characters.': 'Use at least {minLength} characters.'
 'Used to calculate the training load of this activity': 'Used to calculate the training load of this activity'
 Username: Username
+Users: Users
 'Verify token': 'Verify token'
 Warning: Warning
 'Weather and reverse geocoding have been retrieved.': 'Weather and reverse geocoding have been retrieved.'
@@ -525,6 +550,7 @@ Webhooks: Webhooks
 Wednesday: Wednesday
 Weekday: Weekday
 Weekdays: Weekdays
+'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
 'What is my FTP?': 'What is my FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes."
 'When disabled, gear marked as retired is left out of the chart.': 'When disabled, gear marked as retired is left out of the chart.'
@@ -581,6 +607,7 @@ minutes: minutes
 'on or after': 'on or after'
 'on or before': 'on or before'
 'outside radius': 'outside radius'
+owner: owner
 then: then
 'within radius': 'within radius'
 '{count} files ready to upload': '{count} files ready to upload'

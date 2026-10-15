@@ -3,147 +3,156 @@
 namespace App\Tests\Infrastructure\Tenancy;
 
 use App\Infrastructure\Tenancy\InvalidTenant;
+use App\Infrastructure\Tenancy\Registry\UserRegistry;
 use App\Infrastructure\Tenancy\Tenant;
 use App\Infrastructure\Tenancy\Tenants;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TenantsTest extends TestCase
 {
+    use ProvideTemporaryProjectDir;
+
+    private UserRegistry $registry;
+
+    public function testDiscoverSingleUserInstallation(): void
+    {
+        $tenants = Tenants::discover($this->projectDir, []);
+
+        $this->assertFalse($tenants->isMultiUser());
+        $this->assertTrue($tenants->isEmpty());
+        $this->assertSame($tenants, $tenants->withSecrets());
+    }
+
+    public function testDiscoverItShouldThrowWhenUsersExistWithoutUserUrl(): void
+    {
+        $this->registry->add('alice', true, new \DateTimeImmutable());
+
+        $this->expectExceptionObject(InvalidTenant::missingUserUrl());
+        Tenants::discover($this->projectDir, []);
+    }
+
+    public function testDiscoverMultiUserInstallationWithoutUsers(): void
+    {
+        $tenants = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com']);
+
+        $this->assertTrue($tenants->isMultiUser());
+        $this->assertTrue($tenants->isEmpty());
+    }
+
     public function testDiscover(): void
     {
-        $tenants = Tenants::discover(__DIR__.'/fixtures/valid');
+        $now = new \DateTimeImmutable();
+        $this->registry->add('alice', true, $now);
+        $this->registry->add('bob', false, $now);
+        $this->registry->add('carol', false, $now);
+        $this->registry->setDisabled('carol', true);
+        mkdir($this->getUsersDir().'/bob', 0o777, true);
+        file_put_contents($this->getUsersDir().'/bob/.env', "STRAVA_CLIENT_ID=bob-client\nAPP_URL=https://ignored.example.com\nADMIN_USERNAME=ignored\n");
 
-        $this->assertFalse($tenants->isEmpty());
-        $this->assertCount(2, $tenants);
+        $tenants = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com/']);
+
+        // Disabled users are left out.
         $this->assertSame(['alice', 'bob'], $tenants->getNames());
+        $this->assertCount(2, $tenants);
 
         $alice = $tenants->findByName('alice');
-        $this->assertSame('alice', $alice->getName());
+        $this->assertSame($this->getUsersDir().'/alice', $alice->getDataDirectory());
         $this->assertSame('alice.example.com', $alice->getHost());
-        $this->assertSame(__DIR__.'/fixtures/valid/users/alice', $alice->getDataDirectory());
         $this->assertSame(
             [
-                'DATABASE_DIRECTORY' => __DIR__.'/fixtures/valid/users/alice/storage/database',
+                'DATABASE_DIRECTORY' => $this->getUsersDir().'/alice/storage/database',
+                'APP_URL' => 'https://alice.example.com',
                 'ADMIN_USERNAME' => 'alice',
-                'APP_URL' => 'https://Alice.example.com',
-                'STRAVA_CLIENT_ID' => 'alice-client',
-                'AI_API_KEY' => 'alice-ai-key',
+                'ADMIN_PASSWORD_HASH' => '',
                 'DREEVE_USER' => 'alice',
             ],
             $alice->getEnvironment()
         );
 
-        // A database directory set by the user wins over the default one.
-        $this->assertSame('/custom/bob/database', $tenants->findByName('bob')->getEnvironment()['DATABASE_DIRECTORY']);
-    }
+        // Settings from the user's .env file are used, but the address and login always follow the user.
+        $bob = $tenants->findByName('bob')->getEnvironment();
+        $this->assertSame('bob-client', $bob['STRAVA_CLIENT_ID']);
+        $this->assertSame('https://bob.example.com', $bob['APP_URL']);
+        $this->assertSame('bob', $bob['ADMIN_USERNAME']);
 
-    public function testDiscoverWithoutUsersDirectory(): void
-    {
-        $tenants = Tenants::discover(__DIR__.'/fixtures/does-not-exist');
-
-        $this->assertTrue($tenants->isEmpty());
-        $this->assertCount(0, $tenants);
-    }
-
-    public function testDiscoverWithDuplicateHosts(): void
-    {
-        $this->expectExceptionObject(InvalidTenant::duplicateHost('same.example.com', 'alice', 'bob'));
-
-        Tenants::discover(__DIR__.'/fixtures/duplicate-host');
-    }
-
-    public function testFindByHost(): void
-    {
-        $tenants = Tenants::discover(__DIR__.'/fixtures/valid');
-
-        $this->assertSame('alice', $tenants->findByHost('alice.example.com')?->getName());
-        $this->assertSame('alice', $tenants->findByHost('ALICE.example.com')?->getName());
-        $this->assertSame('bob', $tenants->findByHost('bob.example.com')?->getName());
+        $this->assertSame('bob', $tenants->findByHost('BOB.example.com')?->getName());
+        $this->assertNull($tenants->findByHost('carol.example.com'));
         $this->assertNull($tenants->findByHost('example.com'));
-        $this->assertNull($tenants->findByHost('localhost'));
     }
 
     public function testFindByNameWhenUnknown(): void
     {
-        $tenants = Tenants::discover(__DIR__.'/fixtures/valid');
+        $tenants = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com']);
 
         $this->expectExceptionObject(InvalidTenant::unknown('carol', $tenants));
-
         $tenants->findByName('carol');
     }
 
-    public function testGetAllEnvironmentVariableNames(): void
+    public function testDiscoverItShouldThrowOnReservedVariableInUsersEnvFile(): void
     {
-        $this->assertSame(
-            ['DATABASE_DIRECTORY', 'ADMIN_USERNAME', 'APP_URL', 'STRAVA_CLIENT_ID', 'AI_API_KEY', 'DREEVE_USER'],
-            Tenants::discover(__DIR__.'/fixtures/valid')->getAllEnvironmentVariableNames()
-        );
+        $this->registry->add('alice', true, new \DateTimeImmutable());
+        mkdir($this->getUsersDir().'/alice', 0o777, true);
+        file_put_contents($this->getUsersDir().'/alice/.env', "APP_ENV=dev\n");
+
+        $this->expectExceptionObject(InvalidTenant::reservedVariable('alice', 'APP_ENV'));
+        Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com']);
     }
 
-    public function testItShouldThrowWhenHostIsMissing(): void
+    public function testWithSecrets(): void
     {
-        $this->expectExceptionObject(InvalidTenant::missingHost('alice'));
+        $this->registry->add('alice', true, new \DateTimeImmutable());
+
+        $alice = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com'])
+            ->withSecrets()
+            ->findByName('alice');
+
+        $secretFile = $this->getUsersDir().'/alice/'.Tenant::APP_SECRET_FILE_NAME;
+        $this->assertMatchesRegularExpression('/^[a-f0-9]{64}$/', $alice->getEnvironment()['APP_SECRET']);
+        $this->assertSame($alice->getEnvironment()['APP_SECRET'], trim((string) file_get_contents($secretFile)));
+        $this->assertFilePermissions(0o600, $secretFile);
+        $this->assertDirectoryExists($this->getUsersDir().'/alice/storage/database');
+
+        // Every worker and every restart uses the same secret.
+        $again = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com'])->withSecrets()->findByName('alice');
+        $this->assertSame($alice->getEnvironment()['APP_SECRET'], $again->getEnvironment()['APP_SECRET']);
+    }
+
+    public function testWithSecretsKeepsConfiguredAppSecret(): void
+    {
+        $this->registry->add('alice', true, new \DateTimeImmutable());
+        mkdir($this->getUsersDir().'/alice', 0o777, true);
+        file_put_contents($this->getUsersDir().'/alice/.env', "APP_SECRET=configured-secret\n");
+
+        $alice = Tenants::discover($this->projectDir, ['DREEVE_USER_URL' => 'https://{user}.example.com'])->withSecrets()->findByName('alice');
+
+        $this->assertSame('configured-secret', $alice->getEnvironment()['APP_SECRET']);
+        $this->assertFileDoesNotExist($this->getUsersDir().'/alice/'.Tenant::APP_SECRET_FILE_NAME);
+    }
+
+    public function testFromArrayItShouldThrowOnDuplicateHost(): void
+    {
+        $this->expectExceptionObject(InvalidTenant::duplicateHost('same.example.com', 'alice', 'bob'));
 
         Tenants::fromArray([
-            Tenant::fromEnvironment('alice', '/users/alice', ['STRAVA_CLIENT_ID' => 'alice-client']),
+            Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://same.example.com']),
+            Tenant::fromEnvironment('bob', '/users/bob', ['APP_URL' => 'https://SAME.example.com']),
         ]);
     }
 
-    #[DataProvider('provideInvalidNames')]
-    public function testItShouldThrowOnInvalidName(string $name): void
+    #[\Override]
+    protected function setUp(): void
     {
-        $this->expectExceptionObject(InvalidTenant::invalidName($name));
+        parent::setUp();
 
-        Tenant::fromEnvironment($name, '/users/'.$name, ['APP_URL' => 'https://example.com']);
+        $this->createProjectDir();
+        $this->registry = new UserRegistry($this->getUsersDir());
     }
 
-    public static function provideInvalidNames(): iterable
+    #[\Override]
+    protected function tearDown(): void
     {
-        yield 'empty' => [''];
-        yield 'uppercase' => ['Alice'];
-        yield 'starts with dash' => ['-alice'];
-        yield 'contains dot' => ['al.ice'];
-        yield 'contains slash' => ['al/ice'];
-    }
+        $this->removeProjectDir();
 
-    #[DataProvider('provideReservedVariables')]
-    public function testItShouldThrowOnReservedVariable(string $variable): void
-    {
-        $this->expectExceptionObject(InvalidTenant::reservedVariable('alice', $variable));
-
-        Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://example.com', $variable => 'value']);
-    }
-
-    public static function provideReservedVariables(): iterable
-    {
-        yield 'user' => ['DREEVE_USER'];
-        yield 'app env' => ['APP_ENV'];
-        yield 'trusted proxies' => ['TRUSTED_PROXIES'];
-    }
-
-    public function testItShouldThrowWhenEnvFileIsMissing(): void
-    {
-        $directory = __DIR__.'/fixtures/valid/users/no-env-file';
-        $this->expectExceptionObject(InvalidTenant::missingEnvFile('no-env-file', $directory.'/.env'));
-
-        Tenant::fromDirectory($directory);
-    }
-
-    public function testEnsureDirectoriesExist(): void
-    {
-        $directory = sys_get_temp_dir().'/dreeve-tenant-test-'.bin2hex(random_bytes(5));
-        $tenant = Tenant::fromEnvironment('alice', $directory, ['APP_URL' => 'https://example.com']);
-
-        $tenant->ensureDirectoriesExist();
-        // Running it twice must not fail.
-        $tenant->ensureDirectoriesExist();
-
-        foreach (['storage/database', 'storage/files', 'build', 'watch'] as $subDirectory) {
-            $this->assertDirectoryExists($directory.'/'.$subDirectory);
-            rmdir($directory.'/'.$subDirectory);
-        }
-        rmdir($directory.'/storage');
-        rmdir($directory);
+        parent::tearDown();
     }
 }

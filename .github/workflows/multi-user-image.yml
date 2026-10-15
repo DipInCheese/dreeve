@@ -1,6 +1,7 @@
-# Builds the multi-user image of this fork and publishes it to the GitHub Container Registry:
-#   ghcr.io/dipincheese/dreeve:multi-user        (always the latest build of feature/multi-user)
-#   ghcr.io/dipincheese/dreeve:multi-user-<sha>  (one tag per commit, to pin or roll back)
+# Builds the multi-user image of this fork and publishes it to the GitHub Container Registry
+# of the fork's owner:
+#   ghcr.io/<owner>/dreeve:multi-user        (always the latest build of feature/multi-user)
+#   ghcr.io/<owner>/dreeve:multi-user-<sha>  (one tag per commit, to pin or roll back)
 name: Publish multi-user image
 on:
   workflow_dispatch:
@@ -19,16 +20,17 @@ permissions:
 jobs:
   publish:
     name: Build and publish image
-    # Never runs in other forks, nor in the original repository.
-    if: github.repository == 'DipInCheese/dreeve'
+    # Runs in forks only, never in the original repository.
+    if: github.repository_owner != 'dreeveapp'
     runs-on: ubuntu-latest
-    env:
-      IMAGE: ghcr.io/dipincheese/dreeve
     steps:
       - name: Check out the repo
         uses: actions/checkout@v7
         with:
           persist-credentials: false
+
+      - name: Determine image name
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v4

@@ -3,13 +3,14 @@
 #   1. Put this file and .env (from example.env) in an empty folder.
 #   2. Fill in .env.
 #   3. docker compose up -d
+#   4. docker compose logs app   -> open the link to pick your password.
 #
 # Everything Dreeve stores ends up in ./data, one sub folder per user. Back up that folder.
 name: dreeve
 
 services:
   app:
-    image: ghcr.io/dipincheese/dreeve:multi-user
+    image: ${DREEVE_IMAGE:?Set DREEVE_IMAGE in .env}
     container_name: dreeve
     restart: unless-stopped
     env_file: .env
@@ -24,7 +25,7 @@ services:
 
   # Recurring background work (imports, notifications), one worker per user.
   daemon:
-    image: ghcr.io/dipincheese/dreeve:multi-user
+    image: ${DREEVE_IMAGE:?Set DREEVE_IMAGE in .env}
     container_name: dreeve-daemon
     restart: unless-stopped
     env_file: .env
@@ -32,15 +33,15 @@ services:
       - ./data:/var/www/users
     command: ["bin/console", "app:daemon:run"]
     healthcheck:
-      test: ["CMD-SHELL", "pgrep -f 'php bin/console app:daemon:run' > /dev/null"]
+      test: ["CMD-SHELL", "pgrep -f 'docker-entrypoint.sh bin/console app:daemon:run' > /dev/null"]
       start_period: 60s
     depends_on:
       - app
     networks:
       - dreeve
 
-  # Connects to Cloudflare, which forwards every user's (sub)domain to the app.
-  # Only gets the tunnel token, none of the passwords or other settings.
+  # Connects to Cloudflare, which forwards every user's subdomain to the app.
+  # Only gets the tunnel token, nothing else from .env.
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: dreeve-cloudflared

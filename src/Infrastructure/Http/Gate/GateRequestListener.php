@@ -50,7 +50,9 @@ final readonly class GateRequestListener implements EventSubscriberInterface
     {
         return 1 === preg_match('#^/(_(profiler|wdt)|css|images|js|files)/#', $path)
             || '/api/v1' === $path || str_starts_with($path, '/api/v1/')
-            || StravaWebhookRequestHandler::STRAVA_WEBHOOKS_ENDPOINT === $path;
+            || StravaWebhookRequestHandler::STRAVA_WEBHOOKS_ENDPOINT === $path
+            // Invited users of a multi-user installation must be able to pick a password before anything is set up.
+            || str_starts_with($path, '/invite/');
     }
 
     /**

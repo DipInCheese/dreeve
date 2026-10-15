@@ -10,3 +10,4 @@ framework:
             - authenticate
             - logout
             - dispatch-command
+            - accept-invite

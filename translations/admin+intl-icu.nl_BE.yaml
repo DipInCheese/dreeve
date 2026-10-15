@@ -42,13 +42,17 @@ Activity: Activiteit
 'Add service': 'Dienst toevoegen'
 'Add task': 'Taak toevoegen'
 'Add tile layer': 'Tegellaag toevoegen'
+'Add user': 'Add user'
 'Add weight': 'Gewicht toevoegen'
 'Add widget': 'Widget toevoegen'
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Voeg {fit}-, {tcx}- of {gpx}-bestanden toe. Ze worden om de paar minuten verwerkt.'
+Adding...: Adding...
+Address: Address
 Admin: Beheer
 'Admin panel': Beheerpaneel
 'Admin username': 'Gebruikersnaam beheerder'
 'Advanced (per-date & per-sport-type overrides)': 'Geavanceerd (overschrijvingen per datum & per sporttype)'
+'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
 'Age-based estimate': 'Schatting op basis van leeftijd'
 'All associated maintenance tasks and logs will be removed. This action cannot be undone.': 'Alle bijbehorende onderhoudstaken en logs worden verwijderd. Deze actie kan niet ongedaan gemaakt worden.'
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
@@ -71,6 +75,7 @@ Apply: Toepassen
 'Are you sure you want to delete {name}?': 'Ben je zeker dat je {name} wil verwijderen?'
 'Are you sure you want to delete {task} on {component} for {gear}, performed on {date}?': 'Ben je zeker dat je {task} op {component} voor {gear}, uitgevoerd op {date}, wil verwijderen?'
 'Are you sure you want to remove the {widget} widget?': 'Ben je zeker dat je de widget {widget} wil verwijderen?'
+'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Uitrusting toewijzen'
 'Athlete settings': Atleetinstellingen
 'Attached to': 'Gekoppeld aan'
@@ -114,6 +119,7 @@ Configured: Geconfigureerd
 'Connected sensors': 'Verbonden sensoren'
 'Continues to next rule': 'Gaat verder naar de volgende regel'
 'Copy this API key': 'Kopieer deze API-sleutel'
+'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': Cron-expressie
 "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Cron-expressie die bepaalt wanneer de actie uitgevoerd wordt, bv. '0 14 * * *' wordt elke dag om 14:00 uitgevoerd. Zie crontab.guru voor hulp."
 Custom: Custom
@@ -133,6 +139,7 @@ Delete: Verwijderen
 Deleting...: 'Aan het verwijderen...'
 Description: Beschrijving
 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Gedetailleerde instructies vind je in {linkOpen}de documentatie{linkClose}.'
+Disable: Disable
 Disabled: Uitgeschakeld
 Distance: Afstand
 'Do not download activity photos': "Geen activiteitsfoto's downloaden"
@@ -155,6 +162,7 @@ Edit: Bewerken
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Hoogte
+Enable: Enable
 'Enable AI integration': 'AI-integratie inschakelen'
 'Enable Strava webhooks': 'Strava-webhooks inschakelen'
 Enabled: Ingeschakeld
@@ -166,6 +174,7 @@ Endpoint: Endpoint
 'Enter your password': 'Geef je wachtwoord in'
 'Enter your username': 'Geef je gebruikersnaam in'
 Every: Elke
+'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 FTP: FTP
 'FTP history (cycling)': 'FTP-historiek (fietsen)'
 'FTP history (running)': 'FTP-historiek (lopen)'
@@ -225,6 +234,9 @@ Info: Info
 Integrations: Integraties
 'Intro text': Introtekst
 'Invalid CSRF token.': 'Ongeldig CSRF-token.'
+'Invite link': 'Invite link'
+'Invite link for {name}': 'Invite link for {name}'
+Invited: Invited
 Label: Label
 'Last name': Achternaam
 Latitude: Breedtegraad
@@ -238,6 +250,7 @@ Locale: Taalinstelling
 Log: Log
 'Log maintenance': 'Onderhoud loggen'
 Longitude: Lengtegraad
+'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': Onderhoudslog
 'Maintenance logs will appear here once maintenance has been registered.': 'Onderhoudslogs verschijnen hier zodra er onderhoud geregistreerd is.'
 'Maintenance tasks': Onderhoudstaken
@@ -265,6 +278,7 @@ Monday: Maandag
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Beweegtijd
+'New invite link': 'New invite link'
 'No activities imported yet.': 'Nog geen activiteiten geïmporteerd.'
 'No activities match the current filters.': 'Geen activiteiten die overeenkomen met de huidige filters.'
 'No activity found for that ID.': 'Geen activiteit gevonden voor dat ID.'
@@ -316,6 +330,7 @@ Password: Wachtwoord
 'Pick a device you already recorded with, or type a new name.': 'Kies een toestel waarmee je al geregistreerd hebt, of typ een nieuwe naam.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
 'Pick the rules you want to apply to see which activities would change.': 'Kies de regels die je wil toepassen om te zien welke activiteiten zouden wijzigen.'
+'Pick your password': 'Pick your password'
 'Polyline color': Routekleur
 'Preview selection': 'Selectie bekijken'
 'Processed on': 'Verwerkt op'
@@ -340,10 +355,12 @@ Remove: Verwijderen
 'Remove installation': 'Remove installation'
 'Remove task': 'Taak verwijderen'
 'Remove tile layer': 'Tegellaag verwijderen'
+'Remove user': 'Remove user'
 'Remove widget': 'Widget verwijderen'
 Removing...: 'Aan het verwijderen...'
 'Render the map tiles in greyscale': 'Kaarttegels in grijstinten weergeven'
 "Reorder widgets and set each widget's width.": 'Herschik widgets en stel de breedte van elke widget in.'
+'Repeat password': 'Repeat password'
 'Require a login for the entire app': 'Login vereisen voor de volledige app'
 'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.': 'Vereis een login voor de volledige app, niet enkel het beheerpaneel. Aanbevolen als je instantie bereikbaar is via het internet, wat nodig is voor de Strava-webhook.'
 'Reset dashboard to default': 'Dashboard terugzetten naar standaard'
@@ -362,6 +379,7 @@ Rules: Regels
 'Rules to apply': 'Toe te passen regels'
 Saturday: Zaterdag
 Save: Opslaan
+'Save password': 'Save password'
 'Save settings': 'Instellingen opslaan'
 Saved: Opgeslagen
 Saving...: 'Aan het opslaan...'
@@ -384,6 +402,7 @@ Security: Beveiliging
 'Select sensors': 'Sensoren selecteren'
 'Select sport types': 'Sporttypes selecteren'
 'Select the serviced gear…': 'Selecteer de onderhouden uitrusting…'
+'Send this link to {name}. It works once, is valid for 7 days and is only shown now.': 'Send this link to {name}. It works once, is valid for 7 days and is only shown now.'
 'Sends a notification after every successful import.': 'Stuurt een melding na elke geslaagde import.'
 'Sends a notification when a new app version is available. Requires a configured notification service.': 'Stuurt een melding wanneer er een nieuwe versie van de app beschikbaar is. Vereist een geconfigureerde meldingsdienst.'
 'Sends a notification when gear maintenance is due. Requires a configured notification service.': 'Stuurt een melding wanneer onderhoud van uitrusting nodig is. Vereist een geconfigureerde meldingsdienst.'
@@ -423,6 +442,7 @@ Source: Bron
 'Start date': Startdatum
 'Start date and time': 'Startdatum en -tijd'
 'Starts near': 'Start nabij'
+Status: Status
 'Stop processing further rules when this rule matches': 'Stop met het verwerken van volgende regels wanneer deze regel overeenkomt'
 'Stops after match': 'Stopt na overeenkomst'
 'Stops here': 'Stopt hier'
@@ -472,12 +492,14 @@ Tasks: Taken
 'The name of the gear assigned to the activity': 'De naam van de uitrusting die aan de activiteit gekoppeld is'
 'The number of activities recorded with the gear': 'Het aantal activiteiten geregistreerd met de uitrusting'
 "The page you're looking for doesn't exist or may have been moved.": 'De pagina die je zoekt bestaat niet of is mogelijk verplaatst.'
+'The passwords do not match.': 'The passwords do not match.'
 'The segment has been created. Its efforts will show up after the next import run.': 'The segment has been created. Its efforts will show up after the next import run.'
 'The sport type, e.g. "Walk" or "Trail Run"': 'Het sporttype, bv. "Walk" of "Trail Run"'
 'The start date, optionally with a custom PHP date format': 'De startdatum, optioneel met een eigen PHP-datumformaat'
 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.': "De URL's van de tegellagen om de kaarten weer te geven. Voeg er meer dan één toe om ze te stapelen, bijvoorbeeld om plaatsnamen over een satellietlaag te leggen."
 'The total distance ridden with the gear': 'De totale afstand afgelegd met de uitrusting'
 'The unit system used to render distances, elevations, temperatures, etc.': 'Het eenhedenstelsel voor afstanden, hoogtes, temperaturen, enz.'
+'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'Het beeld waarin de heatmap opent. Zowel het middelpunt als het zoomniveau zijn nodig; laat ze leeg om automatisch op je meest actieve gebied in te zoomen.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'De breedte van deze widget moet ingesteld worden op de pagina met dashboardinstellingen. Ze schaalt niet automatisch mee met het aantal activiteiten dat je instelt.'
 'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'Het type training zoals ingesteld op Strava (Race, Workout of Long run), leeg voor de meeste activiteiten'
@@ -486,6 +508,7 @@ Tasks: Taken
 'This action cannot be undone.': 'Deze actie kan niet ongedaan gemaakt worden.'
 'This activity has no GPS data.': 'This activity has no GPS data.'
 'This component is fitted to multiple gears, pick the one you serviced.': 'Dit onderdeel zit op meerdere uitrustingen, kies degene die je onderhouden hebt.'
+'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Dit verwijdert enkel het importrecord, de geïmporteerde activiteit blijft behouden.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Deze pagina toont bij elke opening een andere sleutel, en enkel die in je omgevingsbestand wordt toegepast.'
 "This value is imported from Strava and can't be edited here.": 'Deze waarde wordt geïmporteerd van Strava en kan hier niet bewerkt worden.'
@@ -515,8 +538,10 @@ Until: Until
 'Upload files': 'Bestanden uploaden'
 Uploaded: Geüpload
 Uploading...: 'Aan het uploaden...'
+'Use at least {minLength} characters.': 'Use at least {minLength} characters.'
 'Used to calculate the training load of this activity': 'Gebruikt om de trainingsbelasting van deze activiteit te berekenen'
 Username: Gebruikersnaam
+Users: Users
 'Verify token': Verificatietoken
 Warning: Waarschuwing
 'Weather and reverse geocoding have been retrieved.': 'Weer en reverse geocoding zijn opgehaald.'
@@ -525,6 +550,7 @@ Webhooks: Webhooks
 Wednesday: Woensdag
 Weekday: Weekdag
 Weekdays: Weekdagen
+'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
 'What is my FTP?': 'Wat is mijn FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Indien aangevinkt, worden er geen verdere regels verwerkt zodra deze regel overeenkomt. Vink uit om latere regels ook te laten uitvoeren. Die kunnen de wijzigingen van deze regel overschrijven.'
 'When disabled, gear marked as retired is left out of the chart.': 'Indien uitgeschakeld, wordt uitrusting die buiten gebruik is weggelaten uit de grafiek.'
@@ -581,6 +607,7 @@ minutes: minuten
 'on or after': 'op of na'
 'on or before': 'op of voor'
 'outside radius': 'buiten straal'
+owner: owner
 then: dan
 'within radius': 'binnen straal'
 '{count} files ready to upload': '{count} bestanden klaar om te uploaden'
