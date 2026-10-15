@@ -64,12 +64,34 @@ class ConditionalRedirectGateTest extends TestCase
         $this->assertSame('/gate-target', $response->getTargetUrl());
     }
 
-    private function gate(bool $shouldGuard): ConditionalRedirectGate
+    public function testItHandlesAppsRunningUnderABasePath(): void
+    {
+        // A user of a multi-user installation at https://dreeve.example.com/alice: generated URLs start with /alice.
+        $gate = $this->gate(shouldGuard: true, generatedTarget: '/alice/gate-target');
+        $request = static fn (string $uri): Request => Request::create($uri, server: [
+            'SCRIPT_NAME' => '/alice/index.php',
+            'SCRIPT_FILENAME' => 'index.php',
+        ]);
+
+        // The redirect target itself is not redirected again (no redirect loop).
+        $decision = $gate->handle($request('/alice/gate-target'));
+        $this->assertTrue($decision->hasBeenApplied());
+        $this->assertNull($decision->getResponse());
+
+        $decision = $gate->handle($request('/alice/allowed'));
+        $this->assertNull($decision->getResponse());
+
+        $response = $gate->handle($request('/alice/dashboard'))->getResponse();
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertSame('/alice/gate-target', $response->getTargetUrl());
+    }
+
+    private function gate(bool $shouldGuard, string $generatedTarget = '/gate-target'): ConditionalRedirectGate
     {
         // The route name 'gate_target' resolves to '/gate-target'; the base class logic is
         // what's under test here, so the router is stubbed.
         $urlGenerator = $this->createStub(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')->willReturn('/gate-target');
+        $urlGenerator->method('generate')->willReturn($generatedTarget);
 
         return new class($urlGenerator, $shouldGuard) extends ConditionalRedirectGate {
             public function __construct(UrlGeneratorInterface $urlGenerator, private readonly bool $shouldGuard)

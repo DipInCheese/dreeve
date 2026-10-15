@@ -32,9 +32,12 @@ abstract class ConditionalRedirectGate implements Gate
         }
 
         $target = $this->urlGenerator->generate($this->redirectToRouteName());
+        // When the app runs under a base path (e.g. /alice), generated URLs start with it but the path info does not.
+        $baseUrl = $request->getBaseUrl();
+        $targetPath = '' !== $baseUrl && str_starts_with($target, $baseUrl.'/') ? substr($target, strlen($baseUrl)) : $target;
 
         $path = $request->getPathInfo();
-        foreach ([...$this->allowedPaths(), $target] as $allowed) {
+        foreach ([...$this->allowedPaths(), $targetPath] as $allowed) {
             if ($this->matches($path, $allowed)) {
                 return GateDecision::allow();
             }
