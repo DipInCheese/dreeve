@@ -21,6 +21,7 @@ enum ImportMode: string
 
     public static function fromServerVar(): self
     {
-        return self::from($_SERVER['IMPORT_MODE']);
+        // Same default as the IMPORT_MODE parameter in config/services.yaml.
+        return self::from($_SERVER['IMPORT_MODE'] ?? self::FILES->value);
     }
 }
