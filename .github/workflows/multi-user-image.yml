@@ -1,15 +1,17 @@
 # Builds the multi-user image of this fork and publishes it to the GitHub Container Registry
 # of the fork's owner:
 #   ghcr.io/<owner>/dreeve:multi-user        (always the latest build of feature/multi-user)
-#   ghcr.io/<owner>/dreeve:multi-user-<sha>  (one tag per commit, to pin or roll back)
+#   ghcr.io/<owner>/dreeve:health            (always the latest build of feature/health)
+#   ghcr.io/<owner>/dreeve:<tag>-<sha>        (one tag per commit, to pin or roll back)
 name: Publish multi-user image
 on:
   workflow_dispatch:
   push:
     branches:
       - feature/multi-user
+      - feature/health
 concurrency:
-  group: multi-user-image
+  group: multi-user-image-${{ github.ref }}
   cancel-in-progress: true
 # Least privilege: read the code, write packages, sign the provenance attestation.
 permissions:
@@ -45,8 +47,10 @@ jobs:
         with:
           images: ${{ env.IMAGE }}
           tags: |
-            type=raw,value=multi-user
-            type=sha,prefix=multi-user-,format=short
+            type=raw,value=multi-user,enable=${{ github.ref == 'refs/heads/feature/multi-user' }}
+            type=sha,prefix=multi-user-,format=short,enable=${{ github.ref == 'refs/heads/feature/multi-user' }}
+            type=raw,value=health,enable=${{ github.ref == 'refs/heads/feature/health' }}
+            type=sha,prefix=health-,format=short,enable=${{ github.ref == 'refs/heads/feature/health' }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
