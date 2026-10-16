@@ -35,9 +35,10 @@ final readonly class SideBar
                     RootCacheTag::ACTIVITIES,
                     RootCacheTag::ACTIVITY_IMAGES,
                     RootCacheTag::GEAR,
+                    RootCacheTag::SEGMENTS,
                 ),
             ),
-            render: fn (): string => $this->twig->load('html/navigation/sidebar.html.twig')->render([
+            render: fn (): string => $this->twig->load('html/navigation/sidebar-items.html.twig')->render([
                 'activeSection' => $activeSection?->value,
                 'totalActivityCount' => $this->activityIdRepository->count(),
                 'totalPhotoCount' => $this->imageRepository->count(),

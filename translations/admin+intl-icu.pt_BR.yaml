@@ -46,7 +46,6 @@ Activity: Atividade
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adicione arquivos {fit}, {tcx} ou {gpx}. Eles são processados a cada poucos minutos.'
 Adding...: Adding...
 Address: Address
-Admin: Admin
 'Admin panel': 'Painel de administração'
 'Admin username': 'Nome de usuário do admin'
 'Advanced (per-date & per-sport-type overrides)': 'Avançado (substituições por data e por tipo de esporte)'
@@ -348,7 +347,6 @@ Resetting...: Restaurando...
 Retired: Aposentado
 'Retired components keep their history, but are hidden and no longer tracked.': 'Retired components keep their history, but are hidden and no longer tracked.'
 'Retry weather and reverse geocoding': 'Tentar novamente clima e geocodificação reversa'
-'Return to app': 'Retornar ao aplicativo'
 Ride: Pedal
 'Rolling window (days)': 'Estatísticas recentes (dias)'
 Rules: Regras

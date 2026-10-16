@@ -23,7 +23,7 @@ Activity: Activity
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.'
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.'
 'Adaptive & Inclusive Sports': 'Adaptive & Inclusive Sports'
-'Admin panel': 'Admin panel'
+'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': 'Aero sensor'
 Afternoon: Afternoon
 All: All
@@ -289,6 +289,7 @@ Neutral: Neutral
 'Next milestone': 'Next milestone'
 Night: Night
 'No activities': 'No activities'
+'No activities yet': 'No activities yet'
 'No data available': 'No data available'
 'No maintenance tasks': 'No maintenance tasks'
 'No milestones achieved yet': 'No milestones achieved yet'
@@ -556,6 +557,7 @@ Tue.: Tue.
 Unspecified: Unspecified
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
+'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': 'User badge'
 'Velo Mobile': 'Velo Mobile'

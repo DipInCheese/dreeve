@@ -37,7 +37,7 @@ class MonthlyStatsRequestHandlerTest extends ControllerWebTestCase
     {
         $page = new Crawler((string) $this->getContainer()->get(MonthlyStatsRequestHandler::class)->handle()->getContent());
 
-        $this->assertCount(1, $page->filter('#table-months tr'));
+        $this->assertStringContainsString('No activities yet', $page->filter('main')->text());
     }
 
     #[\Override]

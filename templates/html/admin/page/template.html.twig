@@ -17,6 +17,9 @@
         {% block stylesheets %}{% endblock %}
         <script>
             document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+            if (localStorage.getItem('sideNavCollapsed') === 'true') {
+                document.documentElement.setAttribute('data-sidebar-collapsed', '');
+            }
         </script>
     </head>
     <body class="min-h-screen bg-gray-50 text-gray-900 antialiased admin">
@@ -24,15 +27,21 @@
         {% set hideAdminNavigation = hideAdminNavigation ?? false %}
         {% set hasSubNav = isActiveNavItem({'/admin/gear': false}) or isActiveNavItem({'/admin/settings': false}) or isActiveNavItem({'/admin/automation-rules': false}) %}
         <!-- NAVIGATION -->
-        {% include 'html/admin/navigation/top-nav-bar.html.twig' with {
-            showDrawerToggle: not hideAdminNavigation,
-            showReturnToApp: not hideAdminNavigation,
+        {% include 'html/navigation/top-nav-bar.html.twig' with {
+            inAppContext: not hideAdminNavigation,
+            subTitle: null,
+            profilePictureUrl: hideAdminNavigation ? null : appProfilePictureUrl(),
+            athlete: hideAdminNavigation ? null : appAthlete(),
         } %}
         <!-- SIDEBAR -->
         {% if not hideAdminNavigation %}
-            {% include 'html/admin/navigation/icon-rail.html.twig' %}
+            {# Pages with a sub menu shrink the sidebar to its icons and show the sub menu next to it. #}
+            <aside id="drawer-navigation" class="{{ hasSubNav ? 'sidebar--with-contextual-panel' }} -translate-x-full md:translate-x-0 transition-transform" aria-label="Sidenav">
+                {{ appSidebar() }}
+                {% include 'html/admin/navigation/contextual-panel.html.twig' %}
+            </aside>
         {% endif %}
-        <main class="p-4 {{ hideAdminNavigation ? '' : (hasSubNav ? 'md:ml-76' : 'md:ml-16') }} h-auto min-h-screen pt-20 text-gray-900">
+        <main class="p-4 {{ hideAdminNavigation ? '' : (hasSubNav ? 'md:ml-76' : 'md:ml-64 sidebar-collapsed:md:ml-16') }} h-auto min-h-screen pt-20 text-gray-900">
             {% block main %}
             {% endblock main %}
         </main>

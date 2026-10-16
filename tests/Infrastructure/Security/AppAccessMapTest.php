@@ -46,7 +46,6 @@ class AppAccessMapTest extends TestCase
         yield 'images' => ['/files/gear/bike.png'];
         yield 'badge' => ['/badge/zwift.svg'];
         yield 'ai chat' => ['/chat'];
-        yield 'finish setup' => ['/finish-setup'];
         yield 'former strava oauth page' => ['/strava-oauth'];
         yield 'not an invite' => ['/invitee'];
         yield 'prefix of a public directory' => ['/assets-overview'];

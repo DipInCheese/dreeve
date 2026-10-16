@@ -23,7 +23,7 @@ Activity: Activité
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': "Charge d'Entraînement Aiguë (Fatigue) - Moyenne pondérée exponentiellement sur 7 jours de votre charge d'entraînement quotidienne. Représente la fatigue à court terme."
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': 'Ratio Aiguë:Chronique (A:C) - Rapport entre ATL et CTL. Indique le risque de blessure.'
 'Adaptive & Inclusive Sports': 'Sports adaptés et inclusifs'
-'Admin panel': 'Panneau admin'
+'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': 'Capteur aero'
 Afternoon: Après-midi
 All: Tous
@@ -289,6 +289,7 @@ Neutral: Neutre
 'Next milestone': 'Prochain jalon'
 Night: Nuit
 'No activities': 'Aucune activité'
+'No activities yet': 'No activities yet'
 'No data available': 'Aucune donnée disponible'
 'No maintenance tasks': 'No maintenance tasks'
 'No milestones achieved yet': 'Aucun jalon atteint'
@@ -556,6 +557,7 @@ Tue.: Mar.
 Unspecified: 'Non spécifié'
 'Upcoming maintenance': 'Maintenance à venir'
 'Upcoming numbers': 'Upcoming numbers'
+'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': "Badge d'utilisateur"
 'Velo Mobile': Vélomobile

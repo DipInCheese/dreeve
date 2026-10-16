@@ -84,8 +84,8 @@ class MonthRequestHandlerTest extends ControllerWebTestCase
     }
 
     /**
-     * AppHasActivitiesGate redirects every request while there are no activities, so an empty
-     * database can only be observed through the handler.
+     * Without activities pages show an empty state, so an empty database can only be observed
+     * through the handler.
      */
     public function testItDoesNotResolveWhenThereAreNoActivities(): void
     {

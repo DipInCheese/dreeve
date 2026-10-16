@@ -3,7 +3,6 @@
 namespace App\Tests\Infrastructure\Http\Gate;
 
 use App\Infrastructure\Http\Gate\AdminAllowedIpGate;
-use App\Infrastructure\Http\Gate\AppHasActivitiesGate;
 use App\Infrastructure\Http\Gate\Gate;
 use App\Infrastructure\Http\Gate\GateRequestListener;
 use App\Infrastructure\Http\Gate\ValidAppSettingsGate;
@@ -21,7 +20,6 @@ class GateRegistrationTest extends ContainerTestCase
         $this->assertSame([
             AdminAllowedIpGate::class,          // priority 100
             ValidAppSettingsGate::class,        // priority 80
-            AppHasActivitiesGate::class,        // priority 70
         ], $gateClasses);
     }
 

@@ -16,7 +16,6 @@ use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\CQRS\Command\Deserialize\CouldNotDeserializeCommand;
 use App\Infrastructure\Exception\EntityNotFound;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -35,7 +34,7 @@ final readonly class ActivityUpdateRequestHandler
     }
 
     #[Route(path: '/api/v1/activities/{activityId}', name: 'api_v1_activity_update', methods: ['PATCH'], priority: 3)]
-    public function handle(string $activityId, Request $request): \App\Controller\Api\V1\Activity\ActivityResponse
+    public function handle(string $activityId, Request $request): ActivityResponse
     {
         try {
             $activity = $this->activityRepository->find(ActivityId::fromString($activityId));

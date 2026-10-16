@@ -18,11 +18,19 @@ import {initImageDropZones} from "./features/file-upload/image-dropzone-upload";
 import initDashboardLayout from "./features/dashboard/dashboard-layout";
 import initSortableLists from "./components/sortable-list";
 import initAsyncContent from "./components/async-content";
+import initSidebar from "./components/sidebar";
+import DarkModeManager from "./components/dark-mode";
 import {eventBus, Events} from "./core/event-bus";
 import {initDrawers, initCollapses} from "flowbite";
 
 initDrawers();
 initCollapses();
+
+// The management pages share the app's top bar and sidebar.
+initSidebar();
+if (document.querySelector('.dark-mode-toggle input')) {
+    new DarkModeManager().attachEventListeners();
+}
 
 initPasswordToggle();
 initFormLoadingState();

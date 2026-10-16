@@ -132,7 +132,7 @@ class ManageGearFormRequestHandlerTest extends AdminWebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertCount(0, $crawler->filter('form[data-dispatch-command="delete-gear"]'));
-        $this->assertCount(0, $crawler->filter('button[type="submit"]'));
+        $this->assertCount(0, $crawler->filter('main button[type="submit"]'));
         $this->assertStringContainsString("My bike can't be deleted", $crawler->filter('.modal-like-form')->text());
         $this->assertStringContainsString('Set its status to Retired', $crawler->filter('.modal-like-form')->text());
         $this->assertCount(0, $crawler->filter('.modal-like-form a.btn--primary, .modal-like-form a.btn--secondary'));

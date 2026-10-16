@@ -51,7 +51,6 @@ class SettingsRequestHandlerTest extends AdminWebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSame($redirectTo, $crawler->filter('form[data-dispatch-command]')->attr('data-redirect'));
-        $this->assertSame($redirectTo, $crawler->filter('nav a:has(span:contains("Return to app"))')->attr('href'));
     }
 
     #[DataProvider('provideDeepLinkedSettingsGroupNames')]
@@ -63,7 +62,6 @@ class SettingsRequestHandlerTest extends AdminWebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSame('', $crawler->filter('form[data-dispatch-command]')->attr('data-redirect'));
-        $this->assertSame('/', $crawler->filter('nav a:has(span:contains("Return to app"))')->attr('href'));
     }
 
     #[DataProvider('provideUnsafeRedirectTos')]

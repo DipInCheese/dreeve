@@ -1,6 +1,5 @@
 import "./core/public-path";
 import {eventBus, Events} from "./core/event-bus";
-import {updateGithubLatestRelease} from "./services/github";
 import initSidebar from "./components/sidebar";
 import ChartManager from "./features/charts/chart-manager";
 import {registerEchartsCallbacks} from "./features/charts/echarts-callbacks";
@@ -78,7 +77,3 @@ if (document.querySelector('.chat--wrapper')) {
     import(/* webpackChunkName: "chat" */ './features/chat/chat')
         .then(({default: Chat}) => new Chat(document).render());
 }
-
-(async () => {
-    await updateGithubLatestRelease();
-})();

@@ -3,9 +3,13 @@
         @apply fixed top-0 left-0 w-64 sidebar-collapsed:w-16 h-screen pt-14 bg-white border-r border-gray-200 z-1001;
 
         > div:nth-child(1) {
-            @apply sidebar-collapsed:max-h-full max-h-[calc(100vh-114px)] overflow-y-auto py-5 px-3 h-full divide-y divide-gray-200;
+            @apply max-h-full overflow-y-auto py-5 px-3 h-full divide-y divide-gray-200;
 
             > ul {
+                > li.sidebar-heading {
+                    @apply sidebar-collapsed:hidden px-2 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-400;
+                }
+
                 > li :is(a, button) {
                     @apply cursor-pointer flex items-center gap-x-3 p-2 rounded-lg text-sm font-medium text-gray-900;
                     @apply hover:bg-primary-soft hover:text-primary aria-selected:bg-primary-soft aria-selected:text-primary;
@@ -29,10 +33,6 @@
                 }
             }
         }
-
-        > div:nth-child(2) {
-            @apply border-t absolute p-2 flex flex-col gap-y-1 justify-center text-xs text-center text-gray-500 bottom-0 left-0 w-full bg-white z-20;
-        }
     }
 
     aside#drawer-navigation.sidebar--with-contextual-panel {
@@ -40,6 +40,10 @@
 
         > div:nth-child(1) {
             @apply w-16 max-h-full;
+
+            > ul > li.sidebar-heading {
+                @apply hidden;
+            }
 
             > ul > li :is(a, button) {
                 @apply justify-center;

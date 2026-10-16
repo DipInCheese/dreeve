@@ -23,7 +23,7 @@ Activity: 活动
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': '短期训练负荷（疲劳）– 7天每日训练负荷的指数加权平均值。代表短期疲劳。'
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': '短期/长期疲劳比率 – ATL与CTL的比值。表示受伤风险。'
 'Adaptive & Inclusive Sports': 适应性和包容性运动
-'Admin panel': 'Admin panel'
+'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': 'Aero sensor'
 Afternoon: 下午
 All: All
@@ -289,6 +289,7 @@ Neutral: Neutral
 'Next milestone': 'Next milestone'
 Night: 夜晚
 'No activities': 没有活动
+'No activities yet': 'No activities yet'
 'No data available': 没有可用数据
 'No maintenance tasks': 'No maintenance tasks'
 'No milestones achieved yet': 'No milestones achieved yet'
@@ -556,6 +557,7 @@ Tue.: Tue.
 Unspecified: 未指定
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
+'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': 用户徽章
 'Velo Mobile': 'Velo Mobile'

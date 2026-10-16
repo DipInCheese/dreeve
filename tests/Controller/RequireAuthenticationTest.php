@@ -28,7 +28,6 @@ class RequireAuthenticationTest extends AdminWebTestCase
     {
         yield 'dashboard' => ['/'];
         yield 'activities' => ['/activities'];
-        yield 'finish setup' => ['/finish-setup'];
         yield 'ai chat' => ['/chat'];
         yield 'internal api' => ['/api/internal/dashboard/widget/dashboardWidget-introText'];
         yield 'badge' => ['/badge/dreeve.svg'];

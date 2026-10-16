@@ -46,7 +46,6 @@ Activity: Tevékenység
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adj hozzá {fit}, {tcx} vagy {gpx} fájlokat. Néhány percenként feldolgozásra kerülnek.'
 Adding...: Adding...
 Address: Address
-Admin: Admin
 'Admin panel': Adminfelület
 'Admin username': 'Admin felhasználónév'
 'Advanced (per-date & per-sport-type overrides)': 'Speciális (dátum és sporttípus szerinti felülírások)'
@@ -348,7 +347,6 @@ Resetting...: Visszaállítás...
 Retired: Nyugdíjazott
 'Retired components keep their history, but are hidden and no longer tracked.': 'Retired components keep their history, but are hidden and no longer tracked.'
 'Retry weather and reverse geocoding': 'Retry weather and reverse geocoding'
-'Return to app': 'Vissza az alkalmazáshoz'
 Ride: Kerékpározás
 'Rolling window (days)': 'Rolling window (days)'
 Rules: Szabályok
