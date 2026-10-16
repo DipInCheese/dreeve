@@ -46,7 +46,7 @@ Activity: Actividad
 'Add user': 'Add user'
 'Add weight': 'Añadir peso'
 'Add widget': 'Añadir widget'
-'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Añade archivos {fit}, {tcx} o {gpx}. Se procesan cada pocos minutos.'
+'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
 'Admin username': 'Nombre de usuario de administrador'
@@ -278,7 +278,7 @@ Monday: Lunes
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': 'Tiempo en movimiento'
-'New activities are fetched every hour. They show up in your activities a few minutes later.': 'New activities are fetched every hour. They show up in your activities a few minutes later.'
+'New activities are fetched every hour and imported right away.': 'New activities are fetched every hour and imported right away.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Aún no se han importado actividades.'
 'No activities match the current filters.': 'Ninguna actividad coincide con los filtros actuales.'
@@ -448,7 +448,7 @@ Sunday: Domingo
 'Sync now': 'Sync now'
 'Synced since': 'Synced since'
 'Syncing now…': 'Syncing now…'
-'Syncing with Garmin. New activities show up within minutes.': 'Syncing with Garmin. New activities show up within minutes.'
+'Syncing with Garmin. New activities show up as soon as they are fetched.': 'Syncing with Garmin. New activities show up as soon as they are fetched.'
 Task: Tarea
 'Task name': 'Nombre de la tarea'
 Tasks: Tareas

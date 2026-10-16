@@ -23,7 +23,7 @@ class RunDaemonConsoleCommandTest extends ConsoleCommandTestCase
         $display = $commandTester->getDisplay();
         $this->assertStringContainsString('| DAEMON', $display);
         $this->assertStringContainsString('Started on 08-11-2025 14:47:03', $display);
-        $this->assertStringEndsWith("Cron configured\nPeriodic timer added\n", $display);
+        $this->assertStringEndsWith("Cron configured\nWatching for new files\nPeriodic timer added\n", $display);
     }
 
     #[\Override]

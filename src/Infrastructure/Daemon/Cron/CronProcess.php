@@ -21,7 +21,10 @@ final readonly class CronProcess
     ) {
     }
 
-    public function start(): void
+    /**
+     * @param (\Closure(): void)|null $onExit
+     */
+    public function start(?\Closure $onExit = null): void
     {
         $this->output->writeln(sprintf(
             '<info>[%s] Starting cron action "%s"</info>',
@@ -40,12 +43,15 @@ final readonly class CronProcess
             $this->output->write(sprintf('<error>%s</error>', $chunk));
         });
 
-        $process->on('exit', function (): void {
+        $process->on('exit', function () use ($onExit): void {
             $this->output->writeln(sprintf(
                 '<info>[%s] Finished cron action "%s"</info>',
                 $this->clock->getCurrentDateTimeImmutable()->format('d-m-Y H:i:s'),
                 $this->cronActionId
             ));
+            if ($onExit instanceof \Closure) {
+                $onExit();
+            }
         });
     }
 }

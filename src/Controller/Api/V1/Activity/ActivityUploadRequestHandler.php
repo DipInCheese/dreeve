@@ -53,7 +53,7 @@ final readonly class ActivityUploadRequestHandler
 
         return new JsonResponse([
             'status' => 'queued',
-            'message' => 'File queued for import. It will be processed within five minutes.',
+            'message' => 'File queued for import. It is imported within a minute.',
         ], Response::HTTP_ACCEPTED);
     }
 }

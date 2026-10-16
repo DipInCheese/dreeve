@@ -17,4 +17,9 @@ interface Daemon
     public function clearStaleCronLocks(): void;
 
     public function configureCron(): void;
+
+    /**
+     * Imports files as soon as they land in the watch folder: uploads, the API and the Garmin sync.
+     */
+    public function watchForNewFiles(): void;
 }

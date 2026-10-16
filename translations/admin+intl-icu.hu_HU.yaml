@@ -46,7 +46,7 @@ Activity: Tevékenység
 'Add user': 'Add user'
 'Add weight': 'Testsúly hozzáadása'
 'Add widget': 'Widget hozzáadása'
-'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adj hozzá {fit}, {tcx} vagy {gpx} fájlokat. Néhány percenként feldolgozásra kerülnek.'
+'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
 'Admin username': 'Admin felhasználónév'
@@ -278,7 +278,7 @@ Monday: Hétfő
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Mozgásidő
-'New activities are fetched every hour. They show up in your activities a few minutes later.': 'New activities are fetched every hour. They show up in your activities a few minutes later.'
+'New activities are fetched every hour and imported right away.': 'New activities are fetched every hour and imported right away.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Még nincs importált tevékenység.'
 'No activities match the current filters.': 'Egyetlen tevékenység sem felel meg a jelenlegi szűrőknek.'
@@ -448,7 +448,7 @@ Sunday: Vasárnap
 'Sync now': 'Sync now'
 'Synced since': 'Synced since'
 'Syncing now…': 'Syncing now…'
-'Syncing with Garmin. New activities show up within minutes.': 'Syncing with Garmin. New activities show up within minutes.'
+'Syncing with Garmin. New activities show up as soon as they are fetched.': 'Syncing with Garmin. New activities show up as soon as they are fetched.'
 Task: Feladat
 'Task name': 'Feladat neve'
 Tasks: Feladatok

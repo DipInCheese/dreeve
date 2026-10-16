@@ -44,7 +44,7 @@
                     </div>
                 {% endif %}
                 <p class="mt-4 text-sm text-gray-600">
-                    {{ "New activities are fetched every hour. They show up in your activities a few minutes later."|trans({}, 'admin') }}
+                    {{ "New activities are fetched every hour and imported right away."|trans({}, 'admin') }}
                 </p>
                 <div class="mt-6 flex flex-wrap items-start gap-3 border-t border-gray-200 pt-4">
                     <form method="post" action="{{ relativeUrl(path('admin_garmin_sync')) }}">

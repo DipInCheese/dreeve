@@ -7,6 +7,7 @@ namespace App\Infrastructure\Daemon;
 use App\Console\Cache\PruneRenderCacheConsoleCommand;
 use App\Console\Import\RunAutomationRulesBackfillConsoleCommand;
 use App\Console\Import\RunFileImportConsoleCommand;
+use App\Domain\Import\WatchDirectory;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Console\ConsoleOutputAware;
 use App\Infrastructure\Daemon\Cron\CronAction;
@@ -30,12 +31,39 @@ final class SystemDaemon implements Daemon
 
     private const string CRON_EVERY_5_MINUTES = '*/5 * * * *';
     private const string CRON_DAILY = '0 4 * * *';
+    private const float WATCH_INTERVAL_IN_SECONDS = 10.0;
+
+    private bool $isImportingFiles = false;
 
     public function __construct(
         private readonly Clock $clock,
         private readonly SettingsRepository $settingsRepository,
         private readonly Connection $connection,
+        private readonly WatchDirectory $watchDirectory,
     ) {
+    }
+
+    public function watchForNewFiles(): void
+    {
+        Loop::addPeriodicTimer(self::WATCH_INTERVAL_IN_SECONDS, function (): void {
+            if (!$this->isImportingFiles && $this->watchDirectory->hasFilesThatCanBeProcessed()) {
+                $this->startFileImport('importNewFiles');
+            }
+        });
+        $this->getConsoleOutput()->writeln(sprintf('<info>Watching for new files every %d seconds</info>', self::WATCH_INTERVAL_IN_SECONDS));
+    }
+
+    private function startFileImport(string $reason): void
+    {
+        $this->isImportingFiles = true;
+        new CronProcess(
+            cronActionId: $reason,
+            clock: $this->clock,
+            output: $this->getConsoleOutput(),
+            command: sprintf('bin/console %s', RunFileImportConsoleCommand::NAME),
+        )->start(function (): void {
+            $this->isImportingFiles = false;
+        });
     }
 
     public function addPeriodicDebugTimer(): void
@@ -94,13 +122,10 @@ final class SystemDaemon implements Daemon
             mutexTtl: 300,
             expression: self::CRON_EVERY_5_MINUTES,
             performer: function (): PromiseInterface {
-                $process = new CronProcess(
-                    cronActionId: 'runFileImport',
-                    clock: $this->clock,
-                    output: $this->getConsoleOutput(),
-                    command: sprintf('bin/console %s', RunFileImportConsoleCommand::NAME)
-                );
-                $process->start();
+                // Also recalculates metrics when no files came in, so it keeps running on its schedule.
+                if (!$this->isImportingFiles) {
+                    $this->startFileImport('runFileImport');
+                }
 
                 return resolve(true);
             }

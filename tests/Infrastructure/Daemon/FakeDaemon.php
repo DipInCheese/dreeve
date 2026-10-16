@@ -34,4 +34,9 @@ final class FakeDaemon implements Daemon
     {
         $this->output->writeln('Cron configured');
     }
+
+    public function watchForNewFiles(): void
+    {
+        $this->output->writeln('Watching for new files');
+    }
 }

@@ -46,7 +46,7 @@ Activity: Activiteit
 'Add user': 'Add user'
 'Add weight': 'Gewicht toevoegen'
 'Add widget': 'Widget toevoegen'
-'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Voeg {fit}-, {tcx}- of {gpx}-bestanden toe. Ze worden om de paar minuten verwerkt.'
+'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
 'Admin username': 'Gebruikersnaam beheerder'
@@ -278,7 +278,7 @@ Monday: Maandag
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Beweegtijd
-'New activities are fetched every hour. They show up in your activities a few minutes later.': 'New activities are fetched every hour. They show up in your activities a few minutes later.'
+'New activities are fetched every hour and imported right away.': 'New activities are fetched every hour and imported right away.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Nog geen activiteiten geïmporteerd.'
 'No activities match the current filters.': 'Geen activiteiten die overeenkomen met de huidige filters.'
@@ -448,7 +448,7 @@ Sunday: Zondag
 'Sync now': 'Sync now'
 'Synced since': 'Synced since'
 'Syncing now…': 'Syncing now…'
-'Syncing with Garmin. New activities show up within minutes.': 'Syncing with Garmin. New activities show up within minutes.'
+'Syncing with Garmin. New activities show up as soon as they are fetched.': 'Syncing with Garmin. New activities show up as soon as they are fetched.'
 Task: Taak
 'Task name': 'Naam taak'
 Tasks: Taken

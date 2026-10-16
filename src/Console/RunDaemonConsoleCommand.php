@@ -41,6 +41,7 @@ final class RunDaemonConsoleCommand extends Command
         $this->daemon->setConsoleOutput($output);
         $this->daemon->clearStaleCronLocks();
         $this->daemon->configureCron();
+        $this->daemon->watchForNewFiles();
 
         if (!empty($_ENV['DAEMON_DEBUG'])) {
             $this->daemon->addPeriodicDebugTimer();
