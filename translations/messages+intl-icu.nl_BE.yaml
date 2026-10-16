@@ -23,7 +23,6 @@ Activity: Activiteit
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': 'Acute Training Load (Vermoeidheid) - exponentieel gewogen gemiddelde over 7 dagen van je dagelijkse trainingsbelasting. Geeft de vermoeidheid op korte termijn weer.'
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': 'Acute:Chronic-ratio - Verhouding tussen ATL en CTL. Geeft het blessurerisico aan.'
 'Adaptive & Inclusive Sports': 'Aangepaste & inclusieve sporten'
-'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': Aerosensor
 Afternoon: Namiddag
 All: Alle
@@ -77,6 +76,8 @@ Compare: Vergelijken
 Components: Onderdelen
 'Configure gear maintenance': 'Onderhoud van uitrusting configureren'
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': "Proficiat! Je behaalde {numberOfPRs} PR's in deze activiteit."
+'Connect Garmin': 'Connect Garmin'
+'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
 'Consider reducing load': 'Overweeg de belasting te verminderen'
 Consistency: Consistentie
 Cost: Cost

@@ -16,6 +16,7 @@ parameters:
     env(TZ): ''
     env(DATABASE_DIRECTORY): '%app.data_dir%/storage/database'
     env(DREEVE_USER_URL): ''
+    env(HEALTH_SYNC_URL): 'http://health-sync:8000'
 
 services:
     # default configuration for services in *this* file

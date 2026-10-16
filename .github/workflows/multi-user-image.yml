@@ -31,6 +31,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Test health-sync
+        run: docker run --rm -v "$PWD/health-sync:/app" -w /app python:3.13-slim python -m unittest discover -s tests
+
       - name: Determine image name
         run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 

@@ -40,6 +40,25 @@ services:
     networks:
       - dreeve
 
+  # Fetches every user's Garmin Connect activities into their data folder, every hour.
+  # Only the app can reach it: no ports are published.
+  health-sync:
+    image: ${DREEVE_IMAGE:?Set DREEVE_IMAGE in .env}
+    container_name: dreeve-health-sync
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-UTC}
+    volumes:
+      - ./data:/var/www/users
+    command: ["health-sync"]
+    healthcheck:
+      test: ["CMD", "/opt/health-sync/venv/bin/python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      start_period: 10s
+    depends_on:
+      - app
+    networks:
+      - dreeve
+
   # Connects to Cloudflare, which forwards your Dreeve hostname to the app.
   # Only gets the tunnel token, nothing else from .env.
   cloudflared:

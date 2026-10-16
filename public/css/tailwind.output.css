@@ -2762,6 +2762,9 @@
   .border-white {
     border-color: var(--color-white);
   }
+  .border-yellow-200 {
+    border-color: var(--color-yellow-200);
+  }
   .border-t-primary {
     border-top-color: var(--color-primary);
   }
@@ -2893,6 +2896,9 @@
       background-color: color-mix(in oklab, var(--color-gray-900) 50%, transparent);
     }
   }
+  .bg-green-50 {
+    background-color: var(--color-green-50);
+  }
   .bg-green-100 {
     background-color: var(--color-green-100);
   }
@@ -2967,6 +2973,9 @@
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-white) 50%, transparent);
     }
+  }
+  .bg-yellow-50 {
+    background-color: var(--color-yellow-50);
   }
   .bg-yellow-100 {
     background-color: var(--color-yellow-100);
@@ -4200,6 +4209,9 @@
     }
     .sm\:grid-cols-4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .sm\:grid-cols-\[max-content_1fr\] {
+      grid-template-columns: max-content 1fr;
     }
     .sm\:flex-row {
       flex-direction: row;

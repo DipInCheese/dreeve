@@ -1,0 +1,115 @@
+{% extends "html/admin/page/template.html.twig" %}
+{% block main %}
+    <div class="flex max-w-3xl flex-col gap-4">
+        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs" data-garmin-connection>
+            <h3 class="text-lg font-semibold mb-1">Garmin Connect</h3>
+            {% if unreachable %}
+                <div class="mt-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+                    {{ "The Garmin sync service can not be reached. Check that the health-sync container is running."|trans({}, 'admin') }}
+                </div>
+            {% elseif status.isConnected() %}
+                <div class="mt-3 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                    {% if status.getDisplayName() %}
+                        {{ "Connected as {name}."|trans({'{name}': status.getDisplayName()}, 'admin') }}
+                    {% else %}
+                        {{ "Connected."|trans({}, 'admin') }}
+                    {% endif %}
+                </div>
+                <dl class="mt-4 grid grid-cols-1 gap-x-4 gap-y-2 text-sm sm:grid-cols-[max-content_1fr]">
+                    <dt class="text-gray-500">{{ "Last sync"|trans({}, 'admin') }}</dt>
+                    <dd>
+                        {% if status.isSyncing() %}
+                            {{ "Syncing now…"|trans({}, 'admin') }}
+                        {% elseif status.getLastSyncAt() %}
+                            {{ status.getLastSyncAt()|date('d-m-Y H:i') }}
+                        {% else %}
+                            {{ "Not yet, the first sync starts in a moment."|trans({}, 'admin') }}
+                        {% endif %}
+                    </dd>
+                    <dt class="text-gray-500">{{ "Activities synced"|trans({}, 'admin') }}</dt>
+                    <dd>
+                        {{ status.getActivitiesSynced() }}
+                        {% if status.isBackfilling() %}
+                            <span class="text-gray-500">{{ "(still catching up on your history, in batches every few minutes)"|trans({}, 'admin') }}</span>
+                        {% endif %}
+                    </dd>
+                    {% if status.getSince() %}
+                        <dt class="text-gray-500">{{ "Synced since"|trans({}, 'admin') }}</dt>
+                        <dd>{{ status.getSince()|date('d-m-Y') }}</dd>
+                    {% endif %}
+                </dl>
+                {% if status.getLastError() %}
+                    <div class="mt-4 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800" role="alert">
+                        {{ "The last sync failed, it is retried automatically:"|trans({}, 'admin') }} {{ status.getLastError() }}
+                    </div>
+                {% endif %}
+                <p class="mt-4 text-sm text-gray-600">
+                    {{ "New activities are fetched every hour. They show up in your activities a few minutes later."|trans({}, 'admin') }}
+                </p>
+                <div class="mt-6 flex flex-wrap items-start gap-3 border-t border-gray-200 pt-4">
+                    <form method="post" action="{{ relativeUrl(path('admin_garmin_sync')) }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                        <button type="submit" class="btn--primary">{{ "Sync now"|trans({}, 'admin') }}</button>
+                    </form>
+                    <form method="post" action="{{ relativeUrl(path('admin_garmin_disconnect')) }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                        <button type="submit" class="btn--danger">{{ "Disconnect Garmin"|trans({}, 'admin') }}</button>
+                    </form>
+                </div>
+            {% elseif status.isCodePending() %}
+                <p class="text-sm text-gray-600">{{ "Garmin sent you a security code, by email or in the Garmin Connect app. Enter it here within 5 minutes."|trans({}, 'admin') }}</p>
+                <form method="post" action="{{ relativeUrl(path('admin_garmin_code')) }}" class="mt-4 flex flex-col gap-4" autocomplete="off">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                    <div>
+                        <label for="garmin-code">{{ "Security code"|trans({}, 'admin') }}</label>
+                        <input type="text" id="garmin-code" name="code" required inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]{4,10}" maxlength="10" class="mt-1" autofocus>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn--primary">{{ "Confirm"|trans({}, 'admin') }}</button>
+                    </div>
+                </form>
+            {% else %}
+                {% if status.needsLogin() %}
+                    <div class="mt-3 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800" role="alert">
+                        {{ "Garmin ended the session. Log in again to continue syncing, nothing synced so far is lost."|trans({}, 'admin') }}
+                    </div>
+                {% endif %}
+                <p class="mt-1 text-sm text-gray-600">
+                    {{ "Log in with your Garmin Connect account. Your activities are then fetched automatically, every hour."|trans({}, 'admin') }}
+                </p>
+                <p class="mt-2 text-xs text-gray-500">
+                    {{ "Your password is used once to log in and is never stored. Dreeve keeps the session Garmin hands out, readable by your user only."|trans({}, 'admin') }}
+                </p>
+                <form method="post" action="{{ relativeUrl(path('admin_garmin_connect')) }}" class="mt-4 flex flex-col gap-4">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                    <div>
+                        <label for="garmin-email">{{ "Email"|trans({}, 'admin') }}</label>
+                        <input type="email" id="garmin-email" name="email" required autocomplete="username" class="mt-1">
+                    </div>
+                    <div>
+                        <label for="garmin-password">{{ "Password"|trans({}, 'admin') }}</label>
+                        <input type="password" id="garmin-password" name="password" required autocomplete="current-password" class="mt-1">
+                    </div>
+                    <div>
+                        <label for="garmin-history">{{ "Fetch activities from"|trans({}, 'admin') }}</label>
+                        <select id="garmin-history" name="history" class="mt-1">
+                            {% for history in histories %}
+                                <option value="{{ history.value }}">{{ history|trans }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="description">{{ "A long history takes a while: activities are fetched one by one, to stay friendly with Garmin."|trans({}, 'admin') }}</p>
+                    </div>
+                    <div>
+                        <button type="submit" data-has-loading-state class="group btn--primary">
+                            <span class="label">{{ "Connect Garmin"|trans({}, 'admin') }}</span>
+                            <span class="label--loading">{{ "Logging in on Garmin…"|trans({}, 'admin') }}</span>
+                        </button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        <p class="text-xs text-gray-500">
+            {{ "This uses an unofficial connection to Garmin. Garmin does not support it and can change it, so syncing may stop until Dreeve is updated."|trans({}, 'admin') }}
+        </p>
+    </div>
+{% endblock %}

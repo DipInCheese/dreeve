@@ -23,7 +23,6 @@ Activity: Tevékenység
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': 'Akut edzésterhelés (Fáradtság) – a napi edzésterhelés 7 napos exponenciálisan súlyozott átlaga. A rövid távú fáradtságot mutatja.'
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': 'Akut:Krónikus arány – az ATL és CTL aránya. Sérülésveszélyt jelöl.'
 'Adaptive & Inclusive Sports': 'Adaptív és inkluzív sportok'
-'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': 'Aero szenzor'
 Afternoon: Délután
 All: Mind
@@ -77,6 +76,8 @@ Compare: Összehasonlítás
 Components: Komponensek
 'Configure gear maintenance': 'Felszerelés-karbantartás beállítása'
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Gratulálunk! {numberOfPRs} egyéni rekordot értél el ebben a tevékenységben.'
+'Connect Garmin': 'Connect Garmin'
+'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
 'Consider reducing load': 'Fontold meg a terhelés csökkentését'
 Consistency: Következetesség
 Cost: Cost

@@ -9,6 +9,7 @@ use App\Application\Navigation\SideBar;
 use App\Application\ProfilePictureUrl;
 use App\Domain\Athlete\Athlete;
 use App\Domain\Settings\SettingsRepository;
+use App\Infrastructure\HealthSync\HealthSync;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Attribute\AsTwigFunction;
@@ -23,7 +24,14 @@ final readonly class AppShellTwigExtension
         private SideBar $sideBar,
         private SettingsRepository $settingsRepository,
         private RequestStack $requestStack,
+        private HealthSync $healthSync,
     ) {
+    }
+
+    #[AsTwigFunction('canConnectGarmin')]
+    public function canConnectGarmin(): bool
+    {
+        return $this->healthSync->isAvailable();
     }
 
     #[AsTwigFunction('appSidebar')]

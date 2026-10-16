@@ -56,8 +56,16 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
+# health-sync: fetches Garmin Connect data, runs in its own container from this same image
+# (command "health-sync"). Installed before the application, so the layer survives code changes.
+COPY health-sync/requirements.txt /opt/health-sync/requirements.txt
+RUN apk add --no-cache python3 \
+    && python3 -m venv /opt/health-sync/venv \
+    && /opt/health-sync/venv/bin/pip install --no-cache-dir --disable-pip-version-check -r /opt/health-sync/requirements.txt
+
 # Add application
 COPY . /var/www/
+RUN mv /var/www/health-sync/healthsync /opt/health-sync/healthsync && rm -Rf /var/www/health-sync
 RUN touch /var/www/.env
 
 # A build from a plain git checkout (e.g. on a homelab) has no vendor/ and no country boundaries yet,

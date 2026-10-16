@@ -1,5 +1,7 @@
+'(still catching up on your history, in batches every few minutes)': '(still catching up on your history, in batches every few minutes)'
 24-hour: 24-hour
 'A backfill is already queued. It runs on the next import cycle, within five minutes.': 'A backfill is already queued. It runs on the next import cycle, within five minutes.'
+'A long history takes a while: activities are fetched one by one, to stay friendly with Garmin.': 'A long history takes a while: activities are fetched one by one, to stay friendly with Garmin.'
 'A rule applies': 'A rule applies'
 AI: AI
 AM/PM: AM/PM
@@ -9,6 +11,7 @@ Actions: Actions
 Active: Active
 'Activities excluded from peak power outputs': 'Activities excluded from peak power outputs'
 'Activities scanned': 'Activities scanned'
+'Activities synced': 'Activities synced'
 'Activities to update': 'Activities to update'
 'Activities will appear here once they are imported.': 'Activities will appear here once they are imported.'
 Activity: Activity
@@ -105,7 +108,11 @@ Configure: Configure
 'Configure {widget}': 'Configure {widget}'
 Configured: Configured
 'Configured via an environment variable and cannot be changed here.': 'Configured via an environment variable and cannot be changed here.'
+Confirm: Confirm
+'Connect Garmin': 'Connect Garmin'
+'Connected as {name}.': 'Connected as {name}.'
 'Connected sensors': 'Connected sensors'
+Connected.: Connected.
 'Continues to next rule': 'Continues to next rule'
 'Copy this API key': 'Copy this API key'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
@@ -129,6 +136,7 @@ Deleting...: Deleting...
 Description: Description
 Disable: Disable
 Disabled: Disabled
+'Disconnect Garmin': 'Disconnect Garmin'
 Distance: Distance
 Done: Done
 'Download original file': 'Download original file'
@@ -149,6 +157,7 @@ Edit: Edit
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Elevation
+Email: Email
 Enable: Enable
 'Enable AI integration': 'Enable AI integration'
 Enabled: Enabled
@@ -162,21 +171,32 @@ Endpoint: Endpoint
 Every: Every
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
+Everything: Everything
 FTP: FTP
 'FTP history (cycling)': 'FTP history (cycling)'
 'FTP history (running)': 'FTP history (running)'
 Failed: Failed
 Favourite: Favourite
 Female: Female
+'Fetch activities from': 'Fetch activities from'
 'File exceeds {max} MB': 'File exceeds {max} MB'
 'File imports': 'File imports'
 'File upload': 'File upload'
 Filename: Filename
+'Fill in the email and password of your Garmin account.': 'Fill in the email and password of your Garmin account.'
 Filter: Filter
 'First name': 'First name'
 'Fixed value': 'Fixed value'
 Friday: Friday
 From: From
+'Garmin can not be reached right now. Try again in a few minutes.': 'Garmin can not be reached right now. Try again in a few minutes.'
+'Garmin did not accept this code. Check it and try again.': 'Garmin did not accept this code. Check it and try again.'
+'Garmin did not accept this email and password.': 'Garmin did not accept this email and password.'
+'Garmin ended the session. Log in again to continue syncing, nothing synced so far is lost.': 'Garmin ended the session. Log in again to continue syncing, nothing synced so far is lost.'
+'Garmin is connected. Your activities are on their way, the first ones show up within minutes.': 'Garmin is connected. Your activities are on their way, the first ones show up within minutes.'
+'Garmin is disconnected. Your synced activities are kept.': 'Garmin is disconnected. Your synced activities are kept.'
+'Garmin is not connected.': 'Garmin is not connected.'
+'Garmin sent you a security code, by email or in the Garmin Connect app. Enter it here within 5 minutes.': 'Garmin sent you a security code, by email or in the Garmin Connect app. Enter it here within 5 minutes.'
 'Gear "{gearId}" is attached to one of your components, but does not exist. It will be ignored.': 'O equipamento "{gearId}" está associado a um dos seus componentes, mas não existe. Será ignorado.'
 'Gear maintenance notification': 'Gear maintenance notification'
 'Gear management': 'Gear management'
@@ -218,6 +238,7 @@ Integrations: Integrations
 Invited: Invited
 Label: Label
 'Last name': 'Last name'
+'Last sync': 'Last sync'
 Latitude: Latitude
 'Leave empty to include all sport types.': 'Leave empty to include all sport types.'
 'Leave empty to use the default title.': 'Leave empty to use the default title.'
@@ -225,7 +246,9 @@ Latitude: Latitude
 'Loading the route...': 'Loading the route...'
 Locale: Locale
 Log: Log
+'Log in with your Garmin Connect account. Your activities are then fetched automatically, every hour.': 'Log in with your Garmin Connect account. Your activities are then fetched automatically, every hour.'
 'Log maintenance': 'Log maintenance'
+'Logging in on Garmin…': 'Logging in on Garmin…'
 Longitude: Longitude
 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': 'Maintenance log'
@@ -255,6 +278,7 @@ Monday: Monday
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': 'Moving time'
+'New activities are fetched every hour. They show up in your activities a few minutes later.': 'New activities are fetched every hour. They show up in your activities a few minutes later.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'No activities imported yet.'
 'No activities match the current filters.': 'No activities match the current filters.'
@@ -275,6 +299,7 @@ Monday: Monday
 'Normal date format': 'Normal date format'
 'Not configured, the API is closed': 'Not configured, the API is closed'
 'Not fitted': 'Not fitted'
+'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notes
 'Notification services': 'Notification services'
 'Notify when an import was successful': 'Notify when an import was successful'
@@ -358,6 +383,7 @@ Saving...: Saving...
 'Search by name, date or activity ID': 'Search by name, date or activity ID'
 Seconds: Seconds
 Security: Security
+'Security code': 'Security code'
 'Segment management': 'Segment management'
 'Segments will appear here once you create them from one of your activities.': 'Segments will appear here once you create them from one of your activities.'
 'Select a component first...': 'Select a component first...'
@@ -419,11 +445,16 @@ Subtitle: Subtitle
 Success: Success
 Sunday: Sunday
 'Supported types': 'Supported types'
+'Sync now': 'Sync now'
+'Synced since': 'Synced since'
+'Syncing now…': 'Syncing now…'
+'Syncing with Garmin. New activities show up within minutes.': 'Syncing with Garmin. New activities show up within minutes.'
 Task: Task
 'Task name': 'Task name'
 Tasks: Tasks
 'Test automation rules': 'Test automation rules'
 'Test rules': 'Test rules'
+'The Garmin sync service can not be reached. Check that the health-sync container is running.': 'The Garmin sync service can not be reached. Check that the health-sync container is running.'
 'The URL the app is hosted on.': 'The URL the app is hosted on.'
 'The activity started': 'The activity started'
 'The activity will be marked as a commute.': 'The activity will be marked as a commute.'
@@ -435,6 +466,7 @@ Tasks: Tasks
 'The average speed': 'The average speed'
 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.': 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.'
 'The calories burned': 'The calories burned'
+'The code took too long. Log in again to get a new one.': 'The code took too long. Log in again to get a new one.'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).'
 'The current name of the activity': 'The current name of the activity'
 'The device used to record the activity': 'The device used to record the activity'
@@ -444,6 +476,9 @@ Tasks: Tasks
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'The formula used to calculate your max heart rate. The default is Fox (220 − age).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'The formula used to calculate your resting heart rate. The default is an age-based estimate.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.'
+'The last 3 months': 'The last 3 months'
+'The last sync failed, it is retried automatically:': 'The last sync failed, it is retried automatically:'
+'The last year': 'The last year'
 'The last zone has no upper bound.': 'The last zone has no upper bound.'
 'The locale used to render the app.': 'The locale used to render the app.'
 'The max heart rate': 'The max heart rate'
@@ -473,6 +508,7 @@ Tasks: Tasks
 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'This only removes the import record, the imported activity is kept.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'This page shows a different key every time it is opened, and only the one in your environment file is applied.'
+'This uses an unofficial connection to Garmin. Garmin does not support it and can change it, so syncing may stop until Dreeve is updated.': 'This uses an unofficial connection to Garmin. Garmin does not support it and can change it, so syncing may stop until Dreeve is updated.'
 'This widget still needs to be configured.': 'This widget still needs to be configured.'
 'This will discard your current dashboard layout and restore the default widgets.': 'This will discard your current dashboard layout and restore the default widgets.'
 Thursday: Thursday
@@ -482,6 +518,7 @@ Thursday: Thursday
 Title: Title
 To: To
 "Tokens are replaced with the activity's values when the rule runs.": "Tokens are replaced with the activity's values when the rule runs."
+'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Total size exceeds {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.'
 Tuesday: Tuesday
@@ -523,9 +560,11 @@ Weekdays: Weekdays
 'Your birthday. Needed to calculate heart rate zones.': 'Your birthday. Needed to calculate heart rate zones.'
 'Your changes have been saved.': 'Your changes have been saved.'
 'Your current IP address, as seen by Dreeve, is {ipAddress}.': 'Your current IP address, as seen by Dreeve, is {ipAddress}.'
+'Your form expired, please try again.': 'Your form expired, please try again.'
 'Your gender. Used to determine activity training load.': 'Your gender. Used to determine activity training load.'
 'Your measured max heart rate, applied from the given date onwards.': 'Your measured max heart rate, applied from the given date onwards.'
 'Your measured resting heart rate, applied from the given date onwards.': 'Your measured resting heart rate, applied from the given date onwards.'
+'Your password is used once to log in and is never stored. Dreeve keeps the session Garmin hands out, readable by your user only.': 'Your password is used once to log in and is never stored. Dreeve keeps the session Garmin hands out, readable by your user only.'
 Zone: Zone
 'Zoom level': 'Zoom level'
 Zwift: Zwift

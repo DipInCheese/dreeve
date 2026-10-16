@@ -1,5 +1,7 @@
+'(still catching up on your history, in batches every few minutes)': '(still catching up on your history, in batches every few minutes)'
 24-hour: 24-uurs
 'A backfill is already queued. It runs on the next import cycle, within five minutes.': 'Er staat al een backfill in de wachtrij. Die wordt uitgevoerd bij de volgende importcyclus, binnen de vijf minuten.'
+'A long history takes a while: activities are fetched one by one, to stay friendly with Garmin.': 'A long history takes a while: activities are fetched one by one, to stay friendly with Garmin.'
 'A rule applies': 'Er is een regel van toepassing'
 AI: AI
 AM/PM: AM/PM
@@ -9,6 +11,7 @@ Actions: Acties
 Active: Actief
 'Activities excluded from peak power outputs': 'Activiteiten uitgesloten van piekvermogens'
 'Activities scanned': 'Gescande activiteiten'
+'Activities synced': 'Activities synced'
 'Activities to update': 'Bij te werken activiteiten'
 'Activities will appear here once they are imported.': 'Activiteiten verschijnen hier zodra ze geïmporteerd zijn.'
 Activity: Activiteit
@@ -105,7 +108,11 @@ Configure: Configureren
 'Configure {widget}': '{widget} configureren'
 Configured: Geconfigureerd
 'Configured via an environment variable and cannot be changed here.': 'Geconfigureerd via een omgevingsvariabele en kan hier niet gewijzigd worden.'
+Confirm: Confirm
+'Connect Garmin': 'Connect Garmin'
+'Connected as {name}.': 'Connected as {name}.'
 'Connected sensors': 'Verbonden sensoren'
+Connected.: Connected.
 'Continues to next rule': 'Gaat verder naar de volgende regel'
 'Copy this API key': 'Kopieer deze API-sleutel'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
@@ -129,6 +136,7 @@ Deleting...: 'Aan het verwijderen...'
 Description: Beschrijving
 Disable: Disable
 Disabled: Uitgeschakeld
+'Disconnect Garmin': 'Disconnect Garmin'
 Distance: Afstand
 Done: Klaar
 'Download original file': 'Origineel bestand downloaden'
@@ -149,6 +157,7 @@ Edit: Bewerken
 Efforts: Efforts
 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.': 'Efforts are not calculated right away. Your activities are searched for this segment during the next import run, which runs every 5 minutes.'
 Elevation: Hoogte
+Email: Email
 Enable: Enable
 'Enable AI integration': 'AI-integratie inschakelen'
 Enabled: Ingeschakeld
@@ -162,21 +171,32 @@ Endpoint: Endpoint
 Every: Elke
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
+Everything: Everything
 FTP: FTP
 'FTP history (cycling)': 'FTP-historiek (fietsen)'
 'FTP history (running)': 'FTP-historiek (lopen)'
 Failed: Mislukt
 Favourite: Favourite
 Female: Vrouw
+'Fetch activities from': 'Fetch activities from'
 'File exceeds {max} MB': 'Bestand is groter dan {max} MB'
 'File imports': Bestandsimports
 'File upload': 'Bestand uploaden'
 Filename: Bestandsnaam
+'Fill in the email and password of your Garmin account.': 'Fill in the email and password of your Garmin account.'
 Filter: Filter
 'First name': Voornaam
 'Fixed value': 'Vaste waarde'
 Friday: Vrijdag
 From: Van
+'Garmin can not be reached right now. Try again in a few minutes.': 'Garmin can not be reached right now. Try again in a few minutes.'
+'Garmin did not accept this code. Check it and try again.': 'Garmin did not accept this code. Check it and try again.'
+'Garmin did not accept this email and password.': 'Garmin did not accept this email and password.'
+'Garmin ended the session. Log in again to continue syncing, nothing synced so far is lost.': 'Garmin ended the session. Log in again to continue syncing, nothing synced so far is lost.'
+'Garmin is connected. Your activities are on their way, the first ones show up within minutes.': 'Garmin is connected. Your activities are on their way, the first ones show up within minutes.'
+'Garmin is disconnected. Your synced activities are kept.': 'Garmin is disconnected. Your synced activities are kept.'
+'Garmin is not connected.': 'Garmin is not connected.'
+'Garmin sent you a security code, by email or in the Garmin Connect app. Enter it here within 5 minutes.': 'Garmin sent you a security code, by email or in the Garmin Connect app. Enter it here within 5 minutes.'
 'Gear "{gearId}" is attached to one of your components, but does not exist. It will be ignored.': 'Uitrusting "{gearId}" is gekoppeld aan een van je onderdelen, maar bestaat niet. Ze wordt genegeerd.'
 'Gear maintenance notification': 'Melding voor onderhoud van uitrusting'
 'Gear management': Uitrustingsbeheer
@@ -218,6 +238,7 @@ Integrations: Integraties
 Invited: Invited
 Label: Label
 'Last name': Achternaam
+'Last sync': 'Last sync'
 Latitude: Breedtegraad
 'Leave empty to include all sport types.': 'Laat leeg om alle sporttypes mee te nemen.'
 'Leave empty to use the default title.': 'Laat leeg om de standaardtitel te gebruiken.'
@@ -225,7 +246,9 @@ Latitude: Breedtegraad
 'Loading the route...': 'Loading the route...'
 Locale: Taalinstelling
 Log: Log
+'Log in with your Garmin Connect account. Your activities are then fetched automatically, every hour.': 'Log in with your Garmin Connect account. Your activities are then fetched automatically, every hour.'
 'Log maintenance': 'Onderhoud loggen'
+'Logging in on Garmin…': 'Logging in on Garmin…'
 Longitude: Lengtegraad
 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.': 'Lowercase letters, digits and dashes. The name becomes the address, e.g. {url}, and the username to sign in with.'
 'Maintenance log': Onderhoudslog
@@ -255,6 +278,7 @@ Monday: Maandag
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Beweegtijd
+'New activities are fetched every hour. They show up in your activities a few minutes later.': 'New activities are fetched every hour. They show up in your activities a few minutes later.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Nog geen activiteiten geïmporteerd.'
 'No activities match the current filters.': 'Geen activiteiten die overeenkomen met de huidige filters.'
@@ -275,6 +299,7 @@ Monday: Maandag
 'Normal date format': 'Normaal datumformaat'
 'Not configured, the API is closed': 'Niet geconfigureerd, de API is gesloten'
 'Not fitted': 'Not fitted'
+'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notes
 'Notification services': Meldingsdiensten
 'Notify when an import was successful': 'Melden wanneer een import geslaagd is'
@@ -358,6 +383,7 @@ Saving...: 'Aan het opslaan...'
 'Search by name, date or activity ID': 'Zoeken op naam, datum of activiteits-ID'
 Seconds: Seconden
 Security: Beveiliging
+'Security code': 'Security code'
 'Segment management': 'Segment management'
 'Segments will appear here once you create them from one of your activities.': 'Segments will appear here once you create them from one of your activities.'
 'Select a component first...': 'Selecteer eerst een onderdeel...'
@@ -419,11 +445,16 @@ Subtitle: Ondertitel
 Success: Geslaagd
 Sunday: Zondag
 'Supported types': 'Ondersteunde types'
+'Sync now': 'Sync now'
+'Synced since': 'Synced since'
+'Syncing now…': 'Syncing now…'
+'Syncing with Garmin. New activities show up within minutes.': 'Syncing with Garmin. New activities show up within minutes.'
 Task: Taak
 'Task name': 'Naam taak'
 Tasks: Taken
 'Test automation rules': 'Automatiseringsregels testen'
 'Test rules': 'Regels testen'
+'The Garmin sync service can not be reached. Check that the health-sync container is running.': 'The Garmin sync service can not be reached. Check that the health-sync container is running.'
 'The URL the app is hosted on.': 'De URL waarop de app gehost wordt.'
 'The activity started': 'De activiteit startte'
 'The activity will be marked as a commute.': 'De activiteit wordt gemarkeerd als woon-werk.'
@@ -435,6 +466,7 @@ Tasks: Taken
 'The average speed': 'De gemiddelde snelheid'
 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.': 'De backfill wordt uitgevoerd bij de volgende importcyclus, met de regels zoals ze op dat moment geconfigureerd zijn. Dit kan niet ongedaan gemaakt worden.'
 'The calories burned': 'De verbrande calorieën'
+'The code took too long. Log in again to get a new one.': 'The code took too long. Log in again to get a new one.'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'De kleur van de routes op elke kaart. Aanvaardt elke geldige CSS-kleur, bv. red, #FF0000 of rgb(255,0,0).'
 'The current name of the activity': 'De huidige naam van de activiteit'
 'The device used to record the activity': 'Het toestel waarmee de activiteit geregistreerd werd'
@@ -444,6 +476,9 @@ Tasks: Taken
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'De formule om je maximale hartslag te berekenen. Standaard is Fox (220 − leeftijd).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'De formule om je rusthartslag te berekenen. Standaard is een schatting op basis van leeftijd.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'Met de sleutel kan een externe client activiteitsbestanden uploaden via HTTP. Het is het enige wat dat endpoint beveiligt, dus behandel hem als een wachtwoord.'
+'The last 3 months': 'The last 3 months'
+'The last sync failed, it is retried automatically:': 'The last sync failed, it is retried automatically:'
+'The last year': 'The last year'
 'The last zone has no upper bound.': 'De laatste zone heeft geen bovengrens.'
 'The locale used to render the app.': 'De taal waarin de app weergegeven wordt.'
 'The max heart rate': 'De maximale hartslag'
@@ -473,6 +508,7 @@ Tasks: Taken
 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Dit verwijdert enkel het importrecord, de geïmporteerde activiteit blijft behouden.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Deze pagina toont bij elke opening een andere sleutel, en enkel die in je omgevingsbestand wordt toegepast.'
+'This uses an unofficial connection to Garmin. Garmin does not support it and can change it, so syncing may stop until Dreeve is updated.': 'This uses an unofficial connection to Garmin. Garmin does not support it and can change it, so syncing may stop until Dreeve is updated.'
 'This widget still needs to be configured.': 'Deze widget moet nog geconfigureerd worden.'
 'This will discard your current dashboard layout and restore the default widgets.': 'Dit verwijdert je huidige dashboardindeling en herstelt de standaardwidgets.'
 Thursday: Donderdag
@@ -482,6 +518,7 @@ Thursday: Donderdag
 Title: Titel
 To: Tot
 "Tokens are replaced with the activity's values when the rule runs.": 'Tokens worden vervangen door de waarden van de activiteit wanneer de regel uitgevoerd wordt.'
+'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Totale grootte is groter dan {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Volg het gebruik van je uitrusting op basis van je activiteiten en blijf op de hoogte van onderhoud op basis van gebruik en tijd.'
 Tuesday: Dinsdag
@@ -523,9 +560,11 @@ Weekdays: Weekdagen
 'Your birthday. Needed to calculate heart rate zones.': 'Je geboortedatum. Nodig om hartslagzones te berekenen.'
 'Your changes have been saved.': 'Je wijzigingen zijn opgeslagen.'
 'Your current IP address, as seen by Dreeve, is {ipAddress}.': 'Je huidige IP-adres, zoals Dreeve het ziet, is {ipAddress}.'
+'Your form expired, please try again.': 'Your form expired, please try again.'
 'Your gender. Used to determine activity training load.': 'Je geslacht. Gebruikt om de trainingsbelasting van activiteiten te bepalen.'
 'Your measured max heart rate, applied from the given date onwards.': 'Je gemeten maximale hartslag, toegepast vanaf de opgegeven datum.'
 'Your measured resting heart rate, applied from the given date onwards.': 'Je gemeten rusthartslag, toegepast vanaf de opgegeven datum.'
+'Your password is used once to log in and is never stored. Dreeve keeps the session Garmin hands out, readable by your user only.': 'Your password is used once to log in and is never stored. Dreeve keeps the session Garmin hands out, readable by your user only.'
 Zone: Zone
 'Zoom level': Zoomniveau
 Zwift: Zwift

@@ -17,6 +17,7 @@ enum NavigationSection: string
     case MILESTONES = 'milestones';
     case REWIND = 'rewind';
     case PHOTOS = 'photos';
+    case GARMIN = 'garmin';
     case UPLOAD = 'upload';
     case FILE_IMPORTS = 'file-imports';
     case MANAGE_ACTIVITIES = 'manage-activities';
@@ -32,6 +33,7 @@ enum NavigationSection: string
     public static function forManagePath(string $path): ?self
     {
         $prefixes = [
+            '/admin/garmin' => self::GARMIN,
             '/admin/upload' => self::UPLOAD,
             '/admin/file-imports' => self::FILE_IMPORTS,
             '/admin/activities' => self::MANAGE_ACTIVITIES,

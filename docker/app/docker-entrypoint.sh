@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+# The Garmin sync service shares this image, but none of the app's start-up work.
+if [ "$1" = "health-sync" ]; then
+    cd /opt/health-sync
+    export DATA_DIR="${DATA_DIR:-/var/www/users}"
+    exec /opt/health-sync/venv/bin/python -m healthsync
+fi
+
 echo "date.timezone=\"${TZ:-UTC}\"" > "${PHP_INI_DIR}/conf.d/timezone.ini"
 
 # Multi-user installation (DREEVE_USER_URL is set): the users live in the user registry.
@@ -33,6 +40,10 @@ if [ "$1" = "frankenphp" ]; then
     if [ -n "$MULTI_USER" ]; then
         # Creates the owner on the very first start and prints the link to pick a password.
         php /var/www/bin/dreeve-users bootstrap
+        # The shared secret health-sync checks on every request. Generated once, never leaves the data folder.
+        if [ ! -s /var/www/users/.health-sync-secret ]; then
+            (umask 077 && head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > /var/www/users/.health-sync-secret)
+        fi
     fi
     console_for_each_user app:db:migrate --no-interaction
     console_for_each_user app:cache:render:clear --with-version-check

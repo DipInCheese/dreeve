@@ -124,6 +124,9 @@ whole installation and can not be set per user.
   With a subdomain per user, the browser keeps users fully apart. Only invite people you trust, or use subdomains.
 * Only the owner can manage users; for everyone else the **Users** page does not exist.
 * The `cloudflared` container only receives the tunnel token, and no ports are published on your machine.
+* Garmin passwords are only passed on to log in and never stored. The Garmin session of each user is kept in their
+  data folder, readable by its owner only. The `health-sync` service is only reachable by the app, with a secret
+  generated on first start. See [Garmin Connect](/integrations/garmin-connect/).
 
 ## Data and backups
 
@@ -132,9 +135,11 @@ Everything lives in `./data`, one folder per user:
 ```text
 data/
 ├── .users.json       <- the users and pending invites
+├── .health-sync-secret <- lets the app talk to health-sync
 ├── alice/
 │   ├── storage/      <- database, photos and files
 │   ├── build/        <- render cache
+│   ├── garmin/       <- Garmin session and sync progress
 │   └── watch/        <- drop .fit/.tcx/.gpx files here to import them
 ├── bob/
 └── .removed/         <- data of removed users
@@ -147,6 +152,9 @@ Back up `./data` and `.env`, and you have backed up everything.
 ```bash
 docker compose pull && docker compose up -d
 ```
+
+Compare your `docker-compose.yml` with the latest one now and then: new services, like `health-sync` for
+[Garmin Connect](/integrations/garmin-connect/), are only added by copying them over.
 
 ## Console commands
 

@@ -23,7 +23,6 @@ Activity: Activity
 'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': 'Carga de treino aguda (Fadiga) - Média de 7-dias ponderada exponencial da carga de treino. Representa fadiga de curto prazo.'
 'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': 'Rácio Agudo:Crónico - Rácio entre ATL e CTL. Indica risco de lesão.'
 'Adaptive & Inclusive Sports': 'Desportos Adaptativos e Inclusivos'
-'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.': 'Add your activities to see them here. Upload .fit, .tcx or .gpx files from your watch or app; they are processed within a few minutes.'
 'Aero sensor': 'Aero sensor'
 Afternoon: Tarde
 All: All
@@ -77,6 +76,8 @@ Compare: Comparar
 Components: Components
 'Configure gear maintenance': 'Configure gear maintenance'
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Congrats! You achieved {numberOfPRs} PRs in this activity.'
+'Connect Garmin': 'Connect Garmin'
+'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
 'Consider reducing load': 'Consider reducing load'
 Consistency: Consistency
 Cost: Cost

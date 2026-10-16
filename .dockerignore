@@ -40,3 +40,5 @@ logo.xcf
 bin/caddy
 rector.php
 webpack.config.js
+health-sync/tests
+__pycache__
