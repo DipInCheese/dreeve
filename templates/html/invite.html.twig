@@ -21,7 +21,7 @@
             <h1 class="mt-6 text-center text-2xl font-bold tracking-tight">{{ appName }}</h1>
             {% if isValid %}
                 <p class="mt-1 text-center text-sm text-gray-500">
-                    {{ "Welcome {name}! Pick a password for your admin panel."|trans({'{name}': userName|e}, 'admin') }}
+                    {{ "Welcome {name}! Pick a password to sign in."|trans({'{name}': userName|e}, 'admin') }}
                 </p>
                 <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs">
                     {% if error %}

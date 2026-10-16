@@ -46,7 +46,6 @@ Activity: Activiteit
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Voeg {fit}-, {tcx}- of {gpx}-bestanden toe. Ze worden om de paar minuten verwerkt.'
 Adding...: Adding...
 Address: Address
-'Admin panel': Beheerpaneel
 'Admin username': 'Gebruikersnaam beheerder'
 'Advanced (per-date & per-sport-type overrides)': 'Geavanceerd (overschrijvingen per datum & per sporttype)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -55,7 +54,7 @@ Address: Address
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
 'All sport types': 'Alle sporttypes'
 'All sport types must belong to the same activity type.': 'Alle sporttypes moeten tot hetzelfde activiteitstype behoren.'
-'Allowed IP addresses for the admin panel': 'Toegestane IP-adressen voor het beheerpaneel'
+'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Maakt de trainingsassistent ook beschikbaar in de webinterface. Vereist dat de AI-integratie hierboven ingeschakeld is. Wees voorzichtig als je app publiek toegankelijk is.'
 'Any IP address': 'Eender welk IP-adres'
 'App URL': App-URL
@@ -81,8 +80,6 @@ Apply: Toepassen
 'Average cadence': 'Gemiddelde cadans'
 'Average heart rate (bpm)': 'Gemiddelde hartslag (bpm)'
 'Average power': 'Gemiddeld vermogen'
-'Back to app': 'Terug naar de app'
-'Back to the admin panel': 'Terug naar het beheerpaneel'
 'Base URI': Basis-URI
 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Voor je de app kan gebruiken, moeten we een paar dingen over je weten. Die worden gebruikt om je hartslagzones en trainingsbelasting te berekenen. Alle andere instellingen kan je later nog verfijnen.'
 Birthday: Geboortedatum
@@ -401,7 +398,7 @@ Settings: Instellingen
 'Show the workout assistant in the UI.': 'Toon de trainingsassistent in de interface.'
 'Showing {first} - {last} of {total}': '{first} - {last} van {total} getoond'
 'Sign in': Aanmelden
-'Sign in to the admin panel': 'Aanmelden bij het beheerpaneel'
+'Sign in to see your data': 'Sign in to see your data'
 'Sign out': Afmelden
 'Signing in...': 'Aan het aanmelden...'
 Skipped: Overgeslagen
@@ -511,14 +508,14 @@ Warning: Waarschuwing
 Wednesday: Woensdag
 Weekday: Weekdag
 Weekdays: Weekdagen
-'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
+'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Wat is mijn FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Indien aangevinkt, worden er geen verdere regels verwerkt zodra deze regel overeenkomt. Vink uit om latere regels ook te laten uitvoeren. Die kunnen de wijzigingen van deze regel overschrijven.'
 'When disabled, gear marked as retired is left out of the chart.': 'Indien uitgeschakeld, wordt uitrusting die buiten gebruik is weggelaten uit de grafiek.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Indien uitgeschakeld, zoomt scrollen over een kaart in plaats van de pagina te scrollen.'
 'When enabled, activities without a route, like indoor rides, are left out.': 'Indien ingeschakeld, worden activiteiten zonder route, zoals indoorritten, weggelaten.'
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Indien ingeschakeld, wordt uitrusting die buiten gebruik is overgeslagen. Het gebruik van de onderdelen stijgt niet en er wordt geen onderhoud voor bijgehouden.'
-'When set, requests to the admin panel from any other IP address are rejected.': 'Indien ingesteld, worden verzoeken naar het beheerpaneel van elk ander IP-adres geweigerd.'
+'When set, requests to the management pages from any other IP address are rejected.': 'When set, requests to the management pages from any other IP address are rejected.'
 'Workout type': 'Type training'
 'You can add it back to your dashboard again later.': 'Je kan hem later opnieuw aan je dashboard toevoegen.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'Je kan bestanden ook rechtstreeks in de map {watchFolder} kopiëren, of {linkOpen}handmatig een activiteit toevoegen{linkClose}.'

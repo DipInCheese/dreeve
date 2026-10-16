@@ -16,11 +16,11 @@
                     </p>
                 </div>
                 <div>
-                    <label for="adminAllowedIpAddresses">{{ "Allowed IP addresses for the admin panel"|trans({}, 'admin') }}</label>
+                    <label for="adminAllowedIpAddresses">{{ "Allowed IP addresses for the management pages"|trans({}, 'admin') }}</label>
                     <input type="text" id="adminAllowedIpAddresses" value="{{ adminAllowedIpAddresses }}"
                            placeholder="{{ "Any IP address"|trans({}, 'admin') }}" disabled>
                     <p class="description">
-                        {{ "When set, requests to the admin panel from any other IP address are rejected."|trans({}, 'admin') }}
+                        {{ "When set, requests to the management pages from any other IP address are rejected."|trans({}, 'admin') }}
                         {{ "Configured via an environment variable and cannot be changed here."|trans({}, 'admin') }}
                         {% if clientIpAddress %}
                             <br>

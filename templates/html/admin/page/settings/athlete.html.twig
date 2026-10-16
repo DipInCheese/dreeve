@@ -1,7 +1,7 @@
 {% extends "html/admin/page/template.html.twig" %}
 {% set hideAdminNavigation = true %}
 {% block main %}
-    {% set generalSettingsUrl = relativeUrl(path('admin_settings', {group: 'general'})) %}
+    {% set dashboardUrl = relativeUrl(path('dashboard')) %}
     <div class="modal-like-form">
         <div class="w-full max-w-2xl overflow-y-auto p-6 bg-white border border-gray-200 rounded-lg shadow-xl">
             <div class="mb-4">
@@ -10,7 +10,7 @@
                     {{ "Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on."|trans({}, 'admin') }}
                 </p>
             </div>
-            <form data-dispatch-command="{{ dispatchCommand }}" data-redirect="{{ generalSettingsUrl }}" class="flex flex-col gap-4">
+            <form data-dispatch-command="{{ dispatchCommand }}" data-redirect="{{ dashboardUrl }}" class="flex flex-col gap-4">
                 <div data-form-error class="form-error hidden" role="alert"></div>
                 {% include 'html/admin/page/settings/athlete-fields.html.twig' with {
                     fieldPrefix: 'athlete',

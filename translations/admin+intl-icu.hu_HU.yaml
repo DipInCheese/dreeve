@@ -46,7 +46,6 @@ Activity: Tevékenység
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adj hozzá {fit}, {tcx} vagy {gpx} fájlokat. Néhány percenként feldolgozásra kerülnek.'
 Adding...: Adding...
 Address: Address
-'Admin panel': Adminfelület
 'Admin username': 'Admin felhasználónév'
 'Advanced (per-date & per-sport-type overrides)': 'Speciális (dátum és sporttípus szerinti felülírások)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -55,7 +54,7 @@ Address: Address
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
 'All sport types': 'Minden sporttípus'
 'All sport types must belong to the same activity type.': 'Minden sporttípusnak ugyanahhoz a tevékenységtípushoz kell tartoznia.'
-'Allowed IP addresses for the admin panel': 'Az adminfelülethez engedélyezett IP-címek'
+'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Emellett elérhetővé teszi az edzésasszisztenst a webes felületen. Ehhez a fenti AI-integrációnak bekapcsolva kell lennie. Óvatosan használd, ha az alkalmazásod nyilvánosan elérhető.'
 'Any IP address': 'Bármely IP-cím'
 'App URL': 'Alkalmazás URL'
@@ -81,8 +80,6 @@ Apply: Alkalmaz
 'Average cadence': 'Átlagos kadencia'
 'Average heart rate (bpm)': 'Average heart rate (bpm)'
 'Average power': 'Átlagos teljesítmény'
-'Back to app': 'Vissza az alkalmazáshoz'
-'Back to the admin panel': 'Vissza az adminfelülethez'
 'Base URI': 'Alap URI'
 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Mielőtt használni tudnád az alkalmazást, néhány dolgot tudnunk kell rólad. Ezeket a pulzuszónáid és edzésterhelésed kiszámításához használjuk. A többi beállítást később finomhangolhatod.'
 Birthday: Születésnap
@@ -401,7 +398,7 @@ Settings: Beállítások
 'Show the workout assistant in the UI.': 'Az edzésasszisztens megjelenítése a felületen.'
 'Showing {first} - {last} of {total}': '{first} – {last} megjelenítve, összesen {total}'
 'Sign in': Bejelentkezés
-'Sign in to the admin panel': 'Bejelentkezés az adminfelületre'
+'Sign in to see your data': 'Sign in to see your data'
 'Sign out': Kijelentkezés
 'Signing in...': Bejelentkezés...
 Skipped: Kihagyva
@@ -511,14 +508,14 @@ Warning: Figyelmeztetés
 Wednesday: Szerda
 Weekday: 'Hét napja'
 Weekdays: 'Hét napjai'
-'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
+'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Mi az én FTP-m?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Ha be van jelölve, ennek a szabálynak az illeszkedése után nem kerül feldolgozásra több szabály. Szüntesd meg a jelölést, hogy a későbbi szabályok is fussanak. Ezek felülírhatják ennek a szabálynak a módosításait.'
 'When disabled, gear marked as retired is left out of the chart.': 'Ha ki van kapcsolva, a nyugdíjazottként megjelölt felszerelés kimarad a diagramból.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Ha ki van kapcsolva, a térkép feletti görgetés nagyítja azt, ahelyett hogy az oldalt görgetné.'
 'When enabled, activities without a route, like indoor rides, are left out.': 'Ha be van kapcsolva, az útvonal nélküli tevékenységek, például a beltéri edzések, kimaradnak.'
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Ha be van kapcsolva, a nyugdíjazottként megjelölt felszerelés kihagyásra kerül. A komponensei nem növelik a használatot, és nem történik karbantartás-követés rájuk.'
-'When set, requests to the admin panel from any other IP address are rejected.': 'Ha be van állítva, az adminfelületre bármely más IP-címről érkező kérések elutasításra kerülnek.'
+'When set, requests to the management pages from any other IP address are rejected.': 'When set, requests to the management pages from any other IP address are rejected.'
 'Workout type': Edzéstípus
 'You can add it back to your dashboard again later.': 'Később bármikor visszateheted a dashboardodra.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'A fájlokat közvetlenül a(z) {watchFolder} mappába is másolhatod, vagy {linkOpen}kézzel hozzáadhatsz egy tevékenységet{linkClose}.'

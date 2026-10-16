@@ -46,7 +46,6 @@ Activity: Activity
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.'
 Adding...: Adding...
 Address: Address
-'Admin panel': 'Admin panel'
 'Admin username': 'Admin username'
 'Advanced (per-date & per-sport-type overrides)': 'Advanced (per-date & per-sport-type overrides)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -55,7 +54,7 @@ Address: Address
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
 'All sport types': 'All sport types'
 'All sport types must belong to the same activity type.': 'All sport types must belong to the same activity type.'
-'Allowed IP addresses for the admin panel': 'Allowed IP addresses for the admin panel'
+'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.'
 'Any IP address': 'Any IP address'
 'App URL': 'App URL'
@@ -81,8 +80,6 @@ Apply: Apply
 'Average cadence': 'Average cadence'
 'Average heart rate (bpm)': 'Average heart rate (bpm)'
 'Average power': 'Average power'
-'Back to app': 'Back to app'
-'Back to the admin panel': 'Back to the admin panel'
 'Base URI': 'Base URI'
 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.'
 Birthday: Birthday
@@ -401,7 +398,7 @@ Settings: Settings
 'Show the workout assistant in the UI.': 'Show the workout assistant in the UI.'
 'Showing {first} - {last} of {total}': 'Showing {first} - {last} of {total}'
 'Sign in': 'Sign in'
-'Sign in to the admin panel': 'Sign in to the admin panel'
+'Sign in to see your data': 'Sign in to see your data'
 'Sign out': 'Sign out'
 'Signing in...': 'Signing in...'
 Skipped: Skipped
@@ -511,14 +508,14 @@ Warning: Warning
 Wednesday: Wednesday
 Weekday: Weekday
 Weekdays: Weekdays
-'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
+'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'What is my FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes."
 'When disabled, gear marked as retired is left out of the chart.': 'When disabled, gear marked as retired is left out of the chart.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'When disabled, scrolling over a map zooms it instead of scrolling the page.'
 'When enabled, activities without a route, like indoor rides, are left out.': 'When enabled, activities without a route, like indoor rides, are left out.'
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them."
-'When set, requests to the admin panel from any other IP address are rejected.': 'When set, requests to the admin panel from any other IP address are rejected.'
+'When set, requests to the management pages from any other IP address are rejected.': 'When set, requests to the management pages from any other IP address are rejected.'
 'Workout type': 'Workout type'
 'You can add it back to your dashboard again later.': 'You can add it back to your dashboard again later.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.'

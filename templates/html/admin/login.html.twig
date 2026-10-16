@@ -20,7 +20,7 @@
         <div class="mx-auto w-full max-w-sm">
             <img class="mx-auto h-12 w-auto" src="{{ relativeUrl('assets/images/logo.svg') }}" alt="{{ appName }}">
             <h1 class="mt-6 text-center text-2xl font-bold tracking-tight">{{ appName }}</h1>
-            <p class="mt-1 text-center text-sm text-gray-500">{{ "Sign in to the admin panel"|trans({}, 'admin') }}</p>
+            <p class="mt-1 text-center text-sm text-gray-500">{{ "Sign in to see your data"|trans({}, 'admin') }}</p>
             <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs">
                 {% if error %}
                     <div class="mb-4 overflow-hidden rounded-xl border border-red-200 bg-red-100/60 text-red-700">
@@ -73,13 +73,6 @@
                 </button>
             </form>
             </div>
-            <p class="mt-6 text-center">
-                <a href="{{ relativeUrl('/') }}"
-                   class="inline-flex items-center gap-x-1.5 text-sm font-medium text-gray-500 hover:text-gray-900">
-                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-                    {{ "Back to app"|trans({}, 'admin') }}
-                </a>
-            </p>
         </div>
     </section>
     <script src="{{ relativeUrl(asset('js/dist/admin.min.js')) }}" type="module"></script>

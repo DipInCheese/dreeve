@@ -46,7 +46,6 @@ Activity: Atividade
 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Adicione arquivos {fit}, {tcx} ou {gpx}. Eles são processados a cada poucos minutos.'
 Adding...: Adding...
 Address: Address
-'Admin panel': 'Painel de administração'
 'Admin username': 'Nome de usuário do admin'
 'Advanced (per-date & per-sport-type overrides)': 'Avançado (substituições por data e por tipo de esporte)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -55,7 +54,7 @@ Address: Address
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
 'All sport types': 'Todos os tipos de esporte'
 'All sport types must belong to the same activity type.': 'Todos os tipos de esporte devem pertencer ao mesmo tipo de atividade.'
-'Allowed IP addresses for the admin panel': 'Endereços IP permitidos para o painel de administração'
+'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Também expõe o assistente de treino na interface web. Requer que a integração de IA acima esteja ativada. Tenha cuidado ao ativar isso se o seu aplicativo for acessível publicamente.'
 'Any IP address': 'Qualquer endereço IP'
 'App URL': 'URL do aplicativo'
@@ -81,8 +80,6 @@ Apply: Aplicar
 'Average cadence': 'Cadência média'
 'Average heart rate (bpm)': 'Frequência cardíaca média (bpm)'
 'Average power': 'Potência média'
-'Back to app': 'Voltar para o aplicativo'
-'Back to the admin panel': 'Voltar ao painel de administração'
 'Base URI': 'URI base'
 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Antes de poder usar o aplicativo, precisamos saber algumas coisas sobre você. Elas são usadas para calcular suas zonas de frequência cardíaca e carga de treinamento. Você pode ajustar todas as outras configurações mais tarde.'
 Birthday: 'Data de nascimento'
@@ -401,7 +398,7 @@ Settings: Configurações
 'Show the workout assistant in the UI.': 'Exibir o assistente de treino na interface de usuário (UI).'
 'Showing {first} - {last} of {total}': 'Mostrando de {first} a {last} de {total}'
 'Sign in': Entrar
-'Sign in to the admin panel': 'Entrar no painel de administração'
+'Sign in to see your data': 'Sign in to see your data'
 'Sign out': Sair
 'Signing in...': Entrando...
 Skipped: Ignorado
@@ -511,14 +508,14 @@ Warning: Aviso
 Wednesday: Quarta-feira
 Weekday: 'Dia da semana'
 Weekdays: 'Dias da semana'
-'Welcome {name}! Pick a password for your admin panel.': 'Welcome {name}! Pick a password for your admin panel.'
+'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Qual é o meu FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Quando marcado, nenhuma outra regra será processada assim que esta corresponder. Desmarque para permitir que regras posteriores também sejam executadas. Elas podem sobrescrever as alterações desta regra.'
 'When disabled, gear marked as retired is left out of the chart.': 'Quando desativado, o equipamento marcado como aposentado é deixado fora do gráfico.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Quando desativado, rolar sobre o mapa aplica zoom em vez de rolar a página.'
 'When enabled, activities without a route, like indoor rides, are left out.': 'Quando ativado, atividades sem rota, como treinos rolo/indoor, são ignoradas.'
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Quando ativado, o equipamento marcado como aposentado é ignorado. Seus componentes não aumentarão o uso e nenhuma manutenção será registrada para eles.'
-'When set, requests to the admin panel from any other IP address are rejected.': 'Quando definido, solicitações ao painel de administração vindo de qualquer outro endereço IP são rejeitadas.'
+'When set, requests to the management pages from any other IP address are rejected.': 'When set, requests to the management pages from any other IP address are rejected.'
 'Workout type': 'Tipo de treino'
 'You can add it back to your dashboard again later.': 'Você pode adicioná-lo de volta ao seu painel mais tarde.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'Você também pode copiar arquivos diretamente para a pasta {watchFolder} ou {linkOpen}adicionar uma atividade manualmente{linkClose}.'
