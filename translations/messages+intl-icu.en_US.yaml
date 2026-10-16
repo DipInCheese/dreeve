@@ -1,5 +1,10 @@
 '# completed': '# completed'
+'1 year': '1 year'
+'3 months': '3 months'
+'30 days': '30 days'
 '42-day fitness trend': '42-day fitness trend'
+'7 days': '7 days'
+'7-day average {value}': '7-day average {value}'
 '7-day fatigue level': '7-day fatigue level'
 '< 1.5: Good variety in training': '< 1.5: Good variety in training'
 '> 2.0: High monotony, increased risk': '> 2.0: High monotony, increased risk'
@@ -11,6 +16,7 @@
 'A:C optimal in': 'A:C optimal in'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (Fatigue)'
+'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Accumulated fatigue'
 'Active days': 'Active days'
 'Active gear': 'Active gear'
@@ -39,18 +45,24 @@ Average: Average
 'Avg gradient': 'Avg gradient'
 'Avg pace': 'Avg pace'
 'Avg speed': 'Avg speed'
+Awake: Awake
 'Back Country Ski': 'Back Country Ski'
 'Back to app': 'Back to app'
 Badges: Badges
 Badminton: Badminton
 Bananas: Bananas
 Basketball: Basketball
+'Below your normal': 'Below your normal'
 Best: Best
 'Best effort': 'Best effort'
 'Best efforts': 'Best efforts'
 'Best efforts for {sportType}': 'Best efforts for {sportType}'
 'Bike light': 'Bike light'
 'Bike radar': 'Bike radar'
+'Blood oxygen': 'Blood oxygen'
+Body: Body
+'Body Battery': 'Body Battery'
+'Body fat': 'Body fat'
 'Build zone (–10)': 'Build zone (–10)'
 'CTL (Fitness)': 'CTL (Fitness)'
 Cadence: Cadence
@@ -78,6 +90,7 @@ Components: Components
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Congrats! You achieved {numberOfPRs} PRs in this activity.'
 'Connect Garmin': 'Connect Garmin'
 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
+'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.': 'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.'
 'Consider reducing load': 'Consider reducing load'
 Consistency: Consistency
 Cost: Cost
@@ -90,6 +103,7 @@ Crossfit: Crossfit
 Cycling: Cycling
 'Daily TRIMP': 'Daily TRIMP'
 'Daily activities': 'Daily activities'
+'Daily movement, VO2max and how ready you are to train.': 'Daily movement, VO2max and how ready you are to train.'
 Dance: Dance
 'Dark mode': 'Dark mode'
 Dashboard: Dashboard
@@ -101,6 +115,8 @@ Day: Day
 'Daytime stats': 'Daytime stats'
 Dec: Dec
 'Decreased compared to yesterday': 'Decreased compared to yesterday'
+Deep: Deep
+'Deep sleep': 'Deep sleep'
 Density: Density
 Details: Details
 Device: Device
@@ -185,7 +201,10 @@ Gradient: Gradient
 "Guidelines vary by individual; for more information see Joe Friel's 'The Cyclist's Training Bible' or TrainingPeaks' research documentation.": "Guidelines vary by individual; for more information see Joe Friel's 'The Cyclist's Training Bible' or TrainingPeaks' research documentation."
 HIIT: HIIT
 HR: HR
+HRV: HRV
 'Hand Cycle': 'Hand Cycle'
+Health: Health
+Heart: Heart
 'Heart rate': 'Heart rate'
 'Heart rate monitor': 'Heart rate monitor'
 'Heart rate zone distribution over the past month. For effective polarized training, your workouts should primarily fall within the following zones': 'Heart rate zone distribution over the past month. For effective polarized training, your workouts should primarily fall within the following zones'
@@ -204,6 +223,7 @@ History: History
 'History (6 weeks)': 'History (6 weeks)'
 'How diverse is your training': 'How diverse is your training'
 'How hard is your typical training session': 'How hard is your typical training session'
+'How long and how well you slept, night by night.': 'How long and how well you slept, night by night.'
 'How long is your typical training session': 'How long is your typical training session'
 'How much do you train on average per week': 'How much do you train on average per week'
 'How much training you do in total on days you train.': 'How much training you do in total on days you train.'
@@ -216,6 +236,7 @@ Imperial: Imperial
 'Inline Skate': 'Inline Skate'
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensity
+'Intensity minutes': 'Intensity minutes'
 Jan: Jan
 Jul: Jul
 Jun: Jun
@@ -230,11 +251,16 @@ Lap: Lap
 'Last effort': 'Last effort'
 'Last effort date': 'Last effort date'
 'Last maintenance': 'Last maintenance'
+'Last measured on {date}': 'Last measured on {date}'
 'Last month': 'Last month'
+'Last night': 'Last night'
 'Last used': 'Last used'
 'Last week': 'Last week'
 'Last {numberOfDays} days': 'Last {numberOfDays} days'
+'Latest activity': 'Latest activity'
+'Latest weight': 'Latest weight'
 Lifetime: Lifetime
+Light: Light
 'Light fatigue with good readiness. A great balance for quality training or longer efforts': 'Light fatigue with good readiness. A great balance for quality training or longer efforts'
 Load: Load
 'Load (CTL/ATL)': 'Load (CTL/ATL)'
@@ -249,6 +275,7 @@ Loading...: Loading...
 Low: Low
 'Low risk': 'Low risk'
 'Low training load': 'Low training load'
+'Lowest Body Battery': 'Lowest Body Battery'
 Maintenance: Maintenance
 'Manage activities': 'Manage activities'
 'Manage gear': 'Manage gear'
@@ -292,13 +319,19 @@ Night: Night
 'No activities': 'No activities'
 'No activities yet': 'No activities yet'
 'No data available': 'No data available'
+'No data yet': 'No data yet'
+'No health data yet. Connect your Garmin account and it shows up here.': 'No health data yet. Connect your Garmin account and it shows up here.'
 'No maintenance tasks': 'No maintenance tasks'
+'No measurements in this period. Your watch may not record these, or try a longer period.': 'No measurements in this period. Your watch may not record these, or try a longer period.'
 'No milestones achieved yet': 'No milestones achieved yet'
 'No other options to compare with': 'No other options to compare with'
 'No purchase price set': 'No purchase price set'
+'No weight yet': 'No weight yet'
 None: None
 'Nordic Ski': 'Nordic Ski'
+'Normal {low}–{high}': 'Normal {low}–{high}'
 'Normalized power': 'Normalized power'
+'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Not supported'
 Nov: Nov
@@ -328,6 +361,7 @@ Padel: Padel
 'Peak fresh': 'Peak fresh'
 'Peak power outputs': 'Peak power outputs'
 'Per {unit}': 'Per {unit}'
+Period: Period
 'Personal bests': 'Personal bests'
 Photo: Photo
 Photos: Photos
@@ -344,6 +378,8 @@ Power: Power
 Previous: Previous
 Progress: Progress
 'Purchase price': 'Purchase price'
+REM: REM
+'REM sleep': 'REM sleep'
 Race: Race
 'Racing Score': 'Racing Score'
 'Racquet & Paddle Sports': 'Racquet & Paddle Sports'
@@ -364,10 +400,13 @@ Recent: Recent
 'Recovery forecast': 'Recovery forecast'
 'Reduced carbon emission by commuting': 'Reduced carbon emission by commuting'
 'Register maintenance': 'Register maintenance'
+Respiration: Respiration
 'Rest Days': 'Rest Days'
 'Rest days': 'Rest days'
 'Rest days in last 7 days': 'Rest days in last 7 days'
 'Rest days vs. active days': 'Rest days vs. active days'
+'Resting heart rate': 'Resting heart rate'
+'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.': 'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.'
 Retired: Retired
 Rewind: Rewind
 'Rewind comparisons are only available on larger screens.': 'Rewind comparisons are only available on larger screens.'
@@ -397,6 +436,8 @@ Shifting: Shifting
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure."
 Skateboard: Skateboard
 Skating: Skating
+Sleep: Sleep
+'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
 'Smart trainer': 'Smart trainer'
 Snowboard: Snowboard
@@ -415,8 +456,12 @@ Squash: Squash
 'Start times': 'Start times'
 'Stats per weekday': 'Stats per weekday'
 Status: Status
+Steps: Steps
 'Streak started on {date}': 'Streak started on {date}'
 Streaks: Streaks
+Stress: Stress
+'Stress & Body Battery': 'Stress & Body Battery'
+'Stress through the day, and the energy your body built up and used.': 'Stress through the day, and the energy your body built up and used.'
 Sun: Sun
 Sun.: Sun.
 Surfing: Surfing
@@ -536,6 +581,7 @@ Time: Time
 'Times completed': 'Times completed'
 Title: Title
 'To enable it, configure it under Manage, Gear': 'To enable it, configure it under Manage, Gear'
+Today: Today
 'Toggle sidebar': 'Toggle sidebar'
 'Top 10': 'Top 10'
 'Total distance per month': 'Total distance per month'
@@ -552,6 +598,7 @@ Title: Title
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.'
 'Training goals': 'Training goals'
 'Training load is accumulating, recovery days are important': 'Training load is accumulating, recovery days are important'
+'Training readiness': 'Training readiness'
 Tue: Tue
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
@@ -561,6 +608,8 @@ Unspecified: Unspecified
 'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': 'User badge'
+'VO2max cycling': 'VO2max cycling'
+'VO2max running': 'VO2max running'
 'Velo Mobile': 'Velo Mobile'
 'Velo Mobiles': 'Velo Mobiles'
 'Very high': 'Very high'
@@ -592,11 +641,13 @@ Weekly: Weekly
 'Weekly stats': 'Weekly stats'
 Weight: Weight
 'Weight Training': 'Weight Training'
+'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 'Weight history'
 Wheelchair: Wheelchair
 'Wind Surf': 'Wind Surf'
 'Winter Sports': 'Winter Sports'
 'With others': 'With others'
+'Within your normal': 'Within your normal'
 Workout: Workout
 'Workout assistant': 'Workout assistant'
 'Workout type': 'Workout type'
@@ -610,6 +661,8 @@ Yoga: Yoga
 'Your PB badge': 'Your PB badge'
 'Your Zwift badge': 'Your Zwift badge'
 'Your badge(s)': 'Your badge(s)'
+'Your health at a glance': 'Your health at a glance'
+'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Low)'
 Z2: Z2

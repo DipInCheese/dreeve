@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Api\V1\Settings;
 
+use App\Domain\Athlete\Weight\AthleteWeightHistoryProvider;
 use App\Domain\Athlete\Weight\DeleteAthleteWeight\DeleteAthleteWeight;
 use App\Domain\Athlete\Weight\UpdateAthleteWeight\UpdateAthleteWeight;
-use App\Domain\Settings\DbalSettingsRepository;
-use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\Http\Api\ApiErrorResponse;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,18 +20,15 @@ use Symfony\Component\Routing\Attribute\Route;
 final readonly class AthleteWeightRequestHandler
 {
     public function __construct(
-        #[Autowire(service: DbalSettingsRepository::class)]
-        private SettingsRepository $settingsRepository,
         private CommandBus $commandBus,
+        private AthleteWeightHistoryProvider $athleteWeightHistoryProvider,
     ) {
     }
 
     #[Route(path: '/api/v1/athlete/weights', name: 'api_v1_athlete_weights', methods: ['GET'], priority: 3)]
     public function list(): JsonResponse
     {
-        $weights = $this->settingsRepository->general()
-            ->getAthleteWeightHistory($this->settingsRepository->appearance()->getUnitSystem())
-            ->findAll();
+        $weights = $this->athleteWeightHistoryProvider->get()->findAll();
 
         return new JsonResponse(['weights' => array_values($weights)]);
     }

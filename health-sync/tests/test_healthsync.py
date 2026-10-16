@@ -33,6 +33,15 @@ class FakeAccount:
     def display_name(self):
         return "Test Runner"
 
+    def day_health(self, day):
+        self.garmin.health_requested.append(day)
+        if day not in self.garmin.health_days:
+            return {"summary": None, "sleep": None, "hrv": None, "readiness": None}
+        return {"summary": {"calendarDate": day.isoformat(), "totalSteps": 1000}, "sleep": None, "hrv": None, "readiness": []}
+
+    def range_health(self, start, end):
+        return {"maxMetrics": [], "bodyComposition": None}
+
 
 class FakeGarmin:
     def __init__(self):
@@ -44,6 +53,8 @@ class FakeGarmin:
         self.activities = []
         self.without_fit = set()
         self.requested = []
+        self.health_days = set()
+        self.health_requested = []
 
     def start_login(self, email, password, tokens_dir):
         if self.reject_password:
@@ -91,6 +102,10 @@ class HealthSyncTestCase(unittest.TestCase):
         for job in self.background:
             job()
         self.background.clear()
+
+    def inbox_files(self):
+        inbox = self.data / "alice" / "inbox" / "health"
+        return sorted(path.name for path in inbox.iterdir()) if inbox.exists() else []
 
     def watched_files(self):
         return sorted(path.name for path in (self.data / "alice" / "watch").iterdir() if path.is_file())
@@ -261,6 +276,47 @@ class SyncTest(HealthSyncTestCase):
         self.assertFalse(self.syncer.is_due("alice"))
         self.now += timedelta(minutes=61)
         self.assertTrue(self.syncer.is_due("alice"))
+
+
+class HealthSyncTest(HealthSyncTestCase):
+    def test_it_drops_the_last_days_in_the_inbox(self):
+        self.garmin.health_days = {date(2026, 10, 15), date(2026, 10, 16)}
+        self.connect()
+
+        files = self.inbox_files()
+        self.assertIn("garmin-day-2026-10-16.json", files)
+        self.assertIn("garmin-day-2026-10-15.json", files)
+        self.assertIn("garmin-range-2026-10-15-2026-10-16.json", files)
+        self.assertFalse(any(name.startswith(".") for name in files), "Nothing half written is left behind.")
+        today = json.loads((self.data / "alice" / "inbox" / "health" / "garmin-day-2026-10-16.json").read_text())
+        self.assertEqual({"source": "garmin", "kind": "day", "date": "2026-10-16", "fetchedAt": "2026-10-16T12:00:00+00:00",
+                          "summary": {"calendarDate": "2026-10-16", "totalSteps": 1000}, "sleep": None, "hrv": None, "readiness": []}, today)
+
+    def test_it_fetches_the_history_backwards_in_batches(self):
+        self.garmin.health_days = {date(2026, 10, 16) - timedelta(days=offset) for offset in range(90)}
+        self.connect(since="90d")
+
+        # The last two days, then the 14 days before them.
+        self.assertEqual(date(2026, 10, 15), min(self.garmin.health_requested[:2]))
+        self.assertEqual(date(2026, 10, 1), min(self.garmin.health_requested))
+        self.assertTrue(self.call("GET", "/v1/users/alice/status")[1]["backfilling"])
+
+        for _ in range(10):
+            self.now += timedelta(minutes=11)
+            self.syncer.sync("alice")
+
+        self.assertEqual(date(2026, 7, 18), min(self.garmin.health_requested))
+        self.assertFalse(self.call("GET", "/v1/users/alice/status")[1]["backfilling"])
+
+    def test_it_stops_at_the_first_empty_batch(self):
+        self.garmin.health_days = {date(2026, 10, 16) - timedelta(days=offset) for offset in range(5)}
+        self.connect(since="all")
+        self.now += timedelta(minutes=11)
+        self.syncer.sync("alice")
+
+        # The batch before the first watch came back empty: no need to go back two years.
+        self.assertFalse(self.call("GET", "/v1/users/alice/status")[1]["backfilling"])
+        self.assertGreater(min(self.garmin.health_requested), date(2026, 9, 1))
 
 
 class ExtractFitTest(unittest.TestCase):

@@ -1,5 +1,10 @@
 '# completed': '# concluído'
+'1 year': '1 year'
+'3 months': '3 months'
+'30 days': '30 days'
 '42-day fitness trend': 'Tendência de condicionamento de 42 dias'
+'7 days': '7 days'
+'7-day average {value}': '7-day average {value}'
 '7-day fatigue level': 'Nível de fadiga de 7 dias'
 '< 1.5: Good variety in training': '< 1,5: Boa variedade no treino'
 '> 2.0: High monotony, increased risk': '> 2,0: Alta monotonia, risco aumentado'
@@ -11,6 +16,7 @@
 'A:C optimal in': 'A:C ideal em'
 'AI integration settings': 'Configurações de integração de IA'
 'ATL (Fatigue)': 'ATL (Fadiga)'
+'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Fadiga acumulada'
 'Active days': 'Dias ativos'
 'Active gear': 'Active gear'
@@ -39,18 +45,24 @@ Average: Média
 'Avg gradient': 'Inclinação média'
 'Avg pace': 'Ritmo médio'
 'Avg speed': 'Velocidade média'
+Awake: Awake
 'Back Country Ski': 'Esqui Fora de Pista'
 'Back to app': 'Voltar para o aplicativo'
 Badges: Emblemas
 Badminton: Badminton
 Bananas: Bananas
 Basketball: Basquete
+'Below your normal': 'Below your normal'
 Best: Melhor
 'Best effort': 'Melhor esforço'
 'Best efforts': 'Melhores Esforços'
 'Best efforts for {sportType}': 'Melhores esforços para {sportType}'
 'Bike light': 'Luz de bicicleta'
 'Bike radar': 'Radar de bicicleta'
+'Blood oxygen': 'Blood oxygen'
+Body: Body
+'Body Battery': 'Body Battery'
+'Body fat': 'Body fat'
 'Build zone (–10)': 'Zona de construção (–10)'
 'CTL (Fitness)': 'CTL (Condicionamento)'
 Cadence: Cadência
@@ -78,6 +90,7 @@ Components: Componentes
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Parabéns! Você alcançou {numberOfPRs} RPs nesta atividade.'
 'Connect Garmin': 'Connect Garmin'
 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
+'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.': 'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.'
 'Consider reducing load': 'Considere reduzir a carga'
 Consistency: Consistência
 Cost: Cost
@@ -90,6 +103,7 @@ Crossfit: Crossfit
 Cycling: Ciclismo
 'Daily TRIMP': 'TRIMP Diário'
 'Daily activities': 'Atividades diárias'
+'Daily movement, VO2max and how ready you are to train.': 'Daily movement, VO2max and how ready you are to train.'
 Dance: Dança
 'Dark mode': 'Modo escuro'
 Dashboard: Painel
@@ -101,6 +115,8 @@ Day: Dia
 'Daytime stats': 'Estatísticas por período do dia'
 Dec: Dez
 'Decreased compared to yesterday': 'Diminuiu em comparação a ontem'
+Deep: Deep
+'Deep sleep': 'Deep sleep'
 Density: Densidade
 Details: Detalhes
 Device: Dispositivo
@@ -185,7 +201,10 @@ Gradient: Inclinação
 "Guidelines vary by individual; for more information see Joe Friel's 'The Cyclist's Training Bible' or TrainingPeaks' research documentation.": "As diretrizes variam de acordo com o indivíduo; para mais informações, consulte 'A Bíblia de Treinamento do Ciclista' de Joe Friel ou a documentação de pesquisa do TrainingPeaks."
 HIIT: HIIT
 HR: FC
+HRV: HRV
 'Hand Cycle': 'Ciclismo Manual'
+Health: Health
+Heart: Heart
 'Heart rate': 'Frequência cardíaca'
 'Heart rate monitor': 'Monitor de frequência cardíaca'
 'Heart rate zone distribution over the past month. For effective polarized training, your workouts should primarily fall within the following zones': 'Distribuição das zonas de frequência cardíaca no último mês. Para um treinamento polarizado eficaz, seus treinos devem estar concentrados principalmente nas seguintes zonas'
@@ -204,6 +223,7 @@ History: Histórico
 'History (6 weeks)': 'Histórico (6 semanas)'
 'How diverse is your training': 'Quão diversificado é o seu treino'
 'How hard is your typical training session': 'Qual a intensidade da sua sessão de treino típica'
+'How long and how well you slept, night by night.': 'How long and how well you slept, night by night.'
 'How long is your typical training session': 'Qual a duração da sua sessão de treino típica'
 'How much do you train on average per week': 'Quanto você treina em média por semana'
 'How much training you do in total on days you train.': 'Quanto treino você faz no total nos dias em que treina.'
@@ -216,6 +236,7 @@ Imperial: Imperial
 'Inline Skate': 'Patinação em Linha'
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensidade
+'Intensity minutes': 'Intensity minutes'
 Jan: Jan
 Jul: Jul
 Jun: Jun
@@ -230,11 +251,16 @@ Lap: Volta
 'Last effort': 'Último esforço'
 'Last effort date': 'Data do último esforço'
 'Last maintenance': 'Última manutenção'
+'Last measured on {date}': 'Last measured on {date}'
 'Last month': 'Último mês'
+'Last night': 'Last night'
 'Last used': 'Last used'
 'Last week': 'Última semana'
 'Last {numberOfDays} days': 'Últimos {numberOfDays} dias'
+'Latest activity': 'Latest activity'
+'Latest weight': 'Latest weight'
 Lifetime: Vitalício
+Light: Light
 'Light fatigue with good readiness. A great balance for quality training or longer efforts': 'Fadiga leve com boa prontidão. Um ótimo equilíbrio para treinos de qualidade ou esforços mais longos'
 Load: Carga
 'Load (CTL/ATL)': 'Carga (CTL/ATL)'
@@ -249,6 +275,7 @@ Loading...: Carregando...
 Low: Baixa
 'Low risk': 'Baixo risco'
 'Low training load': 'Baixa carga de treino'
+'Lowest Body Battery': 'Lowest Body Battery'
 Maintenance: Manutenção
 'Manage activities': 'Gerenciar atividades'
 'Manage gear': 'Gerenciar equipamentos'
@@ -292,13 +319,19 @@ Night: Noite
 'No activities': 'Sem atividades'
 'No activities yet': 'No activities yet'
 'No data available': 'Nenhum dado disponível'
+'No data yet': 'No data yet'
+'No health data yet. Connect your Garmin account and it shows up here.': 'No health data yet. Connect your Garmin account and it shows up here.'
 'No maintenance tasks': 'No maintenance tasks'
+'No measurements in this period. Your watch may not record these, or try a longer period.': 'No measurements in this period. Your watch may not record these, or try a longer period.'
 'No milestones achieved yet': 'Nenhum marco alcançado ainda'
 'No other options to compare with': 'Nenhuma outra opção para comparar'
 'No purchase price set': 'No purchase price set'
+'No weight yet': 'No weight yet'
 None: Nenhum
 'Nordic Ski': 'Esqui Nórdico'
+'Normal {low}–{high}': 'Normal {low}–{high}'
 'Normalized power': 'Potência normalizada'
+'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Não suportado'
 Nov: Nov
@@ -328,6 +361,7 @@ Padel: Padel
 'Peak fresh': 'Prontidão máxima'
 'Peak power outputs': 'Picos de potência'
 'Per {unit}': 'Por {unit}'
+Period: Period
 'Personal bests': 'Recordes pessoais'
 Photo: Foto
 Photos: Fotos
@@ -344,6 +378,8 @@ Power: Potência
 Previous: Anterior
 Progress: Progress
 'Purchase price': 'Preço de compra'
+REM: REM
+'REM sleep': 'REM sleep'
 Race: Prova
 'Racing Score': 'Pontuação de Corrida'
 'Racquet & Paddle Sports': 'Esportes de Raquete e Padel'
@@ -364,10 +400,13 @@ Recent: Recente
 'Recovery forecast': 'Previsão de recuperação'
 'Reduced carbon emission by commuting': 'Emissões de carbono reduzidas através de deslocamentos'
 'Register maintenance': 'Registrar manutenção'
+Respiration: Respiration
 'Rest Days': 'Dias de Descanso'
 'Rest days': 'Dias de descanso'
 'Rest days in last 7 days': 'Dias de descanso nos últimos 7 dias'
 'Rest days vs. active days': 'Dias de descanso vs. dias ativos'
+'Resting heart rate': 'Resting heart rate'
+'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.': 'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.'
 Retired: Retired
 Rewind: Retrospectiva
 'Rewind comparisons are only available on larger screens.': 'Comparações da retrospectiva só estão disponíveis em telas maiores.'
@@ -397,6 +436,8 @@ Shifting: 'Troca de marchas'
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": 'Desde que comecei a treinar há {numberOfDaysAgo} em {startDate}, registrei {totalDaysOfWorkingOut} dias ativos de treino e aventura.'
 Skateboard: Skate
 Skating: Patinação
+Sleep: Sleep
+'Sleep score': 'Sleep score'
 'Slightly fresh': 'Levemente descansado'
 'Smart trainer': 'Rolo de treino inteligente'
 Snowboard: Snowboard
@@ -415,8 +456,12 @@ Squash: Squash
 'Start times': 'Horários de início'
 'Stats per weekday': 'Estatísticas por dia da semana'
 Status: Status
+Steps: Steps
 'Streak started on {date}': 'Sequência iniciada em {date}'
 Streaks: Sequências
+Stress: Stress
+'Stress & Body Battery': 'Stress & Body Battery'
+'Stress through the day, and the energy your body built up and used.': 'Stress through the day, and the energy your body built up and used.'
 Sun: Dom
 Sun.: Dom.
 Surfing: Surf
@@ -536,6 +581,7 @@ Time: Tempo
 'Times completed': 'Vezes concluído'
 Title: Título
 'To enable it, configure it under Manage, Gear': 'To enable it, configure it under Manage, Gear'
+Today: Today
 'Toggle sidebar': 'Alternar barra lateral'
 'Top 10': 'Top 10'
 'Total distance per month': 'Distância total por mês'
@@ -552,6 +598,7 @@ Title: Título
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Balanço de Estresse de Treinamento (Forma) – A diferença entre o condicionamento (CTL) e a fadiga (ATL). Reflete o quão pronto você está para render.'
 'Training goals': 'Metas de treinamento'
 'Training load is accumulating, recovery days are important': 'A carga de treino está acumulando, dias de recuperação são importantes'
+'Training readiness': 'Training readiness'
 Tue: Ter
 Tue.: Ter.
 'Unchanged compared to yesterday': 'Inalterado em comparação a ontem'
@@ -561,6 +608,8 @@ Unspecified: 'Não especificado'
 'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': 'Emblema do usuário'
+'VO2max cycling': 'VO2max cycling'
+'VO2max running': 'VO2max running'
 'Velo Mobile': Velomóvel
 'Velo Mobiles': Velomóveis
 'Very high': 'Muito alta'
@@ -592,11 +641,13 @@ Weekly: Semanal
 'Weekly stats': 'Estatísticas semanais'
 Weight: Peso
 'Weight Training': 'Treino de Força'
+'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 'Histórico de peso'
 Wheelchair: 'Cadeira de Rodas'
 'Wind Surf': Windsurf
 'Winter Sports': 'Esportes de Inverno'
 'With others': 'Com outras pessoas'
+'Within your normal': 'Within your normal'
 Workout: Treino
 'Workout assistant': 'Assistente de treino'
 'Workout type': 'Tipo de treino'
@@ -610,6 +661,8 @@ Yoga: Yoga
 'Your PB badge': 'Seu emblema de RP'
 'Your Zwift badge': 'Seu emblema do Zwift'
 'Your badge(s)': 'Seu(s) emblema(s)'
+'Your health at a glance': 'Your health at a glance'
+'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Baixa)'
 Z2: Z2

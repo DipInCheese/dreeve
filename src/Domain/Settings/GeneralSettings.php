@@ -11,9 +11,7 @@ use App\Domain\Athlete\AthleteBirthDate;
 use App\Domain\Athlete\HeartRateZone\HeartRateZoneConfiguration;
 use App\Domain\Athlete\MaxHeartRate\MaxHeartRateFormulas;
 use App\Domain\Athlete\RestingHeartRate\RestingHeartRateFormulas;
-use App\Domain\Athlete\Weight\AthleteWeightHistory;
 use App\Domain\Ftp\FtpHistory;
-use App\Infrastructure\Measurement\UnitSystem;
 
 final readonly class GeneralSettings
 {
@@ -109,11 +107,13 @@ final readonly class GeneralSettings
         return $this->ftpHistory;
     }
 
-    public function getAthleteWeightHistory(UnitSystem $unitSystem): AthleteWeightHistory
+    /**
+     * The weights typed in by hand. Use AthleteWeightHistoryProvider for the full history.
+     *
+     * @return array<string, mixed>
+     */
+    public function getWeightHistory(): array
     {
-        /** @var array<string, float> $weightHistory */
-        $weightHistory = $this->weightHistory;
-
-        return AthleteWeightHistory::fromArray($weightHistory, $unitSystem);
+        return $this->weightHistory;
     }
 }

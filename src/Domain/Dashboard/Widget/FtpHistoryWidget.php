@@ -6,6 +6,7 @@ namespace App\Domain\Dashboard\Widget;
 
 use App\Domain\Activity\ActivityType;
 use App\Domain\Activity\ActivityTypeRepository;
+use App\Domain\Athlete\Weight\AthleteWeightHistoryProvider;
 use App\Domain\Dashboard\DashboardWidgetId;
 use App\Domain\Ftp\FtpHistoryChart;
 use App\Domain\Ftp\Ftps;
@@ -23,6 +24,7 @@ final readonly class FtpHistoryWidget implements Widget
         private ActivityTypeRepository $activityTypeRepository,
         private WidgetRenderer $widgetRenderer,
         private SettingsRepository $settingsRepository,
+        private AthleteWeightHistoryProvider $athleteWeightHistoryProvider,
     ) {
     }
 
@@ -61,7 +63,7 @@ final readonly class FtpHistoryWidget implements Widget
 
         $general = $this->settingsRepository->general();
         $ftpHistory = $general->getFtpHistory();
-        $athleteWeightHistory = $general->getAthleteWeightHistory($this->settingsRepository->appearance()->getUnitSystem());
+        $athleteWeightHistory = $this->athleteWeightHistoryProvider->get();
 
         /** @var ActivityType $activityType */
         foreach ($this->activityTypeRepository->findAll() as $activityType) {

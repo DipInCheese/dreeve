@@ -31,8 +31,8 @@ final readonly class UserRegistry
     public const array RESERVED_NAMES = [
         // Pages and endpoints, see ReservedUserNamesTest.
         'activities', 'admin', 'api', 'badge', 'badges', 'best-efforts', 'challenges', 'chat', 'dashboard',
-        'eddington', 'files', 'finish-setup', 'gear', 'heatmap', 'invite', 'milestones', 'monthly-stats',
-        'photos', 'rewind', 'segments', 'strava', 'strava-oauth',
+        'eddington', 'files', 'finish-setup', 'gear', 'health', 'heatmap', 'invite', 'milestones', 'monthly-stats',
+        'photos', 'rewind', 'segments', 'strava', 'strava-oauth', 'today',
         // Static files in public/.
         'assets', 'css', 'js', 'libraries',
         // Kept free for the future.

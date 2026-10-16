@@ -7,7 +7,6 @@ namespace App\Tests\Domain\Settings;
 use App\Domain\Activity\ActivityType;
 use App\Domain\Settings\AthleteHasNotBeenConfigured;
 use App\Domain\Settings\GeneralSettings;
-use App\Infrastructure\Measurement\UnitSystem;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +56,7 @@ class GeneralSettingsTest extends TestCase
         $this->assertSame('The King', (string) $settings->getAppSubTitle());
         $this->assertSame('https://example.com/me.png', (string) $settings->getProfilePictureUrl());
         $this->assertNotEmpty($settings->getFtpHistory()->findAll(ActivityType::RIDE));
-        $this->assertNotEmpty($settings->getAthleteWeightHistory(UnitSystem::METRIC)->findAll());
+        $this->assertNotEmpty($settings->getWeightHistory());
     }
 
     public function testItAppliesDefaultsForOptionalSettings(): void
@@ -71,7 +70,7 @@ class GeneralSettingsTest extends TestCase
 
         $this->assertNull($settings->getAppSubTitle());
         $this->assertNull($settings->getProfilePictureUrl());
-        $this->assertEmpty($settings->getAthleteWeightHistory(UnitSystem::METRIC)->findAll());
+        $this->assertEmpty($settings->getWeightHistory());
         // Resting heart rate defaults to the heuristic age-based formula.
         $this->assertGreaterThan(0, $settings->getAthlete()->getRestingHeartRate(SerializableDateTime::fromString('2024-01-01')));
     }

@@ -26,13 +26,13 @@ class DashboardRequestHandlerTest extends AdminWebTestCase
         $this->assertMatchesHtmlSnapshot((string) $this->client->getResponse()->getContent());
     }
 
-    public function testItIsServedOnTheRoot(): void
+    public function testTheRootServesTodayInstead(): void
     {
         $this->provideFullTestSet();
 
         $this->client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('href="/dashboard" aria-selected="true"', (string) $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('href="/today" aria-selected="true"', (string) $this->client->getResponse()->getContent());
     }
 }

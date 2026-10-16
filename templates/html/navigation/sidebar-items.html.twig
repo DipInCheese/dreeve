@@ -1,5 +1,6 @@
 <div>
-    <ul class="space-y-1 pb-2">
+{% include 'html/navigation/sidebar-health.html.twig' %}
+    <ul class="space-y-1 py-2">
         <li>
             <a title="{{ "Dashboard"|trans }}" href="{{ relativeUrl(path('dashboard')) }}" aria-selected="{{ activeSection == 'dashboard' ? 'true' : 'false' }}">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

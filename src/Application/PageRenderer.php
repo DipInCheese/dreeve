@@ -31,8 +31,9 @@ final readonly class PageRenderer
         \Closure $render,
         ?NavigationSection $navigationSection,
         ?OpenGraph $openGraph = null,
+        bool $requiresActivities = true,
     ): HtmlResponse {
-        if (0 === $this->activityIdRepository->count()) {
+        if ($requiresActivities && 0 === $this->activityIdRepository->count()) {
             // Every page is built from activities: until there are any, show how to add them instead.
             return new PrivateNoStoreHtmlResponse($this->appShell->render(
                 content: $this->twig->render('html/empty-state/no-activities.html.twig'),

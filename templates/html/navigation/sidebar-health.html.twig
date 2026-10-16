@@ -1,0 +1,29 @@
+    <ul class="space-y-1 pb-2">
+        <li>
+            <a title="{{ "Today"|trans }}" href="{{ relativeUrl(path('today')) }}" aria-selected="{{ activeSection == 'today' ? 'true' : 'false' }}">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/>
+                </svg>
+                <span>{{ "Today"|trans }}</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="space-y-1 py-2">
+        <li class="sidebar-heading">{{ "Health"|trans }}</li>
+        {% for item in [
+            {section: 'sleep', label: 'Sleep'|trans, icon: 'M12.32 4.03a8 8 0 1 0 7.65 10.6A6.5 6.5 0 0 1 12.32 4.03Z'},
+            {section: 'heart', label: 'Heart'|trans, icon: 'M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z'},
+            {section: 'stress', label: 'Stress & Body Battery'|trans, icon: 'M7 9h2v6H7V9Zm4-2h2v8h-2V7Zm4 4h2v4h-2v-4ZM3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1h1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z'},
+            {section: 'body', label: 'Body'|trans, icon: 'M12 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-5 6h10l-1 3h-2v7h-2v-4h-0v4H10v-7H8l-1-3Z'},
+            {section: 'fitness', label: 'Fitness'|trans, icon: 'M4 18V6m4 12V9m4 9v-6m4 6V4m4 14v-8'},
+        ] %}
+            <li>
+                <a title="{{ item.label }}" href="{{ relativeUrl(path('health_section', {section: item.section})) }}" aria-selected="{{ activeSection == 'health-' ~ item.section ? 'true' : 'false' }}">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ item.icon }}"/>
+                    </svg>
+                    <span>{{ item.label|ellipses(23) }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>

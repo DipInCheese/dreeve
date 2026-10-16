@@ -7,6 +7,7 @@ use App\Domain\Activity\ActivitySummaryRepository;
 use App\Domain\Activity\SportType\SportType;
 use App\Domain\Activity\SportType\SportTypes;
 use App\Domain\Activity\Stream\Metric\ActivityStreamMetricType;
+use App\Domain\Athlete\Weight\AthleteWeightHistoryProvider;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Exception\EntityNotFound;
 use App\Infrastructure\Serialization\Json;
@@ -22,6 +23,7 @@ final readonly class StreamBasedActivityPowerRepository implements ActivityPower
         private Connection $connection,
         private ActivitySummaryRepository $activitySummaryRepository,
         private SettingsRepository $settingsRepository,
+        private AthleteWeightHistoryProvider $athleteWeightHistoryProvider,
     ) {
     }
 
@@ -75,7 +77,7 @@ final readonly class StreamBasedActivityPowerRepository implements ActivityPower
 
         $results = $this->connection->executeQuery($sql, $params, $types)->fetchAllAssociative();
 
-        $athleteWeightHistory = $this->settingsRepository->general()->getAthleteWeightHistory($this->settingsRepository->appearance()->getUnitSystem());
+        $athleteWeightHistory = $this->athleteWeightHistoryProvider->get();
 
         /** @var array<int, array{activityId: string, power: int}> $bestPerInterval */
         $bestPerInterval = [];

@@ -8,7 +8,7 @@ use App\Domain\Activity\Stream\Metric\ActivityStreamMetricType;
 use App\Domain\Activity\Stream\PowerOutputs;
 use App\Domain\Activity\Stream\StreamType;
 use App\Domain\Athlete\Weight\AthleteWeightHistory;
-use App\Domain\Settings\SettingsRepository;
+use App\Domain\Athlete\Weight\AthleteWeightHistoryProvider;
 use App\Infrastructure\Exception\EntityNotFound;
 use App\Infrastructure\Repository\DbalRepository;
 use App\Infrastructure\Serialization\Json;
@@ -33,7 +33,7 @@ final readonly class DbalEnrichedActivityRepository extends DbalRepository imple
 
     public function __construct(
         Connection $connection,
-        private SettingsRepository $settingsRepository,
+        private AthleteWeightHistoryProvider $athleteWeightHistoryProvider,
     ) {
         parent::__construct($connection);
     }
@@ -148,9 +148,7 @@ final readonly class DbalEnrichedActivityRepository extends DbalRepository imple
 
     private function athleteWeightHistory(): AthleteWeightHistory
     {
-        return $this->settingsRepository->general()->getAthleteWeightHistory(
-            $this->settingsRepository->appearance()->getUnitSystem()
-        );
+        return $this->athleteWeightHistoryProvider->get();
     }
 
     private function normalizedPower(?string $data): ?int

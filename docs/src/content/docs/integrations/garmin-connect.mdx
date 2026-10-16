@@ -1,6 +1,6 @@
 ---
 title: "Garmin Connect"
-description: "Connect your Garmin account in the browser and your activities are fetched automatically, every hour."
+description: "Connect your Garmin account in the browser: your activities and health data are fetched automatically, every hour."
 ---
 
 Dreeve fetches your activities straight from Garmin Connect. Every user connects their own Garmin
@@ -55,6 +55,11 @@ the Garmin page asks you to log in again and nothing synced so far is lost.
   each. The files land in your `watch` folder and are imported right away.
 - A long history comes in batches of 30, one batch every 10 minutes, so Garmin does not rate limit
   your account. The Garmin page shows when it is still catching up.
+- Health data comes along: sleep, HRV, resting heart rate, stress, Body Battery, steps, intensity minutes,
+  blood oxygen, respiration, VO2max, training readiness and weigh-ins. The last two days are fetched on every
+  sync, older days in batches of 14, newest first, up to 2 years back. It shows up under **Today** and **Health**.
+- Garmin's answers are stored as they came (compressed), next to what Dreeve made of them, so a better
+  understanding of the data later on never needs Garmin again.
 - **Sync now** on the Garmin page starts a sync right away.
 - Activities without a `.fit` file (for example ones you typed in by hand on Garmin) are skipped.
 - **Disconnect Garmin** deletes the session. Your synced activities are kept.

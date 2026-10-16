@@ -27,7 +27,6 @@ final readonly class DashboardRequestHandler
     ) {
     }
 
-    #[Route(path: '/', name: 'home', methods: ['GET'])]
     #[Route(path: '/dashboard', name: 'dashboard', methods: ['GET'])]
     public function handle(): HtmlResponse
     {

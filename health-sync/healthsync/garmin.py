@@ -109,6 +109,33 @@ class _Account:
         with _translated_errors(login=False):
             return self.client.get_full_name()
 
+    def day_health(self, day: date) -> dict[str, Any]:
+        """Garmin's own answers for one day, untouched: the app parses and archives them."""
+        cdate = day.isoformat()
+        return {
+            "summary": self._optional(lambda: self.client.get_user_summary(cdate)),
+            "sleep": self._optional(lambda: self.client.get_sleep_data(cdate)),
+            "hrv": self._optional(lambda: self.client.get_hrv_data(cdate)),
+            "readiness": self._optional(lambda: self.client.get_training_readiness(cdate)),
+        }
+
+    def range_health(self, start: date, end: date) -> dict[str, Any]:
+        """What Garmin serves per date range in one request: VO2max and weigh-ins."""
+        return {
+            "maxMetrics": self._optional(lambda: self.client.get_max_metrics_range(start.isoformat(), end.isoformat())),
+            "bodyComposition": self._optional(lambda: self.client.get_body_composition(start.isoformat(), end.isoformat())),
+        }
+
+    def _optional(self, request: Any) -> Any:
+        """Not every watch records everything: data Garmin does not have for a day is simply absent."""
+        from garminconnect import GarminConnectNotFoundError
+
+        try:
+            with _translated_errors(login=False):
+                return request()
+        except GarminConnectNotFoundError:
+            return None
+
 
 def extract_fit(original: bytes) -> bytes | None:
     """Garmin serves the original upload zipped. Activities recorded on a watch contain one .fit file;
@@ -137,9 +164,12 @@ class _translated_errors:
         from garminconnect import (
             GarminConnectAuthenticationError,
             GarminConnectConnectionError,
+            GarminConnectNotFoundError,
             GarminConnectTooManyRequestsError,
         )
 
+        if isinstance(exc, GarminConnectNotFoundError):
+            return False
         if isinstance(exc, GarminConnectTooManyRequestsError):
             raise GarminUnavailable("Garmin is rate limiting, it will be retried later.") from exc
         if isinstance(exc, GarminConnectAuthenticationError):

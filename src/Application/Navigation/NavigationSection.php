@@ -6,6 +6,12 @@ namespace App\Application\Navigation;
 
 enum NavigationSection: string
 {
+    case TODAY = 'today';
+    case HEALTH_SLEEP = 'health-sleep';
+    case HEALTH_HEART = 'health-heart';
+    case HEALTH_STRESS = 'health-stress';
+    case HEALTH_BODY = 'health-body';
+    case HEALTH_FITNESS = 'health-fitness';
     case DASHBOARD = 'dashboard';
     case ACTIVITIES = 'activities';
     case GEAR = 'gear';

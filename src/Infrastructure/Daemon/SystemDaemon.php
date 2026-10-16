@@ -7,6 +7,8 @@ namespace App\Infrastructure\Daemon;
 use App\Console\Cache\PruneRenderCacheConsoleCommand;
 use App\Console\Import\RunAutomationRulesBackfillConsoleCommand;
 use App\Console\Import\RunFileImportConsoleCommand;
+use App\Console\Import\RunHealthImportConsoleCommand;
+use App\Domain\Health\HealthInbox;
 use App\Domain\Import\WatchDirectory;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Console\ConsoleOutputAware;
@@ -40,14 +42,21 @@ final class SystemDaemon implements Daemon
         private readonly SettingsRepository $settingsRepository,
         private readonly Connection $connection,
         private readonly WatchDirectory $watchDirectory,
+        private readonly HealthInbox $healthInbox,
     ) {
     }
 
     public function watchForNewFiles(): void
     {
         Loop::addPeriodicTimer(self::WATCH_INTERVAL_IN_SECONDS, function (): void {
-            if (!$this->isImportingFiles && $this->watchDirectory->hasFilesThatCanBeProcessed()) {
+            if ($this->isImportingFiles) {
+                return;
+            }
+            // One import at a time: activities first, then health data.
+            if ($this->watchDirectory->hasFilesThatCanBeProcessed()) {
                 $this->startFileImport('importNewFiles');
+            } elseif ($this->healthInbox->hasFiles()) {
+                $this->startImport('importHealthData', RunHealthImportConsoleCommand::NAME);
             }
         });
         $this->getConsoleOutput()->writeln(sprintf('<info>Watching for new files every %d seconds</info>', self::WATCH_INTERVAL_IN_SECONDS));
@@ -55,12 +64,17 @@ final class SystemDaemon implements Daemon
 
     private function startFileImport(string $reason): void
     {
+        $this->startImport($reason, RunFileImportConsoleCommand::NAME);
+    }
+
+    private function startImport(string $reason, string $command): void
+    {
         $this->isImportingFiles = true;
         new CronProcess(
             cronActionId: $reason,
             clock: $this->clock,
             output: $this->getConsoleOutput(),
-            command: sprintf('bin/console %s', RunFileImportConsoleCommand::NAME),
+            command: sprintf('bin/console %s', $command),
         )->start(function (): void {
             $this->isImportingFiles = false;
         });

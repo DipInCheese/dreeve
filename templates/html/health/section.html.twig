@@ -1,0 +1,38 @@
+<div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+    <h1 class="text-xl font-extrabold text-gray-900"><span class="text-gray-400 font-semibold">{{ "Health"|trans }} ·</span> {{ section|trans }}</h1>
+    <nav class="flex gap-1 rounded-lg bg-gray-100 p-1 text-sm" aria-label="{{ "Period"|trans }}">
+        {% for option in ranges %}
+            <a href="?range={{ option }}" class="rounded-md px-3 py-1 {{ option == range ? 'bg-white shadow-xs font-semibold text-gray-900' : 'text-gray-600 hover:text-gray-900' }}"{% if option == range %} aria-current="page"{% endif %}>
+                {{ {'7d': '7 days'|trans, '30d': '30 days'|trans, '90d': '3 months'|trans, '365d': '1 year'|trans}[option] }}
+            </a>
+        {% endfor %}
+    </nav>
+</div>
+
+<p class="mb-4 text-sm text-gray-500">{{ description }}</p>
+
+{% if metrics is empty %}
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-xs" data-health-empty-state>
+        {% if hasHealthData %}
+            <p class="text-sm text-gray-500">{{ "No measurements in this period. Your watch may not record these, or try a longer period."|trans }}</p>
+        {% else %}
+            <p class="text-sm text-gray-500">{{ "No health data yet. Connect your Garmin account and it shows up here."|trans }}</p>
+            {% if canConnectGarmin() %}
+                <a href="{{ relativeUrl(path('admin_garmin')) }}" class="inline-flex items-center mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-primary hover:brightness-95">
+                    {{ "Connect Garmin"|trans }}
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="flex flex-col gap-4">
+    {% for item in metrics %}
+        <div class="grid grid-cols-1 lg:grid-cols-[16rem_minmax(0,1fr)] gap-4" data-health-metric="{{ item.overview.metric.value }}">
+            {% include 'html/health/metric-card.html.twig' with {overview: item.overview} only %}
+            <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
+                <div class="h-64" data-echarts-options="{{ item.chart }}"></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

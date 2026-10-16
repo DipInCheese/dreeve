@@ -213,7 +213,6 @@ Heatmap: 'Mapa de calor'
 'Hide photos for sport types': 'Ocultar fotos para tipos de deporte'
 'History of cycling FTP. Needed to calculate activity stress level.': 'Historial de FTP de ciclismo. Necesario para calcular el nivel de estrés de la actividad.'
 'History of running FTP. Needed to calculate activity stress level.': 'Historial de FTP de carrera. Necesario para calcular el nivel de estrés de la actividad.'
-'History of weight (in kg or pounds, depending on the appearance unit system). Needed to calculate relative w/kg.': 'Historial de peso (en kg o libras, dependiendo del sistema de unidades). Necesario para calcular el w/kg relativo.'
 'Hold ctrl (⌘ on Mac) to zoom the map with the scroll wheel': 'Mantén pulsado ctrl (⌘ en Mac) para hacer zoom en el mapa con la rueda del ratón'
 Hours: Horas
 If: Si
@@ -543,6 +542,7 @@ Warning: Advertencia
 Wednesday: Miércoles
 Weekday: 'Día de la semana'
 Weekdays: 'Días de la semana'
+'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.': 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.'
 'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': '¿Cuál es mi FTP?'
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Si está marcado, no se procesarán más reglas una vez que esta coincida. Desmárcalo para permitir que también se ejecuten las reglas posteriores. Éstas pueden sobrescribir los cambios de esta regla.'

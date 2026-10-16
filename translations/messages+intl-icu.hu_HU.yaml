@@ -1,5 +1,10 @@
 '# completed': '# teljesítve'
+'1 year': '1 year'
+'3 months': '3 months'
+'30 days': '30 days'
 '42-day fitness trend': '42 napos fitnesz trend'
+'7 days': '7 days'
+'7-day average {value}': '7-day average {value}'
 '7-day fatigue level': '7 napos fáradtsági szint'
 '< 1.5: Good variety in training': '< 1,5: Jó változatosság az edzésben'
 '> 2.0: High monotony, increased risk': '> 2,0: Magas monotonitás, fokozott kockázat'
@@ -11,6 +16,7 @@
 'A:C optimal in': 'A:C optimális ezután:'
 'AI integration settings': 'AI-integráció beállításai'
 'ATL (Fatigue)': 'ATL (Fáradtság)'
+'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Felhalmozott fáradtság'
 'Active days': 'Aktív napok'
 'Active gear': 'Active gear'
@@ -39,18 +45,24 @@ Average: Átlag
 'Avg gradient': 'Átl. emelkedő'
 'Avg pace': 'Átl. tempó'
 'Avg speed': 'Átl. sebesség'
+Awake: Awake
 'Back Country Ski': Túrasí
 'Back to app': 'Vissza az alkalmazáshoz'
 Badges: Kitűzők
 Badminton: Tollaslabda
 Bananas: Banán
 Basketball: Kosárlabda
+'Below your normal': 'Below your normal'
 Best: Legjobb
 'Best effort': 'Legjobb teljesítmény'
 'Best efforts': 'Legjobb teljesítmények'
 'Best efforts for {sportType}': 'Legjobb teljesítmények ({sportType})'
 'Bike light': Kerékpárlámpa
 'Bike radar': Kerékpárradar
+'Blood oxygen': 'Blood oxygen'
+Body: Body
+'Body Battery': 'Body Battery'
+'Body fat': 'Body fat'
 'Build zone (–10)': 'Építési zóna (–10)'
 'CTL (Fitness)': 'CTL (Fitnesz)'
 Cadence: Kadencia
@@ -78,6 +90,7 @@ Components: Komponensek
 'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Gratulálunk! {numberOfPRs} egyéni rekordot értél el ebben a tevékenységben.'
 'Connect Garmin': 'Connect Garmin'
 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.': 'Connect your Garmin account to fetch your activities automatically, or upload .fit, .tcx or .gpx files from your watch or app.'
+'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.': 'Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal.'
 'Consider reducing load': 'Fontold meg a terhelés csökkentését'
 Consistency: Következetesség
 Cost: Cost
@@ -90,6 +103,7 @@ Crossfit: Crossfit
 Cycling: Kerékpározás
 'Daily TRIMP': 'Napi TRIMP'
 'Daily activities': 'Napi tevékenységek'
+'Daily movement, VO2max and how ready you are to train.': 'Daily movement, VO2max and how ready you are to train.'
 Dance: Tánc
 'Dark mode': 'Sötét mód'
 Dashboard: Irányítópult
@@ -101,6 +115,8 @@ Day: Nap
 'Daytime stats': 'Napszaki statisztikák'
 Dec: Dec
 'Decreased compared to yesterday': 'Csökkent a tegnapihoz képest'
+Deep: Deep
+'Deep sleep': 'Deep sleep'
 Density: Sűrűség
 Details: Részletek
 Device: Eszköz
@@ -185,7 +201,10 @@ Gradient: Lejtés
 "Guidelines vary by individual; for more information see Joe Friel's 'The Cyclist's Training Bible' or TrainingPeaks' research documentation.": "Az irányelvek egyénenként változnak; további információkért lásd Joe Friel 'The Cyclist's Training Bible' c. könyvét vagy a TrainingPeaks kutatási dokumentációját."
 HIIT: HIIT
 HR: Pulzus
+HRV: HRV
 'Hand Cycle': Kézikerékpár
+Health: Health
+Heart: Heart
 'Heart rate': Pulzus
 'Heart rate monitor': Pulzusmérő
 'Heart rate zone distribution over the past month. For effective polarized training, your workouts should primarily fall within the following zones': 'Az elmúlt havi pulzuszóna eloszlás. A hatékony polarizált edzéshez az edzéseidnek elsősorban a következő zónákba kell esniük'
@@ -204,6 +223,7 @@ History: Előzmények
 'History (6 weeks)': 'Előzmények (6 hét)'
 'How diverse is your training': 'Mennyire változatos az edzésed'
 'How hard is your typical training session': 'Milyen kemény a tipikus edzésed'
+'How long and how well you slept, night by night.': 'How long and how well you slept, night by night.'
 'How long is your typical training session': 'Milyen hosszú a tipikus edzésed'
 'How much do you train on average per week': 'Átlagosan mennyit edzel hetente'
 'How much training you do in total on days you train.': 'Mennyi összes edzést végzel az edzésnapjaidon.'
@@ -216,6 +236,7 @@ Imperial: Angolszász
 'Inline Skate': Görkorcsolya
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intenzitás
+'Intensity minutes': 'Intensity minutes'
 Jan: Jan
 Jul: Júl
 Jun: Jún
@@ -230,11 +251,16 @@ Lap: Kör
 'Last effort': 'Utolsó teljesítmény'
 'Last effort date': 'Utolsó teljesítmény dátuma'
 'Last maintenance': 'Utolsó karbantartás'
+'Last measured on {date}': 'Last measured on {date}'
 'Last month': 'Előző hónap'
+'Last night': 'Last night'
 'Last used': 'Last used'
 'Last week': 'Előző hét'
 'Last {numberOfDays} days': 'Utolsó {numberOfDays} nap'
+'Latest activity': 'Latest activity'
+'Latest weight': 'Latest weight'
 Lifetime: 'Teljes időszak'
+Light: Light
 'Light fatigue with good readiness. A great balance for quality training or longer efforts': 'Enyhe fáradtság jó készenléti állapottal. Kiváló egyensúly a minőségi edzéshez vagy hosszabb erőfeszítésekhez'
 Load: Terhelés
 'Load (CTL/ATL)': 'Terhelés (CTL/ATL)'
@@ -249,6 +275,7 @@ Loading...: Betöltés...
 Low: Alacsony
 'Low risk': 'Alacsony kockázat'
 'Low training load': 'Alacsony edzésterhelés'
+'Lowest Body Battery': 'Lowest Body Battery'
 Maintenance: Karbantartás
 'Manage activities': 'Tevékenységek kezelése'
 'Manage gear': 'Felszerelések kezelése'
@@ -292,13 +319,19 @@ Night: Éjjel
 'No activities': 'Nincsenek tevékenységek'
 'No activities yet': 'No activities yet'
 'No data available': 'Nincs elérhető adat'
+'No data yet': 'No data yet'
+'No health data yet. Connect your Garmin account and it shows up here.': 'No health data yet. Connect your Garmin account and it shows up here.'
 'No maintenance tasks': 'No maintenance tasks'
+'No measurements in this period. Your watch may not record these, or try a longer period.': 'No measurements in this period. Your watch may not record these, or try a longer period.'
 'No milestones achieved yet': 'Még nincsenek elért mérföldkövek'
 'No other options to compare with': 'Nincs más összehasonlítási lehetőség'
 'No purchase price set': 'No purchase price set'
+'No weight yet': 'No weight yet'
 None: 'Egyik sem'
 'Nordic Ski': Sífutás
+'Normal {low}–{high}': 'Normal {low}–{high}'
 'Normalized power': 'Normalizált teljesítmény'
+'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Nem támogatott'
 Nov: Nov
@@ -328,6 +361,7 @@ Padel: Padel
 'Peak fresh': Csúcsfriss
 'Peak power outputs': 'Csúcsteljesítmény értékek'
 'Per {unit}': 'Per {unit}'
+Period: Period
 'Personal bests': 'Személyes csúcsok'
 Photo: Fotó
 Photos: Fotók
@@ -344,6 +378,8 @@ Power: Teljesítmény
 Previous: Előző
 Progress: Progress
 'Purchase price': Vételár
+REM: REM
+'REM sleep': 'REM sleep'
 Race: Verseny
 'Racing Score': Versenypontszám
 'Racquet & Paddle Sports': 'Ütős sportok'
@@ -364,10 +400,13 @@ Recent: Legutóbbi
 'Recovery forecast': 'Regenerációs előrejelzés'
 'Reduced carbon emission by commuting': 'Csökkentett szén-dioxid kibocsátás ingázással'
 'Register maintenance': 'Karbantartás rögzítése'
+Respiration: Respiration
 'Rest Days': Pihenőnapok
 'Rest days': Pihenőnapok
 'Rest days in last 7 days': 'Pihenőnapok az utolsó 7 napban'
 'Rest days vs. active days': 'Pihenőnapok vs. aktív napok'
+'Resting heart rate': 'Resting heart rate'
+'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.': 'Resting heart rate and heart rate variability, measured overnight. They often change before you feel tired or ill.'
 Retired: Retired
 Rewind: Visszatekintő
 'Rewind comparisons are only available on larger screens.': 'A visszatekintő összehasonlítások csak nagyobb képernyőkön érhetők el.'
@@ -397,6 +436,8 @@ Shifting: Váltás
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": 'Mióta {numberOfDaysAgo} ezelőtt, {startDate} napon elkezdtem edzeni, {totalDaysOfWorkingOut} aktív edzés- és kalandnapot rögzítettem.'
 Skateboard: Gördeszkázás
 Skating: Korcsolyázás
+Sleep: Sleep
+'Sleep score': 'Sleep score'
 'Slightly fresh': 'Kissé friss'
 'Smart trainer': Okosgörgő
 Snowboard: Snowboard
@@ -415,8 +456,12 @@ Squash: Squash
 'Start times': 'Kezdési idők'
 'Stats per weekday': 'Statisztikák napokra bontva'
 Status: Állapot
+Steps: Steps
 'Streak started on {date}': 'Sorozat kezdete: {date}'
 Streaks: Sorozatok
+Stress: Stress
+'Stress & Body Battery': 'Stress & Body Battery'
+'Stress through the day, and the energy your body built up and used.': 'Stress through the day, and the energy your body built up and used.'
 Sun: V
 Sun.: Vas.
 Surfing: Szörfözés
@@ -536,6 +581,7 @@ Time: Idő
 'Times completed': 'Teljesítések száma'
 Title: Cím
 'To enable it, configure it under Manage, Gear': 'To enable it, configure it under Manage, Gear'
+Today: Today
 'Toggle sidebar': 'Oldalsáv ki/be'
 'Top 10': 'Top 10'
 'Total distance per month': 'Havi össztávolság'
@@ -552,6 +598,7 @@ Title: Cím
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Edzési stressz egyensúly (Forma) – a fitnesz (CTL) és a fáradtság (ATL) különbsége. Megmutatja, mennyire vagy felkészülve a teljesítésre.'
 'Training goals': 'Edzési célok'
 'Training load is accumulating, recovery days are important': 'Az edzésterhelés halmozódik, a regenerációs napok fontosak'
+'Training readiness': 'Training readiness'
 Tue: K
 Tue.: Kedd
 'Unchanged compared to yesterday': 'Változatlan a tegnapihoz képest'
@@ -561,6 +608,8 @@ Unspecified: Meghatározatlan
 'Upload activity files': 'Upload activity files'
 Usage: Usage
 'User badge': 'Felhasználói kitűző'
+'VO2max cycling': 'VO2max cycling'
+'VO2max running': 'VO2max running'
 'Velo Mobile': Velomobil
 'Velo Mobiles': Velomobil
 'Very high': 'Nagyon magas'
@@ -592,11 +641,13 @@ Weekly: Heti
 'Weekly stats': 'Heti statisztikák'
 Weight: Súly
 'Weight Training': 'Súlyzós edzés'
+'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 'Súly előzmények'
 Wheelchair: Kerekesszék
 'Wind Surf': Windsurfing
 'Winter Sports': 'Téli sportok'
 'With others': Másokkal
+'Within your normal': 'Within your normal'
 Workout: Edzés
 'Workout assistant': 'Edzési asszisztens'
 'Workout type': 'Edzés típusa'
@@ -610,6 +661,8 @@ Yoga: Jóga
 'Your PB badge': 'Személyes rekord kitűződ'
 'Your Zwift badge': 'Zwift kitűződ'
 'Your badge(s)': Kitűződ(ök)
+'Your health at a glance': 'Your health at a glance'
+'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Alacsony)'
 Z2: Z2

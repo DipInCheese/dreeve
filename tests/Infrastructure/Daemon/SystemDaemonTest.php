@@ -2,6 +2,7 @@
 
 namespace App\Tests\Infrastructure\Daemon;
 
+use App\Domain\Health\HealthInbox;
 use App\Domain\Import\WatchDirectory;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Daemon\SystemDaemon;
@@ -62,6 +63,7 @@ class SystemDaemonTest extends ContainerTestCase
             settingsRepository: $this->getContainer()->get(SettingsRepository::class),
             connection: $this->getConnection(),
             watchDirectory: $this->getContainer()->get(WatchDirectory::class),
+            healthInbox: $this->getContainer()->get(HealthInbox::class),
         );
     }
 }

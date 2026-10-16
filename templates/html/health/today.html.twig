@@ -1,0 +1,78 @@
+<div class="flex items-center justify-between mb-4">
+    <h1 class="text-xl font-extrabold text-gray-900">{{ "Today"|trans }}</h1>
+    <span class="text-sm text-gray-500">{{ today|date('l d F Y') }}</span>
+</div>
+
+{% if not hasHealthData %}
+    <div class="mb-4 p-6 bg-white border border-gray-200 rounded-lg shadow-xs" data-health-empty-state>
+        <h2 class="text-lg font-semibold text-gray-900">{{ "Your health at a glance"|trans }}</h2>
+        <p class="mt-1 text-sm text-gray-500">
+            {{ "Connect your Garmin account to see your sleep, heart rate variability, resting heart rate, stress and Body Battery here, each next to your own normal."|trans }}
+        </p>
+        {% if canConnectGarmin() %}
+            <a href="{{ relativeUrl(path('admin_garmin')) }}" class="inline-flex items-center mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold text-white bg-primary hover:brightness-95">
+                {{ "Connect Garmin"|trans }}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if hasHealthData %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4" data-today-metrics>
+        {% for overview in overviews %}
+            {% include 'html/health/metric-card.html.twig' with {
+                overview: overview,
+                link: relativeUrl(path('health_section', {section: overview.metric.section().value})),
+            } only %}
+        {% endfor %}
+    </div>
+    {% if sleep %}
+        <div class="mb-4 p-4 bg-white border border-gray-200 rounded-lg shadow-xs" data-last-night>
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">{{ "Last night"|trans }}</h3>
+            <div class="mt-3 grid grid-cols-2 sm:grid-cols-5 gap-4 text-sm">
+                {% for label, seconds in {
+                    ('Deep'|trans): sleep.deepSleepSeconds,
+                    ('Light'|trans): sleep.lightSleepSeconds,
+                    ('REM'|trans): sleep.remSleepSeconds,
+                    ('Awake'|trans): sleep.awakeSeconds,
+                } %}
+                    <div>
+                        <div class="text-gray-500">{{ label }}</div>
+                        <div class="font-semibold">{{ seconds is null ? '–' : ((seconds // 3600) ~ 'h ' ~ '%02d'|format((seconds % 3600) // 60) ~ 'm') }}</div>
+                    </div>
+                {% endfor %}
+                <div>
+                    <div class="text-gray-500">{{ "Sleep score"|trans }}</div>
+                    <div class="font-semibold">{{ sleep.score ?? '–' }}</div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs" data-latest-activity>
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">{{ "Latest activity"|trans }}</h3>
+        {% if latestActivity %}
+            <a href="{{ relativeUrl(path('activity', {activityId: latestActivity.getId()})) }}" class="mt-2 block hover:text-primary">
+                <div class="font-semibold">{{ latestActivity.getName() }}</div>
+                <div class="text-sm text-gray-500">
+                    {{ latestActivity.getStartDate()|formatDate }} · {{ latestActivity.getDistance()|formatMeasurement(1) }} {{ renderUnitSymbol('distance') }} · {{ latestActivity.getMovingTimeFormatted() }}
+                </div>
+            </a>
+        {% else %}
+            <p class="mt-2 text-sm text-gray-400">{{ "No activities yet"|trans }}</p>
+        {% endif %}
+    </div>
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs" data-latest-weight>
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">{{ "Latest weight"|trans }}</h3>
+        {% if latestWeight %}
+            <a href="{{ relativeUrl(path('health_section', {section: 'body'})) }}" class="mt-2 block hover:text-primary">
+                <span class="text-2xl font-extrabold">{{ latestWeight.getWeightInKg().toFloat()|number_format(1) }}</span>
+                <span class="text-sm text-gray-500">kg · {{ latestWeight.getOn()|formatDate }}</span>
+            </a>
+        {% else %}
+            <p class="mt-2 text-sm text-gray-400">{{ "No weight yet"|trans }}</p>
+        {% endif %}
+    </div>
+</div>

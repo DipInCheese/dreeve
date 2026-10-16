@@ -20,6 +20,12 @@ SYNC_INTERVAL = timedelta(hours=1)
 MAX_DOWNLOADS_PER_SYNC = 30
 BACKFILL_INTERVAL = timedelta(minutes=10)
 DOWNLOAD_PAUSE_IN_SECONDS = 2.0
+# Health data: the last days on every sync, the history in batches (four requests per day).
+RECENT_HEALTH_DAYS = 2
+HEALTH_DAYS_PER_SYNC = 14
+HEALTH_PAUSE_IN_SECONDS = 1.0
+# Older health data is rarely useful and costs four requests a day to fetch.
+MAX_HEALTH_HISTORY = timedelta(days=730)
 MAX_BACKOFF = timedelta(hours=12)
 # Garmin rewrites activities for a while after they are recorded (e.g. late uploads from the watch).
 OVERLAP = timedelta(days=2)
@@ -97,6 +103,8 @@ class Syncer:
                 # Saved after every activity: an interrupted first sync continues where it stopped.
                 self.storage.write_state(user, state)
                 self.pause(DOWNLOAD_PAUSE_IN_SECONDS)
+            if self._sync_health(user, account, state, today):
+                state.backfilling = True
             state.last_sync_at = started.isoformat(timespec="seconds")
             state.last_error = None
             state.consecutive_failures = 0
@@ -114,6 +122,55 @@ class Syncer:
             state.last_error = "Unexpected error while syncing."
             log.exception("[%s] unexpected error: %s", user, error)
         self.storage.write_state(user, state)
+
+    def _sync_health(self, user: str, account, state: SyncState, today: date) -> bool:
+        """Fetches the last two days on every sync (today keeps changing, last night's sleep lands on it),
+        then one batch of history, newest first. Returns whether history is still left to fetch."""
+        since = max(self._since(state, today), today - MAX_HEALTH_HISTORY)
+        recent_start = max(since, today - timedelta(days=RECENT_HEALTH_DAYS - 1))
+        self._fetch_health(user, account, recent_start, today)
+        if state.health_oldest_date is None or date.fromisoformat(state.health_oldest_date) > recent_start:
+            state.health_oldest_date = recent_start.isoformat()
+
+        oldest = date.fromisoformat(state.health_oldest_date)
+        if oldest > since:
+            batch_end = oldest - timedelta(days=1)
+            batch_start = max(since, batch_end - timedelta(days=HEALTH_DAYS_PER_SYNC - 1))
+            had_data = self._fetch_health(user, account, batch_start, batch_end)
+            # A batch without any data reaches back before the first watch: nothing older to fetch.
+            state.health_oldest_date = (batch_start if had_data else since).isoformat()
+            self.storage.write_state(user, state)
+
+        return date.fromisoformat(state.health_oldest_date) > since
+
+    def _fetch_health(self, user: str, account, start: date, end: date) -> bool:
+        fetched_at = self.now().isoformat(timespec="seconds")
+        had_data = False
+        day = start
+        while day <= end:
+            health = account.day_health(day)
+            had_data = had_data or _has_data(health)
+            self.storage.drop_health(user, f"garmin-day-{day.isoformat()}.json", {
+                "source": "garmin",
+                "kind": "day",
+                "date": day.isoformat(),
+                "fetchedAt": fetched_at,
+                **health,
+            })
+            self.pause(HEALTH_PAUSE_IN_SECONDS)
+            day += timedelta(days=1)
+        self.storage.drop_health(user, f"garmin-range-{start.isoformat()}-{end.isoformat()}.json", {
+            "source": "garmin",
+            "kind": "range",
+            "start": start.isoformat(),
+            "end": end.isoformat(),
+            "fetchedAt": fetched_at,
+            **account.range_health(start, end),
+        })
+        return had_data
+
+    def _since(self, state: SyncState, today: date) -> date:
+        return date.fromisoformat(state.since) if state.since else today - timedelta(days=90)
 
     def _start_date(self, state: SyncState, today: date) -> date:
         since = date.fromisoformat(state.since) if state.since else today - timedelta(days=90)
@@ -144,3 +201,9 @@ class Syncer:
                     # Spreads requests out, so many users never hit Garmin at the same moment.
                     stop.wait(random.uniform(5, 30))
             stop.wait(60)
+
+
+def _has_data(health: dict) -> bool:
+    summary = health.get("summary") or {}
+    sleep = (health.get("sleep") or {}).get("dailySleepDTO") or {}
+    return bool(summary.get("totalSteps") or summary.get("restingHeartRate") or sleep.get("sleepTimeSeconds"))

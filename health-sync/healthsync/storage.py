@@ -36,6 +36,8 @@ class SyncState:
     last_error: str | None = None
     needs_login: bool = False
     backfilling: bool = False
+    # The oldest day of health data fetched so far. The history is fetched backwards from today.
+    health_oldest_date: str | None = None
     consecutive_failures: int = 0
     activities_synced: int = 0
     synced_activity_ids: list[int] = field(default_factory=list)
@@ -130,6 +132,17 @@ class Storage:
         staged.write_bytes(contents)
         self._match_owner(staged, self.user_dir(user))
         os.replace(staged, watch / file_name)
+
+    def drop_health(self, user: str, file_name: str, payload: dict) -> None:
+        """Hands health data to the app, through the user's inbox. Written aside first, then moved in."""
+        inbox = self.user_dir(user) / "inbox" / "health"
+        inbox.mkdir(parents=True, exist_ok=True)
+        self._match_owner(inbox.parent, self.user_dir(user))
+        self._match_owner(inbox, self.user_dir(user))
+        staged = inbox / f".{file_name}.part"
+        staged.write_text(json.dumps(payload))
+        self._match_owner(staged, self.user_dir(user))
+        os.replace(staged, inbox / file_name)
 
     def protect(self, user: str) -> None:
         """Garmin tokens are as good as a password: owner-only, owned like the rest of the user's data."""

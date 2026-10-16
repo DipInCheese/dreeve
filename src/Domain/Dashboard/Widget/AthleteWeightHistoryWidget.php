@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Dashboard\Widget;
 
 use App\Domain\Athlete\Weight\AthleteWeightHistoryChart;
+use App\Domain\Athlete\Weight\AthleteWeightHistoryProvider;
 use App\Domain\Dashboard\DashboardWidgetId;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Cache\Tag\CacheTags;
@@ -18,6 +19,7 @@ final readonly class AthleteWeightHistoryWidget implements Widget
         private WidgetRenderer $widgetRenderer,
         private TranslatorInterface $translator,
         private SettingsRepository $settingsRepository,
+        private AthleteWeightHistoryProvider $athleteWeightHistoryProvider,
     ) {
     }
 
@@ -53,7 +55,7 @@ final readonly class AthleteWeightHistoryWidget implements Widget
     public function render(DashboardWidgetId $dashboardWidgetId, SerializableDateTime $now, WidgetConfiguration $configuration): ?string
     {
         $unitSystem = $this->settingsRepository->appearance()->getUnitSystem();
-        $allWeights = $this->settingsRepository->general()->getAthleteWeightHistory($unitSystem)->findAll();
+        $allWeights = $this->athleteWeightHistoryProvider->get()->findAll();
         if ([] === $allWeights) {
             return null;
         }
