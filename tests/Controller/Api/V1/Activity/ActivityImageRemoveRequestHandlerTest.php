@@ -18,6 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActivityImageRemoveRequestHandlerTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private const string KEPT_IMAGE = 'files/activities/9b1d1f3e-3c7a-4a52-8f6e-2f0b8c6d4a11.jpg';
     private const string REMOVED_IMAGE = 'files/activities/0025176c-5652-11ee-923d-02424dd627d5.png';
     private const string PATH = '/api/v1/activities/activity-1/images/activityImage-0025176c-5652-11ee-923d-02424dd627d5';

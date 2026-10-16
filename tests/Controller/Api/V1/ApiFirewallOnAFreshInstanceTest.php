@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiFirewallOnAFreshInstanceTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private Token $token;
 
     public function testItAnswersJsonRatherThanRedirectingToTheSetup(): void

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Settings;
 
+/**
+ * The security settings that can be changed in the app. Every page requires a login,
+ * that is not a setting. The remaining security options are environment variables.
+ */
 final readonly class SecuritySettings
 {
-    private function __construct(
-        private bool $requiresAuthentication,
-        private bool $visitorsCanDownloadOriginalFiles,
-    ) {
+    private function __construct()
+    {
     }
 
     /**
@@ -17,21 +19,6 @@ final readonly class SecuritySettings
      */
     public static function fromArray(?array $data): self
     {
-        $data ??= [];
-
-        return new self(
-            requiresAuthentication: filter_var($data['requiresAuthentication'] ?? false, FILTER_VALIDATE_BOOLEAN),
-            visitorsCanDownloadOriginalFiles: filter_var($data['visitorsCanDownloadOriginalFiles'] ?? false, FILTER_VALIDATE_BOOLEAN),
-        );
-    }
-
-    public function requiresAuthentication(): bool
-    {
-        return $this->requiresAuthentication;
-    }
-
-    public function visitorsCanDownloadOriginalFiles(): bool
-    {
-        return $this->visitorsCanDownloadOriginalFiles;
+        return new self();
     }
 }

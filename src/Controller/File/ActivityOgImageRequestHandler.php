@@ -32,7 +32,7 @@ final readonly class ActivityOgImageRequestHandler
 
         return new Response($this->activityOpenGraphImage->render($activity), Response::HTTP_OK, [
             'Content-Type' => 'image/png',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'private, max-age=3600',
         ]);
     }
 }

@@ -45,7 +45,7 @@ class ActivityRequestHandlerTest extends AdminWebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('Content-Type', 'text/html; charset=UTF-8');
         $this->assertStringEndsWith(
-            'activities.9756441741.auth=anon.trust=trusted',
+            'activities.9756441741.auth=auth.trust=trusted',
             (string) $this->client->getResponse()->headers->get('X-Dreeve-Cache-Key'),
         );
         $this->assertResponseHeaderSame(
@@ -188,8 +188,7 @@ class ActivityRequestHandlerTest extends AdminWebTestCase
 
     public static function provideStartTimeVisibility(): \Generator
     {
-        yield 'demo mode disabled' => [false, false, true, 'auth=anon.trust=trusted'];
-        yield 'demo mode, anonymous visitor' => [true, false, false, 'auth=anon.trust=anonymized'];
+        yield 'demo mode disabled' => [false, false, true, 'auth=auth.trust=trusted'];
         yield 'demo mode, logged in visitor' => [true, true, true, 'auth=auth.trust=trusted'];
     }
 
@@ -245,10 +244,7 @@ class ActivityRequestHandlerTest extends AdminWebTestCase
     public static function provideDownloadButtonScenarios(): \Generator
     {
         yield 'admin, both files' => [true, true, false, true, null];
-        yield 'visitor, original file not allowed' => [true, false, false, false, '/activities/activity-123456789/route.gpx'];
-        yield 'visitor, original file allowed' => [true, false, true, true, null];
         yield 'admin, no GPS stream' => [false, true, false, false, '/activities/activity-123456789/original-file'];
-        yield 'visitor, no GPS stream, original file not allowed' => [false, false, false, false, null];
     }
 
     #[DataProvider('provideUrlsThatAreNotFound')]

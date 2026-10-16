@@ -2,21 +2,20 @@
 
 namespace App\Tests\Controller;
 
-use App\Domain\Settings\DbalSettingsRepository;
-use App\Domain\Settings\SettingsGroup;
-use App\Domain\Settings\SettingsName;
-use App\Domain\Settings\UpdateSettings\UpdateSettings;
-use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class RequireAuthenticationTest extends AdminWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        return false;
+    }
+
     #[DataProvider('provideProtectedPaths')]
     public function testItSendsAnonymousVisitorsToTheLoginPage(string $path): void
     {
-        $this->requireAuthentication();
-
         $this->client->request('GET', $path);
 
         $this->assertResponseRedirects('http://localhost/admin/login');
@@ -28,6 +27,9 @@ class RequireAuthenticationTest extends AdminWebTestCase
     public static function provideProtectedPaths(): iterable
     {
         yield 'dashboard' => ['/'];
+        yield 'activities' => ['/activities'];
+        yield 'finish setup' => ['/finish-setup'];
+        yield 'ai chat' => ['/chat'];
         yield 'internal api' => ['/api/internal/dashboard/widget/dashboardWidget-introText'];
         yield 'badge' => ['/badge/dreeve.svg'];
         yield 'images' => ['/files/gear/bike.png'];
@@ -96,14 +98,10 @@ class RequireAuthenticationTest extends AdminWebTestCase
     }
 
     #[DataProvider('providePublicPaths')]
-    public function testItKeepsTheSetupAndWebhookPathsPublic(string $path): void
+    public function testItKeepsThePathsNeededToLogInPublic(string $path): void
     {
-        $this->requireAuthentication();
-
         $this->client->request('GET', $path);
 
-        // /finish-setup answers with a redirect of its own once activities exist, so all
-        // that matters here is that the firewall did not step in.
         $this->assertNotEquals(
             'http://localhost/admin/login',
             $this->client->getResponse()->headers->get('Location')
@@ -116,44 +114,16 @@ class RequireAuthenticationTest extends AdminWebTestCase
     public static function providePublicPaths(): iterable
     {
         yield 'manifest' => ['/manifest.json'];
-        yield 'finish setup' => ['/finish-setup'];
         yield 'login' => ['/admin/login'];
-        yield 'strava webhook' => ['/strava/webhook'];
-    }
-
-    public function testItStaysPublicWhileTheSettingIsOff(): void
-    {
-        $this->client->request('GET', '/');
-
-        $this->assertResponseIsSuccessful();
+        yield 'invite' => ['/invite/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'];
     }
 
     public function testItServesEverythingToAnAuthenticatedVisitor(): void
     {
-        $this->requireAuthentication();
         $this->client->loginUser($this->adminUser());
 
         $this->client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-    }
-
-    public function testItTakesEffectAsSoonAsTheSettingIsSaved(): void
-    {
-        $this->getContainer()->get(CommandBus::class)->dispatch(UpdateSettings::fromPayload([
-            'group' => SettingsGroup::SECURITY->value,
-            'data' => ['requiresAuthentication' => true],
-        ]));
-
-        $this->client->request('GET', '/');
-
-        $this->assertResponseRedirects('http://localhost/admin/login');
-    }
-
-    private function requireAuthentication(): void
-    {
-        /** @var DbalSettingsRepository $settingsRepository */
-        $settingsRepository = $this->getContainer()->get(DbalSettingsRepository::class);
-        $settingsRepository->save(SettingsName::REQUIRES_AUTHENTICATION, true);
     }
 }

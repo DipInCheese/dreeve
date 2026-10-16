@@ -10,6 +10,12 @@ use Twig\Environment;
 
 class LoginLogoutRequestHandlerTest extends AdminWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        return false;
+    }
+
     public function testLoginPageIsAccessibleForAnonymousUsers(): void
     {
         $crawler = $this->client->request('GET', '/admin/login');

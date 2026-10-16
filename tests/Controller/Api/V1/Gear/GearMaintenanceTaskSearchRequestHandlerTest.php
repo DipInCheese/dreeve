@@ -27,6 +27,13 @@ class GearMaintenanceTaskSearchRequestHandlerTest extends ControllerWebTestCase
     use MatchesSnapshots;
     use ProvideGearMaintenanceConfig;
 
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private Token $token;
 
     public function testItListsMaintenanceTasksMostUrgentFirst(): void

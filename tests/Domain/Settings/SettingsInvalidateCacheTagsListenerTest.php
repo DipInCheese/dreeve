@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Settings;
 
+use App\Domain\Activity\Eddington\Config\EddingtonConfiguration;
 use App\Domain\Settings\SettingsGroup;
 use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
@@ -52,7 +53,7 @@ class SettingsInvalidateCacheTagsListenerTest extends ContainerTestCase
 
     public function testSavingASingleSettingInvalidatesItsGroup(): void
     {
-        foreach ([SettingsGroup::SECURITY, SettingsGroup::IMPORT] as $group) {
+        foreach ([SettingsGroup::METRICS, SettingsGroup::IMPORT] as $group) {
             $cacheTag = RootCacheTag::forSettingsGroup($group);
             $this->renderCache->get(
                 cacheKey: $cacheTag->value,
@@ -61,9 +62,9 @@ class SettingsInvalidateCacheTagsListenerTest extends ContainerTestCase
             );
         }
 
-        $this->settingsRepository->save(SettingsName::REQUIRES_AUTHENTICATION, true);
+        $this->settingsRepository->save(SettingsName::EDDINGTON, EddingtonConfiguration::getDefaultConfig());
 
-        foreach ([SettingsGroup::SECURITY->value => false, SettingsGroup::IMPORT->value => true] as $group => $servedFromCache) {
+        foreach ([SettingsGroup::METRICS->value => false, SettingsGroup::IMPORT->value => true] as $group => $servedFromCache) {
             $cacheTag = RootCacheTag::forSettingsGroup(SettingsGroup::from($group));
             $this->assertSame(
                 $servedFromCache,

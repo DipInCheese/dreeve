@@ -7,14 +7,14 @@ use App\Tests\Controller\ControllerWebTestCase;
 
 class ActivityOgImageRequestHandlerTest extends ControllerWebTestCase
 {
-    public function testItServesTheCardAsAPublicPng(): void
+    public function testItServesTheCardAsAPrivatePng(): void
     {
         $this->client->request('GET', '/activities/activity-903645/og-image.png');
 
         $this->assertResponseIsSuccessful();
         $this->assertEquals('activity_og_image', $this->client->getRequest()->attributes->get('_route'));
         $this->assertResponseHeaderSame('Content-Type', 'image/png');
-        $this->assertResponseHeaderSame('Cache-Control', 'max-age=3600, public');
+        $this->assertStringContainsString('private', (string) $this->client->getResponse()->headers->get('Cache-Control'));
 
         $size = getimagesizefromstring($this->client->getInternalResponse()->getContent());
         $this->assertIsArray($size);

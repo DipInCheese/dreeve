@@ -35,7 +35,7 @@ class GearMaintenanceRequestHandlerTest extends AdminWebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('Content-Type', 'text/html; charset=UTF-8');
         $this->assertStringEndsWith(
-            'gear.maintenance.auth=anon',
+            'gear.maintenance.auth=auth',
             (string) $this->client->getResponse()->headers->get('X-Dreeve-Cache-Key'),
         );
         $this->assertResponseHeaderSame(

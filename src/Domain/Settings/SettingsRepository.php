@@ -35,6 +35,4 @@ interface SettingsRepository
     public function integrations(): IntegrationsSettings;
 
     public function daemon(): DaemonSettings;
-
-    public function security(): SecuritySettings;
 }

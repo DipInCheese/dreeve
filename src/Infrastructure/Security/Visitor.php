@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Security;
 
-use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Config\DemoMode;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,7 +13,6 @@ final readonly class Visitor
     public function __construct(
         private Security $security,
         private DemoMode $demoMode,
-        private SettingsRepository $settingsRepository,
     ) {
     }
 
@@ -30,6 +28,7 @@ final readonly class Visitor
 
     public function canDownloadOriginalFiles(): bool
     {
-        return $this->isAuthenticated() || $this->settingsRepository->security()->visitorsCanDownloadOriginalFiles();
+        // Every page requires a login, there are no anonymous visitors anymore.
+        return $this->isAuthenticated();
     }
 }

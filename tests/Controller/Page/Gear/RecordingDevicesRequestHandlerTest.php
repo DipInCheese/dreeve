@@ -20,7 +20,7 @@ class RecordingDevicesRequestHandlerTest extends AdminWebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('Content-Type', 'text/html; charset=UTF-8');
         $this->assertStringEndsWith(
-            'gear.recording-devices.auth=anon',
+            'gear.recording-devices.auth=auth',
             (string) $this->client->getResponse()->headers->get('X-Dreeve-Cache-Key'),
         );
         $this->assertResponseHeaderSame(

@@ -134,9 +134,4 @@ final readonly class DbalSettingsRepository extends DbalRepository implements Se
     {
         return DaemonSettings::fromArray($this->findGroup(SettingsGroup::DAEMON));
     }
-
-    public function security(): SecuritySettings
-    {
-        return SecuritySettings::fromArray($this->findGroup(SettingsGroup::SECURITY));
-    }
 }

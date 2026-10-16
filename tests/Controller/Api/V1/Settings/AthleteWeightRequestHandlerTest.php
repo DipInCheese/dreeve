@@ -14,6 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AthleteWeightRequestHandlerTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private const string PATH = '/api/v1/athlete/weights';
 
     private Token $token;

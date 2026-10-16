@@ -88,9 +88,9 @@ class DbalSettingsRepositoryTest extends ContainerTestCase
 
     public function testFindKeepsAnEmptyValueWithoutADefault(): void
     {
-        $this->settingsRepository->save(SettingsName::REQUIRES_AUTHENTICATION, false);
+        $this->settingsRepository->save(SettingsName::UNIT_SYSTEM, false);
 
-        $this->assertFalse($this->settingsRepository->find(SettingsName::REQUIRES_AUTHENTICATION));
+        $this->assertFalse($this->settingsRepository->find(SettingsName::UNIT_SYSTEM));
     }
 
     public function testFindAppliesDefaultsToASingleSetting(): void

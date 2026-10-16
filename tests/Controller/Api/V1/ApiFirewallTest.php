@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Api\V1;
 
-use App\Domain\Settings\DbalSettingsRepository;
-use App\Domain\Settings\SettingsName;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Security\Visitor;
 use App\Infrastructure\Serialization\Json;
@@ -15,6 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiFirewallTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private Token $token;
 
     #[DataProvider('provideRequestsWithoutAValidToken')]
@@ -82,16 +87,12 @@ class ApiFirewallTest extends ControllerWebTestCase
 
         $this->client->request('GET', '/');
 
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects('http://localhost/admin/login');
         $this->assertFalse($this->getContainer()->get(Visitor::class)->isAuthenticated());
     }
 
     public function testItAnswers401RatherThanRedirectingToTheLoginPage(): void
     {
-        /** @var DbalSettingsRepository $settingsRepository */
-        $settingsRepository = $this->getContainer()->get(DbalSettingsRepository::class);
-        $settingsRepository->save(SettingsName::REQUIRES_AUTHENTICATION, true);
-
         $this->client->request('GET', '/api/v1/status');
 
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());

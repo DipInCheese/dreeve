@@ -2,8 +2,6 @@
 
 namespace App\Tests\Infrastructure\Security;
 
-use App\Domain\Settings\SecuritySettings;
-use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Security\AppAccessMap;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -18,9 +16,7 @@ class AppAccessMapTest extends TestCase
         $accessMap = new AccessMap();
         $accessMap->add(new PathRequestMatcher('^/admin'), ['ROLE_ADMIN']);
 
-        $appAccessMap = new AppAccessMap($accessMap, $this->settingsRepository(requiresAuthentication: true));
-
-        $this->assertEquals([['ROLE_ADMIN'], null], $appAccessMap->getPatterns(Request::create('/admin/settings')));
+        $this->assertEquals([['ROLE_ADMIN'], null], new AppAccessMap($accessMap)->getPatterns(Request::create('/admin/settings')));
     }
 
     public function testItLeavesApiPathsToTheApiFirewall(): void
@@ -28,24 +24,13 @@ class AppAccessMapTest extends TestCase
         $accessMap = new AccessMap();
         $accessMap->add(new PathRequestMatcher('^/api/v1'), ['ROLE_API']);
 
-        $appAccessMap = new AppAccessMap($accessMap, $this->settingsRepository(requiresAuthentication: true));
-
-        $this->assertEquals([['ROLE_API'], null], $appAccessMap->getPatterns(Request::create('/api/v1/status')));
-    }
-
-    public function testItRequiresNothingWhenAuthenticationIsNotRequired(): void
-    {
-        $appAccessMap = new AppAccessMap(new AccessMap(), $this->settingsRepository(requiresAuthentication: false));
-
-        $this->assertEquals([null, null], $appAccessMap->getPatterns(Request::create('/dashboard')));
+        $this->assertEquals([['ROLE_API'], null], new AppAccessMap($accessMap)->getPatterns(Request::create('/api/v1/status')));
     }
 
     #[DataProvider('provideProtectedPaths')]
-    public function testItRequiresAnAdminWhenAuthenticationIsRequired(string $path): void
+    public function testItAlwaysRequiresALogin(string $path): void
     {
-        $appAccessMap = new AppAccessMap(new AccessMap(), $this->settingsRepository(requiresAuthentication: true));
-
-        $this->assertEquals([['ROLE_ADMIN'], null], $appAccessMap->getPatterns(Request::create($path)));
+        $this->assertEquals([['ROLE_ADMIN'], null], new AppAccessMap(new AccessMap())->getPatterns(Request::create($path)));
     }
 
     /**
@@ -59,16 +44,18 @@ class AppAccessMapTest extends TestCase
         yield 'gpx download' => ['/activities/activity-1/route.gpx'];
         yield 'original file download' => ['/activities/activity-1/original-file'];
         yield 'images' => ['/files/gear/bike.png'];
-        yield 'badge' => ['/badge/strava.svg'];
-        yield 'ai chat' => ['/ai/chat'];
+        yield 'badge' => ['/badge/zwift.svg'];
+        yield 'ai chat' => ['/chat'];
+        yield 'finish setup' => ['/finish-setup'];
+        yield 'former strava oauth page' => ['/strava-oauth'];
+        yield 'not an invite' => ['/invitee'];
+        yield 'prefix of a public directory' => ['/assets-overview'];
     }
 
     #[DataProvider('providePublicPaths')]
-    public function testItKeepsPublicPathsOpenWhenAuthenticationIsRequired(string $path): void
+    public function testItKeepsPublicPathsOpen(string $path): void
     {
-        $appAccessMap = new AppAccessMap(new AccessMap(), $this->settingsRepository(requiresAuthentication: true));
-
-        $this->assertEquals([null, null], $appAccessMap->getPatterns(Request::create($path)));
+        $this->assertEquals([null, null], new AppAccessMap(new AccessMap())->getPatterns(Request::create($path)));
     }
 
     /**
@@ -76,30 +63,11 @@ class AppAccessMapTest extends TestCase
      */
     public static function providePublicPaths(): iterable
     {
-        yield 'strava webhook' => ['/strava/webhook'];
-        yield 'strava oauth' => ['/strava-oauth'];
-        yield 'finish setup' => ['/finish-setup'];
+        yield 'invite' => ['/invite/some-token'];
         yield 'manifest' => ['/manifest.json'];
         yield 'assets' => ['/assets/placeholder.webp'];
         yield 'css' => ['/css/dist/tailwind.min.css'];
         yield 'js' => ['/js/app.js'];
         yield 'libraries' => ['/libraries/leaflet/leaflet.js'];
-    }
-
-    public function testItDoesNotConfusePrefixesWithDirectories(): void
-    {
-        $appAccessMap = new AppAccessMap(new AccessMap(), $this->settingsRepository(requiresAuthentication: true));
-
-        $this->assertEquals([['ROLE_ADMIN'], null], $appAccessMap->getPatterns(Request::create('/assets-overview')));
-    }
-
-    private function settingsRepository(bool $requiresAuthentication): SettingsRepository
-    {
-        $settingsRepository = $this->createStub(SettingsRepository::class);
-        $settingsRepository->method('security')->willReturn(
-            SecuritySettings::fromArray(['requiresAuthentication' => $requiresAuthentication])
-        );
-
-        return $settingsRepository;
     }
 }

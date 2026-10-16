@@ -21,6 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActivityDeleteRequestHandlerTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private const string PATH = '/api/v1/activities/activity-1';
 
     private Token $token;

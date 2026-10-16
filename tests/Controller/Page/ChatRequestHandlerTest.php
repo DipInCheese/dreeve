@@ -81,17 +81,10 @@ class ChatRequestHandlerTest extends AdminWebTestCase
         ]);
     }
 
-    public function testItOnlyRendersTheAdminLinkForAuthenticatedVisitors(): void
+    public function testItRendersTheAdminLink(): void
     {
         $this->enableAssistant(true);
 
-        $this->client->request('GET', '/chat');
-        $this->assertStringNotContainsString(
-            'admin/settings/integrations',
-            (string) $this->client->getResponse()->getContent(),
-        );
-
-        $this->client->loginUser($this->adminUser());
         $this->client->request('GET', '/chat');
         $this->assertStringContainsString(
             'admin/settings/integrations?redirectTo=%2Fchat',

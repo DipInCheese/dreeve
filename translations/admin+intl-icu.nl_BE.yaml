@@ -60,7 +60,6 @@ Admin: Beheer
 'All efforts on this segment are deleted as well. This action cannot be undone.': 'All efforts on this segment are deleted as well. This action cannot be undone.'
 'All sport types': 'Alle sporttypes'
 'All sport types must belong to the same activity type.': 'Alle sporttypes moeten tot hetzelfde activiteitstype behoren.'
-'Allow visitors to download original activity files': 'Allow visitors to download original activity files'
 'Allowed IP addresses for the admin panel': 'Toegestane IP-adressen voor het beheerpaneel'
 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Maakt de trainingsassistent ook beschikbaar in de webinterface. Vereist dat de AI-integratie hierboven ingeschakeld is. Wees voorzichtig als je app publiek toegankelijk is.'
 'Any IP address': 'Eender welk IP-adres'
@@ -93,7 +92,6 @@ Apply: Toepassen
 'Base URI': Basis-URI
 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Voor je de app kan gebruiken, moeten we een paar dingen over je weten. Die worden gebruikt om je hartslagzones en trainingsbelasting te berekenen. Alle andere instellingen kan je later nog verfijnen.'
 Birthday: Geboortedatum
-'By default only you can download the original FIT, TCX or GPX file from an activity page. Original files can contain more detail than the page shows.': 'By default only you can download the original FIT, TCX or GPX file from an activity page. Original files can contain more detail than the page shows.'
 'Calculate energy (kJ)': 'Energie berekenen (kJ)'
 Cancel: Annuleren
 'Challenge name': 'Naam uitdaging'
@@ -183,6 +181,7 @@ Endpoint: Endpoint
 'Enter your password': 'Geef je wachtwoord in'
 'Enter your username': 'Geef je gebruikersnaam in'
 Every: Elke
+'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 FTP: FTP
 'FTP history (cycling)': 'FTP-historiek (fietsen)'
@@ -375,8 +374,6 @@ Removing...: 'Aan het verwijderen...'
 'Render the map tiles in greyscale': 'Kaarttegels in grijstinten weergeven'
 "Reorder widgets and set each widget's width.": 'Herschik widgets en stel de breedte van elke widget in.'
 'Repeat password': 'Repeat password'
-'Require a login for the entire app': 'Login vereisen voor de volledige app'
-'Require a login for the entire app, not just the admin panel. Recommended when your instance is reachable from the internet, which it has to be for the Strava webhook.': 'Vereis een login voor de volledige app, niet enkel het beheerpaneel. Aanbevolen als je instantie bereikbaar is via het internet, wat nodig is voor de Strava-webhook.'
 'Reset dashboard to default': 'Dashboard terugzetten naar standaard'
 'Reset to default': 'Terugzetten naar standaard'
 Resetting...: 'Aan het terugzetten...'

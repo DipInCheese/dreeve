@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Security;
 
-use App\Domain\Settings\SettingsRepository;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\AccessMapInterface;
 
+/**
+ * Health and activity data is personal: every page requires a login. Only the pages needed to get
+ * a login, and the static files, are public.
+ */
 #[AsDecorator('security.access_map')]
 final readonly class AppAccessMap implements AccessMapInterface
 {
@@ -17,11 +20,8 @@ final readonly class AppAccessMap implements AccessMapInterface
      * @var list<string>
      */
     private const array PUBLIC_PATHS = [
-        // Called by Strava's servers, they have no session.
-        '/strava/webhook',
-        // Setup pages that have to be reachable before there is anything to log into.
-        '/strava-oauth',
-        '/finish-setup',
+        // Invited users pick their password here, before they can log in. Protected by the invite token.
+        '/invite',
         '/manifest.json',
         // Caddy serves these.
         '/assets',
@@ -34,7 +34,6 @@ final readonly class AppAccessMap implements AccessMapInterface
     public function __construct(
         #[AutowireDecorated]
         private AccessMapInterface $accessMap,
-        private SettingsRepository $settingsRepository,
     ) {
     }
 
@@ -47,10 +46,6 @@ final readonly class AppAccessMap implements AccessMapInterface
         if (null !== $attributes) {
             // security.yaml has the first say, ^/admin/login stays public.
             return [$attributes, $channel];
-        }
-
-        if (!$this->settingsRepository->security()->requiresAuthentication()) {
-            return [null, null];
         }
 
         if ($this->isPublicPath($request->getPathInfo())) {

@@ -14,7 +14,6 @@ enum SettingsName: string
     case UNIT_SYSTEM = 'unitSystem';
     case LOCALE = 'locale';
     case EDDINGTON = 'eddington';
-    case REQUIRES_AUTHENTICATION = 'requiresAuthentication';
 
     public function group(): SettingsGroup
     {
@@ -22,7 +21,6 @@ enum SettingsName: string
             self::MAX_HEART_RATE_FORMULA, self::RESTING_HEART_RATE_FORMULA, self::WEIGHT_HISTORY => SettingsGroup::GENERAL,
             self::UNIT_SYSTEM, self::LOCALE => SettingsGroup::APPEARANCE,
             self::EDDINGTON => SettingsGroup::METRICS,
-            self::REQUIRES_AUTHENTICATION => SettingsGroup::SECURITY,
         };
     }
 

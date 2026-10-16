@@ -12,6 +12,13 @@ use App\Tests\Controller\ControllerWebTestCase;
 
 class StatusRequestHandlerTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private Token $token;
 
     public function testHandle(): void

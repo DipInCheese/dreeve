@@ -19,6 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ActivityImageAddRequestHandlerTest extends ControllerWebTestCase
 {
+    #[\Override]
+    protected function shouldLogIn(): bool
+    {
+        // The API authenticates with its own key, never with a login session.
+        return false;
+    }
+
     private const string PATH = '/api/v1/activities/activity-1/images';
     private const string EXISTING_IMAGE = 'files/activities/9b1d1f3e-3c7a-4a52-8f6e-2f0b8c6d4a11.jpg';
 
