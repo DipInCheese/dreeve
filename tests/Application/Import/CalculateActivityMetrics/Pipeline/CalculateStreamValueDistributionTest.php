@@ -13,7 +13,6 @@ use App\Domain\Activity\Stream\Metric\ActivityStreamMetricRepository;
 use App\Domain\Activity\Stream\Metric\ActivityStreamMetricType;
 use App\Domain\Activity\Stream\Metric\ActivityStreamValueDistributionCalculator;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\UnitSystem;
 use App\Infrastructure\Serialization\Json;
@@ -127,7 +126,6 @@ class CalculateStreamValueDistributionTest extends ContainerTestCase
         ));
 
         $settingsRepository = $this->getContainer()->get(SettingsRepository::class);
-        $settingsRepository->save(SettingsName::UNIT_SYSTEM, $unitSystem->value);
 
         new CalculateStreamValueDistribution(
             $this->getContainer()->get(ActivityStreamMetricRepository::class),
@@ -145,7 +143,6 @@ class CalculateStreamValueDistributionTest extends ContainerTestCase
     public static function provideUnitSystems(): iterable
     {
         yield 'metric' => [UnitSystem::METRIC];
-        yield 'imperial' => [UnitSystem::IMPERIAL];
     }
 
     #[\Override]

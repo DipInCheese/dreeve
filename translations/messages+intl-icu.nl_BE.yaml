@@ -160,7 +160,7 @@ Fitness: Fitheid
 'Fitness may be declining due to low recent training load': 'Je fitheid kan dalen door een lage recente trainingsbelasting'
 'Fitness may decline': 'Fitheid kan dalen'
 'Foot pod': Voetsensor
-'For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning.': 'Bijvoorbeeld: een Eddington-getal van 70 betekent dat een fietser op minstens 70 dagen minstens 70 km of mijl per dag heeft gefietst. Een hoog Eddington-getal behalen is moeilijk, want van bijvoorbeeld 70 naar 75 gaan vraagt (waarschijnlijk) meer dan vijf nieuwe lange trainingen, omdat elke training korter dan 75 km of mijl niet langer meetelt.'
+'For example, an Eddington number of 70 means you rode at least 70 kilometres in a day on at least 70 days. Moving from 70 to 75 takes more than five new long rides, because rides shorter than 75 kilometres no longer count.': 'For example, an Eddington number of 70 means you rode at least 70 kilometres in a day on at least 70 days. Moving from 70 to 75 takes more than five new long rides, because rides shorter than 75 kilometres no longer count.'
 'Form (TSB)': 'Vorm (TSB)'
 Fri: Vr
 Fri.: Vr.
@@ -517,7 +517,7 @@ Tennis: Tennis
 "That's three quarters of the way around the Earth": 'Dat is driekwart rond de aarde'
 "That's {number} days of at least {distance}": 'Dat zijn {number} dagen van minstens {distance}'
 "That's {percentage}% of all countries 🌍": 'Dat is {percentage}% van alle landen 🌍'
-'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E km on at least E days.': 'Het Eddington-getal bij fietsen of lopen is het grootste getal E waarvoor de atleet op minstens E dagen minstens E km heeft afgelegd.'
+'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E kilometres on at least E days.': 'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E kilometres on at least E days.'
 'The largest connected group of cluster tiles': 'The largest connected group of cluster tiles'
 'The largest square of visited tiles': 'The largest square of visited tiles'
 "The page you're looking for doesn't exist or may have been moved.": 'De pagina die je zoekt bestaat niet of is mogelijk verplaatst.'

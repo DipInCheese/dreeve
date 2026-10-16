@@ -1,7 +1,6 @@
 {% extends "html/admin/page/template.html.twig" %}
 
 {% block main %}
-    {% set unitSystemOptions = enum('App\\Infrastructure\\Measurement\\UnitSystem').cases() %}
     {% set localeOptions = enum('App\\Infrastructure\\Localisation\\Locale').cases() %}
     {% set timeFormatOptions = enum('App\\Infrastructure\\Time\\Format\\TimeFormat').cases() %}
     {% set dateFormat = settings.dateFormat ?? {} %}
@@ -16,17 +15,6 @@
             <div data-form-error class="form-error hidden" role="alert"></div>
             <div class="flex flex-col gap-4">
                 <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                        <label for="unitSystem">{{ "Unit system"|trans({}, 'admin') }}</label>
-                        <select id="unitSystem" name="data[unitSystem]">
-                            {% for unitSystem in unitSystemOptions %}
-                                <option value="{{ unitSystem.value }}" {{ (settings.unitSystem ?? 'metric') == unitSystem.value ? 'selected' : '' }}>{{ unitSystem.value }}</option>
-                            {% endfor %}
-                        </select>
-                        <p class="description">
-                            {{ "The unit system used to render distances, elevations, temperatures, etc."|trans({}, 'admin') }}
-                        </p>
-                    </div>
                     <div>
                         <label for="locale">{{ "Locale"|trans({}, 'admin') }}</label>
                         <select id="locale" name="data[locale]">

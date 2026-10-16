@@ -12,7 +12,6 @@ use App\Domain\Activity\Stream\CombinedStream\ActivityStreamCombiner;
 use App\Domain\Activity\Stream\CombinedStream\CombinedActivityStreamRepository;
 use App\Domain\Activity\Stream\CombinedStream\CombinedStreamType;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\UnitSystem;
 use App\Infrastructure\Mutex\LockName;
@@ -42,7 +41,6 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
             sportType: $sportType,
             omitDistanceStream: $omitDistanceStream,
         );
-        $this->getContainer()->get(SettingsRepository::class)->save(SettingsName::UNIT_SYSTEM, $unitSystem->value);
 
         $this->calculateCombinedStreams->process($output);
 
@@ -53,11 +51,9 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
     public static function provideActivities(): iterable
     {
         yield 'ride' => [SportType::RIDE, false, UnitSystem::METRIC];
-        yield 'ride in imperial' => [SportType::RIDE, false, UnitSystem::IMPERIAL];
         yield 'ride without a distance stream' => [SportType::RIDE, true, UnitSystem::METRIC];
         yield 'run' => [SportType::RUN, false, UnitSystem::METRIC];
         yield 'sail' => [SportType::SAIL, false, UnitSystem::METRIC];
-        yield 'sail keeps nautical units in imperial' => [SportType::SAIL, false, UnitSystem::IMPERIAL];
     }
 
     /**
@@ -160,7 +156,6 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
         );
 
         $settingsRepository = $this->getContainer()->get(SettingsRepository::class);
-        $settingsRepository->save(SettingsName::UNIT_SYSTEM, UnitSystem::IMPERIAL->value);
 
         new CalculateCombinedStreams(
             combinedActivityStreamRepository: $this->getContainer()->get(CombinedActivityStreamRepository::class),
@@ -174,11 +169,11 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
         )->process($output);
 
         $combinedStream = $this->getContainer()->get(CombinedActivityStreamRepository::class)
-            ->findOneForActivityAndUnitSystem($activityId, UnitSystem::IMPERIAL);
+            ->findOneForActivityAndUnitSystem($activityId, UnitSystem::METRIC);
 
-        // 0 degrees Celsius is a reading, not a gap: it has to come out as 32 Fahrenheit.
+        // 0 degrees Celsius is a reading, not a gap.
         $this->assertEquals(
-            [23.0, 32.0, 50.0, 68.0],
+            [-5.0, 0.0, 10.0, 20.0],
             $combinedStream->getTemperatures()
         );
     }

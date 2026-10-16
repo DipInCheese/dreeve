@@ -17,7 +17,8 @@ class AppearanceSettingsRequestHandlerTest extends AdminWebTestCase
         // The appearance settings form.
         $this->assertCount(1, $crawler->filter('form[data-dispatch-command="update-settings"]'));
         $this->assertCount(1, $crawler->filter('form[data-dispatch-command="update-settings"] input[name="group"][value="appearance"]'));
-        $this->assertCount(1, $crawler->filter('select[name="data[unitSystem]"]'));
+        // Everything is metric, there is nothing to choose.
+        $this->assertCount(0, $crawler->filter('select[name="data[unitSystem]"]'));
         $this->assertCount(1, $crawler->filter('select[name="data[locale]"]'));
         $this->assertCount(1, $crawler->filter('input[name="data[dateFormat][short]"]'));
 

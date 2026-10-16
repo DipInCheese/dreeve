@@ -50,23 +50,6 @@ class ActivityTokenProviderTest extends TestCase
         );
     }
 
-    #[DataProvider(methodName: 'provideImperialTokens')]
-    public function testResolveWithImperialUnitSystem(string $key, string $expectedValue): void
-    {
-        $this->assertSame(
-            $expectedValue,
-            $this->buildProvider(UnitSystem::IMPERIAL)->resolve(
-                Token::create(
-                    prefix: 'activity',
-                    key: $key,
-                    modifier: null,
-                    raw: sprintf('[activity:%s]', $key),
-                ),
-                $this->buildContext()
-            )
-        );
-    }
-
     public function testResolveStartDateWithModifier(): void
     {
         $provider = $this->buildProvider(UnitSystem::METRIC);

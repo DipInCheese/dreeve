@@ -57,15 +57,6 @@ class ElevationConditionTest extends TestCase
         $this->assertTrue($this->condition->matches($activity, RuleConfiguration::fromConfig(['operator' => 'eq', 'value' => 0.0])));
     }
 
-    public function testMatchesInterpretsTheValueInFeetForImperialUnitSystem(): void
-    {
-        $condition = $this->conditionFor(UnitSystem::IMPERIAL);
-        $activity = ActivityBuilder::fromDefaults()->withElevation(Meter::from(305))->build();
-
-        $this->assertTrue($condition->matches($activity, RuleConfiguration::fromConfig(['operator' => 'gte', 'value' => 1000.0])));
-        $this->assertFalse($condition->matches($activity, RuleConfiguration::fromConfig(['operator' => 'gte', 'value' => 1100.0])));
-    }
-
     public static function provideInvalidConfigurations(): iterable
     {
         yield 'invalid operator' => ['nope', 100.0, 'Invalid elevation operator "nope".'];

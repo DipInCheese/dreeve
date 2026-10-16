@@ -10,7 +10,6 @@ use App\Domain\Activity\Stream\StreamType;
 use App\Domain\Automation\Condition\EndsNearStartCondition;
 use App\Domain\Automation\InvalidAutomationRule;
 use App\Domain\Automation\RuleConfiguration;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\ValueObject\Geography\Coordinate;
 use App\Infrastructure\ValueObject\Geography\EncodedPolyline;
@@ -101,26 +100,6 @@ class EndsNearStartConditionTest extends ContainerTestCase
         $this->assertTrue($this->condition->matches($activity, RuleConfiguration::fromConfig([
             'operator' => 'within',
             'radius' => 1000.0,
-        ])));
-    }
-
-    public function testMatchesInterpretsTheRadiusInFeetForImperialUnitSystem(): void
-    {
-        $activity = ActivityBuilder::fromDefaults()->build();
-        $this->activityStreamRepository->add(ActivityStreamBuilder::fromDefaults()
-            ->withActivityId($activity->getId())
-            ->withStreamType(StreamType::LAT_LNG)
-            ->withData([[51.05, 4.0], [51.055, 4.0]])
-            ->build());
-        $this->getContainer()->get(SettingsRepository::class)->save(SettingsName::UNIT_SYSTEM, 'imperial');
-
-        $this->assertFalse($this->condition->matches($activity, RuleConfiguration::fromConfig([
-            'operator' => 'within',
-            'radius' => 1000.0,
-        ])));
-        $this->assertTrue($this->condition->matches($activity, RuleConfiguration::fromConfig([
-            'operator' => 'within',
-            'radius' => 2000.0,
         ])));
     }
 

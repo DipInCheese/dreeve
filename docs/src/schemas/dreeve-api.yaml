@@ -636,8 +636,7 @@ paths:
                   type: number
                   exclusiveMinimum: 0
                   description: >-
-                    The measurement in the configured Appearance unit system: kilograms for Metric
-                    and pounds for Imperial.
+                    The weight in kilograms.
                   examples: [71.4]
                 on:
                   type: string
@@ -987,8 +986,7 @@ components:
         weight:
           type: number
           description: >-
-            The measurement in the configured Appearance unit system: kilograms for Metric and
-            pounds for Imperial.
+            The weight in kilograms.
     WeightRecorded:
       type: object
       required: [on, weight]
@@ -999,8 +997,7 @@ components:
         weight:
           type: number
           description: >-
-            The measurement in the configured Appearance unit system: kilograms for Metric and
-            pounds for Imperial.
+            The weight in kilograms.
     Error:
       type: object
       required: [error, message]

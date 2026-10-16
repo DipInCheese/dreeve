@@ -15,10 +15,8 @@ use App\Domain\Milestone\MilestoneCategory;
 use App\Domain\Milestone\MilestoneId;
 use App\Domain\Milestone\MilestoneIdFactory;
 use App\Domain\Milestone\PreviousMilestone;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\Length\Kilometer;
-use App\Infrastructure\Measurement\Length\Mile;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use App\Tests\ContainerTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
@@ -171,38 +169,6 @@ class GearDistanceMilestoneDiscovererTest extends ContainerTestCase
         $this->insertActivity('1', '2024-01-01', $gearId, 0.0);
 
         $this->assertTrue($this->discoverer->discover($this->milestoneIdFactory)->isEmpty());
-    }
-
-    public function testDiscoverWithImperialUnits(): void
-    {
-        $gearId = GearId::fromUnprefixed('bike-1');
-        $this->getContainer()->get(GearRepository::class)->add(
-            GearBuilder::fromDefaults()
-                ->withGearId($gearId)
-                ->withName('Canyon Endurace')
-                ->build()
-        );
-        $this->insertActivity('1', '2024-01-01', $gearId, 161.0);
-
-        $settingsRepository = $this->getContainer()->get(SettingsRepository::class);
-        $settingsRepository->save(SettingsName::UNIT_SYSTEM, 'imperial');
-        $discoverer = new GearDistanceMilestoneDiscoverer(
-            $this->getConnection(),
-            $settingsRepository,
-        );
-        $milestones = $discoverer->discover($this->milestoneIdFactory);
-
-        $this->assertEquals(
-            [
-                Milestone::create(
-                    id: MilestoneId::fromString('milestone-1'),
-                    achievedOn: SerializableDateTime::fromString('2024-01-01 00:00:00'),
-                    category: MilestoneCategory::GEAR_DISTANCE,
-                    context: new GearDistanceContext(gearName: 'Canyon Endurace', threshold: Mile::from(100.0)),
-                )->withFunComparison(DistanceFunComparison::EDGE_OF_SPACE),
-            ],
-            $milestones->toArray(),
-        );
     }
 
     public function setUp(): void

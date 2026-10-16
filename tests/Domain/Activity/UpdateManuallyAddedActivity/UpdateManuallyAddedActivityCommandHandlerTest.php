@@ -104,28 +104,6 @@ class UpdateManuallyAddedActivityCommandHandlerTest extends ContainerTestCase
         $this->assertSame(0.0, $activity->getAverageSpeed()->toFloat());
     }
 
-    public function testHandleConvertsImperialInput(): void
-    {
-        $this->provideAppearanceSettingsWithUnitSystem('imperial');
-        $this->addManuallyAddedActivity();
-
-        $this->commandBus->dispatch(UpdateManuallyAddedActivity::fromPayload([
-            'activityId' => 'activity-1',
-            'name' => 'My updated manual activity',
-            'sportType' => 'Run',
-            'startDateTime' => '2023-10-17T16:15',
-            'duration' => ['hours' => 1],
-            'distance' => '10',
-            'elevation' => '100',
-        ]));
-
-        $activity = $this->activityRepository->find(ActivityId::fromUnprefixed('1'));
-
-        $this->assertSame(16.093, round($activity->getDistance()->toFloat(), 3));
-        $this->assertSame(30.0, round($activity->getElevation()->toFloat(), 1));
-        $this->assertSame(16.093, round($activity->getAverageSpeed()->toFloat(), 3));
-    }
-
     public function testHandleKeepsTheActivityInTheRealWorld(): void
     {
         $this->addManuallyAddedActivity();

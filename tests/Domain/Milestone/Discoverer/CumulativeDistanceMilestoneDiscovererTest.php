@@ -14,7 +14,6 @@ use App\Domain\Milestone\MilestoneCategory;
 use App\Domain\Milestone\MilestoneId;
 use App\Domain\Milestone\MilestoneIdFactory;
 use App\Domain\Milestone\PreviousMilestone;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\Length\Kilometer;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
@@ -125,20 +124,6 @@ class CumulativeDistanceMilestoneDiscovererTest extends ContainerTestCase
     {
         $this->insertActivity(1, '2024-01-01', 0.0);
         $this->assertTrue($this->discoverer->discover($this->milestoneIdFactory)->isEmpty());
-    }
-
-    public function testDiscoverWithImperialUnits(): void
-    {
-        $this->insertActivity(1, '2024-01-01', 161.0);
-
-        $settingsRepository = $this->getContainer()->get(SettingsRepository::class);
-        $settingsRepository->save(SettingsName::UNIT_SYSTEM, 'imperial');
-        $discoverer = new CumulativeDistanceMilestoneDiscoverer(
-            $this->getConnection(),
-            $settingsRepository,
-        );
-        $milestones = $discoverer->discover($this->milestoneIdFactory);
-        $this->assertGreaterThanOrEqual(2, count($milestones));
     }
 
     public function testDiscoverWithMultipleSportTypes(): void

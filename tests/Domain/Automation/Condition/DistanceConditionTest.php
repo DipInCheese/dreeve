@@ -50,15 +50,6 @@ class DistanceConditionTest extends TestCase
         $this->assertSame($expectedToMatch, $this->condition->matches($activity, RuleConfiguration::fromConfig(['operator' => $operator, 'value' => $value])));
     }
 
-    public function testMatchesInterpretsTheValueInMilesForImperialUnitSystem(): void
-    {
-        $condition = $this->conditionFor(UnitSystem::IMPERIAL);
-        $activity = ActivityBuilder::fromDefaults()->withDistance(Kilometer::from(16.1))->build();
-
-        $this->assertTrue($condition->matches($activity, RuleConfiguration::fromConfig(['operator' => 'gte', 'value' => 10.0])));
-        $this->assertFalse($condition->matches($activity, RuleConfiguration::fromConfig(['operator' => 'gte', 'value' => 12.0])));
-    }
-
     /**
      * @return iterable<string, array{string, float, string}>
      */

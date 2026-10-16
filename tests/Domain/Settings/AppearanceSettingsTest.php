@@ -39,7 +39,8 @@ class AppearanceSettingsTest extends TestCase
             ],
         ]);
 
-        $this->assertSame(UnitSystem::IMPERIAL, $settings->getUnitSystem());
+        // A unit system stored before Dreeve went metric-only is ignored.
+        $this->assertSame(UnitSystem::METRIC, $settings->getUnitSystem());
         $this->assertSame(Locale::nl_BE, $settings->getLocale());
         $this->assertSame(TimeFormat::AM_PM, $settings->getDateAndTimeFormat()->getTimeFormat());
         $this->assertSame('m-d-y', (string) $settings->getDateAndTimeFormat()->getDateFormatShort());

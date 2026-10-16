@@ -60,17 +60,16 @@ class DbalSettingsRepositoryTest extends ContainerTestCase
     public function testSaveUpdatesASingleSettingAndAddsNewOnes(): void
     {
         $this->settingsRepository->saveGroup(SettingsGroup::APPEARANCE, [
-            'unitSystem' => 'metric',
+            'locale' => 'en_US',
             'timeFormat' => 24,
         ]);
 
-        $this->settingsRepository->save(SettingsName::UNIT_SYSTEM, 'imperial');
         $this->settingsRepository->save(SettingsName::LOCALE, 'nl_BE');
+        $this->settingsRepository->save(SettingsName::WEIGHT_HISTORY, []);
 
         $this->assertEquals([
-            'unitSystem' => 'imperial',
-            'timeFormat' => 24,
             'locale' => 'nl_BE',
+            'timeFormat' => 24,
         ], $this->settingsRepository->findGroup(SettingsGroup::APPEARANCE));
     }
 
@@ -79,14 +78,13 @@ class DbalSettingsRepositoryTest extends ContainerTestCase
         $this->settingsRepository->saveGroup(SettingsGroup::APPEARANCE, ['locale' => 'nl_BE']);
 
         $this->assertSame('nl_BE', $this->settingsRepository->find(SettingsName::LOCALE));
-        $this->assertNull($this->settingsRepository->find(SettingsName::UNIT_SYSTEM));
     }
 
     public function testFindKeepsAnEmptyValueWithoutADefault(): void
     {
-        $this->settingsRepository->save(SettingsName::UNIT_SYSTEM, false);
+        $this->settingsRepository->save(SettingsName::LOCALE, false);
 
-        $this->assertFalse($this->settingsRepository->find(SettingsName::UNIT_SYSTEM));
+        $this->assertFalse($this->settingsRepository->find(SettingsName::LOCALE));
     }
 
     public function testFindAppliesDefaultsToASingleSetting(): void

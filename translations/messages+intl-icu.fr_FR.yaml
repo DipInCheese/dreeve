@@ -160,7 +160,7 @@ Fitness: Forme
 'Fitness may be declining due to low recent training load': "La forme physique peut diminuer en raison d'une charge d'entraînement récente basse."
 'Fitness may decline': 'La forme physique peut diminuer'
 'Foot pod': 'Capteur de foulée'
-'For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning.': "Par exemple, un nombre d'Eddington de 70 signifie qu'un cycliste a parcouru au moins 70 km ou miles en une journée à au moins 70 reprises. Atteindre un nombre d'Eddington élevé est difficile, car passer de 70 à 75, par exemple, nécessitera (probablement) plus de cinq nouvelles sorties longues, puisque toute sortie de moins de 75 km ou miles ne sera plus prise en compte."
+'For example, an Eddington number of 70 means you rode at least 70 kilometres in a day on at least 70 days. Moving from 70 to 75 takes more than five new long rides, because rides shorter than 75 kilometres no longer count.': 'For example, an Eddington number of 70 means you rode at least 70 kilometres in a day on at least 70 days. Moving from 70 to 75 takes more than five new long rides, because rides shorter than 75 kilometres no longer count.'
 'Form (TSB)': 'Forme (TSB)'
 Fri: Ven
 Fri.: Ven.
@@ -517,7 +517,7 @@ Tennis: Tennis
 "That's three quarters of the way around the Earth": "C'est les trois quarts du tour de la Terre"
 "That's {number} days of at least {distance}": "C'est {number} jours d'au moins {distance}"
 "That's {percentage}% of all countries 🌍": "C'est {percentage} % de tous les pays 🌍"
-'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E km on at least E days.': "Le nombre d'Eddington, dans le contexte du vélo ou de la course à pied, est défini comme le nombre maximal E tel que l'athlète a parcouru au moins E km sur au moins E jours."
+'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E kilometres on at least E days.': 'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E kilometres on at least E days.'
 'The largest connected group of cluster tiles': 'The largest connected group of cluster tiles'
 'The largest square of visited tiles': 'The largest square of visited tiles'
 "The page you're looking for doesn't exist or may have been moved.": "La page n'existe pas ou a été déplacée."

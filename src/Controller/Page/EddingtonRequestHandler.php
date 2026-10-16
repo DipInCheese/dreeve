@@ -16,7 +16,6 @@ use App\Infrastructure\Cache\Context\CacheContexts;
 use App\Infrastructure\Cache\Tag\CacheTags;
 use App\Infrastructure\Cache\Tag\RootCacheTag;
 use App\Infrastructure\Http\HtmlResponse;
-use App\Infrastructure\Measurement\UnitSystem;
 use App\Infrastructure\Serialization\Json;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -53,7 +52,7 @@ final readonly class EddingtonRequestHandler
     {
         $eddingtonCharts = [];
         $eddingtonHistoryCharts = [];
-        $allEddingtons = $this->eddingtonCalculator->calculate(...UnitSystem::cases());
+        $allEddingtons = $this->eddingtonCalculator->calculate($this->settingsRepository->appearance()->getUnitSystem());
 
         foreach ($allEddingtons as $eddington) {
             $id = $eddington->getId();

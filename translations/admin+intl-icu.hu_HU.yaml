@@ -495,7 +495,6 @@ Tasks: Feladatok
 'The start date, optionally with a custom PHP date format': 'A kezdő dátum, opcionálisan egyéni PHP dátumformátummal'
 'The tile layer URLs used to render the maps. Add more than one to stack them, for example to overlay place names on top of a satellite layer.': 'A térképek megjelenítéséhez használt csempe-réteg URL-ek. Adj hozzá többet is az egymásra helyezéshez, például helynevek rárakásához egy műholdas rétegre.'
 'The total distance ridden with the gear': 'A felszereléssel megtett teljes távolság'
-'The unit system used to render distances, elevations, temperatures, etc.': 'A távolságok, szintemelkedések, hőmérsékletek stb. megjelenítéséhez használt mértékegységrendszer.'
 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'A nézet, amelyen a hőtérkép megnyílik. A középpont és a nagyítási szint is szükséges; hagyd üresen, hogy automatikusan a legaktívabb területedhez igazodjon.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'Ennek a widgetnek a szélességét a dashboard beállításai oldalon kell megadni. Nem méreteződik automatikusan a beállított tevékenységek száma alapján.'
@@ -527,7 +526,6 @@ Tuesday: Kedd
 Type: Típus
 URL: URL
 Unit: Mértékegység
-'Unit system': Mértékegységrendszer
 'Unsupported file type': 'Nem támogatott fájltípus'
 Until: Until
 'Upload activity files': 'Tevékenységfájlok feltöltése'

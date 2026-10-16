@@ -9,21 +9,11 @@
             <span class="sr-only">{{ "Show information"|trans }}</span>
         </button>
         <div data-popover id="popover-eddington-info" role="tooltip" class="w-50 lg:w-md inline-block text-sm">
-            <p class="p-3">{{ "The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E km on at least E days."|trans }}</p>
-            <p class="p-3">{{ "For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning."|trans }}</p>
+            <p class="p-3">{{ "The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E kilometres on at least E days."|trans }}</p>
+            <p class="p-3">{{ "For example, an Eddington number of 70 means you rode at least 70 kilometres in a day on at least 70 days. Moving from 70 to 75 takes more than five new long rides, because rides shorter than 75 kilometres no longer count."|trans }}</p>
         </div>
     </div>
     <div class="flex items-center gap-x-2">
-        <ul class="tabs tabs--pills" id="eddingtonUnitSystemTab" data-tabs="#eddingtonUnitSystemTabContent" role="tablist">
-            {% for unitSystem in activeUnitSystem.casesWithPreferredFirst() %}
-                <li role="presentation">
-                    <a href="#" data-tabs-target="#eddingtonUnitSystem{{ unitSystem.value }}Tab" role="tab" aria-controls="eddingtonUnitSystem{{ unitSystem.value }}Tab">
-                        {{ svg(unitSystem.getSvgIcon(), 'size-4', '') }}
-                        <span class="hidden md:block">{{ unitSystem|trans }}</span>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
         {% include 'html/navigation/admin-edit-link.html.twig' with {
             path: 'admin/settings/metrics',
             redirectTo: 'eddington',
@@ -36,7 +26,7 @@
 {% autoescape false %}
      <div class="grid grid-cols-1 gap-4">
          <div id="eddingtonUnitSystemTabContent">
-             {% for unitSystem in activeUnitSystem.casesWithPreferredFirst() %}
+             {% for unitSystem in [activeUnitSystem] %}
                  {% set eddingtonsForUnitSystem = eddingtons|filter(e => e.getUnitSystem() == unitSystem) %}
                  <div id="eddingtonUnitSystem{{ unitSystem.value }}Tab" role="tabpanel" aria-labelledby="eddingtonUnitSystem{{ unitSystem.value }}Tab">
                      {% if eddingtonsForUnitSystem|length > 1 %}

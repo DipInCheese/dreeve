@@ -103,26 +103,6 @@ class ManuallyCreateActivityCommandHandlerTest extends ContainerTestCase
         $this->assertSame(0.0, $activity->getAverageSpeed()->toFloat());
     }
 
-    public function testHandleConvertsImperialInput(): void
-    {
-        $this->provideAppearanceSettingsWithUnitSystem('imperial');
-
-        $this->commandBus->dispatch(ManuallyCreateActivity::fromPayload([
-            'name' => 'My manual activity',
-            'sportType' => 'Run',
-            'startDateTime' => '2023-10-17T16:15',
-            'duration' => ['hours' => 1],
-            'distance' => '10',
-            'elevation' => '100',
-        ]));
-
-        $activity = $this->activityRepository->findAll()->getFirst();
-
-        $this->assertSame(16.093, round($activity->getDistance()->toFloat(), 3));
-        $this->assertSame(30.0, round($activity->getElevation()->toFloat(), 1));
-        $this->assertSame(16.093, round($activity->getAverageSpeed()->toFloat(), 3));
-    }
-
     public function testHandleStoresImages(): void
     {
         $this->commandBus->dispatch(ManuallyCreateActivity::fromPayload([

@@ -13,7 +13,6 @@ use App\Infrastructure\Time\Format\DateAndTimeFormat;
 final readonly class AppearanceSettings
 {
     private function __construct(
-        private UnitSystem $unitSystem,
         private Locale $locale,
         private DateAndTimeFormat $dateAndTimeFormat,
         private SportTypesSortingOrder $sportTypesSortingOrder,
@@ -31,7 +30,6 @@ final readonly class AppearanceSettings
         $dateFormat = $data['dateFormat'] ?? [];
 
         return new self(
-            unitSystem: UnitSystem::tryFrom($data['unitSystem'] ?? '') ?? UnitSystem::METRIC,
             locale: Locale::tryFrom($data['locale'] ?? '') ?? Locale::en_US,
             dateAndTimeFormat: DateAndTimeFormat::create(
                 dateFormatShort: $dateFormat['short'] ?? 'd-m-y',
@@ -43,9 +41,12 @@ final readonly class AppearanceSettings
         );
     }
 
+    /**
+     * Everything is shown in metric units: kilometres, metres, km/h, kilograms, degrees Celsius.
+     */
     public function getUnitSystem(): UnitSystem
     {
-        return $this->unitSystem;
+        return UnitSystem::METRIC;
     }
 
     public function getLocale(): Locale

@@ -66,12 +66,11 @@ class CachingSettingsRepositoryTest extends TestCase
         $inner->expects($this->once())
             ->method('findGroup')
             ->with(SettingsGroup::APPEARANCE)
-            ->willReturn(['unitSystem' => 'metric']);
+            ->willReturn(['locale' => 'nl_BE']);
 
         $repository = new CachingSettingsRepository($inner);
 
-        $this->assertSame('metric', $repository->find(SettingsName::UNIT_SYSTEM));
-        $this->assertNull($repository->find(SettingsName::LOCALE));
+        $this->assertSame('nl_BE', $repository->find(SettingsName::LOCALE));
     }
 
     public function testSaveGroupDelegatesToInnerAndInvalidatesTheMemo(): void
@@ -103,16 +102,16 @@ class CachingSettingsRepositoryTest extends TestCase
         $inner->expects($this->exactly(2))
             ->method('findGroup')
             ->with(SettingsGroup::APPEARANCE)
-            ->willReturn(['unitSystem' => 'metric']);
+            ->willReturn(['locale' => 'en_US']);
         $inner->expects($this->once())
             ->method('save')
-            ->with(SettingsName::UNIT_SYSTEM, 'imperial');
+            ->with(SettingsName::LOCALE, 'nl_BE');
 
         $repository = new CachingSettingsRepository($inner);
 
-        $repository->find(SettingsName::UNIT_SYSTEM);
-        $repository->save(SettingsName::UNIT_SYSTEM, 'imperial');
-        $repository->find(SettingsName::UNIT_SYSTEM);
+        $repository->find(SettingsName::LOCALE);
+        $repository->save(SettingsName::LOCALE, 'nl_BE');
+        $repository->find(SettingsName::LOCALE);
     }
 
     public function testAthleteNotConfiguredExceptionIsNotCached(): void

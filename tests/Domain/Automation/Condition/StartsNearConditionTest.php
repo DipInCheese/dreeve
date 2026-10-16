@@ -10,7 +10,6 @@ use App\Domain\Activity\Stream\StreamType;
 use App\Domain\Automation\Condition\StartsNearCondition;
 use App\Domain\Automation\InvalidAutomationRule;
 use App\Domain\Automation\RuleConfiguration;
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\ValueObject\Geography\Coordinate;
 use App\Infrastructure\ValueObject\Geography\Latitude;
@@ -109,27 +108,6 @@ class StartsNearConditionTest extends ContainerTestCase
 
         $this->assertFalse($this->condition->matches($near, $configuration));
         $this->assertTrue($this->condition->matches($far, $configuration));
-    }
-
-    public function testMatchesInterpretsTheRadiusInFeetForImperialUnitSystem(): void
-    {
-        $activity = ActivityBuilder::fromDefaults()
-            ->withStartingCoordinate(Coordinate::createFromLatAndLng(Latitude::fromString('51.055'), Longitude::fromString('4.0')))
-            ->build();
-        $this->getContainer()->get(SettingsRepository::class)->save(SettingsName::UNIT_SYSTEM, 'imperial');
-
-        $this->assertFalse($this->condition->matches($activity, RuleConfiguration::fromConfig([
-            'operator' => 'within',
-            'latitude' => 51.05,
-            'longitude' => 4.0,
-            'radius' => 1000.0,
-        ])));
-        $this->assertTrue($this->condition->matches($activity, RuleConfiguration::fromConfig([
-            'operator' => 'within',
-            'latitude' => 51.05,
-            'longitude' => 4.0,
-            'radius' => 2000.0,
-        ])));
     }
 
     public function testDoesNotMatchWhenActivityHasNoStartingCoordinate(): void

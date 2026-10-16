@@ -2,7 +2,6 @@
 
 namespace App\Tests\Infrastructure\Twig;
 
-use App\Domain\Settings\SettingsName;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\Length\Foot;
 use App\Infrastructure\Measurement\Length\Kilometer;
@@ -103,7 +102,6 @@ class MeasurementTwigExtensionTest extends ContainerTestCase
     private function extensionFor(UnitSystem $unitSystem): MeasurementTwigExtension
     {
         $settingsRepository = $this->getContainer()->get(SettingsRepository::class);
-        $settingsRepository->save(SettingsName::UNIT_SYSTEM, $unitSystem->value);
 
         return new MeasurementTwigExtension($settingsRepository);
     }
@@ -113,8 +111,6 @@ class MeasurementTwigExtensionTest extends ContainerTestCase
         return [
             [Meter::from(3.048), UnitSystem::METRIC, Foot::from(10)],
             [Meter::from(10), UnitSystem::METRIC, Meter::from(10)],
-            [Foot::from(9.998964), UnitSystem::IMPERIAL, Meter::from(3.048)],
-            [Foot::from(10), UnitSystem::IMPERIAL, Foot::from(10)],
         ];
     }
 
@@ -122,14 +118,10 @@ class MeasurementTwigExtensionTest extends ContainerTestCase
     {
         return [
             ['km', UnitSystem::METRIC, Kilometer::from(10)],
-            ['mi', UnitSystem::IMPERIAL, Kilometer::from(10)],
             ['km/h', UnitSystem::METRIC, KmPerHour::from(10)],
-            ['mph', UnitSystem::IMPERIAL, KmPerHour::from(10)],
             // Nautical units are unit system agnostic, they never get converted.
             ['NM', UnitSystem::METRIC, NauticalMile::from(10)],
-            ['NM', UnitSystem::IMPERIAL, NauticalMile::from(10)],
             ['kn', UnitSystem::METRIC, Knot::from(10)],
-            ['kn', UnitSystem::IMPERIAL, Knot::from(10)],
         ];
     }
 
@@ -137,7 +129,6 @@ class MeasurementTwigExtensionTest extends ContainerTestCase
     {
         return [
             [1.0, UnitSystem::METRIC],
-            [0.3048, UnitSystem::IMPERIAL],
         ];
     }
 
@@ -145,13 +136,9 @@ class MeasurementTwigExtensionTest extends ContainerTestCase
     {
         return [
             ['km', UnitSystem::METRIC, 'distance'],
-            ['mi', UnitSystem::IMPERIAL, 'distance'],
             ['m', UnitSystem::METRIC, 'elevation'],
-            ['ft', UnitSystem::IMPERIAL, 'elevation'],
             ['m', UnitSystem::METRIC, 'proximity'],
-            ['ft', UnitSystem::IMPERIAL, 'proximity'],
             ['/km', UnitSystem::METRIC, 'pace'],
-            ['/mi', UnitSystem::IMPERIAL, 'pace'],
         ];
     }
 }

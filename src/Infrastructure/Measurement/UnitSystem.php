@@ -125,12 +125,4 @@ enum UnitSystem: string implements TranslatableInterface
             self::IMPERIAL => 'vader',
         };
     }
-
-    /**
-     * @return UnitSystem[]
-     */
-    public function casesWithPreferredFirst(): array
-    {
-        return [$this, ...array_filter(self::cases(), fn (self $case): bool => $case !== $this)];
-    }
 }

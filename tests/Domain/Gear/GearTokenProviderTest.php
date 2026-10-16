@@ -68,34 +68,6 @@ class GearTokenProviderTest extends TestCase
         );
     }
 
-    public function testResolveWithImperialUnitSystem(): void
-    {
-        $provider = $this->buildProvider(UnitSystem::IMPERIAL);
-        $this->gearRepository
-            ->expects($this->once())
-            ->method('find')
-            ->with(GearId::fromUnprefixed('1'))
-            ->willReturn(
-                GearBuilder::fromDefaults()
-                    ->withDistanceInMeter(Meter::from(10023))
-                    ->build()
-            );
-
-        $this->assertSame(
-            '6 mi',
-            $provider->resolve(Token::create(
-                prefix: 'gear',
-                key: 'distance',
-                modifier: null,
-                raw: sprintf('[gear:%s]', 'distance'),
-            ), TokenizerContext::empty()->with(
-                ActivityBuilder::fromDefaults()
-                    ->withGearId(GearId::fromUnprefixed('1'))
-                    ->build()
-            ))
-        );
-    }
-
     public function testResolveReturnsNullWithoutGearId(): void
     {
         $provider = $this->buildProvider(UnitSystem::METRIC);
