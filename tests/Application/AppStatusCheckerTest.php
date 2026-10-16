@@ -13,7 +13,6 @@ use PHPUnit\Framework\Attributes\TestWith;
 
 class AppStatusCheckerTest extends ContainerTestCase
 {
-    #[TestWith(['ensureIsReadyForStravaImport'])]
     #[TestWith(['ensureIsReadyForFileImport'])]
     public function testItIsReadyWhenTheFileSystemIsWritable(string $method): void
     {
@@ -22,7 +21,6 @@ class AppStatusCheckerTest extends ContainerTestCase
         new AppStatusChecker(new SuccessfulPermissionChecker())->$method();
     }
 
-    #[TestWith(['ensureIsReadyForStravaImport'])]
     #[TestWith(['ensureIsReadyForFileImport'])]
     public function testItThrowsWhenTheFileSystemIsNotWritable(string $method): void
     {

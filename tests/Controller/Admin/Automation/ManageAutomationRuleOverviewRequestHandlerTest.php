@@ -15,7 +15,6 @@ use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredCondition;
 use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredConditions;
 use App\Domain\Automation\RuleConfiguration;
 use App\Domain\Gear\GearRepository;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\KeyValue\Key;
 use App\Infrastructure\KeyValue\KeyValue;
 use App\Infrastructure\KeyValue\KeyValueStore;
@@ -27,27 +26,8 @@ use App\Tests\Domain\Gear\GearBuilder;
 
 class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
 {
-    public function testRendersTheGatedPanelWhenNotInFileImportMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/automation-rules');
-
-        $this->assertResponseIsSuccessful();
-        $gatedPanel = $crawler->filter('[role="alert"][type="gated-panel"]');
-        $this->assertCount(1, $gatedPanel);
-        $this->assertStringContainsString(
-            'Automation rules are only available in file import mode',
-            $gatedPanel->text()
-        );
-        $this->assertCount(0, $crawler->filter('nav.contextual-panel'), 'The contextual panel is hidden in Strava API mode.');
-        $this->assertCount(1, $crawler->filter('aside#drawer-navigation > div a[href$="/admin/automation-rules"]'), 'The icon rail item stays visible and leads to the gated page.');
-    }
-
     public function testItRendersTheEmptyState(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/automation-rules');
@@ -67,8 +47,6 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheRulesWithTheirConditionsActionsAndState(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $repository = static::getContainer()->get(AutomationRuleRepository::class);
         $repository->add(
             AutomationRuleBuilder::fromDefaults()
@@ -161,8 +139,6 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheQueuedBanner(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()
                 ->withAutomationRuleId(AutomationRuleId::fromUnprefixed('1'))
@@ -188,8 +164,6 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersAPillForEveryConditionAndActionType(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(GearRepository::class)->add(
             GearBuilder::fromDefaults()->withName('Canyon Ultimate')->build()
         );

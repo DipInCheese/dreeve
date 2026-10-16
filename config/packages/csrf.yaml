@@ -11,4 +11,3 @@ framework:
             - logout
             - dispatch-command
             - accept-invite
-            - strava-connection

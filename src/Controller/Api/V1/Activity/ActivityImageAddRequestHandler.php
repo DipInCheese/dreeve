@@ -11,7 +11,6 @@ use App\Domain\Activity\AddActivityImage\AddActivityImage;
 use App\Domain\Image\ImageDirectory;
 use App\Domain\Image\ImageExtension;
 use App\Domain\Image\ImagePath;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\Exception\EntityNotFound;
 use App\Infrastructure\Http\Api\ApiErrorResponse;
@@ -32,7 +31,6 @@ final readonly class ActivityImageAddRequestHandler
     public function __construct(
         private ActivityRepository $activityRepository,
         private CommandBus $commandBus,
-        private ImportMode $importMode,
         private UuidFactory $uuidFactory,
         private AppUrl $appUrl,
     ) {
@@ -41,14 +39,6 @@ final readonly class ActivityImageAddRequestHandler
     #[Route(path: '/api/v1/activities/{activityId}/images', name: 'api_v1_activity_image_add', methods: ['POST'], priority: 3)]
     public function handle(string $activityId, Request $request): Response
     {
-        if (!$this->importMode->isFiles()) {
-            return new ApiErrorResponse(
-                statusCode: Response::HTTP_CONFLICT,
-                error: 'import_mode_not_files',
-                message: 'Images can only be added to activities when running in file import mode.',
-            );
-        }
-
         try {
             $activity = $this->activityRepository->find(ActivityId::fromString($activityId));
         } catch (EntityNotFound|\InvalidArgumentException) {

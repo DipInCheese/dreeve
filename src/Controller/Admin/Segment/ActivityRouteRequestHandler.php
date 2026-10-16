@@ -8,7 +8,6 @@ use App\Domain\Activity\ActivityId;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\Stream\ActivityStreamRepository;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Import\ImportMode;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,17 +19,12 @@ final readonly class ActivityRouteRequestHandler
     public function __construct(
         private ActivityRepository $activityRepository,
         private ActivityStreamRepository $activityStreamRepository,
-        private ImportMode $importMode,
     ) {
     }
 
     #[Route(path: '/admin/activities/{activityId}/route', name: 'admin_activity_route', requirements: ['activityId' => 'activity-[^/]+'], methods: ['GET'], priority: 10)]
     public function handle(string $activityId): JsonResponse
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Page not found');
-        }
-
         $activityId = ActivityId::fromString($activityId);
         if (!$this->activityRepository->exists($activityId)) {
             throw new NotFoundHttpException('Activity not found');

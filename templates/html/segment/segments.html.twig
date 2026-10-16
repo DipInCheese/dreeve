@@ -3,14 +3,12 @@
         'url': 'segments',
         'label': 'Segments'|trans
     }], 'disableMargin': true} %}
-    {% if importMode.isFiles() %}
-        {% include 'html/navigation/admin-edit-link.html.twig' with {
-            path: 'admin/segments',
-            redirectTo: 'segments',
-            title: "Manage segments"|trans,
-            label: "Manage"|trans({}, 'admin')
-        } %}
-    {% endif %}
+    {% include 'html/navigation/admin-edit-link.html.twig' with {
+        path: 'admin/segments',
+        redirectTo: 'segments',
+        title: "Manage segments"|trans,
+        label: "Manage"|trans({}, 'admin')
+    } %}
 </div>
 {% autoescape false %}
     <div class="grid grid-cols-1 gap-4">

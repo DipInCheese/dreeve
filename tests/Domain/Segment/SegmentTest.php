@@ -3,7 +3,6 @@
 namespace App\Tests\Domain\Segment;
 
 use App\Domain\Activity\SportType\SportType;
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\Segment;
 use App\Domain\Segment\SegmentId;
 use App\Domain\Segment\SegmentType;
@@ -82,26 +81,6 @@ class SegmentTest extends TestCase
         $this->assertEmpty($updatedSegment->getRecordedEvents());
     }
 
-    #[DataProvider('provideIsDeletableIn')]
-    public function testIsDeletableIn(SegmentType $type, ImportMode $importMode, bool $expectedResult): void
-    {
-        $this->assertSame(
-            $expectedResult,
-            SegmentBuilder::fromDefaults()->withType($type)->build()->isDeletableIn($importMode),
-        );
-    }
-
-    /**
-     * @return iterable<string, array{SegmentType, ImportMode, bool}>
-     */
-    public static function provideIsDeletableIn(): iterable
-    {
-        yield 'custom segment in Strava API mode' => [SegmentType::CUSTOM, ImportMode::STRAVA_API, true];
-        yield 'custom segment in files mode' => [SegmentType::CUSTOM, ImportMode::FILES, true];
-        yield 'imported segment in Strava API mode' => [SegmentType::IMPORTED, ImportMode::STRAVA_API, false];
-        yield 'imported segment in files mode' => [SegmentType::IMPORTED, ImportMode::FILES, true];
-    }
-
     public function testDelete(): void
     {
         $segment = SegmentBuilder::fromDefaults()->withSegmentId(SegmentId::fromUnprefixed('1'))->build();
@@ -109,15 +88,6 @@ class SegmentTest extends TestCase
         $segment->delete();
 
         $this->assertEquals([new SegmentWasDeleted(SegmentId::fromUnprefixed('1'))], $segment->getRecordedEvents());
-    }
-
-    public function testGetStravaUrl(): void
-    {
-        $this->assertEquals(
-            'https://www.strava.com/segments/1',
-            SegmentBuilder::fromDefaults()->withSegmentId(SegmentId::fromUnprefixed('1'))->build()->getStravaUrl()
-        );
-        $this->assertNull(SegmentBuilder::fromDefaults()->withType(SegmentType::CUSTOM)->build()->getStravaUrl());
     }
 
     #[DataProvider('provideIsKOM')]

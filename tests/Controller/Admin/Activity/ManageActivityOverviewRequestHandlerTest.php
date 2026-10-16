@@ -9,7 +9,6 @@ use App\Domain\Activity\ImportSource;
 use App\Domain\Activity\SportType\SportType;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\ValueObject\Geography\Coordinate;
 use App\Infrastructure\ValueObject\Geography\Latitude;
 use App\Infrastructure\ValueObject\Geography\Longitude;
@@ -23,7 +22,6 @@ class ManageActivityOverviewRequestHandlerTest extends AdminWebTestCase
 {
     public function testRendersTheEmptyStateWhenThereAreNoActivities(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/activities');
@@ -240,14 +238,10 @@ class ManageActivityOverviewRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(25, $crawler->filter('table.data-table tbody tr'));
         $this->assertCount(1, $crawler->filter('[aria-label="Go to next page"]'));
         $this->assertStringContainsString('of 30', $crawler->filter('body')->text());
-
-        $this->assertCount(0, $crawler->filter('table.data-table tbody a[title="Delete"]'));
     }
 
     public function testShowsDeleteLinksInFilesMode(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $this->seedActivities(3);
         $this->client->loginUser($this->adminUser());
 
@@ -264,8 +258,6 @@ class ManageActivityOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testEditAndDeleteLinksRedirectBackToTheFilteredPage(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $this->seedActivities(30);
         $this->client->loginUser($this->adminUser());
 
@@ -285,8 +277,6 @@ class ManageActivityOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testShowsTheImportSourceOfEveryActivity(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $this->seedActivities(1);
         static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()
@@ -310,8 +300,6 @@ class ManageActivityOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testShowsImportAndAddButtonsInFilesMode(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $this->seedActivities(1);
         $this->client->loginUser($this->adminUser());
 

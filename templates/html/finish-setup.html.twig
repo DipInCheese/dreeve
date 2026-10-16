@@ -15,94 +15,37 @@
 {% include 'html/navigation/top-nav-bar.html.twig' %}
 <section class="flex min-h-screen flex-col justify-center px-6 py-12 sm:px-12">
     <div class="mx-auto w-full max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow-xs">
-        {% if canConnectStrava() %}
-        {# Multi-user installation: everything happens in the browser, no terminal or settings files. #}
-        <h2 class="text-2xl font-bold tracking-tight">Welcome!</h2>
-        {% if importMode.isStravaApi() %}
-            <p class="mt-1 text-sm text-gray-500">Your Strava account is connected.</p>
-            <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
-                Your activities are being imported from Strava. A long history can take a few hours, Strava limits how fast
-                activities can be fetched. Refresh this page in a while.
-            </div>
-            <p class="mt-4 text-sm text-gray-500">
-                <a href="{{ relativeUrl(path('admin_strava_connection')) }}" class="font-medium text-primary hover:underline">Strava settings</a>
-            </p>
-        {% else %}
-            <p class="mt-1 text-sm text-gray-500">Let's get your activities in. Pick one of the options below, you will be asked to sign in first.</p>
-            <div class="mt-6 flex flex-col gap-3">
-                <a href="{{ relativeUrl(path('admin_strava_connection')) }}" class="block rounded-xl border border-gray-200 px-4 py-3 hover:border-primary hover:bg-orange-50">
-                    <span class="font-semibold">Connect Strava</span>
-                    <span class="mt-1 block text-sm text-gray-600">Import all your activities from Strava, and every new one automatically.</span>
-                </a>
-                <a href="{{ relativeUrl(path('admin_file_upload')) }}" class="block rounded-xl border border-gray-200 px-4 py-3 hover:border-primary hover:bg-orange-50">
-                    <span class="font-semibold">Upload activity files</span>
-                    <span class="mt-1 block text-sm text-gray-600"><code class="font-mono text-[13px]">.fit</code>, <code class="font-mono text-[13px]">.tcx</code> or <code class="font-mono text-[13px]">.gpx</code> files from your watch or app. They are imported within 5 minutes.</span>
-                </a>
-            </div>
-        {% endif %}
-        {% else -%}
         <h2 class="text-2xl font-bold tracking-tight">Finish setup</h2>
-        {% if importMode.isStravaApi() %}
-            <p class="mt-1 text-sm text-gray-500">Looks like you still need to import your Strava data.</p>
-        {% else %}
-            <p class="mt-1 text-sm text-gray-500">Looks like you still need to import some files.</p>
-        {% endif %}
-        {% if importMode.isStravaApi() %}
-            <div class="mt-8">
-                <div class="flex items-center gap-2.5">
-                    <span class="grid size-6 place-items-center rounded-md bg-orange-100 text-xs font-bold text-primary">1</span>
-                    <h3 class="font-semibold">Import Strava data</h3>
-                </div>
-                <div class="mt-3 overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
-                    <div class="flex items-center justify-between border-b border-gray-200 bg-gray-100/70 px-3 py-1.5">
-                        <div class="flex items-center gap-1.5">
-                            <span class="size-2.5 rounded-full bg-red-400"></span>
-                            <span class="size-2.5 rounded-full bg-yellow-400"></span>
-                            <span class="size-2.5 rounded-full bg-green-400"></span>
-                        </div>
-                        <span class="font-mono text-[11px] text-gray-400">terminal</span>
-                    </div>
-                    <div class="flex items-center gap-2 px-4 py-3 font-mono text-sm">
-                        <span class="select-none text-primary">›</span>
-                        <code class="flex-1 overflow-x-auto whitespace-nowrap text-gray-800">docker compose exec app bin/console app:import:strava</code>
-                    </div>
-                </div>
+        <p class="mt-1 text-sm text-gray-500">Looks like you still need to import some files.</p>
+        <div class="mt-8">
+            <div class="flex items-center gap-2.5">
+                <span class="grid size-6 place-items-center rounded-md bg-orange-100 text-xs font-bold text-primary">1</span>
+                <h3 class="font-semibold">Drop your files in the watch folder</h3>
             </div>
-            <div class="mt-10 bg-gray-50/50 px-4 py-3 text-sm text-gray-500">
-                Refresh this page after you've run the command.
+            <p class="mt-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                Copy your activity files into the <code class="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[13px] text-gray-800">watch</code> folder.
+                Supported file types are <code class="font-mono text-[13px] text-gray-800">.fit</code>,
+                <code class="font-mono text-[13px] text-gray-800">.tcx</code> and
+                <code class="font-mono text-[13px] text-gray-800">.gpx</code>.
+            </p>
+            <p class="mt-2.5 text-sm text-gray-500">
+                Prefer the browser? You can also log in to the admin panel and
+                <a href="{{ relativeUrl(path('admin_file_upload')) }}" class="font-medium text-primary hover:underline">upload your files through the UI</a>.
+            </p>
+        </div>
+        <div class="mt-6">
+            <div class="flex items-center gap-2.5">
+                <span class="grid size-6 place-items-center rounded-md bg-orange-100 text-xs font-bold text-primary">2</span>
+                <h3 class="font-semibold">Wait a few minutes</h3>
             </div>
-        {% else %}
-            <div class="mt-8">
-                <div class="flex items-center gap-2.5">
-                    <span class="grid size-6 place-items-center rounded-md bg-orange-100 text-xs font-bold text-primary">1</span>
-                    <h3 class="font-semibold">Drop your files in the watch folder</h3>
-                </div>
-                <p class="mt-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
-                    Copy your activity files into the <code class="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[13px] text-gray-800">watch</code> folder.
-                    Supported file types are <code class="font-mono text-[13px] text-gray-800">.fit</code>,
-                    <code class="font-mono text-[13px] text-gray-800">.tcx</code> and
-                    <code class="font-mono text-[13px] text-gray-800">.gpx</code>.
-                </p>
-                <p class="mt-2.5 text-sm text-gray-500">
-                    Prefer the browser? You can also log in to the admin panel and
-                    <a href="{{ relativeUrl(path('admin_file_upload')) }}" class="font-medium text-primary hover:underline">upload your files through the UI</a>.
-                </p>
-            </div>
-            <div class="mt-6">
-                <div class="flex items-center gap-2.5">
-                    <span class="grid size-6 place-items-center rounded-md bg-orange-100 text-xs font-bold text-primary">2</span>
-                    <h3 class="font-semibold">Wait a few minutes</h3>
-                </div>
-                <p class="mt-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
-                    The import runs automatically every 5 minutes. Once your files have been processed,
-                    your statistics will be available here.
-                </p>
-            </div>
-            <div class="mt-6 text-sm text-gray-500">
-                Refresh this page after the import has run.
-            </div>
-        {% endif %}
-        {%- endif %}
+            <p class="mt-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                The import runs automatically every 5 minutes. Once your files have been processed,
+                your statistics will be available here.
+            </p>
+        </div>
+        <div class="mt-6 text-sm text-gray-500">
+            Refresh this page after the import has run.
+        </div>
     </div>
 </section>
 </body>

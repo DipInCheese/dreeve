@@ -11,7 +11,6 @@ use App\Domain\Activity\ImportSource;
 use App\Domain\Activity\SportType\SportType;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Serialization\Json;
 use App\Tests\Controller\ControllerWebTestCase;
@@ -178,22 +177,6 @@ class ActivityUpdateRequestHandlerTest extends ControllerWebTestCase
         $this->assertSame('not_found', Json::decode((string) $this->client->getResponse()->getContent())['error']);
     }
 
-    public function testItRejectsUpdatesInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $this->client->request(
-            'PATCH',
-            self::PATH,
-            server: ['HTTP_AUTHORIZATION' => 'Bearer '.$this->token, 'CONTENT_TYPE' => 'application/json'],
-            content: (string) file_get_contents(__DIR__.'/fixtures/patch-activity.json'),
-        );
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CONFLICT);
-        $this->assertSame('import_mode_not_files', Json::decode((string) $this->client->getResponse()->getContent())['error']);
-        $this->assertSame('Original activity', $this->activityRepository->find(ActivityId::fromUnprefixed('1'))->getOriginalName());
-    }
-
     #[\Override]
     protected function shouldSeedActivity(): bool
     {
@@ -205,7 +188,6 @@ class ActivityUpdateRequestHandlerTest extends ControllerWebTestCase
     {
         $this->token = Token::generate();
         $_SERVER['DREEVE_API_KEY'] = $_ENV['DREEVE_API_KEY'] = (string) $this->token;
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = ImportMode::FILES->value;
     }
 
     #[\Override]

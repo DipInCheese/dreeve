@@ -97,7 +97,7 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
         $this->loadedRevision = $revision;
 
         // Shut down the kernels of users that were disabled or removed, or whose settings changed
-        // (e.g. they connected Strava): the next request boots a kernel with the new settings.
+        // (e.g. their .env file was edited): the next request boots a kernel with the new settings.
         foreach (array_keys($this->kernels) as $name) {
             $tenant = in_array($name, $this->tenants->getNames(), true) ? $this->tenants->findByName($name) : null;
             if ($tenant instanceof Tenant && $tenant->getFingerprint() === ($this->kernelFingerprints[$name] ?? null)) {

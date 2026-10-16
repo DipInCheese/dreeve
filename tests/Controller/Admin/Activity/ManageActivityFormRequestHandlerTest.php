@@ -11,7 +11,6 @@ use App\Domain\Activity\WorkoutType;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\GearType;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\SettingsGroup;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Measurement\Length\Kilometer;
@@ -26,8 +25,6 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
 {
     public function testRendersTheAddFormInFilesMode(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(SettingsRepository::class)->saveGroup(SettingsGroup::APPEARANCE, [
             'sportTypesSortingOrder' => [SportType::WALK->value, SportType::RUN->value],
         ]);
@@ -93,8 +90,6 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
 
     public function testRendersTheManuallyAddedActivityFormPrefilledOnEdit(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(GearRepository::class)->add(
             GearBuilder::fromDefaults()
                 ->withGearId(GearId::fromUnprefixed('custom-gear'))
@@ -175,15 +170,6 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
         );
     }
 
-    public function testAddFormIsNotAvailableInStravaApiMode(): void
-    {
-        $this->client->loginUser($this->adminUser());
-
-        $this->client->request('GET', '/admin/activities/add');
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
     public function testRendersTheEditFormPrefilledWithTheActivity(): void
     {
         static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
@@ -214,31 +200,13 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
         $this->assertSame((string) ActivityId::fromUnprefixed('1'), $form->filter('input[name="activityId"]')->attr('value'));
         $this->assertSame('Morning Run', $form->filter('input[name="name"]')->attr('value'));
 
-        // All Strava-sourced fields are disabled.
-        $this->assertNotNull($crawler->filter('input#activity-name')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('select#activity-sport-type')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('select#activity-workout-type')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('select#activity-gear')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('select#activity-device-name')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('input#activity-calories')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('input#activity-is-commute')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('input#activity-is-group-activity')->attr('disabled'));
+        // Every field is editable.
+        foreach (['input#activity-name', 'select#activity-sport-type', 'select#activity-workout-type', 'select#activity-gear', 'select#activity-device-name', 'input#activity-calories', 'input#activity-is-commute', 'input#activity-is-group-activity'] as $field) {
+            $this->assertNull($crawler->filter($field)->attr('disabled'), $field);
+        }
+        $this->assertCount(1, $crawler->filter('[data-image-dropzone]'));
 
-        // Disabled fields are not submitted, so their values are mirrored into hidden inputs.
-        $this->assertSame('Morning Run', $crawler->filter('input[type="hidden"][name="name"]')->attr('value'));
-        $this->assertCount(1, $crawler->filter('input[type="hidden"][name="sportType"]'));
-        $this->assertSame('race', $crawler->filter('input[type="hidden"][name="workoutType"]')->attr('value'));
-        $this->assertSame((string) GearId::fromUnprefixed('5'), $crawler->filter('input[type="hidden"][name="gearId"]')->attr('value'));
-        $this->assertSame('Garmin Edge', $crawler->filter('input[type="hidden"][name="deviceName"]')->attr('value'));
-        $this->assertSame('500', $crawler->filter('input[type="hidden"][name="calories"]')->attr('value'));
-        // The commute checkbox can't submit while disabled, so its real value is preserved.
-        $this->assertSame('true', $crawler->filter('input[type="hidden"][name="isCommute"]')->attr('value'));
-        $this->assertSame('true', $crawler->filter('input[type="hidden"][name="isGroupActivity"]')->attr('value'));
-
-        // The image upload is hidden entirely, since images can't be managed in Strava API mode.
-        $this->assertCount(0, $crawler->filter('[data-image-dropzone]'));
-
-        $this->assertCount(0, $crawler->filter('a.btn--danger'));
+        $this->assertCount(1, $crawler->filter('a.btn--danger'));
     }
 
     #[DataProvider('provideRedirectToQueryParams')]
@@ -262,7 +230,7 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
 
         $this->assertSame($expected, $crawler->filter('form[data-dispatch-command]')->attr('data-redirect'));
         $this->assertSame($expected, $crawler->filter('a[aria-label="Close"]')->attr('href'));
-        $this->assertSame($expected, $crawler->filter('.btn--secondary')->attr('href'));
+        $this->assertSame($expected, $crawler->filter('a.btn--secondary')->attr('href'));
     }
 
     #[DataProvider('provideRedirectToQueryParams')]
@@ -286,7 +254,7 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
 
         $this->assertSame($expected, $crawler->filter('form[data-dispatch-command]')->attr('data-redirect'));
         $this->assertSame($expected, $crawler->filter('a[aria-label="Close"]')->attr('href'));
-        $this->assertSame($expected, $crawler->filter('.btn--secondary')->attr('href'));
+        $this->assertSame($expected, $crawler->filter('a.btn--secondary')->attr('href'));
     }
 
     public static function provideRedirectToQueryParams(): \Generator
@@ -296,98 +264,8 @@ class ManageActivityFormRequestHandlerTest extends AdminWebTestCase
         yield 'absolute url' => ['https://evil.com', '/admin/activities'];
     }
 
-    public function testStravaApiModeAllowsAssigningCustomGear(): void
-    {
-        $gearRepository = static::getContainer()->get(GearRepository::class);
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('b1234'))
-                ->withName('Other Strava Bike')
-                ->build()
-        );
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('custom-gear'))
-                ->withGearType(GearType::CUSTOM)
-                ->withName('My Custom Gear')
-                ->build()
-        );
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('custom-gear-two'))
-                ->withGearType(GearType::CUSTOM)
-                ->withName('Second Custom Gear')
-                ->build()
-        );
-
-        static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
-            ActivityBuilder::fromDefaults()
-                ->withActivityId(ActivityId::fromUnprefixed('1'))
-                ->withGearId(GearId::fromUnprefixed('custom-gear'))
-                ->build(),
-            [],
-        ));
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/activities/'.ActivityId::fromUnprefixed('1').'/edit');
-
-        $this->assertResponseIsSuccessful();
-
-        // No Strava gear is assigned, so the field is editable in Strava API mode.
-        $this->assertNull($crawler->filter('select#activity-gear')->attr('disabled'));
-        $this->assertCount(0, $crawler->filter('input[type="hidden"][name="gearId"]'));
-
-        // Only custom gears are selectable, Strava gears would be reverted on the next import.
-        $this->assertSame(
-            ['None', 'My Custom Gear', 'Second Custom Gear'],
-            $crawler->filter('select#activity-gear option')->each(fn ($option) => $option->text()),
-        );
-        $this->assertNotNull($crawler->filter('select#activity-gear option[value="gear-custom-gear"]')->attr('selected'));
-    }
-
-    public function testStravaApiModeKeepsGearDisabledWhenStravaGearIsAssigned(): void
-    {
-        $gearRepository = static::getContainer()->get(GearRepository::class);
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('b5'))
-                ->withName('Assigned Strava Bike')
-                ->build()
-        );
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('custom-gear'))
-                ->withGearType(GearType::CUSTOM)
-                ->withName('My Custom Gear')
-                ->build()
-        );
-
-        static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
-            ActivityBuilder::fromDefaults()
-                ->withActivityId(ActivityId::fromUnprefixed('1'))
-                ->withGearId(GearId::fromUnprefixed('b5'))
-                ->build(),
-            [],
-        ));
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/activities/'.ActivityId::fromUnprefixed('1').'/edit');
-
-        $this->assertResponseIsSuccessful();
-
-        // Even though custom gear exists, a gear assigned in Strava always wins on the
-        // next import, so the field stays disabled.
-        $this->assertNotNull($crawler->filter('select#activity-gear')->attr('disabled'));
-        $this->assertSame((string) GearId::fromUnprefixed('b5'), $crawler->filter('input[type="hidden"][name="gearId"]')->attr('value'));
-        $this->assertNotNull($crawler->filter('select#activity-gear option[value="gear-b5"]')->attr('selected'));
-    }
-
     public function testFilesModeKeepsFieldsEditableAndShowsImages(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $gearRepository = static::getContainer()->get(GearRepository::class);
         $gearRepository->add(
             GearBuilder::fromDefaults()

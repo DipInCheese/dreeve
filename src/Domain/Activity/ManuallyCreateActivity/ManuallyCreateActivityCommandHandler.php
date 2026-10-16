@@ -17,11 +17,9 @@ use App\Domain\Activity\WorldType;
 use App\Domain\Image\ImageDirectory;
 use App\Domain\Image\ImageStorage;
 use App\Domain\Image\NewImage;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\CQRS\Command\Command;
 use App\Infrastructure\CQRS\Command\CommandHandler;
-use App\Infrastructure\CQRS\Command\CouldNotProcessCommand;
 use App\Infrastructure\Measurement\Velocity\KmPerHour;
 
 final readonly class ManuallyCreateActivityCommandHandler implements CommandHandler
@@ -32,17 +30,12 @@ final readonly class ManuallyCreateActivityCommandHandler implements CommandHand
         private ActivityIdFactory $activityIdFactory,
         private SettingsRepository $settingsRepository,
         private ImageStorage $imageStorage,
-        private ImportMode $importMode,
     ) {
     }
 
     public function handle(Command $command): void
     {
         assert($command instanceof ManuallyCreateActivity);
-
-        if (!$this->importMode->isFiles()) {
-            throw CouldNotProcessCommand::withReason('Activities can only be created manually when running in file import mode.');
-        }
 
         $unitSystem = $this->settingsRepository->appearance()->getUnitSystem();
         $distance = $unitSystem->distance($command->getDistance())->toMeter()->toKilometer();

@@ -15,14 +15,12 @@ enum RootCacheTag: string implements CacheTag
     case ACTIVITY_IMAGES = 'activity.images';
     case ACTIVITY_ROUTE = 'activity.route';
     case SEGMENTS = 'segments';
-    case CHALLENGES = 'challenges';
     case GEAR = 'gear';
     case GEAR_MAINTENANCE = 'gear.maintenance';
     case RECORDING_DEVICES = 'gear.recording-devices';
     case SETTINGS_GENERAL = 'settings.general';
     case SETTINGS_APPEARANCE = 'settings.appearance';
     case SETTINGS_MAPS = 'settings.maps';
-    case SETTINGS_IMPORT = 'settings.import';
     case SETTINGS_METRICS = 'settings.metrics';
     case SETTINGS_ZWIFT = 'settings.zwift';
     case SETTINGS_INTEGRATIONS = 'settings.integrations';
@@ -58,7 +56,6 @@ enum RootCacheTag: string implements CacheTag
             SettingsGroup::GENERAL => self::SETTINGS_GENERAL,
             SettingsGroup::APPEARANCE => self::SETTINGS_APPEARANCE,
             SettingsGroup::MAPS => self::SETTINGS_MAPS,
-            SettingsGroup::IMPORT => self::SETTINGS_IMPORT,
             SettingsGroup::METRICS => self::SETTINGS_METRICS,
             SettingsGroup::ZWIFT => self::SETTINGS_ZWIFT,
             SettingsGroup::INTEGRATIONS => self::SETTINGS_INTEGRATIONS,

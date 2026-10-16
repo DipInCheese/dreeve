@@ -60,20 +60,6 @@ trait ProvideSettings
             ],
         ]);
 
-        $settingsRepository->saveGroup(SettingsGroup::IMPORT, [
-            'numberOfNewActivitiesToProcessPerImport' => 250,
-            'sportTypesToImport' => [],
-            'activityVisibilitiesToImport' => [],
-            'skipActivitiesRecordedBefore' => null,
-            'activitiesToSkipDuringImport' => ['skip'],
-            'optInToSegmentDetailImport' => true,
-            'skipImageDownloadDuringImport' => false,
-            'webhooks' => [
-                'enabled' => true,
-                'verifyToken' => 'ffc26d52-d3ff-4797-a2b7-780a593a3547',
-            ],
-        ]);
-
         // Baseline the whole suite gets today from config/app/test/config.yaml, normalized to camelCase.
         $settingsRepository->saveGroup(SettingsGroup::ZWIFT, [
             'level' => 80,

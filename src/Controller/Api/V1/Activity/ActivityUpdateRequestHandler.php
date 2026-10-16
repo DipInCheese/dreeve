@@ -12,11 +12,9 @@ use App\Domain\Activity\Stream\StreamType;
 use App\Domain\Activity\UpdateActivity\UpdateActivity;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\CQRS\Command\Deserialize\CouldNotDeserializeCommand;
 use App\Infrastructure\Exception\EntityNotFound;
-use App\Infrastructure\Http\Api\ApiErrorResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -32,22 +30,13 @@ final readonly class ActivityUpdateRequestHandler
         private ActivityStreamRepository $activityStreamRepository,
         private GearRepository $gearRepository,
         private CommandBus $commandBus,
-        private ImportMode $importMode,
         private AppUrl $appUrl,
     ) {
     }
 
     #[Route(path: '/api/v1/activities/{activityId}', name: 'api_v1_activity_update', methods: ['PATCH'], priority: 3)]
-    public function handle(string $activityId, Request $request): Response
+    public function handle(string $activityId, Request $request): \App\Controller\Api\V1\Activity\ActivityResponse
     {
-        if (!$this->importMode->isFiles()) {
-            return new ApiErrorResponse(
-                statusCode: Response::HTTP_CONFLICT,
-                error: 'import_mode_not_files',
-                message: 'Activities can only be updated when running in file import mode.',
-            );
-        }
-
         try {
             $activity = $this->activityRepository->find(ActivityId::fromString($activityId));
         } catch (EntityNotFound|\InvalidArgumentException) {

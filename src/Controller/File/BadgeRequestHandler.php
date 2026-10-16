@@ -10,7 +10,6 @@ use App\Domain\Activity\BestEffort\BestEffortPeriod;
 use App\Domain\Activity\BestEffort\BestEffortsCalculator;
 use App\Domain\Activity\FindActivityTotals\FindActivityTotals;
 use App\Domain\Activity\SportType\SportType;
-use App\Domain\Challenge\ChallengeRepository;
 use App\Domain\Settings\SettingsRepository;
 use App\Domain\Zwift\ZwiftLevel;
 use App\Infrastructure\Cache\Cacheability;
@@ -33,7 +32,6 @@ final readonly class BadgeRequestHandler
 
     public function __construct(
         private SettingsRepository $settingsRepository,
-        private ChallengeRepository $challengeRepository,
         private ActivityRepository $activityRepository,
         private BestEffortsCalculator $bestEffortsCalculator,
         private QueryBus $queryBus,
@@ -50,7 +48,7 @@ final readonly class BadgeRequestHandler
         $render = $this->cacheableRenderer->render(
             cacheability: Cacheability::for(
                 cacheKey: 'badge.dreeve',
-                cacheTags: CacheTags::of(RootCacheTag::ACTIVITIES, RootCacheTag::CHALLENGES),
+                cacheTags: CacheTags::of(RootCacheTag::ACTIVITIES),
             ),
             render: fn (): string => $this->twig->load('svg/badge/svg-dreeve-badge.html.twig')->render([
                 'athlete' => $this->settingsRepository->general()->getAthlete(),
@@ -60,7 +58,6 @@ final readonly class BadgeRequestHandler
                     now: $this->clock->getCurrentDateTimeImmutable(),
                     translator: $this->translator,
                 ),
-                'challengesCompleted' => $this->challengeRepository->count(),
             ]),
         );
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Api\V1\Activity;
 
 use App\Domain\Import\InvalidActivityFileName;
-use App\Domain\Import\UploadActivityFile\CannotUploadActivityFile;
 use App\Domain\Import\UploadActivityFile\UploadActivityFile;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\Http\Api\ApiErrorResponse;
@@ -50,15 +49,7 @@ final readonly class ActivityUploadRequestHandler
             );
         }
 
-        try {
-            $this->commandBus->dispatch($command);
-        } catch (CannotUploadActivityFile $e) {
-            return new ApiErrorResponse(
-                statusCode: Response::HTTP_CONFLICT,
-                error: 'import_mode_not_files',
-                message: $e->getMessage(),
-            );
-        }
+        $this->commandBus->dispatch($command);
 
         return new JsonResponse([
             'status' => 'queued',

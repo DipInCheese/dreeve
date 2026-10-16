@@ -15,11 +15,6 @@ final readonly class AppStatusChecker
     ) {
     }
 
-    public function ensureIsReadyForStravaImport(): void
-    {
-        $this->ensureFileSystemIsWritable();
-    }
-
     public function ensureIsReadyForFileImport(): void
     {
         $this->ensureFileSystemIsWritable();

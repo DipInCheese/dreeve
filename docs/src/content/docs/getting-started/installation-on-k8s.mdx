@@ -8,8 +8,6 @@ description: "Run Dreeve on a Kubernetes cluster, with example manifests for sto
 - A Kubernetes cluster with a CSI storage class capable of dynamic provisioning
 - An Ingress controller (the example below assumes ingress-nginx; adjust
   `ingressClassName` and annotations for your controller)
-- A Strava API application (create one at
-  [https://www.strava.com/settings/api](https://www.strava.com/settings/api)) if importing via the Strava API
 - DNS for your chosen hostname pointing at your Ingress
 
 :::caution
@@ -24,7 +22,7 @@ provider's default.
 ## The manifests
 
 Save the following as `dreeve.yaml`. Replace every `CHANGE-ME` value:
-Strava credentials, the app secret, the admin password hash, the hostname,
+the app secret, the admin password hash, the hostname,
 and the storage class.
 
 ```yaml title="dreeve.yaml" mark=/CHANGE-ME/
@@ -35,7 +33,7 @@ metadata:
   name: dreeve
 ---
 # All app configuration. Kept as a Secret (not a ConfigMap) because it
-# contains Strava credentials and the app secret.
+# contains the app secret.
 apiVersion: v1
 kind: Secret
 metadata:
@@ -43,15 +41,7 @@ metadata:
   namespace: dreeve
 type: Opaque
 stringData:
-  # From your Strava API application settings
-  STRAVA_CLIENT_ID: "CHANGE-ME"
-  STRAVA_CLIENT_SECRET: "CHANGE-ME"
-  # Obtained on first launch via the app's OAuth flow - NOT the refresh
-  # token shown on the Strava API settings page. The app rotates it on
-  # first run and persists it in the database volume thereafter.
-  STRAVA_REFRESH_TOKEN: "CHANGE-ME"
   TZ: "Etc/GMT"
-  IMPORT_MODE: "stravaApi"
   # Must match the hostname on your Ingress
   APP_URL: "https://dreeve.example.com/"
   # Generate a long random string
@@ -292,7 +282,7 @@ translate directly to `kubectl exec` - the `-c app` flag matters because the
 pod has two containers:
 
 ```bash
-kubectl -n dreeve exec deploy/dreeve -c app -- bin/console app:import:strava
+kubectl -n dreeve exec deploy/dreeve -c app -- bin/console app:import:files
 ```
 
 Using `deploy/dreeve` saves looking up the pod name - kubectl resolves it to

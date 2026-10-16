@@ -4,7 +4,6 @@ namespace App\Tests\Infrastructure\Tenancy;
 
 use App\Infrastructure\Tenancy\InvalidTenant;
 use App\Infrastructure\Tenancy\Registry\UserRegistry;
-use App\Infrastructure\Tenancy\StravaConnection;
 use App\Infrastructure\Tenancy\Tenant;
 use App\Infrastructure\Tenancy\Tenants;
 use PHPUnit\Framework\TestCase;
@@ -105,29 +104,6 @@ class TenantsTest extends TestCase
         $this->assertNull($tenants->findForRequest('other.example.com', '/alice'));
     }
 
-    public function testDiscoverWithStravaConnection(): void
-    {
-        $this->registry->add('alice', true, new \DateTimeImmutable());
-        mkdir($this->getUsersDir().'/alice', 0o777, true);
-        file_put_contents($this->getUsersDir().'/alice/.env', "IMPORT_MODE=files\nSTRAVA_CLIENT_ID=from-env-file\n");
-        $environment = ['DREEVE_USER_URL' => 'https://dreeve.example.com/{user}'];
-
-        // Only the application, not authorized yet: nothing changes.
-        StravaConnection::forApplication('12345', 'abcdef0123456789abcdef0123456789abcdef01')->write($this->getUsersDir().'/alice');
-        $alice = Tenants::discover($this->projectDir, $environment)->findByName('alice')->getEnvironment();
-        $this->assertSame('files', $alice['IMPORT_MODE']);
-        $this->assertSame('from-env-file', $alice['STRAVA_CLIENT_ID']);
-
-        // Connected: the user imports from Strava, the connection wins over the .env file.
-        StravaConnection::read($this->getUsersDir().'/alice')
-            ?->withAuthorization('the-refresh-token', 'Alice', new \DateTimeImmutable())
-            ->write($this->getUsersDir().'/alice');
-        $alice = Tenants::discover($this->projectDir, $environment)->findByName('alice')->getEnvironment();
-        $this->assertSame('stravaApi', $alice['IMPORT_MODE']);
-        $this->assertSame('12345', $alice['STRAVA_CLIENT_ID']);
-        $this->assertSame('the-refresh-token', $alice['STRAVA_REFRESH_TOKEN']);
-    }
-
     public function testGetSettingsRevision(): void
     {
         $revisions = [Tenants::getSettingsRevision($this->projectDir)];
@@ -140,23 +116,11 @@ class TenantsTest extends TestCase
         file_put_contents($this->getUsersDir().'/alice/.env', "AI_API_KEY=key\n");
         $revisions[] = Tenants::getSettingsRevision($this->projectDir);
 
-        StravaConnection::forApplication('12345', 'abcdef0123456789abcdef0123456789abcdef01')->write($this->getUsersDir().'/alice');
+        file_put_contents($this->getUsersDir().'/alice/.env', 'AI_API_KEY=another-key
+');
         $revisions[] = Tenants::getSettingsRevision($this->projectDir);
 
-        StravaConnection::read($this->getUsersDir().'/alice')
-            ?->withAuthorization('the-refresh-token', 'Alice', new \DateTimeImmutable())
-            ->write($this->getUsersDir().'/alice');
-        $revisions[] = Tenants::getSettingsRevision($this->projectDir);
-
-        $this->assertCount(5, array_unique($revisions));
-    }
-
-    public function testFingerprintChangesWithSettings(): void
-    {
-        $tenant = Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice']);
-
-        $this->assertSame($tenant->getFingerprint(), Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice'])->getFingerprint());
-        $this->assertNotSame($tenant->getFingerprint(), Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice', 'IMPORT_MODE' => 'stravaApi'])->getFingerprint());
+        $this->assertCount(4, array_unique($revisions));
     }
 
     public function testFindByNameWhenUnknown(): void
@@ -233,5 +197,13 @@ class TenantsTest extends TestCase
         $this->removeProjectDir();
 
         parent::tearDown();
+    }
+
+    public function testFingerprintChangesWithSettings(): void
+    {
+        $tenant = Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice']);
+
+        $this->assertSame($tenant->getFingerprint(), Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice'])->getFingerprint());
+        $this->assertNotSame($tenant->getFingerprint(), Tenant::fromEnvironment('alice', '/users/alice', ['APP_URL' => 'https://dreeve.example.com/alice', 'AI_API_KEY' => 'a-key'])->getFingerprint());
     }
 }

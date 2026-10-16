@@ -1,5 +1,3 @@
-'1. Create your Strava API application': '1. Create your Strava API application'
-'2. Connect': '2. Connect'
 24-hour: '24 órás'
 'A backfill is already queued. It runs on the next import cycle, within five minutes.': 'Egy visszatöltés már sorban áll. A következő importálási ciklusban lefut, öt percen belül.'
 'A rule applies': 'Egy szabály érvényes'
@@ -11,7 +9,6 @@ Actions: Actions
 Active: Aktív
 'Activities excluded from peak power outputs': 'A csúcsteljesítményből kizárt tevékenységek'
 'Activities scanned': 'Átvizsgált tevékenységek'
-'Activities to skip during import': 'Importáláskor kihagyandó tevékenységek'
 'Activities to update': 'Frissítendő tevékenységek'
 'Activities will appear here once they are imported.': 'A tevékenységek itt jelennek meg, miután importáltad őket.'
 Activity: Tevékenység
@@ -20,7 +17,6 @@ Activity: Tevékenység
 'Activity description': 'Tevékenység leírása'
 'Activity management': 'Tevékenységek kezelése'
 'Activity name': 'Tevékenység neve'
-'Activity visibilities to import': 'Importálandó tevékenység-láthatóságok'
 'Add Eddington': 'Eddington hozzáadása'
 'Add FTP': 'FTP hozzáadása'
 'Add a component to start tracking maintenance.': 'Adj hozzá egy komponenst a karbantartás követésének megkezdéséhez.'
@@ -82,7 +78,6 @@ Apply: Alkalmaz
 'Attached to': 'Hozzárendelve ehhez'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Automatikusan kitölti a felszerelést, ingázást, sporttípust és továbbiakat az újonnan importált tevékenységeken. A szabályok fentről lefelé futnak, és a már importált tevékenységekre is alkalmazhatók.'
 'Automation rules': 'Automatizálási szabályok'
-'Automation rules are only available in file import mode': 'Az automatizálási szabályok csak fájlimportálás módban érhetők el'
 'Available tokens': 'Elérhető tokenek'
 'Average cadence': 'Átlagos kadencia'
 'Average heart rate (bpm)': 'Average heart rate (bpm)'
@@ -98,7 +93,6 @@ Cancel: Mégse
 'Changes still need to be processed before they appear on the app': 'A változásokat még fel kell dolgozni, mielőtt megjelennek az alkalmazásban'
 'Changes to these settings only take effect after you restart the daemon container.': 'Ezek a beállítások csak a daemon konténer újraindítása után lépnek életbe.'
 'Chat commands': Chat-parancsok
-'Check interval (minutes)': 'Ellenőrzési időköz (perc)'
 'Choose the order the metrics are shown in.': 'Válaszd ki, milyen sorrendben jelenjenek meg a mérőszámok.'
 Clear: Törlés
 'Clear filters': 'Szűrők törlése'
@@ -115,14 +109,8 @@ Configure: Beállítás
 'Configure {widget}': '{widget} beállítása'
 Configured: Beállítva
 'Configured via an environment variable and cannot be changed here.': 'Környezeti változón keresztül van beállítva, itt nem módosítható.'
-'Configured via environment variables and cannot be changed here.': 'Környezeti változókon keresztül van beállítva, itt nem módosítható.'
-'Connect with Strava': 'Connect with Strava'
-'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.': 'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.'
 'Connected sensors': 'Csatlakoztatott érzékelők'
-'Connected to Strava as {name}.': 'Connected to Strava as {name}.'
-'Connected to Strava.': 'Connected to Strava.'
 'Continues to next rule': 'Folytatja a következő szabállyal'
-'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.': 'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.'
 'Copy this API key': 'Másold ki ezt az API-kulcsot'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': 'Cron kifejezés'
@@ -143,13 +131,9 @@ Delete: Törlés
 'Deleting a rule does not revert changes it already made to activities. This action cannot be undone.': 'Egy szabály törlése nem vonja vissza a tevékenységeken már elvégzett módosításokat. Ez a művelet nem vonható vissza.'
 Deleting...: 'Törlés folyamatban...'
 Description: Leírás
-'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Részletes útmutató elérhető {linkOpen}a dokumentációban{linkClose}.'
 Disable: Disable
 Disabled: Letiltva
-'Disconnect Strava': 'Disconnect Strava'
-"Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept.": "Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept."
 Distance: Távolság
-'Do not download activity photos': 'Do not download activity photos'
 Done: Kész
 'Download original file': 'Download original file'
 'Drag the start and end markers along the route to select the segment.': 'Drag the start and end markers along the route to select the segment.'
@@ -171,7 +155,6 @@ Efforts: Efforts
 Elevation: Szintemelkedés
 Enable: Enable
 'Enable AI integration': 'AI-integráció engedélyezése'
-'Enable Strava webhooks': 'Strava webhookok engedélyezése'
 Enabled: Engedélyezve
 Endpoint: Végpont
 'Ends near': 'A közelében ér véget'
@@ -191,11 +174,8 @@ Favourite: Favourite
 Female: Nő
 'File exceeds {max} MB': 'A fájl meghaladja a(z) {max} MB-ot'
 'File imports': Fájlimportok
-'File imports are only available in file import mode': 'A fájlimportok csak fájlimportálás módban érhetők el'
 'File upload': Fájlfeltöltés
-'File upload is only available in file import mode': 'A fájlfeltöltés csak fájlimportálás módban érhető el'
 Filename: Fájlnév
-'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.': 'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.'
 Filter: Szűrő
 'First name': Keresztnév
 'Fixed value': 'Rögzített érték'
@@ -220,23 +200,17 @@ Heatmap: Hőtérkép
 'History of weight (in kg or pounds, depending on the appearance unit system). Needed to calculate relative w/kg.': 'A testsúly előzményei (kg-ban vagy fontban, a megjelenítési mértékegységrendszertől függően). A relatív W/kg kiszámításához szükséges.'
 'Hold ctrl (⌘ on Mac) to zoom the map with the scroll wheel': 'Tartsd lenyomva a Ctrl-t (⌘ Mac-en) a térkép nagyításához a görgővel'
 Hours: Óra
-'How often (in minutes, between 1 and 60) queued webhook events are processed.': 'Milyen gyakran (percben, 1 és 60 között) kerülnek feldolgozásra a sorban álló webhook-események.'
 If: Ha
 'If all of these match': 'Ha mindegyik illeszkedik'
 "If you're not sure about your zones, leave these unchanged, the defaults are sensible. In relative mode the numbers are percentages of your max heart rate; in absolute mode they are actual bpm.": 'Ha nem vagy biztos a zónáidban, hagyd őket változatlanul, az alapértékek ésszerűek. Relatív módban a számok a maximális pulzusod százalékai; abszolút módban tényleges bpm-értékek.'
 'Ignore retired gear': 'Nyugdíjazott felszerelés figyelmen kívül hagyása'
 Image: Kép
 Images: Képek
-Import: Importálás
-'Import Strava data': 'Strava-adatok importálása'
 'Import activities': 'Tevékenységek importálása'
 'Import pending': 'Importálás függőben'
-'Import segment details': 'Szegmens-részletek importálása'
-'Import segment details so segment maps can be displayed. This needs an extra Strava API call per segment and increases import time significantly.': 'Importálja a szegmens-részleteket, hogy a szegmenstérképek megjeleníthetők legyenek. Ehhez szegmensenként egy extra Strava API-hívás szükséges, és jelentősen megnöveli az importálási időt.'
 'Import source': 'Importálási forrás'
 'Imported files will appear here once you upload them.': 'Az importált fájlok itt jelennek meg, miután feltöltötted őket.'
 'Imported from Strava': 'Stravából importálva'
-'Imports new Strava activities.': 'Importálja az új Strava-tevékenységeket.'
 'Include retired gear': 'Nyugdíjazott felszerelés belefoglalása'
 Info: Infó
 'Installed on': 'Installed on'
@@ -249,11 +223,7 @@ Invited: Invited
 Label: Címke
 'Last name': Vezetéknév
 Latitude: Szélesség
-'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.': 'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.'
-'Leave all unchecked to import every sport type. ⚠️ Restricting this after activities have been imported deletes activities of excluded sport types.': 'Hagyj mindent bejelöletlenül az összes sporttípus importálásához. ⚠️ Ennek korlátozása a tevékenységek importálása után törli a kizárt sporttípusú tevékenységeket.'
-'Leave all unchecked to import every visibility. ⚠️ Restricting this after activities have been imported deletes activities of excluded visibilities.': 'Hagyj mindent bejelöletlenül az összes láthatóság importálásához. ⚠️ Ennek korlátozása a tevékenységek importálása után törli a kizárt láthatóságú tevékenységeket.'
 'Leave empty to include all sport types.': 'Hagyd üresen az összes sporttípus belefoglalásához.'
-'Leave empty to keep the saved one': 'Leave empty to keep the saved one'
 'Leave empty to use the default title.': 'Leave empty to use the default title.'
 'Lets an external client upload activity files over HTTP. The key is the only thing guarding that endpoint, so treat it like a password.': 'Lehetővé teszi egy külső kliens számára, hogy HTTP-n keresztül tevékenységfájlokat töltsön fel. A kulcs az egyetlen, ami védi ezt a végpontot, ezért kezeld jelszóként.'
 'Loading the route...': 'Loading the route...'
@@ -289,7 +259,6 @@ Monday: Hétfő
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Mozgásidő
-'New activities are imported automatically every night. Change when under {link}.': 'New activities are imported automatically every night. Change when under {link}.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Még nincs importált tevékenység.'
 'No activities match the current filters.': 'Egyetlen tevékenység sem felel meg a jelenlegi szűrőknek.'
@@ -316,18 +285,15 @@ Notes: Notes
 'Number of activities to display': 'Megjelenítendő tevékenységek száma'
 'Number of challenges to display': 'Megjelenítendő kihívások száma'
 'Number of milestones to display': 'Megjelenítendő mérföldkövek száma'
-'Number of new activities to process per import': 'Importálásonként feldolgozandó új tevékenységek száma'
 'Number of tasks to display': 'Megjelenítendő feladatok száma'
 'Number of widgets of this type you already have configured.': 'Az ilyen típusú, már beállított widgetek száma.'
 'Only show activities with a map': 'Csak térképpel rendelkező tevékenységek megjelenítése'
 "Oops, looks like you've wandered off the map! 🗺️": 'Hoppá, úgy tűnik, letértél a térképről! 🗺️'
-'Open {link} while signed in to Strava and fill in:': 'Open {link} while signed in to Strava and fill in:'
 Operator: Operátor
 'Optional YAML for date-range and sport-type specific zones. Leave empty unless you know you need it.': 'Opcionális YAML a dátumtartomány- és sporttípus-specifikus zónákhoz. Hagyd üresen, hacsak nem tudod biztosan, hogy szükséged van rá.'
 'Optional link to your profile picture, shown in the nav bar. A square image is recommended. Leave empty to disable.': 'Opcionális link a profilképedhez, amely a navigációs sávban jelenik meg. Négyzet alakú kép ajánlott. Hagyd üresen a letiltásához.'
 'Optional subtitle': 'Opcionális alcím'
 'Optional subtitle to display in the navbar. Useful for distinguishing between multiple instances of the app. Leave empty to disable.': 'Opcionális alcím a navigációs sávban való megjelenítéshez. Hasznos az alkalmazás több példányának megkülönböztetéséhez. Hagyd üresen a letiltásához.'
-'Optional. Any activity recorded before this date will not be imported. Leave empty to disable. ⚠️ Changing this after activities have been imported will delete activities recorded before this date.': 'Opcionális. Az e dátum előtt rögzített tevékenységek nem kerülnek importálásra. Hagyd üresen a letiltásához. ⚠️ Ennek módosítása a tevékenységek importálása után törli az e dátum előtt rögzített tevékenységeket.'
 'Optional. Leave empty to always apply this goal.': 'Opcionális. Hagyd üresen, hogy ez a cél mindig érvényes legyen.'
 'Optional. Your current Zwift level (1 or higher). Leave empty to hide the Zwift badge.': 'Opcionális. A jelenlegi Zwift-szinted (1 vagy magasabb). Hagyd üresen a Zwift-jelvény elrejtéséhez.'
 'Optional. Your current Zwift racing score (between 0 and 1000).': 'Opcionális. A jelenlegi Zwift versenypontszámod (0 és 1000 között).'
@@ -338,7 +304,6 @@ Operator: Operátor
 Password: Jelszó
 'Paste the value above, replacing any key that is already there.': 'Illeszd be a fenti értéket, felülírva a már ott lévő kulcsot.'
 'Performed on': 'Elvégezve ekkor'
-'Photos attached to your Strava activities will not be downloaded or stored on disk. Photos that were downloaded before are kept.': 'Photos attached to your Strava activities will not be downloaded or stored on disk. Photos that were downloaded before are kept.'
 'Photos of the selected sport types are excluded from the photo gallery.': 'A kiválasztott sporttípusok fotói ki vannak zárva a fotógalériából.'
 'Pick a device you already recorded with, or type a new name.': 'Válassz egy eszközt, amellyel már rögzítettél, vagy írj be egy új nevet.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
@@ -441,14 +406,12 @@ Settings: Beállítások
 'Sign in to the admin panel': 'Bejelentkezés az adminfelületre'
 'Sign out': Kijelentkezés
 'Signing in...': Bejelentkezés...
-'Skip activities recorded before': 'Az ezen dátum előtt rögzített tevékenységek kihagyása'
 Skipped: Kihagyva
 'Skipped (an earlier rule stopped processing).': 'Kihagyva (egy korábbi szabály leállította a feldolgozást).'
 Source: Forrás
 'Sport type': Sporttípus
 'Sport types': Sporttípusok
 'Sport types sorting order': 'Sporttípusok rendezési sorrendje'
-'Sport types to import': 'Importálandó sporttípusok'
 'Sport types to include': 'Belefoglalandó sporttípusok'
 'Start date': 'Start date'
 'Start date and time': 'Kezdő dátum és idő'
@@ -457,17 +420,6 @@ Status: Status
 'Stop processing further rules when this rule matches': 'A további szabályok feldolgozásának leállítása, ha ez a szabály illeszkedik'
 'Stops after match': 'Illeszkedés után leáll'
 'Stops here': 'Itt leáll'
-'Strava API credentials.': 'Strava API hitelesítő adatok.'
-'Strava API has rate limits, so we cap the number of new activities processed per import. 250 is a safe number.': 'A Strava API-nak korlátai vannak, ezért maximáljuk az importálásonként feldolgozott új tevékenységek számát. A 250 biztonságos érték.'
-'Strava activity IDs to skip during import.': 'Importáláskor kihagyandó Strava tevékenység-azonosítók.'
-'Strava also asks for an icon, any image will do.': 'Strava also asks for an icon, any image will do.'
-'Strava client ID': 'Strava kliens-azonosító'
-'Strava client secret': 'Strava kliens-titok'
-'Strava did not accept the connection. Check the Client ID and Client Secret and try again.': 'Strava did not accept the connection. Check the Client ID and Client Secret and try again.'
-'Strava import': 'Strava importálás'
-'Strava is connected. Your activities are being imported, this can take a while.': 'Strava is connected. Your activities are being imported, this can take a while.'
-'Strava is disconnected. Your imported activities are kept.': 'Strava is disconnected. Your imported activities are kept.'
-'Strava refresh token': 'Strava frissítési token'
 Subtitle: Alcím
 Success: Sikeres
 Sunday: Vasárnap
@@ -489,13 +441,11 @@ Tasks: Feladatok
 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.': 'A visszatöltés a következő importálási ciklusban fut le, az akkor beállított szabályokkal. Ez nem vonható vissza.'
 'The calories burned': 'Az elégetett kalória'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'A minden térképen megrajzolt útvonalak színe. Bármilyen érvényes CSS-színt elfogad, pl. red, #FF0000 vagy rgb(255,0,0).'
-'The connection with Strava could not be verified. Please try again.': 'The connection with Strava could not be verified. Please try again.'
 'The current name of the activity': 'A tevékenység jelenlegi neve'
 'The device used to record the activity': 'A tevékenység rögzítéséhez használt eszköz'
 'The distance': 'A távolság'
 'The elapsed time': 'Az eltelt idő'
 'The elevation gain': 'A szintemelkedés'
-'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.': 'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'A maximális pulzusod kiszámításához használt képlet. Az alapértelmezett a Fox (220 − életkor).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'A nyugalmi pulzusod kiszámításához használt képlet. Az alapértelmezett egy életkor alapú becslés.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'A kulcs lehetővé teszi egy külső kliens számára, hogy HTTP-n keresztül tevékenységfájlokat töltsön fel. Ez az egyetlen, ami védi ezt a végpontot, ezért kezeld jelszóként.'
@@ -519,7 +469,7 @@ Tasks: Feladatok
 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'A nézet, amelyen a hőtérkép megnyílik. A középpont és a nagyítási szint is szükséges; hagyd üresen, hogy automatikusan a legaktívabb területedhez igazodjon.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'Ennek a widgetnek a szélességét a dashboard beállításai oldalon kell megadni. Nem méreteződik automatikusan a beállított tevékenységek száma alapján.'
-'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'Az edzéstípus a Stravában beállítva (Verseny, Edzés vagy Hosszú futás), a legtöbb tevékenységnél üres'
+'The workout type (Race, Workout or Long run), empty for most activities': 'The workout type (Race, Workout or Long run), empty for most activities'
 'Then do this': 'Akkor tedd ezt'
 'These rules will be applied to your existing activities on the next import cycle.': 'Ezek a szabályok a következő importálási ciklusban lesznek alkalmazva a meglévő tevékenységeidre.'
 'This action cannot be undone.': 'Ez a művelet nem vonható vissza.'
@@ -528,7 +478,6 @@ Tasks: Feladatok
 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Ez csak az importálási rekordot távolítja el, az importált tevékenység megmarad.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Ez az oldal minden megnyitáskor más kulcsot mutat, és csak a környezeti fájlodban lévő érvényesül.'
-"This value is imported from Strava and can't be edited here.": 'Ez az érték a Stravából van importálva, és itt nem szerkeszthető.'
 'This widget still needs to be configured.': 'Ezt a widgetet még be kell állítani.'
 'This will discard your current dashboard layout and restore the default widgets.': 'Ez elveti a jelenlegi dashboard-elrendezésedet, és visszaállítja az alapértelmezett widgeteket.'
 Thursday: Csütörtök
@@ -537,7 +486,6 @@ Thursday: Csütörtök
 'Time of day': Napszak
 Title: Title
 To: Eddig
-'Token used to validate incoming Strava webhook requests. Required when webhooks are enabled.': 'A bejövő Strava webhook-kérések ellenőrzéséhez használt token. Kötelező, ha a webhookok engedélyezve vannak.'
 "Tokens are replaced with the activity's values when the rule runs.": 'A tokenek a szabály futásakor a tevékenység értékeire cserélődnek.'
 'Total size exceeds {max} MB': 'A teljes méret meghaladja a(z) {max} MB-ot'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Kövesd a felszerelés használatát a tevékenységeidből, és tartsd kézben a használat- és időalapú karbantartást.'
@@ -559,11 +507,9 @@ Uploading...: Feltöltés...
 'Used to calculate the training load of this activity': 'Used to calculate the training load of this activity'
 Username: Felhasználónév
 Users: Users
-'Verify token': 'Ellenőrző token'
 Warning: Figyelmeztetés
 'Weather and reverse geocoding have been retrieved.': 'Weather and reverse geocoding have been retrieved.'
 'Weather and/or reverse geocoding could not be retrieved when this activity was imported.': 'Weather and/or reverse geocoding could not be retrieved when this activity was imported.'
-Webhooks: Webhookok
 Wednesday: Szerda
 Weekday: 'Hét napja'
 Weekdays: 'Hét napjai'
@@ -576,16 +522,12 @@ Weekdays: 'Hét napjai'
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Ha be van kapcsolva, a nyugdíjazottként megjelölt felszerelés kihagyásra kerül. A komponensei nem növelik a használatot, és nem történik karbantartás-követés rájuk.'
 'When set, requests to the admin panel from any other IP address are rejected.': 'Ha be van állítva, az adminfelületre bármely más IP-címről érkező kérések elutasításra kerülnek.'
 'Workout type': Edzéstípus
-'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.': 'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.'
 'You can add it back to your dashboard again later.': 'Később bármikor visszateheted a dashboardodra.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'A fájlokat közvetlenül a(z) {watchFolder} mappába is másolhatod, vagy {linkOpen}kézzel hozzáadhatsz egy tevékenységet{linkClose}.'
 'You can select up to {max} images': 'Legfeljebb {max} képet választhatsz'
-'You did not give Dreeve access to Strava. Nothing was changed.': 'You did not give Dreeve access to Strava. Nothing was changed.'
-"You're currently importing from the Strava API. Set {importMode} to upload activity files directly, without depending on Strava's API": 'Jelenleg a Strava API-ból importálsz. Állítsd be a(z) {importMode} értéket, hogy közvetlenül tölthess fel tevékenységfájlokat, a Strava API-jától függetlenül.'
 'Your birthday. Needed to calculate heart rate zones.': 'A születésnapod. A pulzuszónák kiszámításához szükséges.'
 'Your changes have been saved.': 'A módosításaid mentésre kerültek.'
 'Your current IP address, as seen by Dreeve, is {ipAddress}.': 'A jelenlegi IP-címed, ahogy a Dreeve látja: {ipAddress}.'
-'Your form expired, please try again.': 'Your form expired, please try again.'
 'Your gender. Used to determine activity training load.': 'A nemed. A tevékenység edzésterhelésének meghatározásához használt.'
 'Your measured max heart rate, applied from the given date onwards.': 'A mért maximális pulzusod, amely a megadott dátumtól kezdve érvényes.'
 'Your measured resting heart rate, applied from the given date onwards.': 'A mért nyugalmi pulzusod, amely a megadott dátumtól kezdve érvényes.'

@@ -111,7 +111,6 @@ class GateRequestListenerTest extends TestCase
      */
     public static function provideAlwaysOpenPaths(): iterable
     {
-        yield 'strava webhook' => ['/strava/webhook'];
         yield 'profiler' => ['/_profiler/abc123'];
         yield 'web debug toolbar' => ['/_wdt/abc123'];
         yield 'css asset' => ['/css/app.css'];
@@ -119,8 +118,6 @@ class GateRequestListenerTest extends TestCase
         yield 'invite' => ['/invite/some-token'];
         yield 'users' => ['/admin/users'];
         yield 'remove user' => ['/admin/users/bob/remove'];
-        yield 'strava connection' => ['/admin/settings/strava'];
-        yield 'strava callback' => ['/admin/settings/strava/callback'];
     }
 
     public function testItDoesNothingForSubRequests(): void

@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller\Admin\Segment;
 
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\SegmentId;
 use App\Domain\Segment\SegmentRepository;
 use App\Domain\Segment\SegmentType;
@@ -12,20 +11,8 @@ use App\Tests\Domain\Segment\SegmentBuilder;
 
 class ManageSegmentOverviewRequestHandlerTest extends AdminWebTestCase
 {
-    public function testItIsNotAvailableInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/segments');
-
-        $this->assertResponseStatusCodeSame(404);
-        $this->assertCount(0, $crawler->filter('#drawer-navigation a[href$="/admin/segments"]'));
-    }
-
     public function testRendersTheEmptyState(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/segments');
@@ -39,7 +26,6 @@ class ManageSegmentOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testRendersTheTableWithoutTypeFilterWhenThereAreNoImportedSegments(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
             ->withSegmentId(SegmentId::fromUnprefixed('1'))
             ->withName(Name::fromString('Kwaremont'))
@@ -68,7 +54,6 @@ class ManageSegmentOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testFiltersOnTypeAndKeepsTheSelectedValues(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         foreach ([['1', 'Kwaremont', SegmentType::IMPORTED], ['2', 'Paterberg', SegmentType::CUSTOM]] as [$id, $name, $type]) {
             $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
                 ->withSegmentId(SegmentId::fromUnprefixed($id))
@@ -96,7 +81,6 @@ class ManageSegmentOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testRendersTheFilteredEmptyState(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/segments?filters[name]=nothing');

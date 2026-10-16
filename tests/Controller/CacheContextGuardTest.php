@@ -20,7 +20,6 @@ class CacheContextGuardTest extends AdminWebTestCase
         'badges' => '/badges',
         'best_efforts' => '/best-efforts',
         'best_efforts_history' => '/best-efforts/Ride/10000',
-        'challenges' => '/challenges',
         'dashboard' => '/dashboard',
         'dashboard_power_output' => '/dashboard/power-output',
         'dashboard_training_load' => '/dashboard/training-load',

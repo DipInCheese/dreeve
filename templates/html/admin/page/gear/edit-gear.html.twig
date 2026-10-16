@@ -2,7 +2,6 @@
 {% block main %}
     {% autoescape false %}
     {% set gear = gear is defined ? gear : null %}
-    {% set isReadOnly = gear ? gear.getType().isImported() : false %}
     <div class="modal-like-form">
         <div class="w-full max-w-lg overflow-y-auto p-6 bg-white border border-gray-200 rounded-lg shadow-xl">
             <div class="flex items-center justify-between mb-4">
@@ -21,14 +20,10 @@
                 <input type="hidden" name="gearId" value="{{ gear.getId() }}">
             {% endif %}
             <div data-form-error class="form-error hidden" role="alert"></div>
-            {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                isReadOnly: isReadOnly, label: 'Name'|trans,
-                for: 'gear-name', name: 'name', value: gear ? gear.getOriginalName(),
-            } %}
-                {% block control %}
-                    <input type="text" id="gear-name" name="name" required value="{{ gear ? gear.getOriginalName() }}" {{ disabled ? 'disabled' }}>
-                {% endblock %}
-            {% endembed %}
+            <div>
+                <label for="gear-name">{{ 'Name'|trans }}</label>
+                <input type="text" id="gear-name" name="name" required value="{{ gear ? gear.getOriginalName() }}">
+            </div>
             <div>
                 <label for="gear-purchase-price">{{ "Purchase price"|trans }}</label>
                 {% set purchasePrice = gear ? gear.getPurchasePrice() : null %}
@@ -43,18 +38,14 @@
                 </div>
             </div>
             {% set currentStatus = gear ? gear.getStatus() : null %}
-            {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                isReadOnly: isReadOnly, label: 'Status'|trans,
-                for: 'gear-status', name: 'status', value: currentStatus ? currentStatus.value,
-            } %}
-                {% block control %}
-                    <select id="gear-status" name="status" {{ disabled ? 'disabled' }}>
-                        {% for status in statuses %}
-                            <option value="{{ status.value }}" {{ status == currentStatus ? 'selected' }}>{{ status|trans }}</option>
-                        {% endfor %}
-                    </select>
-                {% endblock %}
-            {% endembed %}
+            <div>
+                <label for="gear-status">{{ 'Status'|trans }}</label>
+                <select id="gear-status" name="status">
+                    {% for status in statuses %}
+                        <option value="{{ status.value }}" {{ status == currentStatus ? 'selected' }}>{{ status|trans }}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <div>
                 <label>{{ "Image"|trans({}, 'admin') }}</label>
                 {% set existingImages = [] %}
@@ -65,7 +56,7 @@
                 {% include 'html/admin/component/image-dropzone-upload.html.twig' with { name: 'localImagePath', maxImages: 1, existingImages: existingImages } %}
             </div>
             <div class="flex justify-end gap-2 border-t border-gray-200 pt-4">
-                {% if isDeletable %}
+                {% if gear %}
                     <a href="{{ relativeUrl(path('admin_delete_gear', {gearId: gear.getId()})) }}" type="button" class="btn--danger me-auto">{{ "Delete"|trans({}, 'admin') }}</a>
                 {% endif %}
                 <a href="{{ relativeUrl(path('admin_manage_gear_overview')) }}" type="button" class="btn--secondary">{{ "Cancel"|trans({}, 'admin') }}</a>

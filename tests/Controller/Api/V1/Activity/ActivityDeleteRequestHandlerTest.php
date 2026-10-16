@@ -9,7 +9,6 @@ use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\Stream\ActivityStreamRepository;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Exception\EntityNotFound;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Serialization\Json;
@@ -55,17 +54,6 @@ class ActivityDeleteRequestHandlerTest extends ControllerWebTestCase
         $this->assertSame('not_found', Json::decode((string) $this->client->getResponse()->getContent())['error']);
     }
 
-    public function testItRejectsDeletesInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $this->client->request('DELETE', self::PATH, server: ['HTTP_AUTHORIZATION' => 'Bearer '.$this->token]);
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CONFLICT);
-        $this->assertSame('import_mode_not_files', Json::decode((string) $this->client->getResponse()->getContent())['error']);
-        $this->assertSame('Test activity', $this->activityRepository->find(ActivityId::fromUnprefixed('1'))->getOriginalName());
-    }
-
     #[\Override]
     protected function shouldSeedActivity(): bool
     {
@@ -77,7 +65,6 @@ class ActivityDeleteRequestHandlerTest extends ControllerWebTestCase
     {
         $this->token = Token::generate();
         $_SERVER['DREEVE_API_KEY'] = $_ENV['DREEVE_API_KEY'] = (string) $this->token;
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = ImportMode::FILES->value;
     }
 
     #[\Override]

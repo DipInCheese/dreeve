@@ -153,16 +153,6 @@ class SegmentRequestHandlerTest extends ControllerWebTestCase
         $this->assertSelectorNotExists('a[href^="https://windahead.app/#polyline="]');
     }
 
-    public function testRenderWithStravaLink(): void
-    {
-        $this->provideFullTestSet();
-
-        $this->client->request('GET', '/segments/segment-1');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists('h1 a[href="https://www.strava.com/segments/1"]');
-    }
-
     public function testRenderWithoutStravaLinkForCustomSegment(): void
     {
         $this->provideFullTestSet();

@@ -45,7 +45,7 @@ final readonly class ActivityTokenProvider implements TokenProvider
             TokenDefinition::create(
                 prefix: self::PREFIX,
                 key: 'workout-type',
-                description: static fn (TranslatorInterface $translator, ?string $locale): string => $translator->trans('The workout type as set on Strava (Race, Workout or Long run), empty for most activities', domain: 'admin', locale: $locale),
+                description: static fn (TranslatorInterface $translator, ?string $locale): string => $translator->trans('The workout type (Race, Workout or Long run), empty for most activities', domain: 'admin', locale: $locale),
             ),
             TokenDefinition::create(
                 prefix: self::PREFIX,

@@ -13,26 +13,6 @@ enum WorkoutType: string implements TranslatableInterface
     case WORKOUT = 'workout';
     case LONG_RUN = 'longRun';
 
-    public static function fromStravaInt(?int $workoutType): ?self
-    {
-        if (is_null($workoutType)) {
-            return null;
-        }
-
-        if (in_array($workoutType, [0, 10])) {
-            // Equals to "none" in Strava.
-            return null;
-        }
-
-        return match ($workoutType) {
-            1, 11 => self::RACE,
-            3, 12 => self::WORKOUT,
-            2 => self::LONG_RUN,
-            // Catch all for unknown values.
-            default => null,
-        };
-    }
-
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return match ($this) {

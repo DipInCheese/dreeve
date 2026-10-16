@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Api\V1\Activity;
 
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Serialization\Json;
 use App\Tests\Controller\ControllerWebTestCase;
@@ -191,17 +190,6 @@ class ActivityUploadRequestHandlerTest extends ControllerWebTestCase
         $this->assertTrue($this->filesystem->fileExists('watch/activity.gpx'));
     }
 
-    public function testItRejectsUploadsInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $this->client->request('POST', self::PATH, files: ['file' => $this->fixture('activity.fit')], server: $this->authorized());
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CONFLICT);
-        $this->assertSame('import_mode_not_files', $this->errorCode());
-        $this->assertFalse($this->filesystem->fileExists('watch/activity.fit'));
-    }
-
     private function fixture(string $fixture, ?string $uploadedAs = null): UploadedFile
     {
         return new UploadedFile(__DIR__.'/fixtures/'.$fixture, $uploadedAs ?? $fixture, null, null, true);
@@ -237,7 +225,6 @@ class ActivityUploadRequestHandlerTest extends ControllerWebTestCase
     {
         $this->token = Token::generate();
         $_SERVER['DREEVE_API_KEY'] = $_ENV['DREEVE_API_KEY'] = (string) $this->token;
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = ImportMode::FILES->value;
     }
 
     #[\Override]

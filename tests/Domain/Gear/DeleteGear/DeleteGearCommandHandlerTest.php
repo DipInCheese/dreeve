@@ -13,7 +13,6 @@ use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\GearType;
 use App\Domain\Gear\GearUsage;
 use App\Domain\Image\ImageStorage;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\CQRS\Command\CouldNotProcessCommand;
 use App\Infrastructure\Exception\EntityNotFound;
@@ -66,20 +65,6 @@ class DeleteGearCommandHandlerTest extends ContainerTestCase
         $this->commandBus->dispatch(DeleteGear::fromPayload(['gearId' => 'gear-1']));
     }
 
-    public function testItRefusesToDeleteImportedGearInStravaImportMode(): void
-    {
-        $this->gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::IMPORTED)
-                ->build()
-        );
-
-        $this->expectExceptionObject(CouldNotProcessCommand::withReason('Imported gear can only be deleted when running in file import mode.'));
-
-        $this->commandBus->dispatch(DeleteGear::fromPayload(['gearId' => 'gear-1']));
-    }
-
     public function testItDeletesImportedGearInFileImportMode(): void
     {
         $this->gearRepository->add(
@@ -93,7 +78,6 @@ class DeleteGearCommandHandlerTest extends ContainerTestCase
             gearRepository: $this->gearRepository,
             gearUsage: $this->getContainer()->get(GearUsage::class),
             imageStorage: $this->getContainer()->get(ImageStorage::class),
-            importMode: ImportMode::FILES,
         )->handle(DeleteGear::fromPayload(['gearId' => 'gear-1']));
 
         $this->expectExceptionObject(new EntityNotFound('Gear "gear-1" not found'));

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Http\Gate;
 
-use App\Controller\Strava\StravaWebhookRequestHandler;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -50,14 +49,11 @@ final readonly class GateRequestListener implements EventSubscriberInterface
     {
         return 1 === preg_match('#^/(_(profiler|wdt)|css|images|js|files)/#', $path)
             || '/api/v1' === $path || str_starts_with($path, '/api/v1/')
-            || StravaWebhookRequestHandler::STRAVA_WEBHOOKS_ENDPOINT === $path
             // Invited users of a multi-user installation must be able to pick a password before anything is set up,
             // and the owner must be able to manage users before setting up their own dashboard. Both stay
             // protected: the invite page by its token, the users pages by the firewall and the owner check.
             || str_starts_with($path, '/invite/')
-            || '/admin/users' === $path || str_starts_with($path, '/admin/users/')
-            // Users must be able to connect (or disconnect) Strava before they have any activities.
-            || '/admin/settings/strava' === $path || str_starts_with($path, '/admin/settings/strava/');
+            || '/admin/users' === $path || str_starts_with($path, '/admin/users/');
     }
 
     /**

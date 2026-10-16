@@ -20,10 +20,10 @@ class CacheabilityTest extends TestCase
 
     public function testItKeepsTheDeclaredTags(): void
     {
-        $cacheability = Cacheability::for('stub', CacheTags::of(RootCacheTag::ACTIVITIES, RootCacheTag::CHALLENGES));
+        $cacheability = Cacheability::for('stub', CacheTags::of(RootCacheTag::ACTIVITIES, RootCacheTag::GEAR));
 
         $this->assertContains(RootCacheTag::ACTIVITIES->value, $cacheability->getCacheTags()->toTagStrings());
-        $this->assertContains(RootCacheTag::CHALLENGES->value, $cacheability->getCacheTags()->toTagStrings());
+        $this->assertContains(RootCacheTag::GEAR->value, $cacheability->getCacheTags()->toTagStrings());
     }
 
     public function testItDoesNotDuplicateACrossCuttingTagThatWasAlsoDeclared(): void

@@ -26,8 +26,6 @@ interface SettingsRepository
 
     public function maps(): MapsSettings;
 
-    public function import(): ImportSettings;
-
     public function metrics(): MetricsSettings;
 
     public function zwift(): ZwiftSettings;

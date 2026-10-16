@@ -28,16 +28,12 @@ class DbalSettingsRepositoryTest extends ContainerTestCase
     public function testSaveGroupAndFindGroupKeepValueTypes(): void
     {
         $data = [
-            'numberOfNewActivitiesToProcessPerImport' => '250',
-            'skipActivitiesRecordedBefore' => null,
-            'optInToSegmentDetailImport' => true,
-            'skipImageDownloadDuringImport' => false,
-            'sportTypesToImport' => ['Ride', 'GravelRide'],
-            'webhooks' => ['enabled' => false, 'checkIntervalInMinutes' => 5],
+            'zwiftLevel' => 42,
+            'zwiftRacingScore' => 500,
         ];
-        $this->settingsRepository->saveGroup(SettingsGroup::IMPORT, $data);
+        $this->settingsRepository->saveGroup(SettingsGroup::ZWIFT, $data);
 
-        $settings = $this->settingsRepository->findGroup(SettingsGroup::IMPORT);
+        $settings = $this->settingsRepository->findGroup(SettingsGroup::ZWIFT);
         ksort($data);
         ksort($settings);
 

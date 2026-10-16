@@ -8,7 +8,6 @@ use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Import\FileImportId;
 use App\Domain\Import\FileImportRepository;
 use App\Domain\Import\FileImportStatus;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
@@ -18,25 +17,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 {
-    public function testRendersTheGatedPanelWhenNotInFileImportMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/file-imports');
-
-        $this->assertResponseIsSuccessful();
-        $gatedPanel = $crawler->filter('[role="alert"][type="gated-panel"]');
-        $this->assertCount(1, $gatedPanel);
-        $this->assertStringContainsString(
-            'File imports are only available in file import mode',
-            $gatedPanel->text()
-        );
-    }
-
     public function testRendersTheTableWithoutGatedPanelInFileImportMode(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/file-imports');
@@ -48,7 +30,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testRendersTheEmptyStateWhenThereAreNoImports(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/file-imports');
@@ -60,47 +41,8 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(0, $crawler->filter('form[method="get"]'));
     }
 
-    public function testRendersTheTableWithoutPaginationForASinglePage(): void
-    {
-        $this->withImportMode(ImportMode::FILES);
-        $this->seedFileImports(3);
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/file-imports');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertCount(3, $crawler->filter('table.data-table tbody tr'));
-        $this->assertCount(3, $crawler->filter('table.data-table tbody a[title="Delete"]'));
-        $downloadLinks = $crawler->filter('table.data-table tbody a[href$="/download"]');
-        $this->assertCount(2, $downloadLinks);
-        $this->assertStringContainsString(
-            '/admin/file-imports/'.FileImportId::fromUnprefixed('2').'/download',
-            (string) $downloadLinks->first()->attr('href')
-        );
-        $this->assertSame('activity-2.fit', $downloadLinks->first()->attr('download'));
-        $this->assertStringContainsString('activity-1.fit', $crawler->filter('table.data-table')->text());
-        $this->assertStringNotContainsString('No files imported yet.', $crawler->filter('body')->text());
-        $this->assertCount(0, $crawler->filter('[aria-label="Go to next page"]'));
-
-        $this->assertCount(2, $crawler->filter('table.data-table [aria-label="Success"]'));
-        $failed = $crawler->filter('table.data-table [aria-label="Failed"]');
-        $this->assertCount(1, $failed);
-        $this->assertSame('Could not parse activity-2.fit', $failed->attr('title'));
-
-        $form = $crawler->filter('form[method="get"]');
-        $this->assertCount(1, $form);
-        $this->assertCount(1, $form->filter('select[name="filters[status]"]'));
-        $this->assertCount(1, $form->filter('select[name="filters[source]"]'));
-        $this->assertCount(1, $form->filter('input[name="filters[filename]"]'));
-        $this->assertCount(1, $form->filter('input[name="filters[activity]"][data-autocomplete-url="/admin/activities/search"]'));
-        $this->assertCount(1, $form->filter('button[type="submit"]'));
-        $this->assertCount(0, $form->filter('select[name="filters[source]"] option[value="stravaApi"]'));
-        $this->assertCount(0, $form->filter('a.btn--secondary'));
-    }
-
     public function testRendersTheTableWithPaginationWhenResultsExceedASinglePage(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(30);
         $this->client->loginUser($this->adminUser());
 
@@ -114,7 +56,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testRendersTheFilterFormWhenActiveFiltersMatchNothing(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(3);
         $this->client->loginUser($this->adminUser());
 
@@ -134,7 +75,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
         string $statusFilter,
         ?string $expectedSelectedOption,
     ): void {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(3);
         $this->client->loginUser($this->adminUser());
 
@@ -173,7 +113,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
         string $expectedFilenameValue,
         string $expectedActivityValue,
     ): void {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(3);
         $this->client->loginUser($this->adminUser());
 
@@ -201,7 +140,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testFiltersArePreservedInPaginationAndDeleteLinks(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(60);
         $this->client->loginUser($this->adminUser());
 
@@ -222,7 +160,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testListsQueuedFilesFirstWithoutActionsOrStatusOption(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->seedFileImports(3);
         static::getContainer()->get(FilesystemOperator::class)->write('watch/queued.fit', 'raw fit bytes');
         $this->client->loginUser($this->adminUser());
@@ -241,8 +178,6 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
 
     public function testLinksEveryImportedActivityToItsDetailPage(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $activityRepository = static::getContainer()->get(ActivityRepository::class);
         $fileImportRepository = static::getContainer()->get(FileImportRepository::class);
 
@@ -300,5 +235,42 @@ class ManageFileImportOverviewRequestHandlerTest extends AdminWebTestCase
                     ->build()
             );
         }
+    }
+
+    public function testRendersTheTableWithoutPaginationForASinglePage(): void
+    {
+        $this->seedFileImports(3);
+        $this->client->loginUser($this->adminUser());
+
+        $crawler = $this->client->request('GET', '/admin/file-imports');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertCount(3, $crawler->filter('table.data-table tbody tr'));
+        $this->assertCount(3, $crawler->filter('table.data-table tbody a[title="Delete"]'));
+        $downloadLinks = $crawler->filter('table.data-table tbody a[href$="/download"]');
+        $this->assertCount(2, $downloadLinks);
+        $this->assertStringContainsString(
+            '/admin/file-imports/'.FileImportId::fromUnprefixed('2').'/download',
+            (string) $downloadLinks->first()->attr('href')
+        );
+        $this->assertSame('activity-2.fit', $downloadLinks->first()->attr('download'));
+        $this->assertStringContainsString('activity-1.fit', $crawler->filter('table.data-table')->text());
+        $this->assertStringNotContainsString('No files imported yet.', $crawler->filter('body')->text());
+        $this->assertCount(0, $crawler->filter('[aria-label="Go to next page"]'));
+
+        $this->assertCount(2, $crawler->filter('table.data-table [aria-label="Success"]'));
+        $failed = $crawler->filter('table.data-table [aria-label="Failed"]');
+        $this->assertCount(1, $failed);
+        $this->assertSame('Could not parse activity-2.fit', $failed->attr('title'));
+
+        $form = $crawler->filter('form[method="get"]');
+        $this->assertCount(1, $form);
+        $this->assertCount(1, $form->filter('select[name="filters[status]"]'));
+        $this->assertCount(1, $form->filter('select[name="filters[source]"]'));
+        $this->assertCount(1, $form->filter('input[name="filters[filename]"]'));
+        $this->assertCount(1, $form->filter('input[name="filters[activity]"][data-autocomplete-url="/admin/activities/search"]'));
+        $this->assertCount(1, $form->filter('button[type="submit"]'));
+        $this->assertCount(0, $form->filter('select[name="filters[source]"] option[value="stravaApi"]'));
+        $this->assertCount(0, $form->filter('a.btn--secondary'));
     }
 }

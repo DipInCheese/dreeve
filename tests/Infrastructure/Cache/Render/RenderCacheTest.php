@@ -84,7 +84,7 @@ class RenderCacheTest extends ContainerTestCase
             cacheKey: 'photos',
             cacheability: Cacheability::for(
                 cacheKey: 'stub',
-                cacheTags: CacheTags::of(RootCacheTag::CHALLENGES),
+                cacheTags: CacheTags::of(RootCacheTag::GEAR),
                 ttlInSeconds: 60,
             ),
             callback: fn (): string => 'should-not-run',

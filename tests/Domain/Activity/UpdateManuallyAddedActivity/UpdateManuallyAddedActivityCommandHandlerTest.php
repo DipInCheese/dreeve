@@ -10,15 +10,11 @@ use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\ImportSource;
 use App\Domain\Activity\SportType\SportType;
 use App\Domain\Activity\UpdateManuallyAddedActivity\UpdateManuallyAddedActivity;
-use App\Domain\Activity\UpdateManuallyAddedActivity\UpdateManuallyAddedActivityCommandHandler;
 use App\Domain\Activity\WorkoutType;
 use App\Domain\Activity\WorldType;
 use App\Domain\Gear\GearId;
-use App\Domain\Image\ImageStorage;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\DbalSettingsRepository;
 use App\Domain\Settings\SettingsGroup;
-use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\CQRS\Command\CouldNotProcessCommand;
 use App\Infrastructure\Measurement\Length\Kilometer;
@@ -221,28 +217,6 @@ class UpdateManuallyAddedActivityCommandHandlerTest extends ContainerTestCase
         ]));
     }
 
-    public function testHandleThrowsWhenNotRunningInFileImportMode(): void
-    {
-        $this->addManuallyAddedActivity();
-
-        $handler = new UpdateManuallyAddedActivityCommandHandler(
-            activityRepository: $this->activityRepository,
-            settingsRepository: $this->getContainer()->get(SettingsRepository::class),
-            imageStorage: $this->getContainer()->get(ImageStorage::class),
-            importMode: ImportMode::STRAVA_API,
-        );
-
-        $this->expectExceptionObject(CouldNotProcessCommand::withReason('Manually added activities can only be updated when running in file import mode.'));
-
-        $handler->handle(UpdateManuallyAddedActivity::fromPayload([
-            'activityId' => 'activity-1',
-            'name' => 'My updated manual activity',
-            'sportType' => 'Run',
-            'startDateTime' => '2023-10-17T16:15',
-            'duration' => ['minutes' => 30],
-        ]));
-    }
-
     private function addManuallyAddedActivity(string ...$localImagePaths): void
     {
         $activity = ActivityBuilder::fromDefaults()
@@ -279,12 +253,6 @@ class UpdateManuallyAddedActivityCommandHandlerTest extends ContainerTestCase
             'timeFormat' => 24,
             'dateFormat' => ['short' => 'd-m-y', 'normal' => 'd-m-Y'],
         ]);
-    }
-
-    #[\Override]
-    protected function importMode(): ImportMode
-    {
-        return ImportMode::FILES;
     }
 
     #[\Override]

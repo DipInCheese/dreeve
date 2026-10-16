@@ -13,8 +13,6 @@ use App\Domain\Activity\Stream\Metric\ActivityStreamMetric;
 use App\Domain\Activity\Stream\Metric\ActivityStreamMetricRepository;
 use App\Domain\Activity\Stream\Metric\ActivityStreamMetricType;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Challenge\ChallengeId;
-use App\Domain\Challenge\ChallengeRepository;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
 use App\Domain\Integration\AI\Tool\GetActivity;
@@ -24,15 +22,11 @@ use App\Domain\Integration\AI\Tool\GetActivitySplits;
 use App\Domain\Integration\AI\Tool\GetActivityStreams;
 use App\Domain\Integration\AI\Tool\GetAllActivitiesSummary;
 use App\Domain\Integration\AI\Tool\GetAthleteDetails;
-use App\Domain\Integration\AI\Tool\GetChallenges;
 use App\Domain\Integration\AI\Tool\GetDefaultHeartRateZone;
 use App\Domain\Integration\AI\Tool\GetFtpHistory;
 use App\Domain\Integration\AI\Tool\GetGear;
 use App\Domain\Integration\AI\Tool\GetMostRecentActivity;
 use App\Domain\Integration\AI\Tool\GetSegment;
-use App\Domain\Integration\AI\Tool\MakeStravaActivityLink;
-use App\Domain\Integration\AI\Tool\MakeStravaChallengeLink;
-use App\Domain\Integration\AI\Tool\MakeStravaSegmentLink;
 use App\Domain\Segment\SegmentEffort\SegmentEffortId;
 use App\Domain\Segment\SegmentEffort\SegmentEffortRepository;
 use App\Domain\Segment\SegmentId;
@@ -49,7 +43,6 @@ use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\Domain\Activity\Lap\ActivityLapBuilder;
 use App\Tests\Domain\Activity\Split\ActivitySplitBuilder;
 use App\Tests\Domain\Activity\Stream\ActivityStreamBuilder;
-use App\Tests\Domain\Challenge\ChallengeBuilder;
 use App\Tests\Domain\Gear\GearBuilder;
 use App\Tests\Domain\Segment\SegmentBuilder;
 use App\Tests\Domain\Segment\SegmentEffort\SegmentEffortBuilder;
@@ -71,7 +64,7 @@ class ToolkitTest extends ContainerTestCase
     public function testItRegistersAllTools(): void
     {
         $this->assertCount(
-            16,
+            12,
             $this->getContainer()->get(ToolkitInterface::class)->tools(),
         );
     }
@@ -108,11 +101,6 @@ class ToolkitTest extends ContainerTestCase
             [],
         ];
 
-        yield 'GetChallenges Tool' => [
-            GetChallenges::class,
-            [],
-        ];
-
         yield 'GetDefaultHeartRateZone Tool' => [
             GetDefaultHeartRateZone::class,
             [null],
@@ -141,26 +129,6 @@ class ToolkitTest extends ContainerTestCase
         yield 'GetSegment Tool' => [
             GetSegment::class,
             ['1'],
-        ];
-
-        yield 'MakeStravaChallengeLink Tool' => [
-            MakeStravaChallengeLink::class,
-            ['tge-slug'],
-        ];
-
-        yield 'MakeStravaActivityLink Tool' => [
-            MakeStravaActivityLink::class,
-            ['1'],
-        ];
-
-        yield 'MakeStravaSegmentLink Tool' => [
-            MakeStravaSegmentLink::class,
-            ['1'],
-        ];
-
-        yield 'MakeStravaSegmentLink Tool for a custom segment' => [
-            MakeStravaSegmentLink::class,
-            ['custom'],
         ];
     }
 
@@ -285,17 +253,6 @@ class ToolkitTest extends ContainerTestCase
                 ->withElapsedTimeInSeconds(10.3)
                 ->withAverageWatts(200)
                 ->withDistance(Kilometer::from(0.1))
-                ->build()
-        );
-
-        $this->getContainer()->get(ChallengeRepository::class)->add(
-            ChallengeBuilder::fromDefaults()
-                ->withChallengeId(ChallengeId::fromUnprefixed('4022'))
-                ->withCreatedOn(SerializableDateTime::fromString('2023-10-13 18:38:34'))
-                ->withName('Castelli Keep It Up')
-                ->withSlug('castelli-keep-it-up-2023')
-                ->withLogoUrl('https://dgalywyr863hv.cloudfront.net/challenges/4022/4022-logo-100.png')
-                ->withLocalLogoUrl('files/challenges/b7537b1e-69f7-11ee-a81e-0242a0cd5a47.png')
                 ->build()
         );
     }

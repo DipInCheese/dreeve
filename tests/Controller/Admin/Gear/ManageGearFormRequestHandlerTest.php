@@ -8,7 +8,6 @@ use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\GearType;
-use App\Domain\Import\ImportMode;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\Domain\Gear\GearBuilder;
@@ -62,57 +61,6 @@ class ManageGearFormRequestHandlerTest extends AdminWebTestCase
         $this->assertSame('retired', $form->filter('select[name="status"] option[selected]')->attr('value'));
     }
 
-    public function testImportedGearInStravaApiModeDisablesNameAndStatus(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        static::getContainer()->get(GearRepository::class)->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::IMPORTED)
-                ->withName('Strava bike')
-                ->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/gear/'.GearId::fromUnprefixed('1').'/edit');
-
-        $this->assertResponseIsSuccessful();
-
-        // Name and status are disabled because they are imported from Strava.
-        $this->assertNotNull($crawler->filter('input#gear-name')->attr('disabled'));
-        $this->assertNotNull($crawler->filter('select#gear-status')->attr('disabled'));
-
-        // Disabled fields are not submitted, so their values are mirrored into hidden inputs.
-        $this->assertSame('Strava bike', $crawler->filter('input[type="hidden"][name="name"]')->attr('value'));
-        $this->assertCount(1, $crawler->filter('input[type="hidden"][name="status"]'));
-
-        // The purchase price stays editable.
-        $this->assertNull($crawler->filter('input[name="purchasePriceAmount"]')->attr('disabled'));
-    }
-
-    public function testCustomGearStaysEditableInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        static::getContainer()->get(GearRepository::class)->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::CUSTOM)
-                ->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/gear/'.GearId::fromUnprefixed('1').'/edit');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertNull($crawler->filter('input#gear-name')->attr('disabled'));
-        $this->assertNull($crawler->filter('select#gear-status')->attr('disabled'));
-        $this->assertCount(0, $crawler->filter('input[type="hidden"][name="status"]'));
-    }
-
     public function testTheAddFormHasNoDeleteButton(): void
     {
         $this->client->loginUser($this->adminUser());
@@ -123,50 +71,8 @@ class ManageGearFormRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(0, $crawler->filter('a.btn--danger'));
     }
 
-    public function testCustomGearHasADeleteButton(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        static::getContainer()->get(GearRepository::class)->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::CUSTOM)
-                ->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/gear/'.GearId::fromUnprefixed('1').'/edit');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSame('/admin/gear/gear-1/delete', $crawler->filter('a.btn--danger')->attr('href'));
-    }
-
-    public function testImportedGearInStravaApiModeCannotBeDeleted(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        static::getContainer()->get(GearRepository::class)->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::IMPORTED)
-                ->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/gear/'.GearId::fromUnprefixed('1').'/edit');
-        $this->assertResponseIsSuccessful();
-        $this->assertCount(0, $crawler->filter('a.btn--danger'));
-
-        $this->client->request('GET', '/admin/gear/'.GearId::fromUnprefixed('1').'/delete');
-        $this->assertResponseStatusCodeSame(404);
-    }
-
     public function testImportedGearInFilesModeHasADeleteButton(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(GearRepository::class)->add(
             GearBuilder::fromDefaults()
                 ->withGearId(GearId::fromUnprefixed('1'))

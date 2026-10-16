@@ -12,15 +12,11 @@ use App\Domain\Activity\ManuallyCreateActivity\ManuallyCreateActivity;
 use App\Domain\Activity\UpdateActivity\UpdateActivity;
 use App\Domain\Activity\UpdateManuallyAddedActivity\UpdateManuallyAddedActivity;
 use App\Domain\Activity\WorkoutType;
-use App\Domain\Gear\Gear;
-use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\RecordingDevice\RecordingDeviceRepository;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Http\HtmlResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
@@ -33,17 +29,12 @@ final readonly class ManageActivityFormRequestHandler
         private GearRepository $gearRepository,
         private RecordingDeviceRepository $recordingDeviceRepository,
         private SettingsRepository $settingsRepository,
-        private ImportMode $importMode,
     ) {
     }
 
     #[Route(path: '/admin/activities/add', name: 'admin_add_activity', methods: ['GET'], priority: 10)]
     public function handleAdd(): HtmlResponse
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Activities can only be created manually when running in file import mode.');
-        }
-
         return new HtmlResponse($this->twig->render('html/admin/page/activity/edit-manually-added-activity.html.twig', [
             'dispatchCommand' => ManuallyCreateActivity::getCommandName(),
             'sportTypes' => $this->settingsRepository->appearance()->getSportTypesSortingOrder(),
@@ -68,14 +59,6 @@ final readonly class ManageActivityFormRequestHandler
         }
 
         $gears = $this->gearRepository->findAll()->sortByIsRetired();
-        $gearIsReadOnly = false;
-        if ($this->importMode->isStravaApi()) {
-            $currentGear = $activity->getGearId() instanceof GearId
-                ? $gears->find(fn (Gear $gear): bool => $gear->getId()->matches($activity->getGearId()))
-                : null;
-            $gears = $gears->filter(fn (Gear $gear): bool => $gear->getType()->isCustom() || $gear === $currentGear);
-            $gearIsReadOnly = $gears->isEmpty() || ($currentGear instanceof Gear && $currentGear->getType()->isImported());
-        }
 
         return new HtmlResponse($this->twig->render('html/admin/page/activity/edit-activity.html.twig', [
             'dispatchCommand' => UpdateActivity::getCommandName(),
@@ -83,7 +66,6 @@ final readonly class ManageActivityFormRequestHandler
             'sportTypes' => $this->settingsRepository->appearance()->getSportTypesSortingOrder(),
             'workoutTypes' => WorkoutType::cases(),
             'gears' => $gears,
-            'gearIsReadOnly' => $gearIsReadOnly,
             'recordingDevices' => $this->recordingDeviceRepository->findAll(),
         ]));
     }

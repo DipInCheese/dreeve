@@ -17,31 +17,15 @@ use App\Domain\Automation\RuleConfiguration;
 use App\Domain\Gear\Sensor\ConnectedSensor;
 use App\Domain\Gear\Sensor\ConnectedSensors;
 use App\Domain\Gear\Sensor\SensorType;
-use App\Domain\Import\ImportMode;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\Domain\Automation\AutomationRuleBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\TestWith;
 
 class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 {
-    #[TestWith(['/admin/automation-rules/add'])]
-    #[TestWith(['/admin/automation-rules/automationRule-1/edit'])]
-    #[TestWith(['/admin/automation-rules/automationRule-1/delete'])]
-    public function testItReturnsANotFoundWhenNotInFileImportMode(string $path): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        $this->client->loginUser($this->adminUser());
-
-        $this->client->request('GET', $path);
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
     public function testItRendersTheAddForm(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/automation-rules/add');
@@ -97,8 +81,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheRecordedDevicesAsComboboxOptions(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()
                 ->withActivityId(ActivityId::fromUnprefixed('1'))
@@ -121,8 +103,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 
     public function testItOnlyOffersTheSensorsTheAthleteActuallyOwns(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()
                 ->withActivityId(ActivityId::fromUnprefixed('1'))
@@ -150,8 +130,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheEditFormPrefilledWithTheRule(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()
                 ->withAutomationRuleId(AutomationRuleId::fromUnprefixed('42'))
@@ -189,8 +167,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheAddFormPrefilledWithTheRuleToCopy(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()
                 ->withAutomationRuleId(AutomationRuleId::fromUnprefixed('42'))
@@ -231,7 +207,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
     #[DataProvider('provideInvalidRuleToCopy')]
     public function testItRendersAnEmptyAddFormWhenTheRuleToCopyCannotBeResolved(string $copyFrom): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/automation-rules/add?copyFrom='.$copyFrom);
@@ -254,8 +229,6 @@ class ManageAutomationRuleFormRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheDeleteConfirmation(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()
                 ->withAutomationRuleId(AutomationRuleId::fromUnprefixed('7'))

@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 use App\Domain\Activity\ActivityIdRepository;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
-use App\Domain\Import\ImportMode;
 use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\ProvideSettings;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -21,7 +20,6 @@ abstract class ControllerWebTestCase extends WebTestCase
 
     protected KernelBrowser $client;
 
-    private ?string $originalImportMode;
     private ?string $originalApiKey;
 
     #[\Override]
@@ -29,7 +27,6 @@ abstract class ControllerWebTestCase extends WebTestCase
     {
         parent::setUp();
 
-        $this->originalImportMode = $_ENV['IMPORT_MODE'] ?? null;
         $this->originalApiKey = $_ENV['DREEVE_API_KEY'] ?? null;
 
         $_SERVER['ADMIN_USERNAME'] = $_ENV['ADMIN_USERNAME'] = self::ADMIN_USERNAME;
@@ -96,12 +93,6 @@ abstract class ControllerWebTestCase extends WebTestCase
     #[\Override]
     protected function tearDown(): void
     {
-        if (null === $this->originalImportMode) {
-            unset($_SERVER['IMPORT_MODE'], $_ENV['IMPORT_MODE']);
-        } else {
-            $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = $this->originalImportMode;
-        }
-
         // Superglobals outlive the kernel, and the suite runs order-randomized, so a test that
         // configures an API key would otherwise leak it into one asserting there is none.
         if (null === $this->originalApiKey) {
@@ -111,13 +102,6 @@ abstract class ControllerWebTestCase extends WebTestCase
         }
 
         parent::tearDown();
-    }
-
-    protected function withImportMode(ImportMode $importMode): void
-    {
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = $importMode->value;
-
-        $this->rebootClient();
     }
 
     protected function withApiKey(string $apiKey): void

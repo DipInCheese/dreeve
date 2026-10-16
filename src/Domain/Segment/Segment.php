@@ -7,7 +7,6 @@ namespace App\Domain\Segment;
 use App\Domain\Activity\LeafletMap;
 use App\Domain\Activity\RealWorldMap;
 use App\Domain\Activity\SportType\SportType;
-use App\Domain\Import\ImportMode;
 use App\Domain\Integration\AI\SupportsAITooling;
 use App\Domain\Segment\SegmentEffort\SegmentEffort;
 use App\Domain\Zwift\CouldNotDetermineZwiftMap;
@@ -302,11 +301,6 @@ final class Segment implements SupportsAITooling
         return $segment;
     }
 
-    public function isDeletableIn(ImportMode $importMode): bool
-    {
-        return $this->type->isCustom() || $importMode->isFiles();
-    }
-
     public function delete(): void
     {
         $this->recordThat(new SegmentWasDeleted($this->segmentId));
@@ -344,15 +338,6 @@ final class Segment implements SupportsAITooling
     public function getCountryCode(): ?string
     {
         return $this->countryCode;
-    }
-
-    public function getStravaUrl(): ?string
-    {
-        if ($this->type->isCustom()) {
-            return null;
-        }
-
-        return 'https://www.strava.com/segments/'.$this->getId()->toUnprefixedString();
     }
 
     public function getWindAheadUrl(): ?string

@@ -7,8 +7,6 @@ namespace App\Infrastructure\Daemon;
 use App\Console\Cache\PruneRenderCacheConsoleCommand;
 use App\Console\Import\RunAutomationRulesBackfillConsoleCommand;
 use App\Console\Import\RunFileImportConsoleCommand;
-use App\Console\Strava\ProcessStravaWebhooksConsoleCommand;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Console\ConsoleOutputAware;
 use App\Infrastructure\Daemon\Cron\CronAction;
@@ -36,7 +34,6 @@ final class SystemDaemon implements Daemon
     public function __construct(
         private readonly Clock $clock,
         private readonly SettingsRepository $settingsRepository,
-        private readonly ImportMode $importMode,
         private readonly Connection $connection,
     ) {
     }
@@ -70,9 +67,6 @@ final class SystemDaemon implements Daemon
         $processedCronAction = [];
         /** @var CronAction $cronAction */
         foreach ($this->settingsRepository->daemon()->getConfiguredCronActions() as $cronAction) {
-            if (!$cronAction->supportsImportMode($this->importMode)) {
-                continue;
-            }
             $processedCronAction[] = $cronAction;
             $actions[] = new Action(
                 key: $cronAction->getId()->value,
@@ -94,43 +88,41 @@ final class SystemDaemon implements Daemon
 
         $extraConfiguredCronActionsOutput = [];
 
-        if ($this->importMode->isFiles()) {
-            $extraConfiguredCronActionsOutput[] = sprintf('<info> - runFileImport: %s</info>', self::CRON_EVERY_5_MINUTES);
-            $actions[] = new Action(
-                key: 'runFileImport',
-                mutexTtl: 300,
-                expression: self::CRON_EVERY_5_MINUTES,
-                performer: function (): PromiseInterface {
-                    $process = new CronProcess(
-                        cronActionId: 'runFileImport',
-                        clock: $this->clock,
-                        output: $this->getConsoleOutput(),
-                        command: sprintf('bin/console %s', RunFileImportConsoleCommand::NAME)
-                    );
-                    $process->start();
+        $extraConfiguredCronActionsOutput[] = sprintf('<info> - runFileImport: %s</info>', self::CRON_EVERY_5_MINUTES);
+        $actions[] = new Action(
+            key: 'runFileImport',
+            mutexTtl: 300,
+            expression: self::CRON_EVERY_5_MINUTES,
+            performer: function (): PromiseInterface {
+                $process = new CronProcess(
+                    cronActionId: 'runFileImport',
+                    clock: $this->clock,
+                    output: $this->getConsoleOutput(),
+                    command: sprintf('bin/console %s', RunFileImportConsoleCommand::NAME)
+                );
+                $process->start();
 
-                    return resolve(true);
-                }
-            );
+                return resolve(true);
+            }
+        );
 
-            $extraConfiguredCronActionsOutput[] = sprintf('<info> - runAutomationRulesBackfill: %s</info>', self::CRON_EVERY_5_MINUTES);
-            $actions[] = new Action(
-                key: 'runAutomationRulesBackfill',
-                mutexTtl: 300,
-                expression: self::CRON_EVERY_5_MINUTES,
-                performer: function (): PromiseInterface {
-                    $process = new CronProcess(
-                        cronActionId: 'runAutomationRulesBackfill',
-                        clock: $this->clock,
-                        output: $this->getConsoleOutput(),
-                        command: sprintf('bin/console %s', RunAutomationRulesBackfillConsoleCommand::NAME)
-                    );
-                    $process->start();
+        $extraConfiguredCronActionsOutput[] = sprintf('<info> - runAutomationRulesBackfill: %s</info>', self::CRON_EVERY_5_MINUTES);
+        $actions[] = new Action(
+            key: 'runAutomationRulesBackfill',
+            mutexTtl: 300,
+            expression: self::CRON_EVERY_5_MINUTES,
+            performer: function (): PromiseInterface {
+                $process = new CronProcess(
+                    cronActionId: 'runAutomationRulesBackfill',
+                    clock: $this->clock,
+                    output: $this->getConsoleOutput(),
+                    command: sprintf('bin/console %s', RunAutomationRulesBackfillConsoleCommand::NAME)
+                );
+                $process->start();
 
-                    return resolve(true);
-                }
-            );
-        }
+                return resolve(true);
+            }
+        );
 
         $extraConfiguredCronActionsOutput[] = sprintf('<info> - pruneRenderCache: %s</info>', self::CRON_DAILY);
         $actions[] = new Action(
@@ -149,27 +141,6 @@ final class SystemDaemon implements Daemon
                 return resolve(true);
             }
         );
-
-        $webhookConfig = $this->settingsRepository->import()->getWebhookConfig();
-        if ($this->importMode->isStravaApi() && $webhookConfig->isEnabled()) {
-            $extraConfiguredCronActionsOutput[] = sprintf('<info> - processStravaWebhooks: %s</info>', $webhookConfig->getCronExpression());
-            $actions[] = new Action(
-                key: 'processStravaWebhooks',
-                mutexTtl: 60,
-                expression: (string) $webhookConfig->getCronExpression(),
-                performer: function (): PromiseInterface {
-                    $process = new CronProcess(
-                        cronActionId: 'processStravaWebhooks',
-                        clock: $this->clock,
-                        output: $this->getConsoleOutput(),
-                        command: sprintf('bin/console %s', ProcessStravaWebhooksConsoleCommand::NAME)
-                    );
-                    $process->start();
-
-                    return resolve(true);
-                }
-            );
-        }
 
         \WyriHaximus\React\Cron::create(...$actions)->on('error', function (\Throwable $throwable): void {
             $this->getConsoleOutput()->writeln(sprintf('<error>%s</error>', $throwable->getMessage()));

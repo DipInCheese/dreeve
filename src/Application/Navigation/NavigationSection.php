@@ -16,6 +16,5 @@ enum NavigationSection: string
     case BEST_EFFORTS = 'best-efforts';
     case MILESTONES = 'milestones';
     case REWIND = 'rewind';
-    case CHALLENGES = 'challenges';
     case PHOTOS = 'photos';
 }

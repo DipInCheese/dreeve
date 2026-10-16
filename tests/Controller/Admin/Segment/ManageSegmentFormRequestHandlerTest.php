@@ -2,7 +2,6 @@
 
 namespace App\Tests\Controller\Admin\Segment;
 
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\SegmentId;
 use App\Domain\Segment\SegmentRepository;
 use App\Domain\Segment\SegmentType;
@@ -16,7 +15,6 @@ class ManageSegmentFormRequestHandlerTest extends AdminWebTestCase
 {
     public function testRendersTheAddForm(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $crawler = $this->client->request('GET', '/admin/segments/add');
@@ -43,20 +41,9 @@ class ManageSegmentFormRequestHandlerTest extends AdminWebTestCase
         $this->assertEquals(1, $options['elevationInMetersPerUnit']);
     }
 
-    public function testItIsNotAvailableInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        $this->client->loginUser($this->adminUser());
-
-        $this->client->request('GET', '/admin/segments/add');
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
     #[DataProvider('provideRedirectToQueryParams')]
     public function testRendersTheEditFormPrefilledWithTheSegment(string $query, string $expectedRedirect): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
             ->withSegmentId(SegmentId::fromUnprefixed('1'))
             ->withName(Name::fromString('Kwaremont'))
@@ -82,7 +69,6 @@ class ManageSegmentFormRequestHandlerTest extends AdminWebTestCase
     #[DataProvider('provideRedirectToQueryParams')]
     public function testRendersTheDeleteConfirmation(string $query, string $expectedRedirect): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
             ->withSegmentId(SegmentId::fromUnprefixed('1'))
             ->withName(Name::fromString('Kwaremont'))
@@ -110,9 +96,8 @@ class ManageSegmentFormRequestHandlerTest extends AdminWebTestCase
     }
 
     #[DataProvider('provideUnavailablePages')]
-    public function testUnavailablePagesAreNotFound(ImportMode $importMode, SegmentType $type, string $path): void
+    public function testUnavailablePagesAreNotFound(SegmentType $type, string $path): void
     {
-        $this->withImportMode($importMode);
         $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
             ->withSegmentId(SegmentId::fromUnprefixed('1'))
             ->withType($type)
@@ -126,10 +111,8 @@ class ManageSegmentFormRequestHandlerTest extends AdminWebTestCase
 
     public static function provideUnavailablePages(): iterable
     {
-        yield 'editing a Strava segment' => [ImportMode::FILES, SegmentType::IMPORTED, '/admin/segments/segment-1/edit'];
-        yield 'editing an unknown segment' => [ImportMode::FILES, SegmentType::CUSTOM, '/admin/segments/segment-2/edit'];
-        yield 'deleting an unknown segment' => [ImportMode::FILES, SegmentType::CUSTOM, '/admin/segments/segment-2/delete'];
-        yield 'editing in Strava API mode' => [ImportMode::STRAVA_API, SegmentType::CUSTOM, '/admin/segments/segment-1/edit'];
-        yield 'deleting in Strava API mode' => [ImportMode::STRAVA_API, SegmentType::CUSTOM, '/admin/segments/segment-1/delete'];
+        yield 'editing a Strava segment' => [SegmentType::IMPORTED, '/admin/segments/segment-1/edit'];
+        yield 'editing an unknown segment' => [SegmentType::CUSTOM, '/admin/segments/segment-2/edit'];
+        yield 'deleting an unknown segment' => [SegmentType::CUSTOM, '/admin/segments/segment-2/delete'];
     }
 }

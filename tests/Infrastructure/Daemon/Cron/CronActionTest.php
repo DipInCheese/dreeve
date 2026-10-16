@@ -2,7 +2,6 @@
 
 namespace App\Tests\Infrastructure\Daemon\Cron;
 
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Daemon\Cron\CronAction;
 use App\Infrastructure\Daemon\Cron\CronActionId;
 use Cron\CronExpression;
@@ -13,23 +12,21 @@ class CronActionTest extends TestCase
     public function testGetIdAndExpression(): void
     {
         $cronAction = CronAction::create(
-            id: CronActionId::RUN_STRAVA_IMPORT,
+            id: CronActionId::GEAR_MAINTENANCE_NOTIFICATION,
             expression: new CronExpression('0 2 * * *'),
         );
 
-        $this->assertSame(CronActionId::RUN_STRAVA_IMPORT, $cronAction->getId());
+        $this->assertSame(CronActionId::GEAR_MAINTENANCE_NOTIFICATION, $cronAction->getId());
         $this->assertEquals(new CronExpression('0 2 * * *'), $cronAction->getExpression());
     }
 
     public function testItDelegatesToItsId(): void
     {
         $cronAction = CronAction::create(
-            id: CronActionId::RUN_STRAVA_IMPORT,
+            id: CronActionId::GEAR_MAINTENANCE_NOTIFICATION,
             expression: new CronExpression('* * * * *'),
         );
 
-        $this->assertSame('bin/console app:import:strava', $cronAction->getCommand());
-        $this->assertFalse($cronAction->supportsImportMode(ImportMode::FILES));
-        $this->assertTrue($cronAction->supportsImportMode(ImportMode::STRAVA_API));
+        $this->assertSame('bin/console app:notification:gear-maintenance', $cronAction->getCommand());
     }
 }

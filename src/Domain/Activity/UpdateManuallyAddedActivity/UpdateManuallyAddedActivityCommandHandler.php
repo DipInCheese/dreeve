@@ -12,7 +12,6 @@ use App\Domain\Image\ImageDirectory;
 use App\Domain\Image\ImagePath;
 use App\Domain\Image\ImageStorage;
 use App\Domain\Image\RemovedImage;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\CQRS\Command\Command;
 use App\Infrastructure\CQRS\Command\CommandHandler;
@@ -25,17 +24,12 @@ final readonly class UpdateManuallyAddedActivityCommandHandler implements Comman
         private ActivityRepository $activityRepository,
         private SettingsRepository $settingsRepository,
         private ImageStorage $imageStorage,
-        private ImportMode $importMode,
     ) {
     }
 
     public function handle(Command $command): void
     {
         assert($command instanceof UpdateManuallyAddedActivity);
-
-        if (!$this->importMode->isFiles()) {
-            throw CouldNotProcessCommand::withReason('Manually added activities can only be updated when running in file import mode.');
-        }
 
         $activityWithRawData = $this->activityRepository->findWithRawData($command->getActivityId());
         if (ImportSource::MANUAL !== $activityWithRawData->getActivity()->getImportSource()) {

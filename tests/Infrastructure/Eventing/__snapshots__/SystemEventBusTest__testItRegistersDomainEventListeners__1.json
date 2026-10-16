@@ -30,9 +30,6 @@
     "App\\Domain\\Segment\\SegmentEffort\\RescanCustomSegmentsListener": [
         "reactToActivitySportTypeWasChanged"
     ],
-    "App\\Domain\\Challenge\\ChallengeInvalidateCacheTagsListener": [
-        "reactToChallengeWasImported"
-    ],
     "App\\Domain\\Dashboard\\DashboardInvalidateCacheTagsListener": [
         "reactToDashboardLayoutWasUpdated"
     ],

@@ -39,7 +39,7 @@ https://github.com/user-attachments/assets/2789c961-f04f-4804-b6eb-88d45e62687c
 
 ### Key Features
 
-* **Import activities** - Use raw FIT/TCX/GPX files or connect your Strava account
+* **Import activities** - Use raw FIT/TCX/GPX files from your watch or app
 * **Admin panel** - Manage activities, gear and every setting with an easy-to-use browser-based interface
 * **Dashboard** - Gain a quick overview of stats and charts
 * **Automation rules** - Set up automation rules to streamline gear tracking, commuting flags, and more
@@ -52,7 +52,6 @@ https://github.com/user-attachments/assets/2789c961-f04f-4804-b6eb-88d45e62687c
 * **Heatmap** - Visualize where you’ve been active the most
 * **Milestones** - A timeline view of your key achievements and milestones over time
 * **Rewind** - A fun way to look back on your year in motion
-* **Challenges** - See which Strava challenges you've conquered
 * **Activity Photos** - Relive your moments with a photo archive
 * **AI workout assistant** - Get personalized workout suggestions and insights powered by AI
 * **User badges** - Shareable badges you can embed on your website, blog, or forum profiles

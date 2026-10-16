@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Daemon\Cron;
 
-use App\Domain\Import\ImportMode;
 use Cron\CronExpression;
 
 final readonly class CronAction
@@ -38,10 +37,5 @@ final readonly class CronAction
     public function getCommand(): string
     {
         return $this->id->command();
-    }
-
-    public function supportsImportMode(ImportMode $importMode): bool
-    {
-        return $this->id->supportsImportMode($importMode);
     }
 }

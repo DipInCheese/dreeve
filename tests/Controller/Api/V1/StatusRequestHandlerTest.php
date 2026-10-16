@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Controller\Api\V1;
 
 use App\Application\AppVersion;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Serialization\Json;
 use App\Tests\Controller\ControllerWebTestCase;
@@ -34,22 +33,10 @@ class StatusRequestHandlerTest extends ControllerWebTestCase
         );
     }
 
-    public function testHandleInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $this->client->request('GET', '/api/v1/status', server: ['HTTP_AUTHORIZATION' => 'Bearer '.$this->token]);
-
-        // 200, not an error: the key is valid, the instance just cannot accept uploads.
-        $this->assertResponseIsSuccessful();
-        $this->assertFalse(Json::decode((string) $this->client->getResponse()->getContent())['canUpload']);
-    }
-
     #[\Override]
     protected function prepareEnvironment(): void
     {
         $this->token = Token::generate();
         $_SERVER['DREEVE_API_KEY'] = $_ENV['DREEVE_API_KEY'] = (string) $this->token;
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = ImportMode::FILES->value;
     }
 }

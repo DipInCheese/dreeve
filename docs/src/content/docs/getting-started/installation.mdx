@@ -86,10 +86,6 @@ Every time you change the .env file, you need to recreate (for example; `docker 
 This is the minimal `.env` to get started.
 
 ```dotenv title=".env"
-# Either "files" (default) or "stravaApi".
-# See https://docs.dreeve.app/importing/overview/
-IMPORT_MODE=files
-
 # The URL you will reach the app on. Include the port if you use one.
 # Must point at the root of a (sub)domain, subdirectories are not (fully) supported.
 APP_URL=http://localhost:8080
@@ -116,12 +112,6 @@ ADMIN_PASSWORD_HASH='replace-me'
 # to keep the API closed; while it is unset every API request is rejected.
 # Generate a value under Settings -> Security -> API access in the admin panel.
 # DREEVE_API_KEY=drv_...
-
-# Only needed when IMPORT_MODE=stravaApi.
-# See https://docs.dreeve.app/importing/strava-import/
-# STRAVA_CLIENT_ID=
-# STRAVA_CLIENT_SECRET=
-# STRAVA_REFRESH_TOKEN=
 
 # Uncomment and set these to run the container as a non-root user.
 # PUID=your host UID

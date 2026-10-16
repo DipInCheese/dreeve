@@ -5,7 +5,6 @@ namespace App\Tests\Controller\Admin\Gear;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\GearType;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Measurement\Length\Meter;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Gear\GearBuilder;
@@ -56,39 +55,8 @@ class ManageGearOverviewRequestHandlerTest extends AdminWebTestCase
         );
     }
 
-    public function testOnlyCustomGearHasADeleteLinkInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $gearRepository = static::getContainer()->get(GearRepository::class);
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('1'))
-                ->withGearType(GearType::IMPORTED)
-                ->build()
-        );
-        $gearRepository->add(
-            GearBuilder::fromDefaults()
-                ->withGearId(GearId::fromUnprefixed('2'))
-                ->withGearType(GearType::CUSTOM)
-                ->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $crawler = $this->client->request('GET', '/admin/gear');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSame(
-            ['/admin/gear/gear-2/delete'],
-            $crawler->filter('table.data-table tbody a[title="Delete"]')->each(fn ($link): ?string => $link->attr('href')),
-        );
-    }
-
     public function testAllGearHasADeleteLinkInFilesMode(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         $gearRepository = static::getContainer()->get(GearRepository::class);
         $gearRepository->add(
             GearBuilder::fromDefaults()

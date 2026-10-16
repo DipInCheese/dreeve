@@ -59,14 +59,6 @@ class UpdateSettingsTest extends TestCase
             'Invalid date format provided "q", invalid format characters found: q',
         ];
 
-        yield 'import data with an enabled webhook without verify token' => [
-            [
-                'group' => 'import',
-                'data' => ['webhooks' => ['enabled' => true]],
-            ],
-            '"verifyToken" property cannot be empty.',
-        ];
-
         yield 'metrics data with an unknown sport type in the Eddington configuration' => [
             [
                 'group' => 'metrics',

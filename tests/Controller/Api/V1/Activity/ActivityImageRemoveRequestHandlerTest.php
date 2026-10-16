@@ -7,7 +7,6 @@ namespace App\Tests\Controller\Api\V1\Activity;
 use App\Domain\Activity\ActivityId;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Security\Api\Token;
 use App\Infrastructure\Serialization\Json;
 use App\Tests\Controller\ControllerWebTestCase;
@@ -103,17 +102,6 @@ class ActivityImageRemoveRequestHandlerTest extends ControllerWebTestCase
         yield 'malformed activity id' => ['not-an-activity-id'];
     }
 
-    public function testItRejectsRemovingAnImageInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-
-        $this->client->request('DELETE', self::PATH, server: ['HTTP_AUTHORIZATION' => 'Bearer '.$this->token]);
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CONFLICT);
-        $this->assertSame('import_mode_not_files', $this->errorCode());
-        $this->assertTrue($this->fileStorage->fileExists('activities/0025176c-5652-11ee-923d-02424dd627d5.png'));
-    }
-
     public function testItRejectsAnUnauthenticatedRequest(): void
     {
         $this->client->request('DELETE', self::PATH);
@@ -138,7 +126,6 @@ class ActivityImageRemoveRequestHandlerTest extends ControllerWebTestCase
     {
         $this->token = Token::generate();
         $_SERVER['DREEVE_API_KEY'] = $_ENV['DREEVE_API_KEY'] = (string) $this->token;
-        $_SERVER['IMPORT_MODE'] = $_ENV['IMPORT_MODE'] = ImportMode::FILES->value;
     }
 
     #[\Override]

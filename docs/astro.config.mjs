@@ -33,7 +33,6 @@ export default defineConfig({
 						'- Dreeve runs as two Docker containers (`app` and `daemon`) that share the same volumes, defined in a `docker-compose.yml`.',
 						'- Environment variables live in a `.env` file. All other configuration is done in the admin panel at `/admin`.',
 						'- Changes to `.env` require recreating the containers (`docker compose up -d`), a restart is not enough.',
-						'- Strava is optional. The default import mode is `files` (.fit, .tcx, .gpx); `stravaApi` imports from Strava.',
 					].join('\n'),
 					customSets: [
 						{
@@ -43,7 +42,7 @@ export default defineConfig({
 						},
 						{
 							label: 'Importing activities',
-							description: 'importing activities from files and from Strava',
+							description: 'importing activities from files',
 							paths: ['importing/**'],
 						},
 						{
@@ -93,7 +92,6 @@ export default defineConfig({
 										{ slug: 'getting-started/installation-on-k8s', label: 'Installation on Kubernetes' },
 										{ slug: 'getting-started/multi-user', label: 'Multiple users' },
 										{ slug: 'getting-started/updates', label: 'Updates' },
-										{ slug: 'getting-started/migrating-from-v4', label: 'Migrating from v4 to v5' },
 									],
 								},
 								{
@@ -101,9 +99,6 @@ export default defineConfig({
 									items: [
 										{ slug: 'importing/overview', label: 'Overview' },
 										{ slug: 'importing/file-import', label: 'File import' },
-										{ slug: 'importing/strava-import', label: 'Strava import' },
-										{ slug: 'importing/strava-webhooks', label: 'Strava webhooks' },
-										{ slug: 'importing/strava-challenges-and-trophies', label: 'Strava challenges and trophies' },
 									],
 								},
 								{
@@ -124,8 +119,6 @@ export default defineConfig({
 										{ slug: 'troubleshooting/faq', label: 'FAQ' },
 										{ slug: 'troubleshooting/logs', label: 'Logs' },
 										{ slug: 'troubleshooting/clearing-the-cache', label: 'Clearing the cache' },
-										{ slug: 'troubleshooting/import-build-fails', label: 'Import fails with syntax error' },
-										{ slug: 'troubleshooting/strava-api-errors', label: 'Strava API errors' },
 										{ slug: 'troubleshooting/shoutrrr-notifications', label: 'Notification issues' },
 									],
 								},

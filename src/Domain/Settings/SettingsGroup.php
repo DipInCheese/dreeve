@@ -9,7 +9,6 @@ enum SettingsGroup: string
     case GENERAL = 'general';
     case APPEARANCE = 'appearance';
     case MAPS = 'maps';
-    case IMPORT = 'import';
     case METRICS = 'metrics';
     case ZWIFT = 'zwift';
     case INTEGRATIONS = 'integrations';
@@ -25,7 +24,6 @@ enum SettingsGroup: string
             self::GENERAL => GeneralSettings::fromArray($data),
             self::APPEARANCE => AppearanceSettings::fromArray($data),
             self::MAPS => MapsSettings::fromArray($data),
-            self::IMPORT => ImportSettings::fromArray($data),
             self::METRICS => MetricsSettings::fromArray($data),
             self::ZWIFT => ZwiftSettings::fromArray($data),
             self::INTEGRATIONS => IntegrationsSettings::fromArray($data),

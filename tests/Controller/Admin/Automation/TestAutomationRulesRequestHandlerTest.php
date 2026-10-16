@@ -15,7 +15,6 @@ use App\Domain\Automation\Condition\ConditionType;
 use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredCondition;
 use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredConditions;
 use App\Domain\Automation\RuleConfiguration;
-use App\Domain\Import\ImportMode;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\Domain\Automation\AutomationRuleBuilder;
@@ -23,23 +22,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class TestAutomationRulesRequestHandlerTest extends AdminWebTestCase
 {
-    public function testItReturnsANotFoundWhenNotInFileImportMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
-        static::getContainer()->get(AutomationRuleRepository::class)->add(
-            AutomationRuleBuilder::fromDefaults()->build()
-        );
-
-        $this->client->loginUser($this->adminUser());
-
-        $this->client->request('GET', '/admin/automation-rules/test');
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
     public function testItReturnsANotFoundResponseWhenThereAreNoAutomationRules(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->client->loginUser($this->adminUser());
 
         $this->client->request('GET', '/admin/automation-rules/test');
@@ -49,7 +33,6 @@ class TestAutomationRulesRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheFormWithoutAnActivityId(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()->build()
         );
@@ -71,7 +54,6 @@ class TestAutomationRulesRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheTraceForAValidActivityId(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         static::getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()
                 ->withActivityId(ActivityId::fromUnprefixed('1'))
@@ -114,7 +96,6 @@ class TestAutomationRulesRequestHandlerTest extends AdminWebTestCase
     #[DataProvider('provideUnknownActivityIds')]
     public function testItRendersANotFoundErrorForAnUnknownActivityId(string $activityId): void
     {
-        $this->withImportMode(ImportMode::FILES);
         static::getContainer()->get(AutomationRuleRepository::class)->add(
             AutomationRuleBuilder::fromDefaults()->build()
         );

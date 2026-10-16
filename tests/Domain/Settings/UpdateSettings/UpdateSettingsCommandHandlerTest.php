@@ -65,30 +65,6 @@ class UpdateSettingsCommandHandlerTest extends ContainerTestCase
         $this->assertEquals($data, $this->settingsRepository->findGroup(SettingsGroup::APPEARANCE));
     }
 
-    public function testItUpdatesImportSettings(): void
-    {
-        $data = [
-            'numberOfNewActivitiesToProcessPerImport' => 100,
-            'sportTypesToImport' => ['Ride'],
-            'activityVisibilitiesToImport' => ['everyone'],
-            'skipActivitiesRecordedBefore' => '2023-09-01',
-            'activitiesToSkipDuringImport' => ['123'],
-            'optInToSegmentDetailImport' => false,
-            'skipImageDownloadDuringImport' => true,
-            'webhooks' => [
-                'enabled' => true,
-                'verifyToken' => 'el-token',
-            ],
-        ];
-
-        $this->commandBus->dispatch(UpdateSettings::fromPayload([
-            'group' => SettingsGroup::IMPORT->value,
-            'data' => $data,
-        ]));
-
-        $this->assertEquals($data, $this->settingsRepository->findGroup(SettingsGroup::IMPORT));
-    }
-
     public function testItUpdatesMetricsSettings(): void
     {
         $data = [
@@ -200,7 +176,6 @@ class UpdateSettingsCommandHandlerTest extends ContainerTestCase
     {
         $data = [
             'cron' => [
-                'runStravaImportAndBuildApp' => ['expression' => '0 3 * * *', 'enabled' => true],
                 'gearMaintenanceNotification' => ['expression' => '0 4 * * *', 'enabled' => false],
                 'appUpdateAvailableNotification' => ['expression' => '0 5 * * *', 'enabled' => false],
             ],
@@ -222,7 +197,7 @@ class UpdateSettingsCommandHandlerTest extends ContainerTestCase
             'group' => SettingsGroup::DAEMON->value,
             'data' => [
                 'cron' => [
-                    'runStravaImportAndBuildApp' => ['expression' => 'not-a-cron', 'enabled' => true],
+                    'gearMaintenanceNotification' => ['expression' => 'not-a-cron', 'enabled' => true],
                 ],
             ],
         ]);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Segment;
 
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\AddCustomSegment\AddCustomSegment;
 use App\Domain\Segment\DeleteSegment\DeleteSegment;
 use App\Domain\Segment\Segment;
@@ -26,17 +25,12 @@ final readonly class ManageSegmentFormRequestHandler
         private Environment $twig,
         private SettingsRepository $settingsRepository,
         private SegmentRepository $segmentRepository,
-        private ImportMode $importMode,
     ) {
     }
 
     #[Route(path: '/admin/segments/add', name: 'admin_add_segment', methods: ['GET'], priority: 10)]
     public function handleAdd(): HtmlResponse
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Page not found');
-        }
-
         $unitSystem = $this->settingsRepository->appearance()->getUnitSystem();
 
         return new HtmlResponse($this->twig->render('html/admin/page/segment/add-segment.html.twig', [
@@ -67,9 +61,6 @@ final readonly class ManageSegmentFormRequestHandler
     public function handleDelete(string $segmentId): HtmlResponse
     {
         $segment = $this->findSegment($segmentId);
-        if (!$segment->isDeletableIn($this->importMode)) {
-            throw new NotFoundHttpException('Segment cannot be deleted');
-        }
 
         return new HtmlResponse($this->twig->render('html/admin/page/segment/delete-segment.html.twig', [
             'dispatchCommand' => DeleteSegment::getCommandName(),
@@ -79,10 +70,6 @@ final readonly class ManageSegmentFormRequestHandler
 
     private function findSegment(string $segmentId): Segment
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Page not found');
-        }
-
         try {
             return $this->segmentRepository->find(SegmentId::fromString($segmentId));
         } catch (EntityNotFound) {

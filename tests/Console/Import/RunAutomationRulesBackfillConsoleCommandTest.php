@@ -11,7 +11,6 @@ use App\Domain\Automation\AutomationRuleIds;
 use App\Domain\Automation\Backfill\AutomationRulesBackfillQueue;
 use App\Domain\Automation\Backfill\AutomationRulesBackfillRequest;
 use App\Domain\Automation\Backfill\RunAutomationRulesBackfill\RunAutomationRulesBackfill;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\FileSystem\PermissionChecker;
 use App\Infrastructure\KeyValue\KeyValueStore;
@@ -60,24 +59,6 @@ class RunAutomationRulesBackfillConsoleCommandTest extends ConsoleCommandTestCas
 
         $this->assertEmpty($this->commandBus->getDispatchedCommands());
         $this->assertStringContainsString('No automation rules backfill queued...', $commandTester->getDisplay());
-    }
-
-    public function testReturnsEarlyWhenImportModeIsStrava(): void
-    {
-        new AutomationRulesBackfillQueue($this->keyValueStore)->queue(AutomationRulesBackfillRequest::fromState(
-            AutomationRuleIds::fromArray([AutomationRuleId::fromUnprefixed('1')]),
-            ActivityIds::fromArray([ActivityId::fromUnprefixed('a')]),
-        ));
-
-        $command = $this->buildCommand($commandBus = new SpyCommandBus(), importMode: ImportMode::STRAVA_API);
-        $application = new Application();
-        $application->addCommand($command);
-
-        $commandTester = new CommandTester($application->find(RunAutomationRulesBackfillConsoleCommand::NAME));
-        $commandTester->execute(['command' => $command->getName()]);
-
-        $this->assertEmpty($commandBus->getDispatchedCommands());
-        $this->assertStringContainsString('Automation rules are only available in file import mode', $commandTester->getDisplay());
     }
 
     public function testPostponesWhenLockIsAlreadyAcquired(): void
@@ -182,7 +163,6 @@ class RunAutomationRulesBackfillConsoleCommandTest extends ConsoleCommandTestCas
     private function buildCommand(
         CommandBus $commandBus,
         PermissionChecker $permissionChecker = new SuccessfulPermissionChecker(),
-        ImportMode $importMode = ImportMode::FILES,
         LoggerInterface $logger = new NullLogger(),
     ): RunAutomationRulesBackfillConsoleCommand {
         return new RunAutomationRulesBackfillConsoleCommand(
@@ -195,7 +175,6 @@ class RunAutomationRulesBackfillConsoleCommandTest extends ConsoleCommandTestCas
                 lockName: LockName::IMPORT_DATA,
             ),
             logger: $logger,
-            importMode: $importMode,
         );
     }
 

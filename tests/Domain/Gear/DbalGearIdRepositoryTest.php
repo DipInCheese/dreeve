@@ -2,16 +2,11 @@
 
 namespace App\Tests\Domain\Gear;
 
-use App\Domain\Activity\ActivityId;
-use App\Domain\Activity\ActivityIds;
-use App\Domain\Activity\ActivityRepository;
-use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Gear\DbalGearIdRepository;
 use App\Domain\Gear\GearId;
 use App\Domain\Gear\GearIdRepository;
 use App\Domain\Gear\GearRepository;
 use App\Tests\ContainerTestCase;
-use App\Tests\Domain\Activity\ActivityBuilder;
 
 class DbalGearIdRepositoryTest extends ContainerTestCase
 {
@@ -43,34 +38,6 @@ class DbalGearIdRepositoryTest extends ContainerTestCase
         $this->assertEquals(
             [GearId::fromUnprefixed(2)],
             $this->gearIdRepository->findRetired()->toArray()
-        );
-    }
-
-    public function testFindUniqueStravaGearIds(): void
-    {
-        $this->getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
-            ActivityBuilder::fromDefaults()
-                ->withActivityId(ActivityId::fromUnprefixed('1'))
-                ->build(),
-            ['gear_id' => 'b1']
-        ));
-        $this->getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
-            ActivityBuilder::fromDefaults()
-                ->withActivityId(ActivityId::fromUnprefixed('2'))
-                ->build(),
-            ['gear_id' => 'b2']
-        ));
-
-        $this->assertEquals(
-            [GearId::fromUnprefixed('b1'), GearId::fromUnprefixed('b2')],
-            $this->gearIdRepository->findUniqueStravaGearIds(null)->toArray()
-        );
-
-        $this->assertEquals(
-            [GearId::fromUnprefixed('b1')],
-            $this->gearIdRepository->findUniqueStravaGearIds(
-                ActivityIds::fromArray([ActivityId::fromUnprefixed('1')])
-            )->toArray()
         );
     }
 

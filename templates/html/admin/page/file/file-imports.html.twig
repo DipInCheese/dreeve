@@ -3,203 +3,200 @@
     {% autoescape false %}
     {% set overviewUrl = path('admin_file_imports', app.request.query.all) %}
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
-        {% embed 'html/admin/component/gated-panel.html.twig' with { 'locked': not importMode.isFiles() } %}
-            {% block lockTitle %}{% autoescape false %}{{ "File imports are only available in file import mode"|trans({}, 'admin') }}{% endautoescape %}{% endblock %}
-            {% block content %}{% autoescape false %}
-                <h3 class="text-lg font-semibold mb-4">
-                    {{ "File imports"|trans({}, 'admin') }}
-                </h3>
-                {% if not overview.isEmpty() or not filters.isEmpty() %}
-                    <form method="get" class="mb-4 flex flex-wrap items-end gap-3">
-                    <div>
-                        <label for="filter-status" class="mt-0! text-xs text-gray-500">{{ "Status"|trans }}</label>
-                        <select id="filter-status" name="filters[status]">
-                            <option value="">{{ "All"|trans }}</option>
-                            {% for status in statusOptions %}
-                                <option value="{{ status.value }}" {{ status == filters.getStatus() ? 'selected' }}>{{ status|trans }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="filter-source" class="mt-0! text-xs text-gray-500">{{ "Source"|trans({}, 'admin') }}</label>
-                        <select id="filter-source" name="filters[source]">
-                            <option value="">{{ "All"|trans }}</option>
-                            {% for source in sourceOptions %}
-                                <option value="{{ source.value }}" {{ source == filters.getSource() ? 'selected' }}>{{ source.label() }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="filter-filename" class="mt-0! text-xs text-gray-500">{{ "Filename"|trans({}, 'admin') }}</label>
-                        <input type="search" id="filter-filename" name="filters[filename]" value="{{ filters.getFilename()|e }}"
-                               autocomplete="off" spellcheck="false">
-                    </div>
-                    <div>
-                        <label for="filter-activity" class="mt-0! text-xs text-gray-500">{{ "Activity"|trans({}, 'admin') }}</label>
-                        <input type="text" id="filter-activity" name="filters[activity]" value="{{ filters.getActivityId() ? filters.getActivityId()|e }}"
-                               placeholder="{{ "Search by name, date or activity ID"|trans({}, 'admin') }}"
-                               autocomplete="off" spellcheck="false"
-                               data-autocomplete-url="{{ relativeUrl(path('admin_activity_search')) }}">
-                    </div>
-                    <button type="submit" class="btn--primary">{{ "Apply"|trans({}, 'admin') }}</button>
-                    {% if not filters.isEmpty() %}
-                        <a href="{{ relativeUrl(path('admin_file_imports')) }}" type="button" class="btn--secondary">
-                            {{ "Clear filters"|trans({}, 'admin') }}
-                        </a>
-                    {% endif %}
-                </form>
-                {% endif %}
-                <div class="relative overflow-x-auto">
-                    <table class="data-table">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="text-left">
-                                {{ "Processed on"|trans({}, 'admin') }}
-                            </th>
-                            <th scope="col" class="text-left">
-                                {{ "Filename"|trans({}, 'admin') }}
-                            </th>
-                            <th scope="col" class="text-left">
-                                {{ "Source"|trans({}, 'admin') }}
-                            </th>
-                            <th scope="col" class="text-left">
-                                {{ "Activity"|trans }}
-                            </th>
-                            <th scope="col" class="narrow sticky-actions">
-                                <span class="sr-only">{{ "Actions"|trans({}, 'admin') }}</span>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for fileImport in overview %}
-                            <tr class="group/row {{ fileImport.isFailed() ? 'row--failed' : '' }}">
-                                <td class="whitespace-nowrap text-left font-medium text-gray-800">
-                                    <div class="flex items-center justify-start gap-2">
-                                        {% if fileImport.isFailed() %}
-                                            <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-red-100 text-red-500"
-                                                  title="{{ fileImport.getErrorMessage()|e }}" aria-label="{{ "Failed"|trans({}, 'admin') }}">
-                                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                                            </span>
-                                        {% elseif fileImport.isQueued() %}
-                                            <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-gray-100 text-gray-500"
-                                                  aria-label="{{ "Queued"|trans({}, 'admin') }}">
-                                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                                            </span>
-                                        {% elseif fileImport.wasSkipped() %}
-                                            <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-amber-100 text-amber-500"
-                                                  title="{{ fileImport.getErrorMessage()|e }}" aria-label="{{ "Skipped"|trans({}, 'admin') }}">
-                                                  <svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                                    </svg>
-                                            </span>
-                                        {% else %}
-                                            <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-green-100 text-green-600"
-                                                  aria-label="{{ "Success"|trans({}, 'admin') }}">
-                                                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M20 6L9 17l-5-5"/></svg>
-                                            </span>
-                                        {% endif %}
-                                        {% if fileImport.isQueued() %}
-                                            <span>{{ "Queued"|trans({}, 'admin') }}</span>
-                                        {% else %}
-                                            <span>
-                                                {{ fileImport.getImportedOn()|formatDate() }}
-                                                <span class="text-xs">{{ fileImport.getImportedOn()|formatTime(true) }}</span>
-                                            </span>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap text-left">
-                                    {{ fileImport.getOriginalFilename() }}
-                                </td>
-                                <td class="whitespace-nowrap text-left">
-                                    <span class="pill pill--neutral text-xs">
-                                        {{ fileImport.getSource().label() }}
-                                    </span>
-                                </td>
-                                <td class="whitespace-nowrap text-left">
-                                    {% set activityId = fileImport.getActivityId() %}
-                                    {% if activityId %}
-                                        <a class="block max-w-100 truncate font-medium text-blue-600 hover:underline"
-                                           title="{{ fileImport.getActivityName() }}"
-                                           href="{{ relativeUrl(path('activity', {'activityId': activityId})) }}">
-                                            {{ fileImport.getActivityName() }}
-                                        </a>
-                                        {% if fileImport.getActivityStartDate() %}
-                                            <span class="block text-xs text-gray-500">{{ fileImport.getActivityStartDate()|formatDate() }}</span>
-                                        {% endif %}
-                                    {% endif %}
-                                </td>
-                                <td class="narrow whitespace-nowrap sticky-actions">
-                                    <div class="inline-flex items-center gap-2">
-                                        {% if fileImport.hasFileContents() %}
-                                            <a href="{{ relativeUrl(path('admin_download_file_import', {fileImportId: fileImport.getFileImportId()})) }}"
-                                               download="{{ fileImport.getOriginalFilename()|e('html_attr') }}"
-                                               class="inline-flex items-center justify-center text-gray-500 transition-colors hover:text-primary"
-                                               title="{{ "Download original file"|trans({}, 'admin') }}">
-                                                <span class="sr-only">{{ "Download original file"|trans({}, 'admin') }}</span>
-                                                <svg class="size-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
-                                                </svg>
-                                            </a>
-                                        {% endif %}
-                                        {% if fileImport.getFileImportId() %}
-                                            <a href="{{ relativeUrlWithRedirectTo(path('admin_delete_file_import', {fileImportId: fileImport.getFileImportId()}), overviewUrl) }}"
-                                               class="inline-flex items-center justify-center text-gray-500 transition-colors hover:text-red-600"
-                                               title="{{ "Delete"|trans({}, 'admin') }}">
-                                                <span class="sr-only">{{ "Delete"|trans({}, 'admin') }}</span>
-                                                <svg class="size-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                                </svg>
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
+        {% autoescape false %}
+            <h3 class="text-lg font-semibold mb-4">
+                {{ "File imports"|trans({}, 'admin') }}
+            </h3>
+            {% if not overview.isEmpty() or not filters.isEmpty() %}
+                <form method="get" class="mb-4 flex flex-wrap items-end gap-3">
+                <div>
+                    <label for="filter-status" class="mt-0! text-xs text-gray-500">{{ "Status"|trans }}</label>
+                    <select id="filter-status" name="filters[status]">
+                        <option value="">{{ "All"|trans }}</option>
+                        {% for status in statusOptions %}
+                            <option value="{{ status.value }}" {{ status == filters.getStatus() ? 'selected' }}>{{ status|trans }}</option>
                         {% endfor %}
-                        {% if overview.isEmpty() %}
-                            <tr>
-                                <td colspan="5">
-                                    <div class="flex flex-col items-center justify-center gap-3 py-12 px-4 text-center">
-                                        <span class="grid place-items-center size-12 rounded-full bg-gray-100 text-gray-400" aria-hidden="true">
-                                            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                                        </span>
-                                        {% if filters.isEmpty() %}
-                                            <div class="flex flex-col gap-1">
-                                                <span class="text-sm font-medium text-gray-800">{{ "No files imported yet."|trans({}, 'admin') }}</span>
-                                                <span class="text-xs text-gray-500">{{ "Imported files will appear here once you upload them."|trans({}, 'admin') }}</span>
-                                            </div>
-                                            <a href="{{ relativeUrl(path('admin_file_upload')) }}" type="button" class="btn--primary mt-1">
-                                                {{ "Upload files"|trans({}, 'admin') }}
-                                            </a>
-                                        {% else %}
-                                            <div class="flex flex-col gap-1">
-                                                <span class="text-sm font-medium text-gray-800">{{ "No file imports match the current filters."|trans({}, 'admin') }}</span>
-                                            </div>
-                                            <a href="{{ relativeUrl(path('admin_file_imports')) }}" class="btn--primary mt-1">
-                                                {{ "Clear filters"|trans({}, 'admin') }}
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endif %}
-                        </tbody>
-                    </table>
+                    </select>
                 </div>
-                {% include 'html/admin/component/pagination.html.twig' with {
-                    'total': overview.getTotal(),
-                    'pagination': overview.getPagination(),
-                } only %}
-            {% endautoescape %}{% endblock %}
-        {% endembed %}
+                <div>
+                    <label for="filter-source" class="mt-0! text-xs text-gray-500">{{ "Source"|trans({}, 'admin') }}</label>
+                    <select id="filter-source" name="filters[source]">
+                        <option value="">{{ "All"|trans }}</option>
+                        {% for source in sourceOptions %}
+                            <option value="{{ source.value }}" {{ source == filters.getSource() ? 'selected' }}>{{ source.label() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="filter-filename" class="mt-0! text-xs text-gray-500">{{ "Filename"|trans({}, 'admin') }}</label>
+                    <input type="search" id="filter-filename" name="filters[filename]" value="{{ filters.getFilename()|e }}"
+                           autocomplete="off" spellcheck="false">
+                </div>
+                <div>
+                    <label for="filter-activity" class="mt-0! text-xs text-gray-500">{{ "Activity"|trans({}, 'admin') }}</label>
+                    <input type="text" id="filter-activity" name="filters[activity]" value="{{ filters.getActivityId() ? filters.getActivityId()|e }}"
+                           placeholder="{{ "Search by name, date or activity ID"|trans({}, 'admin') }}"
+                           autocomplete="off" spellcheck="false"
+                           data-autocomplete-url="{{ relativeUrl(path('admin_activity_search')) }}">
+                </div>
+                <button type="submit" class="btn--primary">{{ "Apply"|trans({}, 'admin') }}</button>
+                {% if not filters.isEmpty() %}
+                    <a href="{{ relativeUrl(path('admin_file_imports')) }}" type="button" class="btn--secondary">
+                        {{ "Clear filters"|trans({}, 'admin') }}
+                    </a>
+                {% endif %}
+            </form>
+            {% endif %}
+            <div class="relative overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-left">
+                            {{ "Processed on"|trans({}, 'admin') }}
+                        </th>
+                        <th scope="col" class="text-left">
+                            {{ "Filename"|trans({}, 'admin') }}
+                        </th>
+                        <th scope="col" class="text-left">
+                            {{ "Source"|trans({}, 'admin') }}
+                        </th>
+                        <th scope="col" class="text-left">
+                            {{ "Activity"|trans }}
+                        </th>
+                        <th scope="col" class="narrow sticky-actions">
+                            <span class="sr-only">{{ "Actions"|trans({}, 'admin') }}</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for fileImport in overview %}
+                        <tr class="group/row {{ fileImport.isFailed() ? 'row--failed' : '' }}">
+                            <td class="whitespace-nowrap text-left font-medium text-gray-800">
+                                <div class="flex items-center justify-start gap-2">
+                                    {% if fileImport.isFailed() %}
+                                        <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-red-100 text-red-500"
+                                              title="{{ fileImport.getErrorMessage()|e }}" aria-label="{{ "Failed"|trans({}, 'admin') }}">
+                                            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                                        </span>
+                                    {% elseif fileImport.isQueued() %}
+                                        <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-gray-100 text-gray-500"
+                                              aria-label="{{ "Queued"|trans({}, 'admin') }}">
+                                            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                        </span>
+                                    {% elseif fileImport.wasSkipped() %}
+                                        <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-amber-100 text-amber-500"
+                                              title="{{ fileImport.getErrorMessage()|e }}" aria-label="{{ "Skipped"|trans({}, 'admin') }}">
+                                              <svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+                                        </span>
+                                    {% else %}
+                                        <span class="grid place-items-center size-7 shrink-0 rounded-lg bg-green-100 text-green-600"
+                                              aria-label="{{ "Success"|trans({}, 'admin') }}">
+                                            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 6L9 17l-5-5"/></svg>
+                                        </span>
+                                    {% endif %}
+                                    {% if fileImport.isQueued() %}
+                                        <span>{{ "Queued"|trans({}, 'admin') }}</span>
+                                    {% else %}
+                                        <span>
+                                            {{ fileImport.getImportedOn()|formatDate() }}
+                                            <span class="text-xs">{{ fileImport.getImportedOn()|formatTime(true) }}</span>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-left">
+                                {{ fileImport.getOriginalFilename() }}
+                            </td>
+                            <td class="whitespace-nowrap text-left">
+                                <span class="pill pill--neutral text-xs">
+                                    {{ fileImport.getSource().label() }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap text-left">
+                                {% set activityId = fileImport.getActivityId() %}
+                                {% if activityId %}
+                                    <a class="block max-w-100 truncate font-medium text-blue-600 hover:underline"
+                                       title="{{ fileImport.getActivityName() }}"
+                                       href="{{ relativeUrl(path('activity', {'activityId': activityId})) }}">
+                                        {{ fileImport.getActivityName() }}
+                                    </a>
+                                    {% if fileImport.getActivityStartDate() %}
+                                        <span class="block text-xs text-gray-500">{{ fileImport.getActivityStartDate()|formatDate() }}</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td class="narrow whitespace-nowrap sticky-actions">
+                                <div class="inline-flex items-center gap-2">
+                                    {% if fileImport.hasFileContents() %}
+                                        <a href="{{ relativeUrl(path('admin_download_file_import', {fileImportId: fileImport.getFileImportId()})) }}"
+                                           download="{{ fileImport.getOriginalFilename()|e('html_attr') }}"
+                                           class="inline-flex items-center justify-center text-gray-500 transition-colors hover:text-primary"
+                                           title="{{ "Download original file"|trans({}, 'admin') }}">
+                                            <span class="sr-only">{{ "Download original file"|trans({}, 'admin') }}</span>
+                                            <svg class="size-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+                                            </svg>
+                                        </a>
+                                    {% endif %}
+                                    {% if fileImport.getFileImportId() %}
+                                        <a href="{{ relativeUrlWithRedirectTo(path('admin_delete_file_import', {fileImportId: fileImport.getFileImportId()}), overviewUrl) }}"
+                                           class="inline-flex items-center justify-center text-gray-500 transition-colors hover:text-red-600"
+                                           title="{{ "Delete"|trans({}, 'admin') }}">
+                                            <span class="sr-only">{{ "Delete"|trans({}, 'admin') }}</span>
+                                            <svg class="size-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                            </svg>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% if overview.isEmpty() %}
+                        <tr>
+                            <td colspan="5">
+                                <div class="flex flex-col items-center justify-center gap-3 py-12 px-4 text-center">
+                                    <span class="grid place-items-center size-12 rounded-full bg-gray-100 text-gray-400" aria-hidden="true">
+                                        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                                    </span>
+                                    {% if filters.isEmpty() %}
+                                        <div class="flex flex-col gap-1">
+                                            <span class="text-sm font-medium text-gray-800">{{ "No files imported yet."|trans({}, 'admin') }}</span>
+                                            <span class="text-xs text-gray-500">{{ "Imported files will appear here once you upload them."|trans({}, 'admin') }}</span>
+                                        </div>
+                                        <a href="{{ relativeUrl(path('admin_file_upload')) }}" type="button" class="btn--primary mt-1">
+                                            {{ "Upload files"|trans({}, 'admin') }}
+                                        </a>
+                                    {% else %}
+                                        <div class="flex flex-col gap-1">
+                                            <span class="text-sm font-medium text-gray-800">{{ "No file imports match the current filters."|trans({}, 'admin') }}</span>
+                                        </div>
+                                        <a href="{{ relativeUrl(path('admin_file_imports')) }}" class="btn--primary mt-1">
+                                            {{ "Clear filters"|trans({}, 'admin') }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% include 'html/admin/component/pagination.html.twig' with {
+                'total': overview.getTotal(),
+                'pagination': overview.getPagination(),
+            } only %}
+        {% endautoescape %}
     </div>
     {% endautoescape %}
 {% endblock main %}

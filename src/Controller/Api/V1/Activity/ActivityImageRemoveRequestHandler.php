@@ -8,10 +8,8 @@ use App\Domain\Activity\ActivityId;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\Image\ActivityImageId;
 use App\Domain\Activity\RemoveActivityImage\RemoveActivityImage;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\Exception\EntityNotFound;
-use App\Infrastructure\Http\Api\ApiErrorResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,21 +21,12 @@ final readonly class ActivityImageRemoveRequestHandler
     public function __construct(
         private ActivityRepository $activityRepository,
         private CommandBus $commandBus,
-        private ImportMode $importMode,
     ) {
     }
 
     #[Route(path: '/api/v1/activities/{activityId}/images/{imageId}', name: 'api_v1_activity_image_remove', methods: ['DELETE'], priority: 3)]
     public function handle(string $activityId, string $imageId): Response
     {
-        if (!$this->importMode->isFiles()) {
-            return new ApiErrorResponse(
-                statusCode: Response::HTTP_CONFLICT,
-                error: 'import_mode_not_files',
-                message: 'Images can only be removed from activities when running in file import mode.',
-            );
-        }
-
         try {
             $activity = $this->activityRepository->find(ActivityId::fromString($activityId));
         } catch (EntityNotFound|\InvalidArgumentException) {

@@ -3,7 +3,6 @@
 namespace App\Tests\Infrastructure\Twig;
 
 use App\Domain\Activity\ActivityIdRepository;
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\SegmentRepository;
 use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\Twig\NavigationTwigExtension;
@@ -28,7 +27,6 @@ class NavigationTwigExtensionTest extends TestCase
             new NavigationTwigExtension(
                 $requestStack,
                 $this->createStub(SettingsRepository::class),
-                ImportMode::FILES,
                 $this->createStub(ActivityIdRepository::class),
                 $this->createStub(SegmentRepository::class),
             )->isActiveNavItem($rules)
@@ -61,7 +59,6 @@ class NavigationTwigExtensionTest extends TestCase
         $extension = new NavigationTwigExtension(
             requestStack: new RequestStack(),
             settingsRepository: $this->createStub(SettingsRepository::class),
-            importMode: ImportMode::FILES,
             activityIdRepository: $this->createStub(ActivityIdRepository::class),
             segmentRepository: $this->createStub(SegmentRepository::class),
         );
@@ -71,7 +68,6 @@ class NavigationTwigExtensionTest extends TestCase
 
     #[DataProvider('provideSegmentManagementAvailability')]
     public function testItShouldDetermineWhetherSegmentManagementIsAvailable(
-        ImportMode $importMode,
         int $numberOfActivities,
         int $numberOfSegments,
         bool $expected,
@@ -86,7 +82,6 @@ class NavigationTwigExtensionTest extends TestCase
             new NavigationTwigExtension(
                 requestStack: new RequestStack(),
                 settingsRepository: $this->createStub(SettingsRepository::class),
-                importMode: $importMode,
                 activityIdRepository: $activityIdRepository,
                 segmentRepository: $segmentRepository,
             )->isSegmentManagementAvailable()
@@ -95,10 +90,9 @@ class NavigationTwigExtensionTest extends TestCase
 
     public static function provideSegmentManagementAvailability(): iterable
     {
-        yield 'never in Strava API mode' => [ImportMode::STRAVA_API, 1, 1, false];
-        yield 'not without activities and segments' => [ImportMode::FILES, 0, 0, false];
-        yield 'with activities only' => [ImportMode::FILES, 1, 0, true];
-        yield 'with segments only' => [ImportMode::FILES, 0, 1, true];
-        yield 'with activities and segments' => [ImportMode::FILES, 1, 1, true];
+        yield 'not without activities and segments' => [0, 0, false];
+        yield 'with activities only' => [1, 0, true];
+        yield 'with segments only' => [0, 1, true];
+        yield 'with activities and segments' => [1, 1, true];
     }
 }

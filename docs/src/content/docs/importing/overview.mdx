@@ -1,54 +1,18 @@
 ---
 title: "Importing activities"
-description: "The two ways to import activities into Dreeve, from files or from the Strava API, selected with IMPORT_MODE."
+description: "How activities get into Dreeve: from .fit, .tcx and .gpx files."
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
 Dreeve builds everything it shows you (dashboard, charts, heatmap, gear stats) out of your activities.
-There are two ways to import them. You can configure this with the `IMPORT_MODE` environment variable.
+They come from `.fit`, `.tcx` and `.gpx` files: upload them in the browser, or drop them in the `watch` folder.
 
-## Two import modes
-
-| | `files` *(default)* | `stravaApi` |
-|---|---|---|
-| Where activities come from | `.fit` / `.tcx` / `.gpx` files you supply | The Strava API |
-| Needs a Strava account | no | yes |
-| Needs API keys | no | yes, a Strava API application |
-| Rate limits | none | yes, Strava's |
-| Segments & segment efforts | yes | yes, imported from Strava |
-| Challenges & trophies | no | yes |
-
-**`files` is the default.** It has no external dependencies: your data never leaves your machine, nothing can
-rate-limit you, and nothing breaks when an API changes. What you give up is the Strava-only data: challenges
-and trophies, none of which is present in an activity file.
-
-:::note[Important]
-The two modes are **mutually exclusive**. Dreeve runs in one or the other
-:::
-
-<Tabs syncKey="import-mode">
-
-<TabItem label="Files mode">
+Importing from files has no external dependencies: your data never leaves your machine, nothing can
+rate-limit you, and nothing breaks when an API changes.
 
 ```bash
 > docker compose exec app bin/console app:import:files
 ```
 
-</TabItem>
-
-<TabItem label="Strava API mode">
-
-```bash
-> docker compose exec app bin/console app:import:strava
-```
-
-</TabItem>
-
-</Tabs>
-
 :::note
-In `files` import mode the **daemon** container runs the import automatically for you every 5 minutes.
-In `stravaApi` mode you can schedule it from the admin panel under **Settings > Daemon**.
+The **daemon** container runs the import automatically for you every 5 minutes.
 :::
-

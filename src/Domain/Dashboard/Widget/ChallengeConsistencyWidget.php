@@ -42,7 +42,7 @@ final readonly class ChallengeConsistencyWidget implements Widget, HasWideConfig
 
     public function getCacheTags(): CacheTags
     {
-        return CacheTags::of(RootCacheTag::ACTIVITIES, RootCacheTag::CHALLENGES);
+        return CacheTags::of(RootCacheTag::ACTIVITIES);
     }
 
     public function getDefaultConfiguration(): WidgetConfiguration

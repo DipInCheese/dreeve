@@ -8,7 +8,6 @@ use App\Domain\Activity\ActivityId;
 use App\Domain\Activity\Scan\ActivityScan;
 use App\Domain\Activity\Scan\ActivityScanRepository;
 use App\Domain\Activity\Scan\ActivityScanType;
-use App\Domain\Import\ImportMode;
 use App\Domain\Segment\DeleteSegment\DeleteSegment;
 use App\Domain\Segment\DeleteSegment\DeleteSegmentCommandHandler;
 use App\Domain\Segment\SegmentEffort\SegmentEffortId;
@@ -59,18 +58,6 @@ class DeleteSegmentCommandHandlerTest extends ContainerTestCase
         );
     }
 
-    public function testItRefusesToDeleteAnImportedSegmentInStravaImportMode(): void
-    {
-        $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
-            ->withSegmentId(SegmentId::fromUnprefixed('1'))
-            ->withType(SegmentType::IMPORTED)
-            ->build());
-
-        $this->expectExceptionObject(CouldNotProcessCommand::withReason('Segments imported from Strava can only be deleted when running in file import mode.'));
-
-        $this->commandBus->dispatch(DeleteSegment::fromPayload(['segmentId' => 'segment-1']));
-    }
-
     public function testItDeletesAnImportedSegmentInFileImportMode(): void
     {
         $this->getContainer()->get(SegmentRepository::class)->add(SegmentBuilder::fromDefaults()
@@ -82,7 +69,6 @@ class DeleteSegmentCommandHandlerTest extends ContainerTestCase
             segmentRepository: $this->getContainer()->get(SegmentRepository::class),
             segmentEffortRepository: $this->getContainer()->get(SegmentEffortRepository::class),
             activityScanRepository: $this->getContainer()->get(ActivityScanRepository::class),
-            importMode: ImportMode::FILES,
         )->handle(DeleteSegment::fromPayload(['segmentId' => 'segment-1']));
 
         $this->assertEquals(0, $this->getConnection()->executeQuery('SELECT COUNT(*) FROM Segment')->fetchOne());

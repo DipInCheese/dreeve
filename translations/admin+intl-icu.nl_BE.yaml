@@ -1,5 +1,3 @@
-'1. Create your Strava API application': '1. Create your Strava API application'
-'2. Connect': '2. Connect'
 24-hour: 24-uurs
 'A backfill is already queued. It runs on the next import cycle, within five minutes.': 'Er staat al een backfill in de wachtrij. Die wordt uitgevoerd bij de volgende importcyclus, binnen de vijf minuten.'
 'A rule applies': 'Er is een regel van toepassing'
@@ -11,7 +9,6 @@ Actions: Acties
 Active: Actief
 'Activities excluded from peak power outputs': 'Activiteiten uitgesloten van piekvermogens'
 'Activities scanned': 'Gescande activiteiten'
-'Activities to skip during import': 'Over te slaan activiteiten bij het importeren'
 'Activities to update': 'Bij te werken activiteiten'
 'Activities will appear here once they are imported.': 'Activiteiten verschijnen hier zodra ze geïmporteerd zijn.'
 Activity: Activiteit
@@ -20,7 +17,6 @@ Activity: Activiteit
 'Activity description': 'Beschrijving activiteit'
 'Activity management': Activiteitenbeheer
 'Activity name': 'Naam activiteit'
-'Activity visibilities to import': 'Te importeren zichtbaarheden van activiteiten'
 'Add Eddington': 'Eddington toevoegen'
 'Add FTP': 'FTP toevoegen'
 'Add a component to start tracking maintenance.': 'Voeg een onderdeel toe om onderhoud bij te houden.'
@@ -82,7 +78,6 @@ Apply: Toepassen
 'Attached to': 'Gekoppeld aan'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Vul automatisch uitrusting, woon-werk, sporttype en meer in bij nieuw geïmporteerde activiteiten. Regels worden van boven naar onder uitgevoerd en kunnen ook toegepast worden op activiteiten die je al geïmporteerd hebt.'
 'Automation rules': Automatiseringsregels
-'Automation rules are only available in file import mode': 'Automatiseringsregels zijn enkel beschikbaar in de modus bestandsimport'
 'Available tokens': 'Beschikbare tokens'
 'Average cadence': 'Gemiddelde cadans'
 'Average heart rate (bpm)': 'Gemiddelde hartslag (bpm)'
@@ -98,7 +93,6 @@ Cancel: Annuleren
 'Changes still need to be processed before they appear on the app': 'Wijzigingen moeten nog verwerkt worden voor ze in de app verschijnen'
 'Changes to these settings only take effect after you restart the daemon container.': 'Wijzigingen aan deze instellingen worden pas actief nadat je de daemon-container herstart.'
 'Chat commands': "Chatcommando's"
-'Check interval (minutes)': 'Controle-interval (minuten)'
 'Choose the order the metrics are shown in.': 'Kies de volgorde waarin de meetwaarden getoond worden.'
 Clear: Wissen
 'Clear filters': 'Filters wissen'
@@ -115,14 +109,8 @@ Configure: Configureren
 'Configure {widget}': '{widget} configureren'
 Configured: Geconfigureerd
 'Configured via an environment variable and cannot be changed here.': 'Geconfigureerd via een omgevingsvariabele en kan hier niet gewijzigd worden.'
-'Configured via environment variables and cannot be changed here.': 'Geconfigureerd via omgevingsvariabelen en kan hier niet gewijzigd worden.'
-'Connect with Strava': 'Connect with Strava'
-'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.': 'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.'
 'Connected sensors': 'Verbonden sensoren'
-'Connected to Strava as {name}.': 'Connected to Strava as {name}.'
-'Connected to Strava.': 'Connected to Strava.'
 'Continues to next rule': 'Gaat verder naar de volgende regel'
-'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.': 'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.'
 'Copy this API key': 'Kopieer deze API-sleutel'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': Cron-expressie
@@ -143,13 +131,9 @@ Delete: Verwijderen
 'Deleting a rule does not revert changes it already made to activities. This action cannot be undone.': 'Een regel verwijderen draait de wijzigingen die hij al aan activiteiten maakte niet terug. Deze actie kan niet ongedaan gemaakt worden.'
 Deleting...: 'Aan het verwijderen...'
 Description: Beschrijving
-'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Gedetailleerde instructies vind je in {linkOpen}de documentatie{linkClose}.'
 Disable: Disable
 Disabled: Uitgeschakeld
-'Disconnect Strava': 'Disconnect Strava'
-"Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept.": "Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept."
 Distance: Afstand
-'Do not download activity photos': "Geen activiteitsfoto's downloaden"
 Done: Klaar
 'Download original file': 'Origineel bestand downloaden'
 'Drag the start and end markers along the route to select the segment.': 'Drag the start and end markers along the route to select the segment.'
@@ -171,7 +155,6 @@ Efforts: Efforts
 Elevation: Hoogte
 Enable: Enable
 'Enable AI integration': 'AI-integratie inschakelen'
-'Enable Strava webhooks': 'Strava-webhooks inschakelen'
 Enabled: Ingeschakeld
 Endpoint: Endpoint
 'Ends near': 'Eindigt nabij'
@@ -191,11 +174,8 @@ Favourite: Favourite
 Female: Vrouw
 'File exceeds {max} MB': 'Bestand is groter dan {max} MB'
 'File imports': Bestandsimports
-'File imports are only available in file import mode': 'Bestandsimports zijn enkel beschikbaar in de modus bestandsimport'
 'File upload': 'Bestand uploaden'
-'File upload is only available in file import mode': 'Bestanden uploaden is enkel beschikbaar in de modus bestandsimport'
 Filename: Bestandsnaam
-'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.': 'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.'
 Filter: Filter
 'First name': Voornaam
 'Fixed value': 'Vaste waarde'
@@ -220,23 +200,17 @@ Heatmap: Heatmap
 'History of weight (in kg or pounds, depending on the appearance unit system). Needed to calculate relative w/kg.': 'Historiek van je gewicht (in kg of pond, afhankelijk van het eenhedenstelsel in de weergave). Nodig om het relatieve w/kg te berekenen.'
 'Hold ctrl (⌘ on Mac) to zoom the map with the scroll wheel': 'Houd ctrl (⌘ op Mac) ingedrukt om met het scrollwiel in te zoomen op de kaart'
 Hours: Uren
-'How often (in minutes, between 1 and 60) queued webhook events are processed.': 'Hoe vaak (in minuten, tussen 1 en 60) webhook-events in de wachtrij verwerkt worden.'
 If: Als
 'If all of these match': 'Als al deze voorwaarden overeenkomen'
 "If you're not sure about your zones, leave these unchanged, the defaults are sensible. In relative mode the numbers are percentages of your max heart rate; in absolute mode they are actual bpm.": 'Als je niet zeker bent van je zones, laat ze dan ongewijzigd; de standaardwaarden zijn verstandig. In relatieve modus zijn de getallen percentages van je maximale hartslag; in absolute modus zijn het effectieve bpm-waarden.'
 'Ignore retired gear': 'Uitrusting buiten gebruik negeren'
 Image: Afbeelding
 Images: Afbeeldingen
-Import: Importeren
-'Import Strava data': 'Strava-gegevens importeren'
 'Import activities': 'Activiteiten importeren'
 'Import pending': 'Import in behandeling'
-'Import segment details': 'Segmentdetails importeren'
-'Import segment details so segment maps can be displayed. This needs an extra Strava API call per segment and increases import time significantly.': 'Importeer segmentdetails zodat segmentkaarten getoond kunnen worden. Dit vraagt een extra Strava API-call per segment en verlengt de importtijd aanzienlijk.'
 'Import source': Importbron
 'Imported files will appear here once you upload them.': 'Geïmporteerde bestanden verschijnen hier zodra je ze uploadt.'
 'Imported from Strava': 'Geïmporteerd van Strava'
-'Imports new Strava activities.': 'Importeert nieuwe Strava-activiteiten.'
 'Include retired gear': 'Uitrusting buiten gebruik meenemen'
 Info: Info
 'Installed on': 'Installed on'
@@ -249,11 +223,7 @@ Invited: Invited
 Label: Label
 'Last name': Achternaam
 Latitude: Breedtegraad
-'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.': 'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.'
-'Leave all unchecked to import every sport type. ⚠️ Restricting this after activities have been imported deletes activities of excluded sport types.': 'Laat alles uitgevinkt om elk sporttype te importeren. ⚠️ Als je dit beperkt nadat activiteiten geïmporteerd zijn, worden activiteiten van uitgesloten sporttypes verwijderd.'
-'Leave all unchecked to import every visibility. ⚠️ Restricting this after activities have been imported deletes activities of excluded visibilities.': 'Laat alles uitgevinkt om elke zichtbaarheid te importeren. ⚠️ Als je dit beperkt nadat activiteiten geïmporteerd zijn, worden activiteiten met uitgesloten zichtbaarheden verwijderd.'
 'Leave empty to include all sport types.': 'Laat leeg om alle sporttypes mee te nemen.'
-'Leave empty to keep the saved one': 'Leave empty to keep the saved one'
 'Leave empty to use the default title.': 'Laat leeg om de standaardtitel te gebruiken.'
 'Lets an external client upload activity files over HTTP. The key is the only thing guarding that endpoint, so treat it like a password.': 'Laat een externe client activiteitsbestanden uploaden via HTTP. De sleutel is het enige wat dat endpoint beveiligt, dus behandel hem als een wachtwoord.'
 'Loading the route...': 'Loading the route...'
@@ -289,7 +259,6 @@ Monday: Maandag
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Beweegtijd
-'New activities are imported automatically every night. Change when under {link}.': 'New activities are imported automatically every night. Change when under {link}.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Nog geen activiteiten geïmporteerd.'
 'No activities match the current filters.': 'Geen activiteiten die overeenkomen met de huidige filters.'
@@ -316,18 +285,15 @@ Notes: Notes
 'Number of activities to display': 'Aantal te tonen activiteiten'
 'Number of challenges to display': 'Aantal te tonen uitdagingen'
 'Number of milestones to display': 'Aantal te tonen mijlpalen'
-'Number of new activities to process per import': 'Aantal nieuwe activiteiten om per import te verwerken'
 'Number of tasks to display': 'Aantal te tonen taken'
 'Number of widgets of this type you already have configured.': 'Aantal widgets van dit type dat je al geconfigureerd hebt.'
 'Only show activities with a map': 'Enkel activiteiten met een kaart tonen'
 "Oops, looks like you've wandered off the map! 🗺️": 'Oeps, het lijkt erop dat je van de kaart bent afgedwaald! 🗺️'
-'Open {link} while signed in to Strava and fill in:': 'Open {link} while signed in to Strava and fill in:'
 Operator: Operator
 'Optional YAML for date-range and sport-type specific zones. Leave empty unless you know you need it.': 'Optionele YAML voor zones per datumbereik en sporttype. Laat leeg tenzij je zeker weet dat je het nodig hebt.'
 'Optional link to your profile picture, shown in the nav bar. A square image is recommended. Leave empty to disable.': 'Optionele link naar je profielfoto, getoond in de navigatiebalk. Een vierkante afbeelding wordt aanbevolen. Laat leeg om uit te schakelen.'
 'Optional subtitle': 'Optionele ondertitel'
 'Optional subtitle to display in the navbar. Useful for distinguishing between multiple instances of the app. Leave empty to disable.': 'Optionele ondertitel om in de navigatiebalk te tonen. Handig om meerdere instanties van de app van elkaar te onderscheiden. Laat leeg om uit te schakelen.'
-'Optional. Any activity recorded before this date will not be imported. Leave empty to disable. ⚠️ Changing this after activities have been imported will delete activities recorded before this date.': 'Optioneel. Activiteiten die voor deze datum geregistreerd zijn, worden niet geïmporteerd. Laat leeg om uit te schakelen. ⚠️ Als je dit wijzigt nadat activiteiten geïmporteerd zijn, worden activiteiten van voor deze datum verwijderd.'
 'Optional. Leave empty to always apply this goal.': 'Optioneel. Laat leeg om dit doel altijd toe te passen.'
 'Optional. Your current Zwift level (1 or higher). Leave empty to hide the Zwift badge.': 'Optioneel. Je huidige Zwift-level (1 of hoger). Laat leeg om de Zwift-badge te verbergen.'
 'Optional. Your current Zwift racing score (between 0 and 1000).': 'Optioneel. Je huidige Zwift Racing Score (tussen 0 en 1000).'
@@ -338,7 +304,6 @@ Operator: Operator
 Password: Wachtwoord
 'Paste the value above, replacing any key that is already there.': 'Plak de waarde hierboven en vervang een eventueel bestaande sleutel.'
 'Performed on': 'Uitgevoerd op'
-'Photos attached to your Strava activities will not be downloaded or stored on disk. Photos that were downloaded before are kept.': "Foto's bij je Strava-activiteiten worden niet gedownload of op schijf opgeslagen. Eerder gedownloade foto's blijven bewaard."
 'Photos of the selected sport types are excluded from the photo gallery.': "Foto's van de geselecteerde sporttypes worden uitgesloten van de fotogalerij."
 'Pick a device you already recorded with, or type a new name.': 'Kies een toestel waarmee je al geregistreerd hebt, of typ een nieuwe naam.'
 'Pick an activity to select the segment on its route.': 'Pick an activity to select the segment on its route.'
@@ -441,14 +406,12 @@ Settings: Instellingen
 'Sign in to the admin panel': 'Aanmelden bij het beheerpaneel'
 'Sign out': Afmelden
 'Signing in...': 'Aan het aanmelden...'
-'Skip activities recorded before': 'Activiteiten overslaan die geregistreerd zijn voor'
 Skipped: Overgeslagen
 'Skipped (an earlier rule stopped processing).': 'Overgeslagen (een eerdere regel stopte de verwerking).'
 Source: Bron
 'Sport type': Sporttype
 'Sport types': Sporttypes
 'Sport types sorting order': 'Sorteervolgorde sporttypes'
-'Sport types to import': 'Te importeren sporttypes'
 'Sport types to include': 'Mee te nemen sporttypes'
 'Start date': Startdatum
 'Start date and time': 'Startdatum en -tijd'
@@ -457,17 +420,6 @@ Status: Status
 'Stop processing further rules when this rule matches': 'Stop met het verwerken van volgende regels wanneer deze regel overeenkomt'
 'Stops after match': 'Stopt na overeenkomst'
 'Stops here': 'Stopt hier'
-'Strava API credentials.': 'Strava API-gegevens.'
-'Strava API has rate limits, so we cap the number of new activities processed per import. 250 is a safe number.': 'De Strava API heeft limieten, dus beperken we het aantal nieuwe activiteiten dat per import verwerkt wordt. 250 is een veilig aantal.'
-'Strava activity IDs to skip during import.': "Strava-activiteits-ID's die overgeslagen worden bij het importeren."
-'Strava also asks for an icon, any image will do.': 'Strava also asks for an icon, any image will do.'
-'Strava client ID': 'Strava client ID'
-'Strava client secret': 'Strava client secret'
-'Strava did not accept the connection. Check the Client ID and Client Secret and try again.': 'Strava did not accept the connection. Check the Client ID and Client Secret and try again.'
-'Strava import': Strava-import
-'Strava is connected. Your activities are being imported, this can take a while.': 'Strava is connected. Your activities are being imported, this can take a while.'
-'Strava is disconnected. Your imported activities are kept.': 'Strava is disconnected. Your imported activities are kept.'
-'Strava refresh token': 'Strava refresh token'
 Subtitle: Ondertitel
 Success: Geslaagd
 Sunday: Zondag
@@ -489,13 +441,11 @@ Tasks: Taken
 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.': 'De backfill wordt uitgevoerd bij de volgende importcyclus, met de regels zoals ze op dat moment geconfigureerd zijn. Dit kan niet ongedaan gemaakt worden.'
 'The calories burned': 'De verbrande calorieën'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'De kleur van de routes op elke kaart. Aanvaardt elke geldige CSS-kleur, bv. red, #FF0000 of rgb(255,0,0).'
-'The connection with Strava could not be verified. Please try again.': 'The connection with Strava could not be verified. Please try again.'
 'The current name of the activity': 'De huidige naam van de activiteit'
 'The device used to record the activity': 'Het toestel waarmee de activiteit geregistreerd werd'
 'The distance': 'De afstand'
 'The elapsed time': 'De verstreken tijd'
 'The elevation gain': 'De hoogtewinst'
-'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.': 'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'De formule om je maximale hartslag te berekenen. Standaard is Fox (220 − leeftijd).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'De formule om je rusthartslag te berekenen. Standaard is een schatting op basis van leeftijd.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'Met de sleutel kan een externe client activiteitsbestanden uploaden via HTTP. Het is het enige wat dat endpoint beveiligt, dus behandel hem als een wachtwoord.'
@@ -519,7 +469,7 @@ Tasks: Taken
 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'Het beeld waarin de heatmap opent. Zowel het middelpunt als het zoomniveau zijn nodig; laat ze leeg om automatisch op je meest actieve gebied in te zoomen.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'De breedte van deze widget moet ingesteld worden op de pagina met dashboardinstellingen. Ze schaalt niet automatisch mee met het aantal activiteiten dat je instelt.'
-'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'Het type training zoals ingesteld op Strava (Race, Workout of Long run), leeg voor de meeste activiteiten'
+'The workout type (Race, Workout or Long run), empty for most activities': 'The workout type (Race, Workout or Long run), empty for most activities'
 'Then do this': 'Doe dan dit'
 'These rules will be applied to your existing activities on the next import cycle.': 'Deze regels worden bij de volgende importcyclus op je bestaande activiteiten toegepast.'
 'This action cannot be undone.': 'Deze actie kan niet ongedaan gemaakt worden.'
@@ -528,7 +478,6 @@ Tasks: Taken
 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Dit verwijdert enkel het importrecord, de geïmporteerde activiteit blijft behouden.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Deze pagina toont bij elke opening een andere sleutel, en enkel die in je omgevingsbestand wordt toegepast.'
-"This value is imported from Strava and can't be edited here.": 'Deze waarde wordt geïmporteerd van Strava en kan hier niet bewerkt worden.'
 'This widget still needs to be configured.': 'Deze widget moet nog geconfigureerd worden.'
 'This will discard your current dashboard layout and restore the default widgets.': 'Dit verwijdert je huidige dashboardindeling en herstelt de standaardwidgets.'
 Thursday: Donderdag
@@ -537,7 +486,6 @@ Thursday: Donderdag
 'Time of day': 'Tijdstip van de dag'
 Title: Titel
 To: Tot
-'Token used to validate incoming Strava webhook requests. Required when webhooks are enabled.': 'Token om inkomende Strava-webhookverzoeken te valideren. Vereist als webhooks ingeschakeld zijn.'
 "Tokens are replaced with the activity's values when the rule runs.": 'Tokens worden vervangen door de waarden van de activiteit wanneer de regel uitgevoerd wordt.'
 'Total size exceeds {max} MB': 'Totale grootte is groter dan {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Volg het gebruik van je uitrusting op basis van je activiteiten en blijf op de hoogte van onderhoud op basis van gebruik en tijd.'
@@ -559,11 +507,9 @@ Uploading...: 'Aan het uploaden...'
 'Used to calculate the training load of this activity': 'Gebruikt om de trainingsbelasting van deze activiteit te berekenen'
 Username: Gebruikersnaam
 Users: Users
-'Verify token': Verificatietoken
 Warning: Waarschuwing
 'Weather and reverse geocoding have been retrieved.': 'Weer en reverse geocoding zijn opgehaald.'
 'Weather and/or reverse geocoding could not be retrieved when this activity was imported.': 'Weer en/of reverse geocoding konden niet opgehaald worden toen deze activiteit geïmporteerd werd.'
-Webhooks: Webhooks
 Wednesday: Woensdag
 Weekday: Weekdag
 Weekdays: Weekdagen
@@ -576,16 +522,12 @@ Weekdays: Weekdagen
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Indien ingeschakeld, wordt uitrusting die buiten gebruik is overgeslagen. Het gebruik van de onderdelen stijgt niet en er wordt geen onderhoud voor bijgehouden.'
 'When set, requests to the admin panel from any other IP address are rejected.': 'Indien ingesteld, worden verzoeken naar het beheerpaneel van elk ander IP-adres geweigerd.'
 'Workout type': 'Type training'
-'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.': 'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.'
 'You can add it back to your dashboard again later.': 'Je kan hem later opnieuw aan je dashboard toevoegen.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'Je kan bestanden ook rechtstreeks in de map {watchFolder} kopiëren, of {linkOpen}handmatig een activiteit toevoegen{linkClose}.'
 'You can select up to {max} images': 'Je kan maximaal {max} afbeeldingen selecteren'
-'You did not give Dreeve access to Strava. Nothing was changed.': 'You did not give Dreeve access to Strava. Nothing was changed.'
-"You're currently importing from the Strava API. Set {importMode} to upload activity files directly, without depending on Strava's API": 'Je importeert momenteel via de Strava API. Stel {importMode} in om activiteitsbestanden rechtstreeks te uploaden, zonder afhankelijk te zijn van de API van Strava'
 'Your birthday. Needed to calculate heart rate zones.': 'Je geboortedatum. Nodig om hartslagzones te berekenen.'
 'Your changes have been saved.': 'Je wijzigingen zijn opgeslagen.'
 'Your current IP address, as seen by Dreeve, is {ipAddress}.': 'Je huidige IP-adres, zoals Dreeve het ziet, is {ipAddress}.'
-'Your form expired, please try again.': 'Your form expired, please try again.'
 'Your gender. Used to determine activity training load.': 'Je geslacht. Gebruikt om de trainingsbelasting van activiteiten te bepalen.'
 'Your measured max heart rate, applied from the given date onwards.': 'Je gemeten maximale hartslag, toegepast vanaf de opgegeven datum.'
 'Your measured resting heart rate, applied from the given date onwards.': 'Je gemeten rusthartslag, toegepast vanaf de opgegeven datum.'

@@ -8,7 +8,6 @@ use App\Application\AppIsNotReady;
 use App\Application\AppStatusChecker;
 use App\Domain\Automation\Backfill\AutomationRulesBackfillQueue;
 use App\Domain\Automation\Backfill\RunAutomationRulesBackfill\RunAutomationRulesBackfill;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\DependencyInjection\Mutex\WithMutex;
 use App\Infrastructure\Doctrine\Migrations\RequiresUpToDateDatabaseSchema;
@@ -38,7 +37,6 @@ final class RunAutomationRulesBackfillConsoleCommand extends Command
         private readonly AutomationRulesBackfillQueue $backfillQueue,
         private readonly Mutex $mutex,
         private readonly LoggerInterface $logger,
-        private readonly ImportMode $importMode,
     ) {
         parent::__construct();
     }
@@ -46,12 +44,6 @@ final class RunAutomationRulesBackfillConsoleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output = new SymfonyStyle($input, new LoggableConsoleOutput($output, $this->logger));
-
-        if (!$this->importMode->isFiles()) {
-            $output->writeln('<comment>Automation rules are only available in file import mode</comment>');
-
-            return Command::SUCCESS;
-        }
 
         if (!$this->backfillQueue->isQueued()) {
             $output->writeln('No automation rules backfill queued...');

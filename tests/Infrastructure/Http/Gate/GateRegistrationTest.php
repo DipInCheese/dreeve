@@ -7,7 +7,6 @@ use App\Infrastructure\Http\Gate\AppHasActivitiesGate;
 use App\Infrastructure\Http\Gate\Gate;
 use App\Infrastructure\Http\Gate\GateRequestListener;
 use App\Infrastructure\Http\Gate\ValidAppSettingsGate;
-use App\Infrastructure\Http\Gate\ValidStravaRefreshTokenGate;
 use App\Tests\ContainerTestCase;
 
 class GateRegistrationTest extends ContainerTestCase
@@ -21,7 +20,6 @@ class GateRegistrationTest extends ContainerTestCase
 
         $this->assertSame([
             AdminAllowedIpGate::class,          // priority 100
-            ValidStravaRefreshTokenGate::class, // priority 90
             ValidAppSettingsGate::class,        // priority 80
             AppHasActivitiesGate::class,        // priority 70
         ], $gateClasses);

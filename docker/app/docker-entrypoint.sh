@@ -54,7 +54,7 @@ if [ -n "$PUID" ] && [ -n "$PGID" ] && [ "$(id -u)" = "0" ]; then
 fi
 
 # Multi-user installation: run one daemon per active user. Users are added, disabled and
-# removed while the app runs, and their settings change (e.g. they connect Strava), so the
+# removed while the app runs, and their settings change, so the
 # list is checked every 30 seconds: daemons are started, stopped and restarted to match.
 if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run" ]; then
     RUNNING=""  # "name:fingerprint:pid" entries
@@ -108,13 +108,6 @@ if [ -n "$MULTI_USER" ] && [ "$1" = "bin/console" ] && [ "$2" = "app:daemon:run"
                     fi
                     ;;
             esac
-
-            # Someone just connected Strava: import right away instead of waiting for the schedule.
-            if [ -f "/var/www/users/$user/.strava-import-requested" ]; then
-                rm -f "/var/www/users/$user/.strava-import-requested"
-                echo "[$user] starting the first Strava import"
-                DREEVE_USER="$user" php /var/www/bin/console app:import:strava &
-            fi
         done < /tmp/dreeve-wanted-users
 
         sleep 30 &

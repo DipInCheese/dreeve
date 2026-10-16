@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Activity\ManuallyCreateActivity;
 
-use App\Domain\Activity\ActivityIdFactory;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ImportSource;
 use App\Domain\Activity\ManuallyCreateActivity\ManuallyCreateActivity;
-use App\Domain\Activity\ManuallyCreateActivity\ManuallyCreateActivityCommandHandler;
 use App\Domain\Activity\Scan\ActivityScanRepository;
 use App\Domain\Activity\Scan\ActivityScanType;
 use App\Domain\Activity\SportType\SportType;
 use App\Domain\Activity\WorkoutType;
 use App\Domain\Activity\WorldType;
 use App\Domain\Gear\GearId;
-use App\Domain\Image\ImageStorage;
-use App\Domain\Import\ImportMode;
 use App\Domain\Settings\DbalSettingsRepository;
 use App\Domain\Settings\SettingsGroup;
-use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
-use App\Infrastructure\CQRS\Command\CouldNotProcessCommand;
 use App\Infrastructure\Serialization\Json;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use App\Tests\ContainerTestCase;
@@ -149,29 +143,6 @@ class ManuallyCreateActivityCommandHandlerTest extends ContainerTestCase
         $this->assertTrue($this->fileStorage->fileExists(str_replace('files/', '', $localImagePaths[0])));
     }
 
-    public function testHandleThrowsWhenNotRunningInFileImportMode(): void
-    {
-        $handler = new ManuallyCreateActivityCommandHandler(
-            activityRepository: $this->activityRepository,
-            activityScanRepository: $this->getContainer()->get(ActivityScanRepository::class),
-            activityIdFactory: $this->getContainer()->get(ActivityIdFactory::class),
-            settingsRepository: $this->getContainer()->get(SettingsRepository::class),
-            imageStorage: $this->getContainer()->get(ImageStorage::class),
-            importMode: ImportMode::STRAVA_API,
-        );
-
-        $this->expectExceptionObject(CouldNotProcessCommand::withReason('Activities can only be created manually when running in file import mode.'));
-
-        $handler->handle(ManuallyCreateActivity::fromPayload([
-            'name' => 'My manual activity',
-            'sportType' => 'Run',
-            'startDateTime' => '2023-10-17T16:15',
-            'duration' => ['minutes' => 30],
-        ]));
-
-        $this->assertTrue($this->activityRepository->findAll()->isEmpty());
-    }
-
     private function provideAppearanceSettingsWithUnitSystem(string $unitSystem): void
     {
         /** @var DbalSettingsRepository $settingsRepository */
@@ -182,12 +153,6 @@ class ManuallyCreateActivityCommandHandlerTest extends ContainerTestCase
             'timeFormat' => 24,
             'dateFormat' => ['short' => 'd-m-y', 'normal' => 'd-m-Y'],
         ]);
-    }
-
-    #[\Override]
-    protected function importMode(): ImportMode
-    {
-        return ImportMode::FILES;
     }
 
     #[\Override]

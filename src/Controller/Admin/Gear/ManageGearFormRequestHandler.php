@@ -11,10 +11,8 @@ use App\Domain\Gear\GearRepository;
 use App\Domain\Gear\GearStatus;
 use App\Domain\Gear\GearUsage;
 use App\Domain\Gear\UpdateGear\UpdateGear;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Http\HtmlResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 
@@ -25,7 +23,6 @@ final readonly class ManageGearFormRequestHandler
         private Environment $twig,
         private GearRepository $gearRepository,
         private GearUsage $gearUsage,
-        private ImportMode $importMode,
     ) {
     }
 
@@ -48,7 +45,6 @@ final readonly class ManageGearFormRequestHandler
             'dispatchCommand' => UpdateGear::getCommandName(),
             'gear' => $gear,
             'statuses' => GearStatus::cases(),
-            'isDeletable' => $gear->isDeletableIn($this->importMode),
         ]));
     }
 
@@ -56,9 +52,6 @@ final readonly class ManageGearFormRequestHandler
     public function handleDelete(string $gearId): HtmlResponse
     {
         $gear = $this->gearRepository->find(GearId::fromString($gearId));
-        if (!$gear->isDeletableIn($this->importMode)) {
-            throw new NotFoundHttpException('Gear cannot be deleted');
-        }
 
         return new HtmlResponse($this->twig->render('html/admin/page/gear/delete-gear.html.twig', [
             'dispatchCommand' => DeleteGear::getCommandName(),

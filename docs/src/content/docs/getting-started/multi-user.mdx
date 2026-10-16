@@ -4,8 +4,8 @@ description: "Run one Dreeve installation for as many people as you like, each w
 ---
 
 One Dreeve installation can serve as many people as you like. Every user gets their own **address**
-(e.g. `https://dreeve.example.com/alice`), **data** (database, photos, caches), **settings**, **admin login**
-and **Strava connection**. Users never see each other's data.
+(e.g. `https://dreeve.example.com/alice`), **data** (database, photos, caches), **settings** and **admin login**.
+Users never see each other's data.
 
 You, the **owner**, have a dashboard like everyone else, plus a **Users** page in your admin panel to add,
 invite, disable and remove users. New users get an **invite link** to pick their own password.
@@ -110,24 +110,6 @@ AI_API_KEY=...
 Changes are picked up within a minute, no restart needed. `TZ`, `TRUSTED_PROXIES`, `PUID` and `PGID` apply to the
 whole installation and can not be set per user.
 
-### Strava
-
-Every user connects their own Strava account from the browser, no settings files involved. A new user's first
-visit offers **Connect Strava** next to uploading files; later it lives under **Admin panel → Settings → Strava**.
-
-Strava requires every user to create their own (free) Strava API application. Strava only lets a new application
-connect the account that created it, so one shared application does not work for several people. The Strava page in
-Dreeve shows exactly what to fill in on [strava.com/settings/api](https://www.strava.com/settings/api), including the
-*Authorization Callback Domain* (your Dreeve hostname, e.g. `dreeve.example.com`). The user then pastes the Client ID
-and Client Secret, approves the access on Strava, and is sent back to Dreeve.
-
-* The first import starts within a minute. A long history can take a few hours: Strava limits how fast activities can
-  be fetched. After that, new activities are imported every night; change when under **Settings → Daemon**.
-* Once Strava is connected, imports remove activities that are not on Strava, including uploaded files.
-* **Disconnect Strava** stops the imports, revokes Dreeve's access on Strava and keeps the imported activities.
-* The Strava application's secret and the access to Strava are stored in the user's data folder, readable by its
-  owner only, and are never shown again.
-
 ## Security
 
 * Passwords are picked by the users themselves through the invite link; nobody else ever sees them.
@@ -171,7 +153,7 @@ docker compose pull && docker compose up -d
 Console commands run for one user at a time, pick the user with `DREEVE_USER`:
 
 ```bash
-docker compose exec -e DREEVE_USER=alice app bin/console app:strava:webhooks-create
+docker compose exec -e DREEVE_USER=alice app bin/console app:import:files
 ```
 
 ## Logs

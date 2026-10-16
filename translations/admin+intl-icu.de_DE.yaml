@@ -1,5 +1,3 @@
-'1. Create your Strava API application': '1. Create your Strava API application'
-'2. Connect': '2. Connect'
 24-hour: 24-Stunden
 'A backfill is already queued. It runs on the next import cycle, within five minutes.': 'Ein Erstellungsvorgang ist bereits in der Warteschlange. Er wird beim nächsten Importzyklus innerhalb von fünf Minuten ausgeführt.'
 'A rule applies': 'Eine Regel trifft zu'
@@ -11,7 +9,6 @@ Actions: Aktionen
 Active: Aktiv
 'Activities excluded from peak power outputs': 'Aktivitäten, die von Maximalleistungswerten ausgeschlossen werden'
 'Activities scanned': 'untersuchte Aktivitäten'
-'Activities to skip during import': 'Aktivitäten, die beim Import übersprungen werden'
 'Activities to update': 'zu aktualisierende Aktivitäten'
 'Activities will appear here once they are imported.': 'Aktivitäten werden hier angezeigt, sobald sie importiert wurden.'
 Activity: Aktivität
@@ -20,7 +17,6 @@ Activity: Aktivität
 'Activity description': Aktivitätsbeschreibung
 'Activity management': Aktivitätenverwaltung
 'Activity name': Aktivitätsname
-'Activity visibilities to import': 'Import der Aktivitätssichtbarkeit'
 'Add Eddington': 'Eddington hinzufügen'
 'Add FTP': 'FTP hinzufügen'
 'Add a component to start tracking maintenance.': 'Füge eine Komponente hinzu, um mit der Wartungsverfolgung zu beginnen.'
@@ -82,7 +78,6 @@ Apply: Anwenden
 'Attached to': 'Zugeordnet zu'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Ausrüstung, Pendelstrecke, Sportart und mehr werden bei neu importierten Aktivitäten automatisch ausgefüllt. Die Regeln gelten von oben nach unten und können auch auf bereits importierte Aktivitäten angewendet werden.'
 'Automation rules': Automatisierungsregeln
-'Automation rules are only available in file import mode': 'Automatisierungsregeln sind nur im Dateiimportmodus verfügbar.'
 'Available tokens': 'Verfügbare Platzhalter'
 'Average cadence': 'Ø Trittfrequenz'
 'Average heart rate (bpm)': 'Ø Herzfrequenz'
@@ -98,7 +93,6 @@ Cancel: Abbrechen
 'Changes still need to be processed before they appear on the app': 'Änderungen müssen noch verarbeitet werden, bevor sie in der App angezeigt werden'
 'Changes to these settings only take effect after you restart the daemon container.': 'Änderungen an diesen Einstellungen werden erst nach einem Neustart des Daemon-Containers wirksam.'
 'Chat commands': Chatbefehle
-'Check interval (minutes)': 'Überprüfungsintervall (Minuten)'
 'Choose the order the metrics are shown in.': 'Wähle die Reihenfolge, in der die Metriken angezeigt werden.'
 Clear: Leeren
 'Clear filters': 'Filter zurücksetzen'
@@ -115,14 +109,8 @@ Configure: Konfigurieren
 'Configure {widget}': '{widget} konfigurieren'
 Configured: Konfiguriert
 'Configured via an environment variable and cannot be changed here.': 'Wird über eine Umgebungsvariable konfiguriert und kann hier nicht geändert werden.'
-'Configured via environment variables and cannot be changed here.': 'Wird über Umgebungsvariablen konfiguriert und kann hier nicht geändert werden.'
-'Connect with Strava': 'Connect with Strava'
-'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.': 'Connect your own Strava account to import your activities automatically. Strava requires every user to create a free Strava API application for this, which takes about two minutes.'
 'Connected sensors': 'Verbundene Sensoren'
-'Connected to Strava as {name}.': 'Connected to Strava as {name}.'
-'Connected to Strava.': 'Connected to Strava.'
 'Continues to next rule': 'Fortsetzung mit der nächsten Regel'
-'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.': 'Copy the Client ID and Client Secret Strava shows for your application. Strava then asks you to give Dreeve access.'
 'Copy this API key': 'Diesen API-Schlüssel kopieren'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
 'Cron expression': Cron-Ausdruck
@@ -143,13 +131,9 @@ Delete: Löschen
 'Deleting a rule does not revert changes it already made to activities. This action cannot be undone.': 'Das Löschen einer Regel macht bereits vorgenommene Änderungen an Aktivitäten nicht rückgängig. Diese Aktion kann nicht rückgängig gemacht werden.'
 Deleting...: 'wird gelöscht...'
 Description: Beschreibung
-'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Ausführliche Anleitungen findest du in {linkOpen}der Dokumentation{linkClose}.'
 Disable: Disable
 Disabled: Deaktiviert
-'Disconnect Strava': 'Disconnect Strava'
-"Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept.": "Disconnecting stops the imports and revokes Dreeve's access on Strava. Your imported activities are kept."
 Distance: Distanz
-'Do not download activity photos': 'Keine Bilder von Aktivitäten herunterladen.'
 Done: Done
 'Download original file': 'Originaldatei herunterladen'
 'Drag the start and end markers along the route to select the segment.': 'Ziehe die Start- und Endmarkierungen entlang der Route, um das Segment zu wählen.'
@@ -171,7 +155,6 @@ Efforts: Efforts
 Elevation: Höhenmeter
 Enable: Enable
 'Enable AI integration': 'KI-Integration aktivieren'
-'Enable Strava webhooks': 'Strava webhooks aktivieren'
 Enabled: Aktiviert
 Endpoint: Endpunkt
 'Ends near': 'Endet in der Nähe'
@@ -191,11 +174,8 @@ Favourite: Favourite
 Female: Weiblich
 'File exceeds {max} MB': 'Datei überschreitet {max} MB'
 'File imports': 'Datei Importe'
-'File imports are only available in file import mode': 'Datei-Importe sind nur im Datei Import Modus verfügbar.'
 'File upload': 'Datei Upload'
-'File upload is only available in file import mode': 'Datei-Upload ist nur im Datei Import Modus verfügbar.'
 Filename: Dateiname
-'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.': 'Fill in the Client ID and Client Secret of your Strava API application, exactly as Strava shows them.'
 Filter: Filter
 'First name': Vorname
 'Fixed value': 'Fester Wert'
@@ -220,23 +200,17 @@ Heatmap: Heatmap
 'History of weight (in kg or pounds, depending on the appearance unit system). Needed to calculate relative w/kg.': 'Gewichtsverlauf (in kg oder Pfund, abhängig vom eingestellten Einheitensystem). Wird benötigt, um die relative Leistung in W/kg zu berechnen.'
 'Hold ctrl (⌘ on Mac) to zoom the map with the scroll wheel': 'Halte Strg (⌘ auf dem Mac) gedrückt, um die Karte mit dem Mausrad zu zoomen.'
 Hours: Stunden
-'How often (in minutes, between 1 and 60) queued webhook events are processed.': 'Wie oft (in Minuten, zwischen 1 und 60) in der Warteschlange stehende Webhook-Ereignisse verarbeitet werden.'
 If: Wenn
 'If all of these match': 'Wenn alle Bedingungen erfüllt sind'
 "If you're not sure about your zones, leave these unchanged, the defaults are sensible. In relative mode the numbers are percentages of your max heart rate; in absolute mode they are actual bpm.": 'Wenn du dir bei deinen Zonen nicht sicher bist, lasse diese unverändert; die Standardwerte sind sinnvoll. Im relativen Modus sind die Zahlen Prozentsätze deiner maximalen Herzfrequenz; im absoluten Modus sind es tatsächliche Schläge pro Minute (bpm).'
 'Ignore retired gear': 'Ausgemusterte Ausrüstung ignorieren'
 Image: Bild
 Images: Bilder
-Import: Import
-'Import Strava data': 'Strava-Daten importieren'
 'Import activities': 'Aktivitäten importieren'
 'Import pending': 'Import ausstehend'
-'Import segment details': 'Segmentdetails importieren'
-'Import segment details so segment maps can be displayed. This needs an extra Strava API call per segment and increases import time significantly.': 'Segmentdetails importieren, damit Segmentkarten angezeigt werden können. Dies erfordert einen zusätzlichen Strava-API-Aufruf pro Segment und erhöht die Importzeit erheblich.'
 'Import source': Importquelle
 'Imported files will appear here once you upload them.': 'Importierte Dateien werden hier angezeigt, sobald du sie hochlädst.'
 'Imported from Strava': 'Von Strava importiert'
-'Imports new Strava activities.': 'Importiert neue Strava-Aktivitäten'
 'Include retired gear': 'Ausgemusterte Ausrüstung einbeziehen'
 Info: Info
 'Installed on': 'Hinzugefügt am'
@@ -249,11 +223,7 @@ Invited: Invited
 Label: Bezeichnung
 'Last name': Nachname
 Latitude: Breitengrad
-'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.': 'Leave "View data about your private activities" checked on Strava, Dreeve needs it to import your activities.'
-'Leave all unchecked to import every sport type. ⚠️ Restricting this after activities have been imported deletes activities of excluded sport types.': 'Lasse alle abgewählt, um jede Sportart zu importieren. ⚠️ Wenn du dies einschränkst, nachdem Aktivitäten importiert wurden, werden Aktivitäten von ausgeschlossenen Sportarten gelöscht.'
-'Leave all unchecked to import every visibility. ⚠️ Restricting this after activities have been imported deletes activities of excluded visibilities.': 'Lasse alle abgewählt, um jede Sichtbarkeit zu importieren. ⚠️ Wenn du dies einschränkst, nachdem Aktivitäten importiert wurden, werden Aktivitäten von ausgeschlossenen Sichtbarkeiten gelöscht.'
 'Leave empty to include all sport types.': 'Leer lassen, um alle Sportarten einzubeziehen.'
-'Leave empty to keep the saved one': 'Leave empty to keep the saved one'
 'Leave empty to use the default title.': 'Leer lassen, um den Standardtitel zu verwenden.'
 'Lets an external client upload activity files over HTTP. The key is the only thing guarding that endpoint, so treat it like a password.': 'Ermöglicht einem externen Client, Aktivitätsdateien über HTTP hochzuladen. Der Schlüssel ist der einzige Schutz dieses Endpunktes – behandle ihn wie ein Passwort.'
 'Loading the route...': 'Loading the route...'
@@ -289,7 +259,6 @@ Monday: Montag
 'Most recent activities (cards)': 'Most recent activities (cards)'
 'Most recent activities (list)': 'Most recent activities (list)'
 'Moving time': Bewegungszeit
-'New activities are imported automatically every night. Change when under {link}.': 'New activities are imported automatically every night. Change when under {link}.'
 'New invite link': 'New invite link'
 'No activities imported yet.': 'Noch keine Aktivitäten importiert.'
 'No activities match the current filters.': 'Keine Aktivitäten entsprechen den aktuellen Filtern.'
@@ -316,18 +285,15 @@ Notes: Notizen
 'Number of activities to display': 'Anzahl der anzuzeigenden Aktivitäten'
 'Number of challenges to display': 'Anzahl der anzuzeigenden Herausforderungen'
 'Number of milestones to display': 'Anzahl der anzuzeigenden Meilensteine'
-'Number of new activities to process per import': 'Anzahl der pro Import zu verarbeitenden neuen Aktivitäten'
 'Number of tasks to display': 'Anzahl der anzuzeigenden Aufgaben'
 'Number of widgets of this type you already have configured.': 'Anzahl der bereits konfigurierten Widgets dieses Typs.'
 'Only show activities with a map': 'Nur Aktivitäten mit Strecke anzeigen'
 "Oops, looks like you've wandered off the map! 🗺️": 'Hoppla, da scheinst du dich verirrt zu haben! 🗺️'
-'Open {link} while signed in to Strava and fill in:': 'Open {link} while signed in to Strava and fill in:'
 Operator: Operator
 'Optional YAML for date-range and sport-type specific zones. Leave empty unless you know you need it.': 'Optionales YAML für datumsbereichs- und sportartspezifische Zonen. Leer lassen, es sei denn, du weißt, dass du es brauchst.'
 'Optional link to your profile picture, shown in the nav bar. A square image is recommended. Leave empty to disable.': 'Optionaler Link zu deinem Profilbild, das in der Navigationsleiste angezeigt wird. Ein quadratisches Bild wird empfohlen. Leer lassen, um es zu deaktivieren.'
 'Optional subtitle': 'Optionaler Untertitel'
 'Optional subtitle to display in the navbar. Useful for distinguishing between multiple instances of the app. Leave empty to disable.': 'Optionaler Untertitel zur Anzeige in der Navigationsleiste. Nützlich zur Unterscheidung mehrerer Instanzen der App. Leer lassen, um es zu deaktivieren.'
-'Optional. Any activity recorded before this date will not be imported. Leave empty to disable. ⚠️ Changing this after activities have been imported will delete activities recorded before this date.': 'Optional. Aktivitäten, die vor diesem Datum aufgezeichnet wurden, werden nicht importiert. Leer lassen zur Deaktivierung. ⚠️ Eine Änderung dieser Einstellung, nachdem Aktivitäten importiert wurden, löscht Aktivitäten, die vor diesem Datum aufgezeichnet wurden.'
 'Optional. Leave empty to always apply this goal.': 'Optional. Leer lassen, um dieses Ziel immer anzuwenden.'
 'Optional. Your current Zwift level (1 or higher). Leave empty to hide the Zwift badge.': 'Optional. Dein aktuelles Zwift-Level (1 oder höher). Leer lassen, um das Zwift-Abzeichen auszublenden.'
 'Optional. Your current Zwift racing score (between 0 and 1000).': 'Optional. Dein aktueller Zwift Racing Score (zwischen 0 und 1000).'
@@ -338,7 +304,6 @@ Operator: Operator
 Password: Passwort
 'Paste the value above, replacing any key that is already there.': 'Füge den oben stehenden Wert ein und ersetze alle bereits vorhandenen Schlüssel.'
 'Performed on': 'Durchgeführt am'
-'Photos attached to your Strava activities will not be downloaded or stored on disk. Photos that were downloaded before are kept.': 'Fotos von Strava-Aktivitäten werden nicht heruntergeladen oder auf der Festplatte gespeichert. Bereits heruntergeladene Fotos bleiben erhalten.'
 'Photos of the selected sport types are excluded from the photo gallery.': 'Fotos der ausgewählten Sportarten werden von der Fotogalerie ausgeschlossen.'
 'Pick a device you already recorded with, or type a new name.': 'Wähle ein Gerät, mit dem du bereits aufgezeichnet hast, oder gib einen neuen Namen ein.'
 'Pick an activity to select the segment on its route.': 'Wähle eine Aktivität aus und markiere das Segment auf ihrer Strecke.'
@@ -441,14 +406,12 @@ Settings: Einstellungen
 'Sign in to the admin panel': 'Im Adminbereich anmelden'
 'Sign out': Abmelden
 'Signing in...': 'Anmeldung läuft...'
-'Skip activities recorded before': 'Aktivitäten überspringen, die aufgezeichnet wurden vor'
 Skipped: Übersprungen
 'Skipped (an earlier rule stopped processing).': 'Übersprungen (eine vorherige Regel hat die Verarbeitung gestoppt).'
 Source: Quelle
 'Sport type': Sportart
 'Sport types': Sportarten
 'Sport types sorting order': 'Sortierreihenfolge der Sportarten'
-'Sport types to import': 'Zu importierende Sportarten'
 'Sport types to include': 'Einzubeziehende Sportarten'
 'Start date': Startdatum
 'Start date and time': 'Startdatum und -uhrzeit'
@@ -457,17 +420,6 @@ Status: Status
 'Stop processing further rules when this rule matches': 'Weitere Regeln ignorieren, wenn diese Regel zutrifft'
 'Stops after match': 'Stoppt nach Treffer'
 'Stops here': 'Stoppt hier'
-'Strava API credentials.': Strava-API-Zugangsdaten.
-'Strava API has rate limits, so we cap the number of new activities processed per import. 250 is a safe number.': 'Die Strava-API hat Ratenbegrenzungen, daher deckeln wir die Anzahl der neuen Aktivitäten, die pro Import verarbeitet werden. 250 ist ein sicherer Wert.'
-'Strava activity IDs to skip during import.': 'Strava-Aktivitäts-IDs, die beim Import übersprungen werden sollen.'
-'Strava also asks for an icon, any image will do.': 'Strava also asks for an icon, any image will do.'
-'Strava client ID': Strava-Client-ID
-'Strava client secret': Strava-Client-Secret
-'Strava did not accept the connection. Check the Client ID and Client Secret and try again.': 'Strava did not accept the connection. Check the Client ID and Client Secret and try again.'
-'Strava import': Strava-Import
-'Strava is connected. Your activities are being imported, this can take a while.': 'Strava is connected. Your activities are being imported, this can take a while.'
-'Strava is disconnected. Your imported activities are kept.': 'Strava is disconnected. Your imported activities are kept.'
-'Strava refresh token': Strava-Refresh-Token
 Subtitle: Untertitel
 Success: Erfolgreich
 Sunday: Sonntag
@@ -489,13 +441,11 @@ Tasks: Aufgaben
 'The backfill runs on the next import cycle, using the rules as they are configured at that moment. This cannot be undone.': 'Die Abarbeitung wird beim nächsten Importzyklus ausgeführt und nutzt die Regeln, die in diesem Moment konfiguriert sind. Dies kann nicht rückgängig gemacht werden.'
 'The calories burned': 'Die verbrannten Kalorien'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'Die Farbe der Routen, die auf den Karten gezeichnet werden. Akzeptiert jede gültige CSS-Farbe, z.B. red, #FF0000 oder rgb(255,0,0).'
-'The connection with Strava could not be verified. Please try again.': 'The connection with Strava could not be verified. Please try again.'
 'The current name of the activity': 'Der aktuelle Name der Aktivität'
 'The device used to record the activity': 'Das zur Aufzeichnung verwendete Gerät'
 'The distance': 'Die Distanz'
 'The elapsed time': 'Die verstrichene Zeit'
 'The elevation gain': 'Die Höhenmeter'
-'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.': 'The first import starts within a minute. Importing a long history can take a few hours, Strava limits how fast activities can be fetched.'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'Die Formel zur Berechnung deiner maximalen Herzfrequenz. Der Standardwert ist Fox (220 − Alter).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'Die Formel zur Berechnung deines Ruhepulses. Der Standardwert ist eine altersbasierte Schätzung.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'Der Schlüssel ermöglicht einem externen Client, Aktivitätsdateien über HTTP hochzuladen. Er ist der einzige Schutz dieses Endpunktes, behandle ihn wie ein Passwort.'
@@ -519,7 +469,7 @@ Tasks: Aufgaben
 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.': 'The user can no longer sign in and their address stops working. Their data is not deleted: it is moved to the .removed folder in the data directory.'
 'The viewport the heatmap opens on. Both the center and the zoom level are needed, leave them empty to auto-fit to your most active area.': 'Der sichtbare Bereich, in dem sich die Heatmap öffnet. Sowohl das Zentrum als auch die Zoomstufe werden benötigt. Lass sie leer, um automatisch auf deinen aktivsten Bereich zu zoomen.'
 'The width of this widget needs to be configured on the dashboard settings page. It will not automatically scale based on the number of activities you configure.make tr': 'Die Breite dieses Widgets muss auf der Dashboard-Einstellungsseite konfiguriert werden. Es wird sich nicht automatisch je nach Anzahl der konfigurierten Aktivitäten skalieren.'
-'The workout type as set on Strava (Race, Workout or Long run), empty for most activities': 'Der auf Strava eingestellte Trainingstyp (Wettkampf, Training oder Langer Lauf), bei den meisten Aktivitäten leer'
+'The workout type (Race, Workout or Long run), empty for most activities': 'The workout type (Race, Workout or Long run), empty for most activities'
 'Then do this': 'Dann ausführen'
 'These rules will be applied to your existing activities on the next import cycle.': 'Diese Regeln werden beim nächsten Importvorgang auf Ihre bestehenden Aktivitäten angewendet.'
 'This action cannot be undone.': 'Diese Aktion kann nicht rückgängig gemacht werden.'
@@ -528,7 +478,6 @@ Tasks: Aufgaben
 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.': 'This invite link is invalid or has expired. Ask the owner of this installation for a new one.'
 'This only removes the import record, the imported activity is kept.': 'Dadurch wird lediglich der Importdatensatz entfernt, die importierte Aktivität bleibt erhalten.'
 'This page shows a different key every time it is opened, and only the one in your environment file is applied.': 'Diese Seite zeigt jedes Mal einen anderen Schlüssel an, nur der in deiner Umgebungsdatei wird angewendet.'
-"This value is imported from Strava and can't be edited here.": 'Dieser Wert wird von Strava importiert und kann hier nicht bearbeitet werden.'
 'This widget still needs to be configured.': 'Dieses Widget muss noch konfiguriert werden.'
 'This will discard your current dashboard layout and restore the default widgets.': 'Dadurch wird dein aktuelles Dashboard-Layout verworfen und die Standard-Widgets werden wiederhergestellt.'
 Thursday: Donnerstag
@@ -537,7 +486,6 @@ Thursday: Donnerstag
 'Time of day': Tageszeit
 Title: Titel
 To: bis
-'Token used to validate incoming Strava webhook requests. Required when webhooks are enabled.': 'Token zur Validierung eingehender Strava-Webhook-Anfragen. Erforderlich, wenn Webhooks aktiviert sind.'
 "Tokens are replaced with the activity's values when the rule runs.": 'Die Platzhalter werden beim Ausführen der Regel durch die Werte der Aktivität ersetzt.'
 'Total size exceeds {max} MB': 'Gesamtgröße überschreitet {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Verfolge die Nutzung deiner Ausrüstung anhand deiner Aktivitäten und behalte nutzungs- sowie zeitbasierte Wartungen im Blick.'
@@ -559,11 +507,9 @@ Uploading...: 'Wird hochgeladen...'
 'Used to calculate the training load of this activity': 'Wird verwendet, um die Trainingsbelastung dieser Aktivität zu berechnen.'
 Username: Benutzername
 Users: Users
-'Verify token': 'Token verifizieren'
 Warning: Warnung
 'Weather and reverse geocoding have been retrieved.': 'Wetterdaten und Reverse-Geocoding wurden abgerufen.'
 'Weather and/or reverse geocoding could not be retrieved when this activity was imported.': 'Wetterdaten und/oder Reverse-Geocoding konnten beim Import dieser Aktivität nicht abgerufen werden.'
-Webhooks: Webhooks
 Wednesday: Mittwoch
 Weekday: Wochentag
 Weekdays: Wochentage
@@ -576,16 +522,12 @@ Weekdays: Wochentage
 "When enabled, gear marked as retired is skipped. Its components won't increase usage and no maintenance is tracked for them.": 'Wenn aktiviert, wird als ausgemustert markierte Ausrüstung übersprungen. Ihre Komponenten erhöhen die Nutzung nicht und es wird keine Wartung dafür verfolgt.'
 'When set, requests to the admin panel from any other IP address are rejected.': 'Wenn diese Einstellung aktiviert ist, werden Anfragen an den Adminbereich von allen anderen IP-Adressen abgewiesen.'
 'Workout type': Trainingstyp
-'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.': 'You already have {count} activities. Once Strava is connected, activities that are not on Strava are removed during imports.'
 'You can add it back to your dashboard again later.': 'Du kannst es später wieder zu deinem Dashboard hinzufügen.'
 'You can also copy files straight into the {watchFolder} folder, or {linkOpen}manually add an activity{linkClose}.': 'Du kannst Dateien auch direkt in den Ordner {watchFolder} kopieren oder {linkOpen}manuell eine Aktivität hinzufügen{linkClose}.'
 'You can select up to {max} images': 'Du kannst bis zu {max} Bilder auswählen.'
-'You did not give Dreeve access to Strava. Nothing was changed.': 'You did not give Dreeve access to Strava. Nothing was changed.'
-"You're currently importing from the Strava API. Set {importMode} to upload activity files directly, without depending on Strava's API": 'Du importierst derzeit über die Strava-API. Setze {importMode}, um Aktivitätsdateien direkt hochzuladen, ohne von der Strava-API abhängig zu sein.'
 'Your birthday. Needed to calculate heart rate zones.': 'Dein Geburtstag. Wird benötigt, um die Herzfrequenzzonen zu berechnen.'
 'Your changes have been saved.': 'Deine Änderungen wurden gespeichert.'
 'Your current IP address, as seen by Dreeve, is {ipAddress}.': 'Deine aktuelle IP-Adresse, wie sie von Dreeve erkannt wird, ist {ipAddress}.'
-'Your form expired, please try again.': 'Your form expired, please try again.'
 'Your gender. Used to determine activity training load.': 'Dein Geschlecht. Wird verwendet, um die Trainingsbelastung der Aktivität zu bestimmen.'
 'Your measured max heart rate, applied from the given date onwards.': 'Deine gemessene maximale Herzfrequenz, angewendet ab dem angegebenen Datum.'
 'Your measured resting heart rate, applied from the given date onwards.': 'Dein gemessener Ruhepuls, angewendet ab dem angegebenen Datum.'

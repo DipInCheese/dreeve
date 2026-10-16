@@ -110,11 +110,6 @@ final readonly class DbalSettingsRepository extends DbalRepository implements Se
         return MapsSettings::fromArray($this->findGroup(SettingsGroup::MAPS));
     }
 
-    public function import(): ImportSettings
-    {
-        return ImportSettings::fromArray($this->findGroup(SettingsGroup::IMPORT));
-    }
-
     public function metrics(): MetricsSettings
     {
         return MetricsSettings::fromArray($this->findGroup(SettingsGroup::METRICS));

@@ -61,15 +61,11 @@ paths:
                   canUpload:
                     type: boolean
                     description: >-
-                      Whether this instance accepts uploads. False when `IMPORT_MODE` is not
-                      `files`, in which case every upload answers 409.
+                      Whether this instance accepts uploads. Always true, kept for existing clients.
               examples:
                 filesMode:
                   summary: Ready to accept uploads
                   value: { app: dreeve, version: v5.2.3, canUpload: true }
-                stravaApiMode:
-                  summary: Valid key, but uploads are disabled
-                  value: { app: dreeve, version: v5.2.3, canUpload: false }
         '401':
           $ref: '#/components/responses/Unauthorized'
   /api/v1/activity/upload:
@@ -122,17 +118,6 @@ paths:
                   value: { error: missing_file, message: 'A "file" part is required.' }
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '409':
-          description: >-
-            This instance runs with `IMPORT_MODE=stravaApi`, so it cannot accept uploaded files.
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/Error' }
-              examples:
-                wrongImportMode:
-                  value:
-                    error: import_mode_not_files
-                    message: Activity files can only be uploaded when running in file import mode.
         '413':
           description: >-
             The file is larger than `upload_max_filesize`, or the whole request is larger than
@@ -314,17 +299,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/ActivityNotFound'
-        '409':
-          description: >-
-            This instance runs with `IMPORT_MODE=stravaApi`
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/Error' }
-              examples:
-                wrongImportMode:
-                  value:
-                    error: import_mode_not_files
-                    message: Activities can only be updated when running in file import mode.
     delete:
       operationId: deleteActivity
       tags: [Activities]
@@ -340,17 +314,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/ActivityNotFound'
-        '409':
-          description: >-
-            This instance runs with `IMPORT_MODE=stravaApi`
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/Error' }
-              examples:
-                wrongImportMode:
-                  value:
-                    error: import_mode_not_files
-                    message: Activities can only be deleted when running in file import mode.
   /api/v1/activities/{activityId}/gpx:
     get:
       operationId: getActivityGpx
@@ -429,17 +392,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/ActivityNotFound'
-        '409':
-          description: >-
-            This instance runs with `IMPORT_MODE=stravaApi`
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/Error' }
-              examples:
-                wrongImportMode:
-                  value:
-                    error: import_mode_not_files
-                    message: Images can only be added to activities when running in file import mode.
         '413':
           description: >-
             The file is larger than `upload_max_filesize`, or the whole request is larger than
@@ -506,17 +458,6 @@ paths:
                   value:
                     error: not_found
                     message: 'Image "activityImage-0a8cdfbb-63b4-4f0f-a09d-faedd5a00753" not found'
-        '409':
-          description: >-
-            This instance runs with `IMPORT_MODE=stravaApi`
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/Error' }
-              examples:
-                wrongImportMode:
-                  value:
-                    error: import_mode_not_files
-                    message: Images can only be removed from activities when running in file import mode.
   /api/v1/file-imports:
     get:
       operationId: listFileImports
@@ -1075,7 +1016,6 @@ components:
             - unsupported_media_type
             - unsupported_file_type
             - file_too_large
-            - import_mode_not_files
             - gpx_not_available
             - not_found
             - method_not_allowed

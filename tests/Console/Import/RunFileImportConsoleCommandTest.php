@@ -8,7 +8,6 @@ use App\Application\Import\FileImport\ImportActivityFiles\ImportActivityFiles;
 use App\Application\Import\ImportedActivities;
 use App\Application\Import\SendImportSuccessfulNotification\SendImportSuccessfulNotification;
 use App\Console\Import\RunFileImportConsoleCommand;
-use App\Domain\Import\ImportMode;
 use App\Domain\Import\WatchDirectory;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\FileSystem\PermissionChecker;
@@ -94,19 +93,6 @@ class RunFileImportConsoleCommandTest extends ConsoleCommandTestCase
             'Postponing file import, another process is importing data.',
             $commandTester->getDisplay(),
         );
-    }
-
-    public function testReturnsEarlyWhenImportModeIsStrava(): void
-    {
-        $command = $this->buildCommand(new SpyCommandBus(), importMode: ImportMode::STRAVA_API);
-
-        $application = new Application();
-        $application->addCommand($command);
-
-        $commandTester = new CommandTester($application->find(RunFileImportConsoleCommand::NAME));
-        $commandTester->execute(['command' => $command->getName()]);
-
-        $this->assertStringContainsString('Cannot import files. IMPORT_MODE=stravaApi', $commandTester->getDisplay());
     }
 
     public function testShowsErrorAndReleasesLockWhenWriteAccessFails(): void
@@ -199,7 +185,6 @@ class RunFileImportConsoleCommandTest extends ConsoleCommandTestCase
     private function buildCommand(
         CommandBus $commandBus,
         PermissionChecker $permissionChecker = new SuccessfulPermissionChecker(),
-        ImportMode $importMode = ImportMode::FILES,
         LoggerInterface $logger = new NullLogger(),
     ): RunFileImportConsoleCommand {
         return new RunFileImportConsoleCommand(
@@ -213,7 +198,6 @@ class RunFileImportConsoleCommandTest extends ConsoleCommandTestCase
                 lockName: LockName::IMPORT_DATA,
             ),
             logger: $logger,
-            importMode: $importMode,
         );
     }
 

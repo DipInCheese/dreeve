@@ -65,7 +65,7 @@ class CacheableRendererTest extends ContainerTestCase
         $render = new RenderStub();
         $this->cacheableRenderer->render($cacheability, $render(...));
 
-        $this->renderCache->invalidateTags(RootCacheTag::CHALLENGES);
+        $this->renderCache->invalidateTags(RootCacheTag::GEAR);
 
         $render->rendered = 'changed';
         $this->assertEquals(

@@ -483,7 +483,7 @@ class ActivityTest extends TestCase
             $rawData['athlete_count'] = $athleteCount;
         }
 
-        $this->assertEquals($expected, Activity::createFromRawStravaData($rawData)->isGroupActivity());
+        $this->assertEquals($expected, RawStravaActivity::toActivity($rawData)->isGroupActivity());
     }
 
     /**

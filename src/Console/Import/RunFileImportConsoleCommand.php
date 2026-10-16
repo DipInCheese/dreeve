@@ -10,7 +10,6 @@ use App\Application\Import\CalculateActivityMetrics\CalculateActivityMetrics;
 use App\Application\Import\FileImport\ImportActivityFiles\ImportActivityFiles;
 use App\Application\Import\ImportedActivities;
 use App\Application\Import\SendImportSuccessfulNotification\SendImportSuccessfulNotification;
-use App\Domain\Import\ImportMode;
 use App\Domain\Import\WatchDirectory;
 use App\Infrastructure\CQRS\Command\Bus\CommandBus;
 use App\Infrastructure\DependencyInjection\Mutex\WithMutex;
@@ -44,7 +43,6 @@ final class RunFileImportConsoleCommand extends Command
         private readonly ResourceUsage $resourceUsage,
         private readonly Mutex $mutex,
         private readonly LoggerInterface $logger,
-        private readonly ImportMode $importMode,
     ) {
         parent::__construct();
     }
@@ -58,12 +56,6 @@ final class RunFileImportConsoleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output = new SymfonyStyle($input, new LoggableConsoleOutput($output, $this->logger));
-
-        if (!$this->importMode->isFiles()) {
-            $output->writeln('<comment>Cannot import files. IMPORT_MODE=stravaApi</comment>');
-
-            return Command::SUCCESS;
-        }
 
         $hasFilesToProcess = $this->watchDirectory->hasFilesThatCanBeProcessed();
         if (!$hasFilesToProcess) {

@@ -1,7 +1,6 @@
 {% extends "html/admin/page/template.html.twig" %}
 {% block main %}
     {% autoescape false %}
-    {% set isImportedFromStrava = importMode.isStravaApi() %}
     {% set returnUrl = redirectUrl(relativeUrl(path('admin_manage_activity_overview'))) %}
     <div class="modal-like-form">
         <div class="w-full max-w-3xl overflow-y-auto p-6 bg-white border border-gray-200 rounded-lg shadow-xl">
@@ -19,110 +18,79 @@
             <form data-dispatch-command="{{ dispatchCommand }}" data-redirect="{{ returnUrl }}" class="flex flex-col gap-4">
                 <input type="hidden" name="activityId" value="{{ activity.getId() }}">
                 <div data-form-error class="form-error hidden" role="alert"></div>
-                {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                    label: 'Name'|trans,
-                    for: 'activity-name', name: 'name', value: activity.getOriginalName(),
-                } %}
-                    {% block control %}
-                        <input type="text" id="activity-name" name="name" required value="{{ activity.getOriginalName() }}" {{ disabled ? 'disabled' }}>
-                    {% endblock %}
-                {% endembed %}
+                <div>
+                    <label for="activity-name">{{ 'Name'|trans }}</label>
+                    <input type="text" id="activity-name" name="name" required value="{{ activity.getOriginalName() }}">
+                </div>
                 <div>
                     <label for="activity-description">{{ "Description"|trans({}, 'admin') }}</label>
                     <textarea id="activity-description" name="description" rows="3">{{ activity.getDescription() }}</textarea>
                 </div>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                    {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                        label: 'Sport type'|trans({}, 'admin'),
-                        for: 'activity-sport-type', name: 'sportType', value: activity.getSportType().value,
-                    } %}
-                        {% block control %}
-                            <select id="activity-sport-type" name="sportType" required {{ disabled ? 'disabled' }}>
-                                {% for sportType in sportTypes %}
-                                    <option value="{{ sportType.value }}" {{ sportType == activity.getSportType() ? 'selected' }}>{{ sportType|trans }}</option>
-                                {% endfor %}
-                            </select>
-                        {% endblock %}
-                    {% endembed %}
-                    {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                        label: 'Workout type'|trans,
-                        for: 'activity-workout-type', name: 'workoutType', value: activity.getWorkoutType() ? activity.getWorkoutType().value,
-                    } %}
-                        {% block control %}
-                            <select id="activity-workout-type" name="workoutType" {{ disabled ? 'disabled' }}>
-                                <option value="">{{ "None"|trans }}</option>
-                                {% for workoutType in workoutTypes %}
-                                    <option value="{{ workoutType.value }}" {{ workoutType == activity.getWorkoutType() ? 'selected' }}>{{ workoutType|trans }}</option>
-                                {% endfor %}
-                            </select>
-                        {% endblock %}
-                    {% endembed %}
-                    {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                        isReadOnly: gearIsReadOnly,
-                        label: 'Gear'|trans,
-                        for: 'activity-gear', name: 'gearId', value: activity.getGearId(),
-                    } %}
-                        {% block control %}
-                            <select id="activity-gear" name="gearId" {{ disabled ? 'disabled' }}>
-                                <option value="">{{ "None"|trans }}</option>
-                                {% for gear in gears %}
-                                    <option value="{{ gear.getId() }}" {{ activity.getGearId() and gear.getId().matches(activity.getGearId()) ? 'selected' }}>{{ gear.getName() }}</option>
-                                {% endfor %}
-                            </select>
-                        {% endblock %}
-                    {% endembed %}
-                    {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                        label: 'Device'|trans,
-                        for: 'activity-device-name', name: 'deviceName', value: activity.getDeviceName(),
-                    } %}
-                        {% block control %}
-                            <select id="activity-device-name" name="deviceName" {{ disabled ? 'disabled' }}>
-                                <option value="">{{ "None"|trans }}</option>
-                                {% for recordingDevice in recordingDevices %}
-                                    <option value="{{ recordingDevice.getName() }}" {{ activity.getDeviceName() == recordingDevice.getName() ? 'selected' }}>{{ recordingDevice.getName() }}</option>
-                                {% endfor %}
-                            </select>
-                        {% endblock %}
-                    {% endembed %}
-                    {% embed 'html/admin/component/strava-disabled-form-input.html.twig' with {
-                        label: 'Calories'|trans ~ ' (kcal)',
-                        for: 'activity-calories', name: 'calories', value: activity.getCalories(),
-                    } %}
-                        {% block control %}
-                            <input type="number" min="0" step="1" id="activity-calories" name="calories" value="{{ activity.getCalories() }}" {{ disabled ? 'disabled' }}>
-                        {% endblock %}
-                    {% endembed %}
+                    <div>
+                        <label for="activity-sport-type">{{ 'Sport type'|trans({}, 'admin') }}</label>
+                        <select id="activity-sport-type" name="sportType" required>
+                            {% for sportType in sportTypes %}
+                                <option value="{{ sportType.value }}" {{ sportType == activity.getSportType() ? 'selected' }}>{{ sportType|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="activity-workout-type">{{ 'Workout type'|trans }}</label>
+                        <select id="activity-workout-type" name="workoutType">
+                            <option value="">{{ "None"|trans }}</option>
+                            {% for workoutType in workoutTypes %}
+                                <option value="{{ workoutType.value }}" {{ workoutType == activity.getWorkoutType() ? 'selected' }}>{{ workoutType|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="activity-gear">{{ 'Gear'|trans }}</label>
+                        <select id="activity-gear" name="gearId">
+                            <option value="">{{ "None"|trans }}</option>
+                            {% for gear in gears %}
+                                <option value="{{ gear.getId() }}" {{ activity.getGearId() and gear.getId().matches(activity.getGearId()) ? 'selected' }}>{{ gear.getName() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="activity-device-name">{{ 'Device'|trans }}</label>
+                        <select id="activity-device-name" name="deviceName">
+                            <option value="">{{ "None"|trans }}</option>
+                            {% for recordingDevice in recordingDevices %}
+                                <option value="{{ recordingDevice.getName() }}" {{ activity.getDeviceName() == recordingDevice.getName() ? 'selected' }}>{{ recordingDevice.getName() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="activity-calories">{{ 'Calories'|trans ~ ' (kcal)' }}</label>
+                        <input type="number" min="0" step="1" id="activity-calories" name="calories" value="{{ activity.getCalories() }}">
+                    </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <input type="hidden" name="isCommute" value="{{ isImportedFromStrava and activity.isCommute() ? 'true' : 'false' }}">
-                    <input type="checkbox" id="activity-is-commute" name="isCommute" value="true" {{ activity.isCommute() ? 'checked' }} {{ isImportedFromStrava ? 'disabled' }}>
+                    <input type="hidden" name="isCommute" value="false">
+                    <input type="checkbox" id="activity-is-commute" name="isCommute" value="true" {{ activity.isCommute() ? 'checked' }}>
                     <label for="activity-is-commute" class="flex items-center gap-1.5 mt-0!">
                         {{ "Commute"|trans({}, 'admin') }}
-                        {% if isImportedFromStrava %}{% include 'html/admin/component/strava-imported-badge.html.twig' %}{% endif %}
                     </label>
                 </div>
                 <div class="flex items-center gap-2">
-                    <input type="hidden" name="isGroupActivity" value="{{ isImportedFromStrava and activity.isGroupActivity() ? 'true' : 'false' }}">
-                    <input type="checkbox" id="activity-is-group-activity" name="isGroupActivity" value="true" {{ activity.isGroupActivity() ? 'checked' }} {{ isImportedFromStrava ? 'disabled' }}>
+                    <input type="hidden" name="isGroupActivity" value="false">
+                    <input type="checkbox" id="activity-is-group-activity" name="isGroupActivity" value="true" {{ activity.isGroupActivity() ? 'checked' }}>
                     <label for="activity-is-group-activity" class="flex items-center gap-1.5 mt-0!">
                         {{ "Group activity"|trans({}, 'admin') }}
-                        {% if isImportedFromStrava %}{% include 'html/admin/component/strava-imported-badge.html.twig' %}{% endif %}
                     </label>
                 </div>
-                {% if not isImportedFromStrava %}
-                    <div>
-                        <label>{{ "Images"|trans({}, 'admin') }}</label>
-                        {% set existingImages = [] %}
-                        {% for path in activity.getLocalImagePaths() %}
-                            {% set existingImages = existingImages|merge([{ url: relativeUrl(path), name: path|split('/')|last, path: path }]) %}
-                        {% endfor %}
-                        {% include 'html/admin/component/image-dropzone-upload.html.twig' with { name: 'images', maxImages: 5, existingImages: existingImages } %}
-                    </div>
-                {% endif %}
+                <div>
+                    <label>{{ "Images"|trans({}, 'admin') }}</label>
+                    {% set existingImages = [] %}
+                    {% for path in activity.getLocalImagePaths() %}
+                        {% set existingImages = existingImages|merge([{ url: relativeUrl(path), name: path|split('/')|last, path: path }]) %}
+                    {% endfor %}
+                    {% include 'html/admin/component/image-dropzone-upload.html.twig' with { name: 'images', maxImages: 5, existingImages: existingImages } %}
+                </div>
                 <div class="flex justify-end gap-2 border-t border-gray-200 pt-4">
-                    {% if importMode.isFiles() %}
-                        <a href="{{ relativeUrl(path('admin_delete_activity', {activityId: activity.getId()})) }}" type="button" class="btn--danger me-auto">{{ "Delete"|trans({}, 'admin') }}</a>
-                    {% endif %}
+                    <a href="{{ relativeUrl(path('admin_delete_activity', {activityId: activity.getId()})) }}" type="button" class="btn--danger me-auto">{{ "Delete"|trans({}, 'admin') }}</a>
                     <a href="{{ returnUrl }}" type="button" class="btn--secondary">{{ "Cancel"|trans({}, 'admin') }}</a>
                     <button type="submit" data-has-loading-state class="group btn--primary">
                         <span class="label">{{ "Save"|trans({}, 'admin') }}</span>

@@ -55,7 +55,6 @@ class SideBarTest extends ContainerTestCase
             yield $cacheTag->value => [$cacheTag, in_array($cacheTag, [
                 RootCacheTag::ACTIVITIES,
                 RootCacheTag::ACTIVITY_IMAGES,
-                RootCacheTag::CHALLENGES,
                 RootCacheTag::GEAR,
                 RootCacheTag::SETTINGS_GENERAL,
                 RootCacheTag::SETTINGS_APPEARANCE,

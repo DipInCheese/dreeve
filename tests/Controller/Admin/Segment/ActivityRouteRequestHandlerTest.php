@@ -7,7 +7,6 @@ use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\Stream\ActivityStreamRepository;
 use App\Domain\Activity\Stream\StreamType;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Serialization\Json;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
@@ -17,7 +16,6 @@ class ActivityRouteRequestHandlerTest extends AdminWebTestCase
 {
     public function testItReturnsTheRoute(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()->withActivityId(ActivityId::fromUnprefixed('1'))->build(),
             []
@@ -50,7 +48,6 @@ class ActivityRouteRequestHandlerTest extends AdminWebTestCase
 
     public function testItReturnsNoAltitudeWhenTheStreamIsMissing(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()->withActivityId(ActivityId::fromUnprefixed('1'))->build(),
             []
@@ -72,7 +69,6 @@ class ActivityRouteRequestHandlerTest extends AdminWebTestCase
 
     public function testItReturnsNotFoundWhenTheActivityHasNoRoute(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->getContainer()->get(ActivityRepository::class)->add(ActivityWithRawData::fromState(
             ActivityBuilder::fromDefaults()->withActivityId(ActivityId::fromUnprefixed('1'))->build(),
             []
@@ -91,17 +87,6 @@ class ActivityRouteRequestHandlerTest extends AdminWebTestCase
 
     public function testItReturnsNotFoundWhenTheActivityDoesNotExist(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-        $this->client->loginUser($this->adminUser());
-
-        $this->client->request('GET', '/admin/activities/activity-1/route');
-
-        $this->assertResponseStatusCodeSame(404);
-    }
-
-    public function testItIsNotAvailableInStravaApiMode(): void
-    {
-        $this->withImportMode(ImportMode::STRAVA_API);
         $this->client->loginUser($this->adminUser());
 
         $this->client->request('GET', '/admin/activities/activity-1/route');

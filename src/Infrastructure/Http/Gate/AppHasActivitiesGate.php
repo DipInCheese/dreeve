@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Http\Gate;
 
 use App\Domain\Activity\ActivityIdRepository;
-use App\Domain\Import\ImportMode;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -14,7 +13,6 @@ final class AppHasActivitiesGate extends ConditionalRedirectGate
 {
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        private readonly ImportMode $importMode,
         private readonly ActivityIdRepository $activityIdRepository,
     ) {
         parent::__construct($urlGenerator);
@@ -27,12 +25,6 @@ final class AppHasActivitiesGate extends ConditionalRedirectGate
 
     protected function allowedPaths(): array
     {
-        if (!$this->importMode->isFiles()) {
-            // In Strava API mode the user still has to walk through the remaining setup steps. Signing in
-            // stays possible: on a multi-user installation Strava is managed from the admin panel.
-            return ['/admin/login', '/admin/logout'];
-        }
-
         // Keep the admin panel reachable, it is the only way to upload files.
         return ['/admin'];
     }

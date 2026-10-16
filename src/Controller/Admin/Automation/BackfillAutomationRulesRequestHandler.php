@@ -13,7 +13,6 @@ use App\Domain\Automation\Backfill\AutomationRulesBackfillPreviewer;
 use App\Domain\Automation\Backfill\AutomationRulesBackfillQueue;
 use App\Domain\Automation\Backfill\MatchedActivity;
 use App\Domain\Automation\Backfill\QueueAutomationRulesBackfill\QueueAutomationRulesBackfill;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\Http\HtmlResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -29,17 +28,12 @@ final readonly class BackfillAutomationRulesRequestHandler
         private AutomationRuleRepository $automationRuleRepository,
         private AutomationRulesBackfillPreviewer $previewer,
         private AutomationRulesBackfillQueue $backfillQueue,
-        private ImportMode $importMode,
     ) {
     }
 
     #[Route(path: '/admin/automation-rules/backfill', name: 'admin_backfill_automation_rules', methods: ['GET'], priority: 20)]
     public function handle(Request $request): HtmlResponse
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Automation rules are only available in file import mode');
-        }
-
         $enabledRules = $this->automationRuleRepository->findAll()->enabled();
         if ($enabledRules->isEmpty()) {
             throw new NotFoundHttpException('There are no enabled automation rules to apply');
@@ -65,10 +59,6 @@ final readonly class BackfillAutomationRulesRequestHandler
     #[Route(path: '/admin/automation-rules/backfill/preview', name: 'admin_backfill_automation_rules_preview', methods: ['GET'], priority: 20)]
     public function preview(Request $request): HtmlResponse
     {
-        if (!$this->importMode->isFiles()) {
-            throw new NotFoundHttpException('Automation rules are only available in file import mode');
-        }
-
         $enabledRules = $this->automationRuleRepository->findAll()->enabled();
         if ($enabledRules->isEmpty()) {
             throw new NotFoundHttpException('There are no enabled automation rules to apply');

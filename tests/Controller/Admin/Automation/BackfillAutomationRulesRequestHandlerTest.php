@@ -20,7 +20,6 @@ use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredCondition;
 use App\Domain\Automation\Condition\ConfiguredCondition\ConfiguredConditions;
 use App\Domain\Automation\RuleConfiguration;
 use App\Domain\Gear\GearRepository;
-use App\Domain\Import\ImportMode;
 use App\Infrastructure\KeyValue\KeyValueStore;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
@@ -31,9 +30,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 class BackfillAutomationRulesRequestHandlerTest extends AdminWebTestCase
 {
     #[DataProvider('provideNotFoundScenarios')]
-    public function testItIsNotFound(ImportMode $importMode, bool $ruleIsEnabled, bool $backfillIsQueued, string $url): void
+    public function testItIsNotFound(bool $ruleIsEnabled, bool $backfillIsQueued, string $url): void
     {
-        $this->withImportMode($importMode);
         $this->saveAssignGearRule(isEnabled: $ruleIsEnabled);
         if ($backfillIsQueued) {
             new AutomationRulesBackfillQueue(static::getContainer()->get(KeyValueStore::class))->queue(
@@ -55,17 +53,14 @@ class BackfillAutomationRulesRequestHandlerTest extends AdminWebTestCase
         $page = '/admin/automation-rules/backfill';
         $preview = $page.'/preview';
 
-        yield 'strava import mode' => [ImportMode::STRAVA_API, true, false, $page];
-        yield 'no enabled rules' => [ImportMode::FILES, false, false, $page];
-        yield 'preview in strava import mode' => [ImportMode::STRAVA_API, true, false, $preview];
-        yield 'preview while a backfill is queued' => [ImportMode::FILES, true, true, $preview.'?automationRuleIds[]=automationRule-1'];
-        yield 'preview without a selection' => [ImportMode::FILES, true, false, $preview];
-        yield 'preview of a rule that does not exist' => [ImportMode::FILES, true, false, $preview.'?automationRuleIds[]=automationRule-other'];
+        yield 'no enabled rules' => [false, false, $page];
+        yield 'preview while a backfill is queued' => [true, true, $preview.'?automationRuleIds[]=automationRule-1'];
+        yield 'preview without a selection' => [true, false, $preview];
+        yield 'preview of a rule that does not exist' => [true, false, $preview.'?automationRuleIds[]=automationRule-other'];
     }
 
     public function testThePageDefersScanningUntilRulesAreSelected(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->saveAssignGearRule();
         $this->client->loginUser($this->adminUser());
 
@@ -103,8 +98,6 @@ class BackfillAutomationRulesRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersThePreview(): void
     {
-        $this->withImportMode(ImportMode::FILES);
-
         static::getContainer()->get(GearRepository::class)->add(
             GearBuilder::fromDefaults()->withName('Canyon Ultimate')->build()
         );
@@ -155,7 +148,6 @@ class BackfillAutomationRulesRequestHandlerTest extends AdminWebTestCase
 
     public function testItRendersTheQueuedStateWithoutAPreview(): void
     {
-        $this->withImportMode(ImportMode::FILES);
         $this->saveAssignGearRule();
         new AutomationRulesBackfillQueue(static::getContainer()->get(KeyValueStore::class))->queue(
             AutomationRulesBackfillRequest::fromState(
