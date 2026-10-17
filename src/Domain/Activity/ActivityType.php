@@ -8,7 +8,6 @@ use App\Domain\Activity\SportType\SportType;
 use App\Domain\Activity\SportType\SportTypes;
 use App\Infrastructure\Measurement\Length\Kilometer;
 use App\Infrastructure\Measurement\Length\Meter;
-use App\Infrastructure\Measurement\Length\Mile;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -106,37 +105,35 @@ enum ActivityType: string implements TranslatableInterface
     public function getDistancesForBestEffortCalculation(): array
     {
         return match ($this) {
+            // Metric distances only.
             self::RIDE => [
-                Mile::from(5),
+                Kilometer::from(5),
                 Kilometer::from(10),
-                Mile::from(10),
                 Kilometer::from(20),
                 Kilometer::from(30),
                 Kilometer::from(40),
                 Kilometer::from(50),
                 Kilometer::from(80),
-                Mile::from(50),
                 Kilometer::from(90),
                 Kilometer::from(100),
-                Mile::from(100),
+                Kilometer::from(150),
+                Kilometer::from(200),
             ],
             self::RUN => [
                 Meter::from(400),
-                Mile::from(0.5),
+                Meter::from(800),
                 Kilometer::from(1),
-                Mile::from(1),
-                Mile::from(2),
+                Meter::from(1500),
+                Kilometer::from(3),
                 Kilometer::from(5),
                 Kilometer::from(10),
                 Kilometer::from(15),
-                Mile::from(10),
                 Kilometer::from(20),
                 Kilometer::from(21.097),
                 Kilometer::from(30),
-                Kilometer::from(42.194),
+                Kilometer::from(42.195),
                 Kilometer::from(50),
                 Kilometer::from(100),
-                Mile::from(100),
             ],
             default => [],
         };

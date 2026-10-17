@@ -103,11 +103,18 @@ final class GearComponent implements \JsonSerializable
         );
 
         foreach ($component['maintenance'] ?? [] as $task) {
+            $intervalUnit = IntervalUnit::from($task['interval']['unit']);
+            $intervalValue = $task['interval']['value'];
+            // Metric units only: an interval set in miles becomes kilometres.
+            if (IntervalUnit::EVERY_X_MILES_USED === $intervalUnit) {
+                $intervalUnit = IntervalUnit::EVERY_X_KILOMETERS_USED;
+                $intervalValue = (int) round($intervalValue * 1.609344);
+            }
             $gearComponent->addMaintenanceTask(MaintenanceTask::create(
                 id: MaintenanceTaskId::fromString($task['id']),
                 label: Name::fromString($task['label']),
-                intervalValue: $task['interval']['value'],
-                intervalUnit: IntervalUnit::from($task['interval']['unit'])
+                intervalValue: $intervalValue,
+                intervalUnit: $intervalUnit,
             ));
         }
 

@@ -6,27 +6,24 @@ use App\Domain\Activity\SportType\SportType;
 use App\Domain\Activity\VelocityDistributionChart;
 use App\Infrastructure\Measurement\UnitSystem;
 use App\Infrastructure\Measurement\Velocity\KmPerHour;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class VelocityDistributionChartTest extends TestCase
 {
     /**
-     * The velocity data is bucketed in the sport type's display unit at import time, so for a sail
-     * activity the buckets are knots and the average marker has to be plotted in knots too.
+     * Sail activities are shown in km/h like everything else: no knots.
      */
-    #[DataProvider(methodName: 'provideUnitSystems')]
-    public function testItMarksTheAverageInKnotsForSailActivities(UnitSystem $unitSystem): void
+    public function testItMarksTheAverageInKmPerHourForSailActivities(): void
     {
         $chart = VelocityDistributionChart::create(
-            velocityData: [8 => 60, 9 => 120, 10 => 200, 11 => 150, 12 => 90],
+            velocityData: [16 => 60, 17 => 120, 18 => 200, 19 => 150, 20 => 90],
             averageSpeed: KmPerHour::from(18.52),
             sportType: SportType::SAIL,
-            unitSystem: $unitSystem,
+            unitSystem: UnitSystem::METRIC,
         )->build();
 
         $this->assertNotNull($chart);
-        $this->assertEquals(10.0, $chart['series'][0]['markPoint']['data'][0]['value']);
+        $this->assertEqualsWithDelta(18.5, $chart['series'][0]['markPoint']['data'][0]['value'], 0.05);
     }
 
     public function testItMarksTheAverageInKmPerHourForRideActivities(): void
@@ -40,13 +37,5 @@ class VelocityDistributionChartTest extends TestCase
 
         $this->assertNotNull($chart);
         $this->assertEquals(30.0, $chart['series'][0]['markPoint']['data'][0]['value']);
-    }
-
-    public static function provideUnitSystems(): array
-    {
-        return [
-            [UnitSystem::METRIC],
-            [UnitSystem::IMPERIAL],
-        ];
     }
 }

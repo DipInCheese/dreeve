@@ -89,13 +89,12 @@ enum SportType: string implements TranslatableInterface
     case HAND_CYCLE = 'Handcycle';
     case WHEELCHAIR = 'Wheelchair';
 
+    /**
+     * Dreeve shows metric units everywhere, also for sailing and surfing: kilometres and km/h, no nautical miles or knots.
+     */
     public function usesNauticalUnits(): bool
     {
-        return in_array($this, [
-            self::SAIL,
-            self::WIND_SURF,
-            self::KITE_SURF,
-        ]);
+        return false;
     }
 
     public function getVelocityDisplayPreference(): Velocity

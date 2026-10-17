@@ -38,9 +38,9 @@ class BestEffortsHistoryRequestHandlerTest extends ControllerWebTestCase
         $this->provideFullTestSet();
 
         $expected = [
-            ['5 mi', '00:05'], ['10 km', '00:10'], ['10 mi', '00:10'], ['20 km', '00:20'],
-            ['30 km', '00:30'], ['40 km', '00:40'], ['50 km', '00:50'], ['80 km', '01:20'],
-            ['50 mi', '00:50'], ['90 km', '01:30'], ['100 km', '01:40'], ['100 mi', '01:40'],
+            ['5 km', '00:05'], ['10 km', '00:10'], ['20 km', '00:20'], ['30 km', '00:30'],
+            ['40 km', '00:40'], ['50 km', '00:50'], ['80 km', '01:20'], ['90 km', '01:30'],
+            ['100 km', '01:40'], ['150 km', '02:30'], ['200 km', '03:20'],
         ];
         $distances = ActivityType::RIDE->getDistancesForBestEffortCalculation();
         $this->assertCount(count($expected), $distances);

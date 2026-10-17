@@ -11,7 +11,6 @@ use App\Domain\Activity\Stream\ActivityStreamRepository;
 use App\Domain\Activity\Stream\StreamType;
 use App\Infrastructure\Measurement\Length\Kilometer;
 use App\Infrastructure\Measurement\Length\Meter;
-use App\Infrastructure\Measurement\Length\Mile;
 use App\Tests\ContainerTestCase;
 use App\Tests\Domain\Activity\ActivityBuilder;
 use App\Tests\Domain\Activity\Stream\ActivityStreamBuilder;
@@ -60,7 +59,7 @@ class RecalculateBestEffortsListenerTest extends ContainerTestCase
 
         $this->assertEquals(
             [
-                ['sportType' => SportType::RIDE->value, 'distanceInMeter' => Mile::from(5)->toMeter()->toInt(), 'timeInSeconds' => 805],
+                ['sportType' => SportType::RIDE->value, 'distanceInMeter' => 5000, 'timeInSeconds' => 500],
                 ['sportType' => SportType::RIDE->value, 'distanceInMeter' => 10000, 'timeInSeconds' => 1000],
             ],
             $this->getConnection()->executeQuery(

@@ -173,11 +173,17 @@ final class ConsistencyChallenges extends Collection
                 $sportTypesToInclude = SportTypes::all();
             }
 
+            // Metric units only: a goal set in miles or feet becomes kilometres or metres.
+            [$goal, $unit] = match ($challengeConfig['unit']) {
+                ConsistencyChallenge::MILES => [round((float) $challengeConfig['goal'] * 1.609344, 1), ConsistencyChallenge::KILOMETER],
+                ConsistencyChallenge::FOOT => [round((float) $challengeConfig['goal'] * 0.3048), ConsistencyChallenge::METER],
+                default => [(float) $challengeConfig['goal'], $challengeConfig['unit']],
+            };
             $consistencyChallenges[] = ConsistencyChallenge::create(
                 label: $challengeConfig['label'],
                 type: $type,
-                goal: (float) $challengeConfig['goal'],
-                unit: $challengeConfig['unit'],
+                goal: $goal,
+                unit: $unit,
                 sportTypesToInclude: $sportTypesToInclude
             );
         }

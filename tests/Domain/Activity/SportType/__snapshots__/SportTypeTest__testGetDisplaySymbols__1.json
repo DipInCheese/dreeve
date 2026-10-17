@@ -169,13 +169,13 @@
     },
     "Kitesurf": {
         "metric": {
-            "distance": "NM",
-            "speed": "kn",
+            "distance": "km",
+            "speed": "km/h",
             "distancePrecision": 2
         },
         "imperial": {
-            "distance": "NM",
-            "speed": "kn",
+            "distance": "mi",
+            "speed": "mph",
             "distancePrecision": 2
         }
     },
@@ -253,13 +253,13 @@
     },
     "Windsurf": {
         "metric": {
-            "distance": "NM",
-            "speed": "kn",
+            "distance": "km",
+            "speed": "km/h",
             "distancePrecision": 2
         },
         "imperial": {
-            "distance": "NM",
-            "speed": "kn",
+            "distance": "mi",
+            "speed": "mph",
             "distancePrecision": 2
         }
     },
@@ -613,14 +613,14 @@
     },
     "Sail": {
         "metric": {
-            "distance": "NM",
-            "speed": "kn",
-            "distancePrecision": 2
+            "distance": "km",
+            "speed": "km/h",
+            "distancePrecision": 0
         },
         "imperial": {
-            "distance": "NM",
-            "speed": "kn",
-            "distancePrecision": 2
+            "distance": "mi",
+            "speed": "mph",
+            "distancePrecision": 0
         }
     },
     "Basketball": {

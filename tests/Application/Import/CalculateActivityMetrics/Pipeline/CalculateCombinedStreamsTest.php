@@ -58,9 +58,9 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
 
     /**
      * The shared test data only spans 35 meters, which rounds away to 0 on the distance axis.
-     * This uses a kilometer scale stream so the nautical mile conversion is actually visible.
+     * This uses a kilometer scale stream so the distances are actually visible.
      */
-    public function testProcessForSailItShouldConvertTheDistanceAxisToNauticalMiles(): void
+    public function testProcessForSailItShowsKilometresNotNauticalMiles(): void
     {
         $output = new SpyOutput();
 
@@ -104,15 +104,16 @@ class CalculateCombinedStreamsTest extends ContainerTestCase
         $combinedStream = $this->getContainer()->get(CombinedActivityStreamRepository::class)
             ->findOneForActivityAndUnitSystem($activityId, UnitSystem::METRIC);
 
-        // 0, 1852, 3704 and 9260 meters are exactly 0, 1, 2 and 5 nautical miles.
+        // Kilometres, like every other sport: no nautical miles.
         $this->assertEquals(
-            [0.0, 1.0, 2.0, 5.0],
+            [0, 1.9, 3.7, 9.3],
             $combinedStream->getDistances()
         );
-        // 5.144 m/s is 18.52 km/h, which is exactly 10 knots.
-        $this->assertEquals(
-            [0, 10.0, 10.0, 10.0],
-            $combinedStream->getChartStreamData(CombinedStreamType::VELOCITY)
+        // 5.144 m/s is 18.5 km/h: km/h, not knots.
+        $this->assertEqualsWithDelta(
+            [0, 18.5, 18.5, 18.5],
+            $combinedStream->getChartStreamData(CombinedStreamType::VELOCITY),
+            0.05,
         );
     }
 
