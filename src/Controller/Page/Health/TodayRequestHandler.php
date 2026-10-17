@@ -82,6 +82,8 @@ final readonly class TodayRequestHandler
             'hasHealthData' => $this->healthRepository->hasHealthData(),
             'overviews' => array_map(static fn (HealthMetric $metric): MetricOverview => MetricOverview::for($metric, $data), self::METRICS),
             'sleep' => $data->sleepSessions[$today->format('Y-m-d')] ?? null,
+            // The Body Battery card compares the day's peak with your normal; its big number is where you are now.
+            'currentBodyBattery' => ($data->dailySummaries[$today->format('Y-m-d')] ?? null)?->bodyBatteryMostRecent,
             'latestActivity' => $this->activityRepository->findMostRecent(1)->getFirst(),
             'latestWeight' => [] === $weights ? null : reset($weights),
             'today' => $today,

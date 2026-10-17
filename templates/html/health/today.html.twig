@@ -23,6 +23,7 @@
             {% include 'html/health/metric-card.html.twig' with {
                 overview: overview,
                 link: relativeUrl(path('health_section', {section: overview.metric.section().value})),
+                current: overview.metric.value == 'body-battery-high' and overview.isRecent ? currentBodyBattery : null,
             } only %}
         {% endfor %}
     </div>

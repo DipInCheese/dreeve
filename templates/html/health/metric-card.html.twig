@@ -1,4 +1,5 @@
-{# One metric at a glance. Expects: overview (MetricOverview), link (optional url). #}
+{# One metric at a glance. Expects: overview (MetricOverview), link (optional url),
+   current (optional: a value right now, shown big, with the compared value below it). #}
 {% set toneClasses = {
     'good': 'bg-green-50 text-green-700',
     'bad': 'bg-amber-50 text-amber-800',
@@ -8,11 +9,20 @@
 {% set cardClasses = 'flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-lg shadow-xs' %}
 {% if link ?? false %}<a href="{{ link }}" class="{{ cardClasses }} hover:border-primary transition" data-metric="{{ overview.metric.value }}">{% else %}<div class="{{ cardClasses }}" data-metric="{{ overview.metric.value }}">{% endif %}
     <div class="text-xs font-semibold uppercase tracking-wide text-gray-500">{{ overview.metric|trans }}</div>
-    {% if baseline.hasLatest() %}
+    {% set current = current ?? null %}
+    {% if baseline.hasLatest() and current is not null %}
+        <div class="flex items-baseline gap-1.5" data-current>
+            <span class="text-3xl font-extrabold text-gray-900">{{ overview.format(current) }}</span>
+            <span class="text-sm text-gray-500">{{ "now"|trans }}</span>
+        </div>
+        <div class="text-sm text-gray-700">{{ "Charged to {value} today"|trans({'{value}': overview.formatLatest()}) }}</div>
+    {% elseif baseline.hasLatest() %}
         <div class="flex items-baseline gap-1.5">
             <span class="text-3xl font-extrabold text-gray-900">{{ overview.formatLatest() }}</span>
             {% if overview.unit() %}<span class="text-sm text-gray-500">{{ overview.unit() }}</span>{% endif %}
         </div>
+    {% endif %}
+    {% if baseline.hasLatest() %}
         <div class="flex flex-wrap items-center gap-2 text-xs">
             <span class="rounded-full px-2 py-0.5 font-medium {{ toneClasses[overview.tone()] }}">{{ overview.comparison()|trans }}</span>
             {% if baseline.hasNormalRange() %}

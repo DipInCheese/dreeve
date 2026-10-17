@@ -52,6 +52,19 @@ class HealthPageTest extends AdminWebTestCase
         $this->assertStringContainsString('72.4', $crawler->filter('[data-latest-weight]')->text());
     }
 
+    public function testTodayShowsWhereYourBodyBatteryIsNow(): void
+    {
+        $this->seedThirtyDays();
+
+        $crawler = $this->client->request('GET', '/today');
+
+        $bodyBattery = $crawler->filter('[data-metric="body-battery-high"]');
+        // The big number is the latest reading; the peak of the day is what gets compared with your normal.
+        $this->assertSame('41 now', trim($bodyBattery->filter('[data-current]')->text()));
+        $this->assertStringContainsString('Charged to 80 today', $bodyBattery->text());
+        $this->assertStringContainsString('Within your normal', $bodyBattery->text());
+    }
+
     #[DataProvider('provideRanges')]
     public function testAHealthSectionChartsItsMetrics(string $range, int $expectedPoints): void
     {
@@ -116,6 +129,7 @@ class HealthPageTest extends AdminWebTestCase
                 restingHeartRate: 0 === $daysAgo ? 58 : 46 + ($daysAgo % 5),
                 averageStress: 25,
                 bodyBatteryHighest: 80,
+                bodyBatteryMostRecent: 0 === $daysAgo ? 41 : 30,
             ));
             $records->addHrvSummary(new HrvSummary(
                 day: $day,
