@@ -1,0 +1,32 @@
+{% extends 'html/front-door/layout.html.twig' %}
+
+{% block title %}Sign in | Dreeve{% endblock %}
+
+{% block content %}
+    <p class="mt-1 text-center text-sm text-gray-500">Sign in to see your data</p>
+    <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs" data-front-door>
+        {% if error %}
+            <div class="mb-4 overflow-hidden rounded-xl border border-red-200 bg-red-100/60 text-red-700" role="alert">
+                <p class="px-4 py-3 text-sm">{{ error }}</p>
+            </div>
+        {% endif %}
+        <form class="space-y-4" method="post" action="/">
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="_username" value="{{ username }}" autocomplete="username" autocapitalize="none" spellcheck="false" required {{ username ? '' : 'autofocus' }}
+                       placeholder="Enter your username">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="_password" autocomplete="current-password" required {{ username ? 'autofocus' : '' }}
+                       placeholder="Enter your password">
+            </div>
+            <label class="flex items-center gap-2 text-sm text-gray-700">
+                <input type="checkbox" name="_remember_me">
+                <span>Remember me for 7 days</span>
+            </label>
+            <input type="hidden" name="_csrf_token" value="{{ csrfToken }}">
+            <button type="submit" class="w-full btn--primary btn--large">Sign in</button>
+        </form>
+    </div>
+{% endblock %}

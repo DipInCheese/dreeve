@@ -1,0 +1,26 @@
+{# The pages on the bare address of a multi-user installation. Rendered outside the app, see FrontDoor. #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Dreeve{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#F26822">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo.svg">
+    <link href="/css/dist/tailwind.min.css?{{ assetVersion }}" rel="stylesheet"/>
+    <script>
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900 antialiased admin">
+<section class="flex min-h-screen flex-col justify-center px-6 py-12 sm:px-12">
+    <div class="mx-auto w-full max-w-sm">
+        <img class="mx-auto h-12 w-auto" src="/assets/images/logo.svg" alt="Dreeve">
+        <h1 class="mt-6 text-center text-2xl font-bold tracking-tight">Dreeve</h1>
+        {% block content %}{% endblock %}
+    </div>
+</section>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Infrastructure\Tenancy\FrontDoor\FrontDoor;
 use App\Infrastructure\Tenancy\Tenant;
 use App\Infrastructure\Tenancy\TenantEnvironment;
 use App\Infrastructure\Tenancy\TenantRouterKernel;
@@ -20,5 +21,11 @@ return function (array $context) {
         getRevision: static fn (): string => Tenants::getSettingsRevision(dirname(__DIR__)),
         tenantEnvironment: new TenantEnvironment(),
         kernelFactory: static fn (Tenant $tenant): Kernel => new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG'], $tenant),
+        frontDoor: new FrontDoor(
+            projectDir: dirname(__DIR__),
+            usersDirectory: Tenants::getUsersDirectory(dirname(__DIR__)),
+            now: static fn (): DateTimeImmutable => new DateTimeImmutable(),
+            trustedProxies: (string) ($environment['TRUSTED_PROXIES'] ?? ''),
+        ),
     );
 };

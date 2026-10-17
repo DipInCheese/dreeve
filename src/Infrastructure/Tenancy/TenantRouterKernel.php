@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Tenancy;
 
+use App\Infrastructure\Tenancy\FrontDoor\FrontDoor;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,7 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
         private readonly \Closure $getRevision,
         private readonly TenantEnvironment $tenantEnvironment,
         private readonly \Closure $kernelFactory,
+        private readonly ?FrontDoor $frontDoor = null,
     ) {
     }
 
@@ -47,6 +49,11 @@ final class TenantRouterKernel implements HttpKernelInterface, TerminableInterfa
 
         $path = (string) parse_url($request->getRequestUri(), PHP_URL_PATH);
         if (!($tenant = $this->getTenants()->findForRequest($request->getHost(), $path)) instanceof Tenant) {
+            // The bare address (and any unknown path) of users that live under a path: sign in there.
+            if ($this->frontDoor instanceof FrontDoor && ($response = $this->frontDoor->handle($request, $this->getTenants())) instanceof Response) {
+                return $response;
+            }
+
             return new Response(
                 content: 'Not found',
                 status: Response::HTTP_NOT_FOUND,

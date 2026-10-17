@@ -1,0 +1,11 @@
+{% extends 'html/front-door/layout.html.twig' %}
+
+{% block title %}Not found | Dreeve{% endblock %}
+
+{% block content %}
+    <div class="mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-xs text-center" data-front-door-not-found>
+        <h2 class="text-lg font-semibold">This page does not exist</h2>
+        <p class="mt-2 text-sm text-gray-600">The link may be old, or the address has a typo.</p>
+        <a href="/" class="mt-4 w-full btn--primary btn--large" type="button">Go to sign in</a>
+    </div>
+{% endblock %}
