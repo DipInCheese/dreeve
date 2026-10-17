@@ -30,8 +30,8 @@ export default defineConfig({
 						'Important notes:',
 						'',
 						'- Dreeve was called "Statistics for Strava" before v5. Instructions written for v4 (e.g. a `config.yaml` file) no longer apply.',
-						'- Dreeve runs as two Docker containers (`app` and `daemon`) that share the same volumes, defined in a `docker-compose.yml`.',
-						'- Environment variables live in a `.env` file. All other configuration is done in the admin panel at `/admin`.',
+						'- This fork runs as three Docker containers (`app`, `daemon` and `health-sync`) that share the same volumes, defined in a `docker-compose.yml`.',
+						'- Environment variables live in a `.env` file. All other configuration is done in the app, under Data & settings.',
 						'- Changes to `.env` require recreating the containers (`docker compose up -d`), a restart is not enough.',
 					].join('\n'),
 					customSets: [
@@ -95,6 +95,13 @@ export default defineConfig({
 									],
 								},
 								{
+									label: 'Health',
+									items: [
+										{ slug: 'health/overview', label: 'Your health data' },
+										{ slug: 'health/other-sources', label: 'Weigh-ins from other sources' },
+									],
+								},
+								{
 									label: 'Importing activities',
 									items: [
 										{ slug: 'importing/overview', label: 'Overview' },
@@ -104,7 +111,7 @@ export default defineConfig({
 								{
 									label: 'Integrations',
 									items: [
-										{ slug: 'integrations/ai', label: 'AI assistant' },
+										{ slug: 'integrations/ai', label: 'AI coach' },
 										{ slug: 'integrations/garmin-connect', label: 'Garmin Connect' },
 										{ slug: 'integrations/polar-flow', label: 'Polar Flow' },
 										{ slug: 'integrations/wahoo-connector', label: 'Wahoo Connector' },

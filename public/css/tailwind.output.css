@@ -3504,6 +3504,9 @@
   .text-primary {
     color: var(--color-primary);
   }
+  .text-primary-dark {
+    color: var(--color-primary-dark);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }

@@ -151,7 +151,7 @@ detail pages show "within / above / below your normal". The same numbers are the
   Strava segments, Strava photos and the Strava AI tools. The activity id scheme and stream names stay as they are, to
   keep all existing analytics working.
 
-### 5.6 Prepared for the Eufy scale (not built)
+### 5.6 Prepared for the Eufy scale (groundwork built in phase 4)
 
 Two possible routes, decided when we get there:
 
@@ -159,16 +159,21 @@ Two possible routes, decided when we get there:
 2. **Direct**: a `eufy` adapter in health-sync (the unofficial EufyLife cloud API) writes body measurements into the
    inbox, with source `eufy`.
 
-Either way, `BodyMeasurement` with source attribution and duplicate detection already supports it. Eufy cannot sync
+Either way, `BodyMeasurement` with source attribution already supports it. Phase 4 added a source-neutral
+delivery format (`kind: body`, see `BodyMeasurementDelivery` and the docs page "Weigh-ins from other sources"):
+any adapter, script or home automation can drop weigh-ins into a user's health inbox today. Eufy cannot sync
 to Garmin by itself, only to Apple Health, Fitbit and Google Fit.
 
-### 5.7 Prepared for AI analysis (not built)
+### 5.7 Prepared for AI analysis (groundwork built in phase 4)
 
 - **HealthSnapshot**: builds a compact, structured summary of a period (metrics, baselines, deviations, training load,
   notable activities, sleep consistency). Deterministic and testable, and useful without AI too (e.g. a weekly
   summary).
 - **InsightProvider** interface and an `Insight` table (period, type, content, model, created at). No provider
   implementation yet.
+- Built in phase 4: `HealthSnapshotBuilder` (weekly summary on the Insights page), the `Insight` table and
+  repository, the `InsightProvider` interface, and a `get_health_snapshot` tool for the existing AI chat, whose
+  prompt is now about health and training instead of Strava.
 - The existing AI integration (Neuron AI, many providers including a local Ollama model) is kept; the Strava-specific
   prompt and tools are removed.
 - AI is **off by default** and an explicit per-user choice, because health data would be sent to the chosen AI

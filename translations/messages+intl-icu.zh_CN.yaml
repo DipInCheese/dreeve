@@ -15,6 +15,7 @@
 'A high score means you concentrate more training into fewer, heavier days.': 'A high score means you concentrate more training into fewer, heavier days.'
 'A:C Ratio': 'A:C 比值'
 'A:C optimal in': 'A:C optimal in'
+'AI analysis: coming soon': 'AI analysis: coming soon'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (疲劳)'
 'About you': 'About you'
@@ -54,6 +55,7 @@ Badges: Badges
 Badminton: 羽毛球
 Bananas: Bananas
 Basketball: Basketball
+'Bedtime around {bedtime}, up around {wakeTime}.': 'Bedtime around {bedtime}, up around {wakeTime}.'
 'Below your normal': 'Below your normal'
 Best: 最佳
 'Best effort': 最佳努力
@@ -77,12 +79,12 @@ Calories: 卡路里
 Canoeing: 划独木舟
 'Carbon saved': 碳减排
 'Challenge consistency': 挑战一致性
+'Charged to {value} today': 'Charged to {value} today'
 'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': '长期训练负荷（体能）— 42天训练的负荷指数加权平均值。代表长期训练适应情况。'
 'Clear all filters': 'Clear all filters'
 'Clear chat': 'Clear chat'
 'Cluster tiles': 集群方块
 Columns: Columns
-'Coming soon': 'Coming soon'
 Commute: Commute
 Commutes: 通勤
 'Commutes only': 仅通勤
@@ -143,6 +145,7 @@ Duration: Duration
 'E-Bike Rides': 电动自行车骑行
 'E-Mountain Bike Ride': 'E-Mountain Bike Ride'
 'E-Mountain Bike Rides': 电动山地车骑行
+'Each number is your average for the week, next to your normal from before it and the week before.': 'Each number is your average for the week, next to your normal from before it and the week before.'
 Eddington: 愛丁頓數
 'Eddington number': 'Eddington number'
 'Eddington over time': 'Eddington over time'
@@ -268,6 +271,7 @@ Lap: 圈
 'Last used': 'Last used'
 'Last week': 'Last week'
 'Last {numberOfDays} days': '最近{numberOfDays}天'
+'Later, Dreeve can use the summary above to explain how your week went and what to adjust.': 'Later, Dreeve can use the summary above to explain how your week went and what to adjust.'
 'Latest activity': 'Latest activity'
 'Latest weight': 'Latest weight'
 Lifetime: Lifetime
@@ -332,6 +336,7 @@ Next: Next
 'Next milestone': 'Next milestone'
 Night: 夜晚
 'No activities': 没有活动
+'No activities this week.': 'No activities this week.'
 'No activities yet': 'No activities yet'
 'No data available': 没有可用数据
 'No data yet': 'No data yet'
@@ -341,6 +346,7 @@ Night: 夜晚
 'No milestones achieved yet': 'No milestones achieved yet'
 'No other options to compare with': 无可供比较的其他选项
 'No purchase price set': 'No purchase price set'
+'No sleep recorded this week.': 'No sleep recorded this week.'
 'No weight yet': 'No weight yet'
 None: 无
 'Nordic Ski': 北欧滑雪
@@ -350,6 +356,7 @@ None: 无
 'Not fitted': 'Not fitted'
 'Not supported': 不支持
 'Not synced yet': 'Not synced yet'
+'Nothing to summarise yet': 'Nothing to summarise yet'
 Nov: 十一月
 Now: Now
 'Number of activities': 'Number of activities'
@@ -359,6 +366,7 @@ Oct: 十月
 'Older effort': 'Older effort'
 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': '平均而言，每天的平均值为 {dailyAverage}，每周的平均值为 {weeklyAverage}，每月的平均值为 {monthlyAverage} 🐣。'
 'On your own': 'On your own'
+'Once your watch data comes in, this page sums up your week.': 'Once your watch data comes in, this page sums up your week.'
 'One of your gear maintenance tasks is due': 您有装备需维护
 "Oops, looks like you've wandered off the map! 🗺️": "Oops, looks like you've wandered off the map! 🗺️"
 'Open Water Swim': 'Open Water Swim'
@@ -457,6 +465,7 @@ Skateboard: 滑板
 Skating: 滑冰
 'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
+'Sleep rhythm': 'Sleep rhythm'
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
 'Smart trainer': 'Smart trainer'
@@ -596,7 +605,6 @@ Tennis: 网球
 Thinking...: 思考中...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
 'This feature is currently disabled': 功能当前被禁用
-'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'This month'
 'This week': 'This week'
 Thu: 周四
@@ -631,7 +639,6 @@ Tue: 周二
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
 Unspecified: 未指定
-'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -694,8 +701,10 @@ Yoga: 瑜伽
 'Your Zwift badge': Zwift徽章
 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 徽章
+'Your bedtime moved by about {minutes} minutes from night to night.': 'Your bedtime moved by about {minutes} minutes from night to night.'
 'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
+'Your last 7 days': 'Your last 7 days'
 'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': Z1-2（低）
@@ -735,6 +744,7 @@ months: 月
 more: 更多
 n/a: 不适用
 never: 从不
+now: now
 'of your activities': 'of your activities'
 'on': 在
 per: per
@@ -748,6 +758,7 @@ watts: watts
 weeks: 周
 workouts: 锻炼
 '{amount} left': '{amount} left'
+'{count} activities, {hours} hours, {distance} km.': '{count} activities, {hours} hours, {distance} km.'
 '{daysSinceLastTagged} days': '{daysSinceLastTagged}天'
 '{days} consecutive days of activity': '{days} consecutive days of activity'
 '{hoursSinceLastTagged} hours': '{hoursSinceLastTagged}小时'

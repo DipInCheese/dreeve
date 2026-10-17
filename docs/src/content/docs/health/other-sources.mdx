@@ -1,0 +1,55 @@
+---
+title: "Weigh-ins from other sources"
+description: "Send weigh-ins and body composition from a smart scale such as Eufy, a script or a home automation to Dreeve."
+---
+
+Garmin weigh-ins arrive by themselves. For a scale that does not sync with Garmin, such as a **Eufy** scale, Dreeve
+accepts weigh-ins in its own simple format. Anything that can write a file can deliver them: a script, a Home
+Assistant automation or a future Eufy adapter.
+
+:::note
+Eufy scales can not sync to Garmin Connect themselves, only to Apple Health, Fitbit and Google Fit. A built-in
+Eufy connection is planned; until then, use this format.
+:::
+
+## The format
+
+Write a JSON file into the health inbox of the user, `data/<user>/inbox/health/`. Dreeve picks it up within
+seconds.
+
+```json title="data/alice/inbox/health/eufy-2026-10-17.json"
+{
+  "source": "eufy",
+  "kind": "body",
+  "measurements": [
+    {
+      "id": "abc123",
+      "measuredOn": "2026-10-17T07:02:00+02:00",
+      "weightInKg": 72.4,
+      "bmi": 22.1,
+      "bodyFatPercentage": 18.2,
+      "muscleMassInKg": 56.3,
+      "boneMassInKg": 3.1,
+      "bodyWaterPercentage": 57.9,
+      "visceralFat": 7
+    }
+  ]
+}
+```
+
+| Field | |
+|---|---|
+| `source` | A short name for where it comes from: lower case letters, digits and `-`, e.g. `eufy`. |
+| `kind` | Always `body`. |
+| `measurements[].id` | The weigh-in's own id at the source. The same id from the same source is stored once, so sending it again is harmless. |
+| `measurements[].measuredOn` | When it was measured, ISO 8601, preferably with the time zone. |
+| everything else | Optional. Units are kilograms and percentages. |
+
+Write the file under another name first (for example starting with a `.`), then rename it, so Dreeve never reads a
+half-written file. A file Dreeve can not read is moved to `inbox/health/failed/`.
+
+## What happens with it
+
+The weigh-ins show up under **Health → Body** and on **Today**, and the weight is used wherever Dreeve needs your
+weight (for example for power and calorie estimates). When two sources weigh you on the same day, the last weigh-in
+of the day counts.

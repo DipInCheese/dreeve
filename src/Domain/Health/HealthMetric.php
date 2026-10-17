@@ -73,6 +73,37 @@ enum HealthMetric: string implements TranslatableInterface
         };
     }
 
+    /**
+     * The value as shown: durations as hours and minutes, everything else as a number.
+     */
+    public function format(?float $value): ?string
+    {
+        if (null === $value) {
+            return null;
+        }
+
+        if ($this->isDuration()) {
+            $minutes = (int) round($value * 60);
+
+            return sprintf('%dh %02dm', intdiv($minutes, 60), $minutes % 60);
+        }
+
+        return number_format($value, $this->decimals(), '.', ' ');
+    }
+
+    /**
+     * The unit next to a formatted value: none for durations, which say it themselves.
+     */
+    public function displayUnit(): string
+    {
+        return $this->isDuration() ? '' : $this->unit();
+    }
+
+    public function isDuration(): bool
+    {
+        return in_array($this, [self::SLEEP_DURATION, self::DEEP_SLEEP, self::REM_SLEEP], true);
+    }
+
     public function decimals(): int
     {
         return match ($this) {

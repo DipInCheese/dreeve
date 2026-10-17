@@ -77,6 +77,30 @@ class RunHealthImportConsoleCommandTest extends ConsoleCommandTestCase
         $this->assertSame(52.6, $fitness->vo2MaxRunning);
     }
 
+    public function testItImportsWeighInsFromAnySource(): void
+    {
+        $this->storage->write('inbox/health/eufy-2026-10-17.json', Json::encode([
+            'source' => 'eufy',
+            'kind' => 'body',
+            'measurements' => [
+                ['id' => 'w1', 'measuredOn' => '2026-10-17T07:02:00+02:00', 'weightInKg' => 72.4, 'bodyFatPercentage' => 18.2, 'muscleMassInKg' => 56.3],
+                ['measuredOn' => '2026-10-17T07:05:00+02:00', 'weightInKg' => 99.0],
+            ],
+        ]));
+
+        $this->execute();
+
+        $measurements = $this->getContainer()->get(HealthRepository::class)->findBodyMeasurements();
+        $this->assertCount(1, $measurements, 'A weigh-in without an id is left out');
+        $measurement = reset($measurements);
+        $this->assertSame('eufy:w1', $measurement->id);
+        $this->assertSame('eufy', $measurement->source);
+        $this->assertSame('2026-10-17', $measurement->day);
+        $this->assertSame(72.4, $measurement->weightInKg);
+        $this->assertSame(18.2, $measurement->bodyFatPercentage);
+        $this->assertFalse($this->storage->fileExists('inbox/health/eufy-2026-10-17.json'));
+    }
+
     public function testItSetsAsideWhatItCanNotRead(): void
     {
         $this->storage->write('inbox/health/broken.json', '{not json');

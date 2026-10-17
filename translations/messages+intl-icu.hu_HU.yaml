@@ -15,6 +15,7 @@
 'A high score means you concentrate more training into fewer, heavier days.': 'A magas pontszám azt jelenti, hogy több edzést koncentrálsz kevesebb, de nehezebb napra.'
 'A:C Ratio': 'A:C arány'
 'A:C optimal in': 'A:C optimális ezután:'
+'AI analysis: coming soon': 'AI analysis: coming soon'
 'AI integration settings': 'AI-integráció beállításai'
 'ATL (Fatigue)': 'ATL (Fáradtság)'
 'About you': 'About you'
@@ -54,6 +55,7 @@ Badges: Kitűzők
 Badminton: Tollaslabda
 Bananas: Banán
 Basketball: Kosárlabda
+'Bedtime around {bedtime}, up around {wakeTime}.': 'Bedtime around {bedtime}, up around {wakeTime}.'
 'Below your normal': 'Below your normal'
 Best: Legjobb
 'Best effort': 'Legjobb teljesítmény'
@@ -77,12 +79,12 @@ Calories: Kalória
 Canoeing: Kenuzás
 'Carbon saved': 'Megtakarított szén-dioxid'
 'Challenge consistency': 'Kihívás következetesség'
+'Charged to {value} today': 'Charged to {value} today'
 'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': 'Krónikus edzésterhelés (Fitnesz) – a napi edzésterhelés 42 napos exponenciálisan súlyozott átlaga. A hosszú távú edzésadaptációt mutatja.'
 'Clear all filters': 'Összes szűrő törlése'
 'Clear chat': 'Chat törlése'
 'Cluster tiles': Klasztercsempék
 Columns: Oszlopok
-'Coming soon': 'Coming soon'
 Commute: Ingázás
 Commutes: Ingázások
 'Commutes only': 'Csak ingázások'
@@ -143,6 +145,7 @@ Duration: Időtartam
 'E-Bike Rides': 'E-Bike túrák'
 'E-Mountain Bike Ride': E-hegyikerékpározás
 'E-Mountain Bike Rides': 'E-MTB túrák'
+'Each number is your average for the week, next to your normal from before it and the week before.': 'Each number is your average for the week, next to your normal from before it and the week before.'
 Eddington: Eddington
 'Eddington number': Eddington-szám
 'Eddington over time': 'Eddington az idő során'
@@ -268,6 +271,7 @@ Lap: Kör
 'Last used': 'Last used'
 'Last week': 'Előző hét'
 'Last {numberOfDays} days': 'Utolsó {numberOfDays} nap'
+'Later, Dreeve can use the summary above to explain how your week went and what to adjust.': 'Later, Dreeve can use the summary above to explain how your week went and what to adjust.'
 'Latest activity': 'Latest activity'
 'Latest weight': 'Latest weight'
 Lifetime: 'Teljes időszak'
@@ -332,6 +336,7 @@ Next: Next
 'Next milestone': 'Következő mérföldkő'
 Night: Éjjel
 'No activities': 'Nincsenek tevékenységek'
+'No activities this week.': 'No activities this week.'
 'No activities yet': 'No activities yet'
 'No data available': 'Nincs elérhető adat'
 'No data yet': 'No data yet'
@@ -341,6 +346,7 @@ Night: Éjjel
 'No milestones achieved yet': 'Még nincsenek elért mérföldkövek'
 'No other options to compare with': 'Nincs más összehasonlítási lehetőség'
 'No purchase price set': 'No purchase price set'
+'No sleep recorded this week.': 'No sleep recorded this week.'
 'No weight yet': 'No weight yet'
 None: 'Egyik sem'
 'Nordic Ski': Sífutás
@@ -350,6 +356,7 @@ None: 'Egyik sem'
 'Not fitted': 'Not fitted'
 'Not supported': 'Nem támogatott'
 'Not synced yet': 'Not synced yet'
+'Nothing to summarise yet': 'Nothing to summarise yet'
 Nov: Nov
 Now: Most
 'Number of activities': 'Tevékenységek száma'
@@ -359,6 +366,7 @@ Oct: Okt
 'Older effort': 'Korábbi teljesítmény'
 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': 'Átlagosan ez {dailyAverage} naponta, heti átlag {weeklyAverage} és havi átlag {monthlyAverage}.'
 'On your own': Egyedül
+'Once your watch data comes in, this page sums up your week.': 'Once your watch data comes in, this page sums up your week.'
 'One of your gear maintenance tasks is due': 'Az egyik felszerelés karbantartási feladatod esedékes'
 "Oops, looks like you've wandered off the map! 🗺️": 'Hoppá, úgy tűnik, letértél a térképről! 🗺️'
 'Open Water Swim': 'Nyíltvízi úszás'
@@ -457,6 +465,7 @@ Skateboard: Gördeszkázás
 Skating: Korcsolyázás
 'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
+'Sleep rhythm': 'Sleep rhythm'
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Kissé friss'
 'Smart trainer': Okosgörgő
@@ -596,7 +605,6 @@ Tennis: Tenisz
 Thinking...: Gondolkodás...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'Ez a diagram összefoglalja, hogyan edzel. Minden tengely különböző normalizált edzési szokást tükröz, így a magasabb értékek erősebb hangsúlyt jelentenek.'
 'This feature is currently disabled': 'Ez a funkció jelenleg le van tiltva'
-'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'Ez a hónap'
 'This week': 'Ez a hét'
 Thu: Cs
@@ -631,7 +639,6 @@ Tue: K
 Tue.: Kedd
 'Unchanged compared to yesterday': 'Változatlan a tegnapihoz képest'
 Unspecified: Meghatározatlan
-'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Közelgő karbantartás'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -694,8 +701,10 @@ Yoga: Jóga
 'Your Zwift badge': 'Zwift kitűződ'
 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': Kitűződ(ök)
+'Your bedtime moved by about {minutes} minutes from night to night.': 'Your bedtime moved by about {minutes} minutes from night to night.'
 'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
+'Your last 7 days': 'Your last 7 days'
 'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Alacsony)'
@@ -735,6 +744,7 @@ months: hónapok
 more: több
 n/a: n/a
 never: soha
+now: now
 'of your activities': 'a tevékenységeidből'
 'on': 'ekkor:'
 per: /
@@ -748,6 +758,7 @@ watts: watt
 weeks: hetek
 workouts: edzések
 '{amount} left': 'még {amount}'
+'{count} activities, {hours} hours, {distance} km.': '{count} activities, {hours} hours, {distance} km.'
 '{daysSinceLastTagged} days': '{daysSinceLastTagged} nap'
 '{days} consecutive days of activity': '{days} egymást követő aktív nap'
 '{hoursSinceLastTagged} hours': '{hoursSinceLastTagged} óra'

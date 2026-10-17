@@ -15,6 +15,7 @@
 'A high score means you concentrate more training into fewer, heavier days.': 'A high score means you concentrate more training into fewer, heavier days.'
 'A:C Ratio': 'A:C Förhållande'
 'A:C optimal in': 'A:C optimal in'
+'AI analysis: coming soon': 'AI analysis: coming soon'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (Utmattning)'
 'About you': 'About you'
@@ -54,6 +55,7 @@ Badges: Badges
 Badminton: Badminton
 Bananas: Bananas
 Basketball: Basketball
+'Bedtime around {bedtime}, up around {wakeTime}.': 'Bedtime around {bedtime}, up around {wakeTime}.'
 'Below your normal': 'Below your normal'
 Best: Bästa
 'Best effort': 'Bästa resultatet'
@@ -77,12 +79,12 @@ Calories: Kalorier
 Canoeing: Kanot
 'Carbon saved': 'Sparat koldioxid'
 'Challenge consistency': Utmaningsihållighet
+'Charged to {value} today': 'Charged to {value} today'
 'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': 'Kronisk träningsbelastning (Träningsform) - 42 dagars exponentiellt viktat medelvärde av din dagliga träningsbelastning. Representerar långsiktig träningsanpassning.'
 'Clear all filters': 'Clear all filters'
 'Clear chat': 'Clear chat'
 'Cluster tiles': Klusterrutor
 Columns: Columns
-'Coming soon': 'Coming soon'
 Commute: Commute
 Commutes: Pendling
 'Commutes only': 'Endast pendling'
@@ -143,6 +145,7 @@ Duration: Duration
 'E-Bike Rides': 'E-Cykel Turer'
 'E-Mountain Bike Ride': 'E-Mountain Bike Ride'
 'E-Mountain Bike Rides': 'E-Mountain Bike Turer'
+'Each number is your average for the week, next to your normal from before it and the week before.': 'Each number is your average for the week, next to your normal from before it and the week before.'
 Eddington: Eddington
 'Eddington number': 'Eddington number'
 'Eddington over time': 'Eddington over time'
@@ -268,6 +271,7 @@ Lap: Varv
 'Last used': 'Last used'
 'Last week': 'Last week'
 'Last {numberOfDays} days': 'Senaste {numberOfDays} dagarna'
+'Later, Dreeve can use the summary above to explain how your week went and what to adjust.': 'Later, Dreeve can use the summary above to explain how your week went and what to adjust.'
 'Latest activity': 'Latest activity'
 'Latest weight': 'Latest weight'
 Lifetime: Lifetime
@@ -332,6 +336,7 @@ Next: Next
 'Next milestone': 'Next milestone'
 Night: Natt
 'No activities': 'Inga aktivieter'
+'No activities this week.': 'No activities this week.'
 'No activities yet': 'No activities yet'
 'No data available': 'Ingen data tillgänglig'
 'No data yet': 'No data yet'
@@ -341,6 +346,7 @@ Night: Natt
 'No milestones achieved yet': 'No milestones achieved yet'
 'No other options to compare with': 'Inga andra alternativ att jämföra med'
 'No purchase price set': 'No purchase price set'
+'No sleep recorded this week.': 'No sleep recorded this week.'
 'No weight yet': 'No weight yet'
 None: Inga
 'Nordic Ski': 'Telemark skidåkning'
@@ -350,6 +356,7 @@ None: Inga
 'Not fitted': 'Not fitted'
 'Not supported': 'Inget stöd tillgängligt'
 'Not synced yet': 'Not synced yet'
+'Nothing to summarise yet': 'Nothing to summarise yet'
 Nov: Nov
 Now: Now
 'Number of activities': 'Number of activities'
@@ -359,6 +366,7 @@ Oct: Okt
 'Older effort': 'Older effort'
 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.'
 'On your own': 'On your own'
+'Once your watch data comes in, this page sums up your week.': 'Once your watch data comes in, this page sums up your week.'
 'One of your gear maintenance tasks is due': 'En av dina underhållsuppgifter behöver uppmärksamhet'
 "Oops, looks like you've wandered off the map! 🗺️": "Oops, looks like you've wandered off the map! 🗺️"
 'Open Water Swim': 'Open Water Swim'
@@ -457,6 +465,7 @@ Skateboard: Skateboard
 Skating: Skridskoåkning
 'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
+'Sleep rhythm': 'Sleep rhythm'
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
 'Smart trainer': 'Smart trainer'
@@ -596,7 +605,6 @@ Tennis: Tennis
 Thinking...: Tänker...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
 'This feature is currently disabled': 'Den här funktionen är avstängd'
-'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'This month'
 'This week': 'This week'
 Thu: Tor
@@ -631,7 +639,6 @@ Tue: Tis
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
 Unspecified: Ospecificerad
-'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -694,8 +701,10 @@ Yoga: Yoga
 'Your Zwift badge': 'Ditt Zwift märke'
 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'Ditt/Dina märke(n)'
+'Your bedtime moved by about {minutes} minutes from night to night.': 'Your bedtime moved by about {minutes} minutes from night to night.'
 'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
+'Your last 7 days': 'Your last 7 days'
 'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Låg)'
@@ -735,6 +744,7 @@ months: månader
 more: mera
 n/a: n/a
 never: aldrig
+now: now
 'of your activities': 'of your activities'
 'on': på
 per: per
@@ -748,6 +758,7 @@ watts: watts
 weeks: veckor
 workouts: träningspass
 '{amount} left': '{amount} left'
+'{count} activities, {hours} hours, {distance} km.': '{count} activities, {hours} hours, {distance} km.'
 '{daysSinceLastTagged} days': '{daysSinceLastTagged} dagar'
 '{days} consecutive days of activity': '{days} consecutive days of activity'
 '{hoursSinceLastTagged} hours': '{hoursSinceLastTagged} timmar'

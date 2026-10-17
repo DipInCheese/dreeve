@@ -1,0 +1,47 @@
+---
+title: "Your health data"
+description: "What Dreeve tracks, how it compares every number with your own normal, and what the Today, Health and Insights pages show."
+---
+
+Dreeve is built around the data your Garmin watch collects. Once [Garmin is connected](/integrations/garmin-connect/),
+it fills itself: sleep, heart rate, HRV, stress, Body Battery, steps and weigh-ins arrive every hour, next to your
+activities.
+
+## Your normal
+
+A resting heart rate of 52 says little on its own. Whether it is good news depends on what is normal **for you**.
+So every number in Dreeve is shown next to your own normal:
+
+- **Your normal** is the middle of your values over the 60 days before, give or take a margin that a single odd
+  night can not move. It needs at least 14 days of history; until then a card says "Not enough history yet".
+- **Within / above / below your normal** tells where today's value falls. Green means better than usual, amber
+  worse than usual, grey neither, depending on the metric (a higher HRV is good, a higher resting heart rate is not).
+- For HRV, Garmin's own balanced range is used: it is based on weeks of your overnight readings.
+
+## The pages
+
+| Page | What it shows |
+|---|---|
+| **Today** | Last night and today at a glance: sleep, Body Battery (where you are now and how far you charged), HRV, resting heart rate, stress, steps and training readiness, plus your latest activity and weigh-in. |
+| **Health** | One page per topic (sleep, heart, stress & Body Battery, body, fitness) with charts over 7 days, 30 days, 3 months or a year. The shaded band is your normal. |
+| **Insights** | Your last 7 days: the average of every metric next to your normal and the week before, your sleep rhythm and a training summary. |
+| **Training** | Activities, calendar, training load, best efforts, heatmap, gear and more. |
+
+Everything is in metric units.
+
+## How fresh it is
+
+Garmin data is synced [every hour](/integrations/garmin-connect/#how-syncing-works), and imported within seconds of
+arriving. The top bar shows when the last sync was. Your watch first has to sync with Garmin Connect, so data from
+the last hour may not be there yet; the sync button on the Garmin page fetches it right away.
+
+## Where it is stored
+
+Everything stays on your own server, in your own folder: `data/<user>/`. The original answers from Garmin are kept
+too (compressed), so Dreeve can rebuild your health data when it learns to read more of them, without fetching
+anything again.
+
+## AI analysis
+
+The Insights page builds a fixed summary of your week. Later, an AI model can use that same summary to explain how
+your week went. That is off by default and only happens if you switch it on, see [AI assistant](/integrations/ai/).

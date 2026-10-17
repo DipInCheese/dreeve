@@ -70,20 +70,11 @@ final readonly class MetricOverview
 
     public function format(?float $value): ?string
     {
-        if (null === $value) {
-            return null;
-        }
-        if (in_array($this->metric, [HealthMetric::SLEEP_DURATION, HealthMetric::DEEP_SLEEP, HealthMetric::REM_SLEEP], true)) {
-            $minutes = (int) round($value * 60);
-
-            return sprintf('%dh %02dm', intdiv($minutes, 60), $minutes % 60);
-        }
-
-        return number_format($value, $this->metric->decimals(), '.', ' ');
+        return $this->metric->format($value);
     }
 
     public function unit(): string
     {
-        return in_array($this->metric, [HealthMetric::SLEEP_DURATION, HealthMetric::DEEP_SLEEP, HealthMetric::REM_SLEEP], true) ? '' : $this->metric->unit();
+        return $this->metric->displayUnit();
     }
 }

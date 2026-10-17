@@ -7,7 +7,7 @@ One Dreeve installation can serve as many people as you like. Every user gets th
 (e.g. `https://dreeve.example.com/alice`), **data** (database, photos, caches), **settings** and **admin login**.
 Users never see each other's data.
 
-You, the **owner**, have a dashboard like everyone else, plus a **Users** page in your admin panel to add,
+You, the **owner**, have a dashboard like everyone else, plus a **Users** page under **Data & settings** to add,
 invite, disable and remove users. New users get an **invite link** to pick their own password.
 
 This page sets it up behind a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/),
@@ -62,10 +62,19 @@ with username `alice`. You are now the owner.
    | `dreeve`  | `example.com` | HTTP         | `app:8080` |
 
 Dreeve picks the user from the first part of the path: `https://dreeve.example.com/alice` is Alice,
-`https://dreeve.example.com/bob` is Bob. Any other path gets a plain "Not found".
+`https://dreeve.example.com/bob` is Bob.
+
+Everyone signs in on the bare address, `https://dreeve.example.com`, and lands on their own pages. Once signed in,
+the bare address takes you straight there; signing out brings you back to the sign-in page. Any other address
+shows a page with a link to sign in.
+
+:::note
+Behind a reverse proxy (Cloudflare, Traefik, nginx, ...), list it in `TRUSTED_PROXIES`, so failed sign-ins are
+counted per visitor and the sign-in cookies are marked secure.
+:::
 
 :::tip
-Your Dreeve pages are reachable by anyone who knows the address. To limit who can open them, put a
+Every page needs a sign-in. To also keep strangers away from the sign-in page, put a
 [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/)
 application in front of `dreeve.example.com`. Leave `/*/invite/*` open, or invited users can not pick their password.
 :::
@@ -78,7 +87,7 @@ well; with paths, all users share one browser origin (see [Security](#security))
 
 ## Managing users
 
-Sign in, open your admin panel and go to **Users**:
+Sign in and go to **Data & settings → Users**:
 
 * **Add user**: pick a name (lowercase letters, digits and dashes). It becomes part of the user's address and their
   username. Names Dreeve uses for its own pages, such as `admin`, `api` or `gear`, can not be used.
@@ -100,7 +109,7 @@ docker compose exec app bin/dreeve-users invite alice
 
 ## Settings per user
 
-Settings in `.env` apply to every user. Most settings are made in each user's admin panel. For the few settings that
+Settings in `.env` apply to every user. Most settings are made by each user under **Data & settings → Settings**. For the few settings that
 only exist as environment variables, a single user's values go in `data/<name>/.env`, for example their own AI key:
 
 ```dotenv title="data/alice/.env"

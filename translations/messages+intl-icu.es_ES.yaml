@@ -15,6 +15,7 @@
 'A high score means you concentrate more training into fewer, heavier days.': 'Una puntuación alta significa que concentras más entrenamiento en menos días, más intensos.'
 'A:C Ratio': 'Ratio A:C'
 'A:C optimal in': 'A:C óptimo en'
+'AI analysis: coming soon': 'AI analysis: coming soon'
 'AI integration settings': 'Ajustes de integración de IA'
 'ATL (Fatigue)': 'ATL (Fatiga)'
 'About you': 'About you'
@@ -54,6 +55,7 @@ Badges: Insignias
 Badminton: Bádminton
 Bananas: Plátanos
 Basketball: Baloncesto
+'Bedtime around {bedtime}, up around {wakeTime}.': 'Bedtime around {bedtime}, up around {wakeTime}.'
 'Below your normal': 'Below your normal'
 Best: Mejor
 'Best effort': 'Mejor esfuerzo'
@@ -77,12 +79,12 @@ Calories: Calorías
 Canoeing: Piragüismo
 'Carbon saved': 'Carbono ahorrado'
 'Challenge consistency': 'Consistencia en los retos'
+'Charged to {value} today': 'Charged to {value} today'
 'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': 'Carga de entrenamiento crónica (Forma física) - Media móvil ponderada exponencialmente a 42 días de tu carga de entrenamiento diaria. Representa la adaptación al entrenamiento a largo plazo.'
 'Clear all filters': 'Borrar todos los filtros'
 'Clear chat': 'Borrar chat'
 'Cluster tiles': 'Cuadrículas de clúster'
 Columns: Columnas
-'Coming soon': 'Coming soon'
 Commute: Desplazamiento
 Commutes: Desplazamientos
 'Commutes only': 'Solo desplazamientos'
@@ -143,6 +145,7 @@ Duration: Duración
 'E-Bike Rides': 'Recorridos en e-bike'
 'E-Mountain Bike Ride': 'Ciclismo de montaña en e-bike'
 'E-Mountain Bike Rides': 'Recorridos de montaña en e-bike'
+'Each number is your average for the week, next to your normal from before it and the week before.': 'Each number is your average for the week, next to your normal from before it and the week before.'
 Eddington: Eddington
 'Eddington number': 'Número de Eddington'
 'Eddington over time': 'Eddington a lo largo del tiempo'
@@ -268,6 +271,7 @@ Lap: Vuelta
 'Last used': 'Last used'
 'Last week': 'Semana pasada'
 'Last {numberOfDays} days': 'Últimos {numberOfDays} días'
+'Later, Dreeve can use the summary above to explain how your week went and what to adjust.': 'Later, Dreeve can use the summary above to explain how your week went and what to adjust.'
 'Latest activity': 'Latest activity'
 'Latest weight': 'Latest weight'
 Lifetime: 'Toda la vida'
@@ -332,6 +336,7 @@ Next: Next
 'Next milestone': 'Siguiente hito'
 Night: Noche
 'No activities': 'No hay actividades'
+'No activities this week.': 'No activities this week.'
 'No activities yet': 'No activities yet'
 'No data available': 'No hay datos disponibles'
 'No data yet': 'No data yet'
@@ -341,6 +346,7 @@ Night: Noche
 'No milestones achieved yet': 'Aún no se han conseguido hitos'
 'No other options to compare with': 'No hay otras opciones con las que comparar'
 'No purchase price set': 'No purchase price set'
+'No sleep recorded this week.': 'No sleep recorded this week.'
 'No weight yet': 'No weight yet'
 None: Ninguno
 'Nordic Ski': 'Esquí nórdico'
@@ -350,6 +356,7 @@ None: Ninguno
 'Not fitted': 'Not fitted'
 'Not supported': 'No soportado'
 'Not synced yet': 'Not synced yet'
+'Nothing to summarise yet': 'Nothing to summarise yet'
 Nov: Nov
 Now: Ahora
 'Number of activities': 'Número de actividades'
@@ -359,6 +366,7 @@ Oct: Oct
 'Older effort': 'Esfuerzo anterior'
 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': 'De media, eso equivale a {dailyAverage} al día, una media semanal de {weeklyAverage} y una media mensual de {monthlyAverage} 🐣.'
 'On your own': 'En solitario'
+'Once your watch data comes in, this page sums up your week.': 'Once your watch data comes in, this page sums up your week.'
 'One of your gear maintenance tasks is due': 'Una de tus tareas de mantenimiento de equipamiento ha vencido'
 "Oops, looks like you've wandered off the map! 🗺️": '¡Vaya, parece que te has salido del mapa! 🗺️'
 'Open Water Swim': 'Natación en aguas abiertas'
@@ -457,6 +465,7 @@ Skateboard: Skateboard
 Skating: Patinaje
 'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
+'Sleep rhythm': 'Sleep rhythm'
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Ligeramente fresco'
 'Smart trainer': 'Rodillo inteligente'
@@ -596,7 +605,6 @@ Tennis: Tenis
 Thinking...: Pensando...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'Este gráfico resume cómo entrenas. Cada eje refleja un hábito de entrenamiento normalizado diferente, por lo que valores más altos significan un mayor énfasis.'
 'This feature is currently disabled': 'Esta función está desactivada actualmente'
-'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'Este mes'
 'This week': 'Esta semana'
 Thu: Jue
@@ -631,7 +639,6 @@ Tue: Mar
 Tue.: Mar.
 'Unchanged compared to yesterday': 'Sin cambios en comparación con ayer'
 Unspecified: 'No especificado'
-'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Próximo mantenimiento'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -694,8 +701,10 @@ Yoga: Yoga
 'Your Zwift badge': 'Tu insignia de Zwift'
 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'Tu(s) insignia(s)'
+'Your bedtime moved by about {minutes} minutes from night to night.': 'Your bedtime moved by about {minutes} minutes from night to night.'
 'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
+'Your last 7 days': 'Your last 7 days'
 'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Baja)'
@@ -735,6 +744,7 @@ months: meses
 more: más
 n/a: n/d
 never: nunca
+now: now
 'of your activities': 'de tus actividades'
 'on': el
 per: por
@@ -748,6 +758,7 @@ watts: vatios
 weeks: semanas
 workouts: entrenamientos
 '{amount} left': 'quedan {amount}'
+'{count} activities, {hours} hours, {distance} km.': '{count} activities, {hours} hours, {distance} km.'
 '{daysSinceLastTagged} days': '{daysSinceLastTagged} días'
 '{days} consecutive days of activity': '{days} días consecutivos de actividad'
 '{hoursSinceLastTagged} hours': '{hoursSinceLastTagged} horas'

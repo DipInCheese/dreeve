@@ -64,7 +64,7 @@ class ToolkitTest extends ContainerTestCase
     public function testItRegistersAllTools(): void
     {
         $this->assertCount(
-            12,
+            13,
             $this->getContainer()->get(ToolkitInterface::class)->tools(),
         );
     }

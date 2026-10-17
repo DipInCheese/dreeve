@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Import;
 
+use App\Domain\Health\BodyMeasurementDelivery;
 use App\Domain\Health\Garmin\GarminHealthParser;
 use App\Domain\Health\HealthInbox;
 use App\Domain\Health\HealthRepository;
@@ -115,12 +116,16 @@ final class RunHealthImportConsoleCommand extends Command
 
         $source = is_string($payload['source'] ?? null) ? $payload['source'] : '';
         $kind = is_string($payload['kind'] ?? null) ? $payload['kind'] : '';
-        if (GarminHealthParser::SOURCE !== $source || !in_array($kind, ['day', 'range'], true)) {
+        // Garmin's own payloads, or weigh-ins in Dreeve's format from any source (e.g. a Eufy scale).
+        $isBodyDelivery = BodyMeasurementDelivery::KIND === $kind && BodyMeasurementDelivery::isSource($source);
+        if (!$isBodyDelivery && (GarminHealthParser::SOURCE !== $source || !in_array($kind, ['day', 'range'], true))) {
             throw new \InvalidArgumentException(sprintf('Unknown delivery "%s/%s"', $source, $kind));
         }
-        $recordKey = 'day' === $kind
-            ? (string) ($payload['date'] ?? '')
-            : sprintf('%s..%s', $payload['start'] ?? '', $payload['end'] ?? '');
+        $recordKey = match (true) {
+            $isBodyDelivery => hash('xxh128', $contents),
+            'day' === $kind => (string) ($payload['date'] ?? ''),
+            default => sprintf('%s..%s', $payload['start'] ?? '', $payload['end'] ?? ''),
+        };
 
         $this->healthRepository->saveSourceRecord(new SourceRecord(
             id: sprintf('%s:%s:%s', $source, $kind, $recordKey),
@@ -130,7 +135,7 @@ final class RunHealthImportConsoleCommand extends Command
             receivedOn: $this->clock->getCurrentDateTimeImmutable()->format('Y-m-d H:i:s'),
             payload: (string) CompressedString::fromUncompressed($contents),
         ));
-        $records = $this->garminHealthParser->parse($payload);
+        $records = $isBodyDelivery ? BodyMeasurementDelivery::parse($payload) : $this->garminHealthParser->parse($payload);
         $this->healthRepository->save($records);
 
         return [] !== $records->getBodyMeasurements();

@@ -2,70 +2,63 @@
   <img src="public/assets/images/logo.svg" width="250" alt="Logo" >
 </p>
 
-<h1 align="center">Dreeve</h1>
+<h1 align="center">Dreeve, health edition</h1>
+
+<h4 align="center">A self-hosted health and training app around your Garmin data.</h4>
 
 <p align="center">
-<a href="https://raw.githubusercontent.com/dreeveapp/dreeve/refs/heads/master/LICENSE"><img src="https://img.shields.io/github/license/dreeveapp/dreeve?color=428f7e&logo=open%20source%20initiative&logoColor=white" alt="License"></a>
-<a href="https://hub.docker.com/r/robiningelbrecht/dreeve"><img src="https://img.shields.io/docker/image-size/robiningelbrecht/dreeve?logo=docker&logoColor=white" alt="Docker Image Size"></a>
-<a href="https://hub.docker.com/r/robiningelbrecht/dreeve"><img src="https://img.shields.io/docker/v/robiningelbrecht/dreeve?sort=semver&logo=docker&logoColor=white" alt="Docker version"></a>
-<a href="https://codecov.io/gh/dreeveapp/dreeve" ><img src="https://codecov.io/gh/dreeveapp/dreeve/branch/master/graph/badge.svg?token=R9hqxRcmi9" alt="codecov.io"/></a>
-<a href="https://discord.gg/p4zpZyCHNc"><img src="https://img.shields.io/badge/Dreeve-%235865F4?logo=discord&logoColor=%23ffffff&label=%20&labelColor=585858" alt="Discord server"></a>  
+A fork of <a href="https://github.com/dreeveapp/dreeve">Dreeve</a> (formerly "Statistics for Strava"), reworked around health.
+It is not maintained by the Dreeve maintainers: report problems with this fork here, not to the Dreeve project.
 </p>
 
 ---
 
-<h4 align="center">Dreeve is a self-hosted, open-source dashboard for your sports and fitness data.</h4>
+## What it does
 
-<p align="center"><i>Formerly known as "Statistics for Strava".</i></p>
+Connect your Garmin account in the browser and Dreeve fills itself: every hour it fetches your activities, sleep,
+HRV, resting heart rate, stress, Body Battery, steps and weigh-ins. Every number is shown next to **your own
+normal**, because a resting heart rate of 52 only means something compared with yourself.
 
-<p align="center">
-  <a href="#-showcase">Showcase</a> •
-  <a href="#-documentation">Docs</a> •
-  <a href="https://discord.gg/p4zpZyCHNc">Discord</a>
-</p>
+* **Today** - last night and today at a glance: sleep, Body Battery, HRV, resting heart rate, stress, steps, training readiness
+* **Health** - charts per topic (sleep, heart, stress & Body Battery, body, fitness) over a week, a month, three months or a year
+* **Insights** - your week summed up: every average against your normal and the week before, your sleep rhythm, your training
+* **Training** - activities, calendar, training load, best efforts, heatmap, gear and maintenance, segments, Eddington, milestones, rewind
+* **Private** - every page needs a sign-in; your data stays on your own server
+* **Multi-user** - one installation for the whole household, each person with their own data, sign-in and Garmin account
+* **Phone-friendly** - a bottom tab bar and thumb-sized controls; add it to your home screen like an app
+* **Metric** - kilometres, kilograms and km/h everywhere
+* **AI coach (optional)** - chat about your sleep, recovery and training; off by default, works with a local model
+* **File import** - FIT, TCX and GPX files from any watch or app
+* **Other sources** - weigh-ins and body composition from any scale (for example Eufy) in a simple JSON format
 
-<p align="center">
-  <a href="https://www.buymeacoffee.com/ingelbrecht" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;" ></a>
-</p>
+## How it runs
 
-> [!NOTE]
-> **Multi-user fork.** This fork runs one Dreeve installation for as many people as you like, each on their own
-> address (e.g. `https://dreeve.example.com/alice`) with their own data and login. The owner invites users from the admin panel.
-> Setup: [docs/src/content/docs/getting-started/multi-user.mdx](docs/src/content/docs/getting-started/multi-user.mdx).
+Three Docker containers share one data folder:
 
-## 📸 Showcase
+| Container | Job |
+|---|---|
+| `app` | The web app, and the sign-in page on the bare address. |
+| `daemon` | Imports new files within seconds and runs the scheduled reminders. |
+| `health-sync` | Talks to Garmin Connect (unofficial API) and drops activities and health data into each user's folder. Only reachable inside Docker. |
 
-https://github.com/user-attachments/assets/2789c961-f04f-4804-b6eb-88d45e62687c
+Every user has their own folder with their own SQLite database: `data/<user>/`.
 
-### Key Features
+## Getting started
 
-* **Import activities** - Use raw FIT/TCX/GPX files from your watch or app
-* **Admin panel** - Manage activities, gear and every setting with an easy-to-use browser-based interface
-* **Dashboard** - Gain a quick overview of stats and charts
-* **Automation rules** - Set up automation rules to streamline gear tracking, commuting flags, and more
-* **Activities** -  Browse a detailed list of everything you've done
-* **Monthly View** - Monthly stats with an interactive calendar
-* **Gear stats** - Track how much you've used each bike, shoe, etc.
-* **Maintenance Tracking** - Keep tabs on gear wear and tear
-* **Eddington** - For your distance milestones
-* **Segments & Efforts** - Dive into your segment history and times
-* **Heatmap** - Visualize where you’ve been active the most
-* **Milestones** - A timeline view of your key achievements and milestones over time
-* **Rewind** - A fun way to look back on your year in motion
-* **Activity Photos** - Relive your moments with a photo archive
-* **AI workout assistant** - Get personalized workout suggestions and insights powered by AI
-* **User badges** - Shareable badges you can embed on your website, blog, or forum profiles
-* **PWA support** - Use it like a native app on your phone
+See [Multiple users](docs/src/content/docs/getting-started/multi-user.mdx) for the setup, and
+[Garmin Connect](docs/src/content/docs/integrations/garmin-connect.mdx) for connecting your account.
+The rest of the documentation is in [docs/src/content/docs](docs/src/content/docs), for example
+[your health data](docs/src/content/docs/health/overview.mdx) and the [AI coach](docs/src/content/docs/integrations/ai.mdx).
+
+The design behind this fork, and what is planned next, is in [docs/design/health-redesign.md](docs/design/health-redesign.md).
 
 ## 🌳 What's in a name?
 
 **Dreeve** • */driːv/* • *noun*
 
-A `dreeve` is the West-Flemish word (the birthplace of Dreeve's maintainer) for a country road lined with trees on both sides.
+A `dreeve` is the West-Flemish word for a country road lined with trees on both sides.
 The kind of road every cyclist and runner loves.
 
-## 📖 Documentation
+## License
 
-Start off by showing some ❤️ and give this repo a star. 
-When you are done, head over to the [documentation](https://docs.dreeve.app) to get started with the installation and configuration of Dreeve.
-
+[GNU Affero General Public License v3](LICENSE), like Dreeve itself.

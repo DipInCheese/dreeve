@@ -1,16 +1,21 @@
 ---
 title: "AI assistant"
-description: "Configure a cloud provider, a local Ollama model or OpenRouter for the Dreeve AI workout assistant."
+description: "Switch on the AI health and training coach with a cloud provider, a local Ollama model or OpenRouter, and what that means for your data."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Dreeve ships with an AI-powered workout assistant. To use it, you configure an AI provider under
-**Settings → Integrations**.
+Dreeve has an AI coach you can chat with about your sleep, recovery and training. It is **off by default**. To use
+it, switch it on and pick an AI provider under **Settings → Notifications & AI**.
 
-:::caution
-Use caution when enabling this feature if your app is publicly accessible.
+:::caution[Your health data and the AI provider]
+The coach answers from your own data: it reads a summary of your health numbers (compared with your normal) and
+your activities. With a cloud provider (OpenAI, Anthropic, OpenRouter, ...) that data is sent to that provider.
+With a local model through Ollama it never leaves your server. Switch it on only if you are fine with that.
 :::
+
+The coach judges every number against your own normal, the same way the [Today and Insights pages](/health/overview/)
+do. It is not a doctor, and says so when a question needs one.
 
 :::note[Important]
 Dreeve uses the [Neuron AI](https://docs.neuron-ai.dev) library to interface with AI models.
@@ -93,7 +98,7 @@ OpenRouter offers [free models](https://openrouter.ai/collections/free) which ar
 
 </Tabs>
 
-## Your AI workout assistant
+## Chatting with the coach
 
 <Tabs>
 
@@ -111,7 +116,7 @@ OpenRouter offers [free models](https://openrouter.ai/collections/free) which ar
 
 This will prompt you with a message like the following:
 
-![Mark example](/assets/images/mark-example.png "The AI workout assistant in the CLI")
+![Chat example](/assets/images/mark-example.png "The AI coach in the CLI")
 
 </TabItem>
 

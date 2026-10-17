@@ -15,6 +15,7 @@
 'A high score means you concentrate more training into fewer, heavier days.': 'Een hoge score betekent dat je meer training concentreert in minder, zwaardere dagen.'
 'A:C Ratio': 'A:C-ratio'
 'A:C optimal in': 'A:C optimaal binnen'
+'AI analysis: coming soon': 'AI analysis: coming soon'
 'AI integration settings': 'Instellingen AI-integratie'
 'ATL (Fatigue)': 'ATL (Vermoeidheid)'
 'About you': 'About you'
@@ -54,6 +55,7 @@ Badges: Badges
 Badminton: Badminton
 Bananas: Bananen
 Basketball: Basketbal
+'Bedtime around {bedtime}, up around {wakeTime}.': 'Bedtime around {bedtime}, up around {wakeTime}.'
 'Below your normal': 'Below your normal'
 Best: Beste
 'Best effort': 'Beste prestatie'
@@ -77,12 +79,12 @@ Calories: Calorieën
 Canoeing: Kanoën
 'Carbon saved': 'Bespaarde CO₂'
 'Challenge consistency': 'Challenge consistentie'
+'Charged to {value} today': 'Charged to {value} today'
 'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': 'Chronic Training Load (Fitheid) - exponentieel gewogen gemiddelde over 42 dagen van je dagelijkse trainingsbelasting. Geeft de trainingsaanpassing op lange termijn weer.'
 'Clear all filters': 'Alle filters wissen'
 'Clear chat': 'Chat wissen'
 'Cluster tiles': Clustertegels
 Columns: Kolommen
-'Coming soon': 'Coming soon'
 Commute: Woon-werk
 Commutes: Woon-werkritten
 'Commutes only': 'Enkel woon-werk'
@@ -143,6 +145,7 @@ Duration: Duur
 'E-Bike Rides': E-bikeritten
 'E-Mountain Bike Ride': E-mountainbikerit
 'E-Mountain Bike Rides': E-mountainbikeritten
+'Each number is your average for the week, next to your normal from before it and the week before.': 'Each number is your average for the week, next to your normal from before it and the week before.'
 Eddington: Eddington
 'Eddington number': Eddington-getal
 'Eddington over time': 'Eddington doorheen de tijd'
@@ -268,6 +271,7 @@ Lap: Ronde
 'Last used': 'Last used'
 'Last week': 'Vorige week'
 'Last {numberOfDays} days': 'Laatste {numberOfDays} dagen'
+'Later, Dreeve can use the summary above to explain how your week went and what to adjust.': 'Later, Dreeve can use the summary above to explain how your week went and what to adjust.'
 'Latest activity': 'Latest activity'
 'Latest weight': 'Latest weight'
 Lifetime: 'Sinds het begin'
@@ -332,6 +336,7 @@ Next: Next
 'Next milestone': 'Volgende mijlpaal'
 Night: Nacht
 'No activities': 'Geen activiteiten'
+'No activities this week.': 'No activities this week.'
 'No activities yet': 'No activities yet'
 'No data available': 'Geen gegevens beschikbaar'
 'No data yet': 'No data yet'
@@ -341,6 +346,7 @@ Night: Nacht
 'No milestones achieved yet': 'Nog geen mijlpalen behaald'
 'No other options to compare with': 'Geen andere opties om mee te vergelijken'
 'No purchase price set': 'No purchase price set'
+'No sleep recorded this week.': 'No sleep recorded this week.'
 'No weight yet': 'No weight yet'
 None: Geen
 'Nordic Ski': Langlaufen
@@ -350,6 +356,7 @@ None: Geen
 'Not fitted': 'Not fitted'
 'Not supported': 'Niet ondersteund'
 'Not synced yet': 'Not synced yet'
+'Nothing to summarise yet': 'Nothing to summarise yet'
 Nov: Nov
 Now: Nu
 'Number of activities': 'Aantal activiteiten'
@@ -359,6 +366,7 @@ Oct: Okt
 'Older effort': 'Oudere prestatie'
 'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': 'Gemiddeld komt dat neer op {dailyAverage} per dag, {weeklyAverage} per week en {monthlyAverage} per maand 🐣.'
 'On your own': Alleen
+'Once your watch data comes in, this page sums up your week.': 'Once your watch data comes in, this page sums up your week.'
 'One of your gear maintenance tasks is due': 'Een van je onderhoudstaken moet uitgevoerd worden'
 "Oops, looks like you've wandered off the map! 🗺️": 'Oeps, het lijkt erop dat je van de kaart bent afgedwaald! 🗺️'
 'Open Water Swim': Openwaterzwemmen
@@ -457,6 +465,7 @@ Skateboard: Skateboarden
 Skating: Skaten
 'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
+'Sleep rhythm': 'Sleep rhythm'
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Licht fris'
 'Smart trainer': 'Slimme fietstrainer'
@@ -596,7 +605,6 @@ Tennis: Tennis
 Thinking...: 'Aan het nadenken...'
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'Deze grafiek vat samen hoe je traint. Elke as geeft een andere genormaliseerde trainingsgewoonte weer, dus hogere waarden betekenen een sterkere nadruk.'
 'This feature is currently disabled': 'Deze functie is momenteel uitgeschakeld'
-'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'Deze maand'
 'This week': 'Deze week'
 Thu: Do
@@ -631,7 +639,6 @@ Tue: Di
 Tue.: Di.
 'Unchanged compared to yesterday': 'Onveranderd ten opzichte van gisteren'
 Unspecified: 'Niet gespecificeerd'
-'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Komend onderhoud'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -694,8 +701,10 @@ Yoga: Yoga
 'Your Zwift badge': 'Je Zwift-badge'
 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'Je badge(s)'
+'Your bedtime moved by about {minutes} minutes from night to night.': 'Your bedtime moved by about {minutes} minutes from night to night.'
 'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
+'Your last 7 days': 'Your last 7 days'
 'Your normal': 'Your normal'
 Z1: Z1
 'Z1-2 (Low)': 'Z1-2 (Laag)'
@@ -735,6 +744,7 @@ months: maanden
 more: meer
 n/a: n.v.t.
 never: nooit
+now: now
 'of your activities': 'van je activiteiten'
 'on': op
 per: per
@@ -748,6 +758,7 @@ watts: watt
 weeks: weken
 workouts: trainingen
 '{amount} left': 'nog {amount}'
+'{count} activities, {hours} hours, {distance} km.': '{count} activities, {hours} hours, {distance} km.'
 '{daysSinceLastTagged} days': '{daysSinceLastTagged} dagen'
 '{days} consecutive days of activity': '{days} opeenvolgende dagen activiteit'
 '{hoursSinceLastTagged} hours': '{hoursSinceLastTagged} uur'
