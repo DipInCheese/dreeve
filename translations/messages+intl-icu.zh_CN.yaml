@@ -1,4 +1,5 @@
 '# completed': '# completed'
+'.fit, .tcx or .gpx files from your watch or app, whenever you like.': '.fit, .tcx or .gpx files from your watch or app, whenever you like.'
 '1 year': '1 year'
 '3 months': '3 months'
 '30 days': '30 days'
@@ -16,6 +17,7 @@
 'A:C optimal in': 'A:C optimal in'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (疲劳)'
+'About you': 'About you'
 'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Accumulated fatigue'
 'Active days': 训练天数
@@ -68,6 +70,7 @@ Body: Body
 Cadence: 踏频
 'Cadence sensor': 'Cadence sensor'
 Cal.: Cal.
+Calendar: Calendar
 Calories: 卡路里
 'Calories burned': 燃烧的卡路里
 'Calories burnt': 'Calories burnt'
@@ -79,6 +82,7 @@ Canoeing: 划独木舟
 'Clear chat': 'Clear chat'
 'Cluster tiles': 集群方块
 Columns: Columns
+'Coming soon': 'Coming soon'
 Commute: Commute
 Commutes: 通勤
 'Commutes only': 仅通勤
@@ -107,6 +111,7 @@ Cycling: 骑行
 Dance: Dance
 'Dark mode': 'Dark mode'
 Dashboard: 仪表板
+'Data & settings': 'Data & settings'
 Date: 日期
 Day: Day
 'Days completed': 'Days completed'
@@ -130,6 +135,7 @@ Distance: 距离
 'Distance over time per gear': 每个装备随时间变化的距离
 'Distance per month per gear': 每个装备每月的距离
 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.': 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.'
+Done: Done
 Download: Download
 Duration: Duration
 'Dusting off the record books...': 'Dusting off the record books...'
@@ -169,6 +175,7 @@ Feb: 二月
 'Filter on country': 按国家筛选
 'Filter on sport type': 按运动类型筛选
 'Filter on starred segments': 筛选星标路段
+'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.': 'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.'
 'First activity in {countryName}': 'First activity in {countryName}'
 'First-ever activity recorded': 'First-ever activity recorded'
 Firsts: Firsts
@@ -183,6 +190,8 @@ Fri.: Fri.
 'Front rings': 'Front rings'
 'Front shifts': 'Front shifts'
 GAP: GAP
+'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+'Garmin needs a new login': 'Garmin needs a new login'
 Gear: 装备
 'Gear maintenance': 装备维护
 'Gear that is retired is disabled by default.': 退役的装备默认禁用。
@@ -234,9 +243,11 @@ Imperial: Imperial
 'Increased compared to yesterday': 'Increased compared to yesterday'
 'Individual thresholds vary based on fitness level.': 个人阈值因体能水平而异。
 'Inline Skate': 直排轮滑
+Insights: Insights
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensity
 'Intensity minutes': 'Intensity minutes'
+'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.': 'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.'
 Jan: 一月
 Jul: 七月
 Jun: 六月
@@ -266,6 +277,7 @@ Load: Load
 'Load (CTL/ATL)': '负荷 (CTL/ATL)'
 Loading...: 加载中...
 'Locations over the globe': 全球位置
+'Log in to Garmin': 'Log in to Garmin'
 'Long run': 长跑
 'Longest activity': 'Longest activity'
 'Longest activity (h)': '最久运动 (h)'
@@ -301,6 +313,7 @@ Mon.: Mon.
 Monotony: 单调性
 Monthly: Monthly
 'Monthly stats': 每月统计
+More: More
 Morning: 早晨
 'Most elevation': 'Most elevation'
 'Most recent activities': 最近的活动
@@ -314,6 +327,7 @@ Morning: 早晨
 Name: 名称
 Neutral: Neutral
 'New personal best for': 'New personal best for'
+Next: Next
 'Next milestone': 'Next milestone'
 Night: 夜晚
 'No activities': 没有活动
@@ -334,6 +348,7 @@ None: 无
 'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 不支持
+'Not synced yet': 'Not synced yet'
 Nov: 十一月
 Now: Now
 'Number of activities': 'Number of activities'
@@ -354,6 +369,7 @@ Over-fatigued: Over-fatigued
 'Over-fatigued (–30)': '过度疲劳 （–30）'
 'Overall weekly training stress': 每周训练负荷总览
 'Overdue by {amount}': 'Overdue by {amount}'
+Overview: Overview
 'PB badges': PB徽章
 'PET bottles produced': PET瓶量
 Pace: 步速
@@ -394,8 +410,10 @@ Ranking: Ranking
 'Recalculating your suffer score...': 'Recalculating your suffer score...'
 Recent: Recent
 'Recent effort': 'Recent effort'
+Recommended: Recommended
 'Recording device': 'Recording device'
 'Recording devices': 'Recording devices'
+Records: Records
 'Recovery Timeline': 'Recovery Timeline'
 'Recovery forecast': 'Recovery forecast'
 'Reduced carbon emission by commuting': 通勤减少的碳排放
@@ -436,6 +454,7 @@ Shifting: Shifting
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure."
 Skateboard: 滑板
 Skating: 滑冰
+'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
@@ -465,6 +484,11 @@ Stress: Stress
 Sun: 周日
 Sun.: Sun.
 Surfing: 冲浪
+'Synced just now': 'Synced just now'
+'Synced on {date}': 'Synced on {date}'
+'Synced {hours} h ago': 'Synced {hours} h ago'
+'Synced {minutes} min ago': 'Synced {minutes} min ago'
+Syncing…: Syncing…
 'TSB (Form)': 'TSB (状态)'
 'TSB positive in': 'TSB positive in'
 'Table Tennis': 乒乓球
@@ -571,6 +595,7 @@ Tennis: 网球
 Thinking...: 思考中...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
 'This feature is currently disabled': 功能当前被禁用
+'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'This month'
 'This week': 'This week'
 Thu: 周四
@@ -591,18 +616,21 @@ Today: Today
 'Total moving time per month': 'Total moving time per month'
 'Trail Run': 'Trail Run'
 'Trail Runs': 越野跑
+Training: Training
 'Training 4–5 days every week scores higher than doing everything in one or two days.': 'Training 4–5 days every week scores higher than doing everything in one or two days.'
 'Training Impulse - Training load metric that accounts for intensity and duration.': '训练脉冲 - 训练负荷指标，综合考虑强度和持续时间。'
 'Training Load Analysis': 训练负荷分析
 'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.': '训练单调性 - 平均每日负荷与标准差的比值，反映训练多样性。'
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': '训练压力平衡（状态）- 体能（CTL）与疲劳（ATL）之间的差异，反映您的运动准备程度。'
 'Training goals': 'Training goals'
+'Training load': 'Training load'
 'Training load is accumulating, recovery days are important': 'Training load is accumulating, recovery days are important'
 'Training readiness': 'Training readiness'
 Tue: 周二
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
 Unspecified: 未指定
+'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -643,7 +671,9 @@ Weight: 体重
 'Weight Training': 重量训练
 'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 历史体重
+'Welcome to Dreeve': 'Welcome to Dreeve'
 Wheelchair: 轮椅
+'Where does your data come from?': 'Where does your data come from?'
 'Wind Surf': 风帆冲浪
 'Winter Sports': 冬季运动
 'With others': 'With others'
@@ -656,11 +686,14 @@ Year: 年
 Yearly: Yearly
 'Yearly stats': 年度统计
 Yoga: 瑜伽
+'You can change this any time, under Settings.': 'You can change this any time, under Settings.'
 "You weren't alone out there": "You weren't alone out there"
 'Your Dreeve badge': Dreeve徽章
 'Your PB badge': PB徽章
 'Your Zwift badge': Zwift徽章
+'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 徽章
+'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
 'Your normal': 'Your normal'
 Z1: Z1

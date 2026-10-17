@@ -13,6 +13,8 @@ enum NavigationSection: string
     case HEALTH_BODY = 'health-body';
     case HEALTH_FITNESS = 'health-fitness';
     case DASHBOARD = 'dashboard';
+    case TRAINING_LOAD = 'training-load';
+    case INSIGHTS = 'insights';
     case ACTIVITIES = 'activities';
     case GEAR = 'gear';
     case SEGMENTS = 'segments';

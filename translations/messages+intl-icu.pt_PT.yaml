@@ -1,4 +1,5 @@
 '# completed': '# completed'
+'.fit, .tcx or .gpx files from your watch or app, whenever you like.': '.fit, .tcx or .gpx files from your watch or app, whenever you like.'
 '1 year': '1 year'
 '3 months': '3 months'
 '30 days': '30 days'
@@ -16,6 +17,7 @@
 'A:C optimal in': 'A:C optimal in'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (Fadiga)'
+'About you': 'About you'
 'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Accumulated fatigue'
 'Active days': 'Dias activo'
@@ -68,6 +70,7 @@ Body: Body
 Cadence: Cadência
 'Cadence sensor': 'Cadence sensor'
 Cal.: Cal.
+Calendar: Calendar
 Calories: Calorias
 'Calories burned': 'Calories burned'
 'Calories burnt': 'Calories burnt'
@@ -79,6 +82,7 @@ Canoeing: Canoagem
 'Clear chat': 'Clear chat'
 'Cluster tiles': 'Quadrados de cluster'
 Columns: Columns
+'Coming soon': 'Coming soon'
 Commute: Commute
 Commutes: 'Viagens Escritório'
 'Commutes only': 'Apenas viagens Escritório'
@@ -107,6 +111,7 @@ Cycling: Cycling
 Dance: Dance
 'Dark mode': 'Dark mode'
 Dashboard: Painel
+'Data & settings': 'Data & settings'
 Date: Date
 Day: Day
 'Days completed': 'Days completed'
@@ -130,6 +135,7 @@ Distance: Distância
 'Distance over time per gear': 'Distância ao longo do tempo por equipamento'
 'Distance per month per gear': 'Distância por mês por equipamento'
 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.': 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.'
+Done: Done
 Download: Download
 Duration: Duration
 'Dusting off the record books...': 'Dusting off the record books...'
@@ -169,6 +175,7 @@ Feb: Fev
 'Filter on country': 'Filtrar por país'
 'Filter on sport type': 'Filtrar por tipo de desporto'
 'Filter on starred segments': 'Filtrar por segmentos favoritos'
+'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.': 'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.'
 'First activity in {countryName}': 'First activity in {countryName}'
 'First-ever activity recorded': 'First-ever activity recorded'
 Firsts: Firsts
@@ -183,6 +190,8 @@ Fri.: Fri.
 'Front rings': 'Front rings'
 'Front shifts': 'Front shifts'
 GAP: GAP
+'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Equipamento
 'Gear maintenance': 'Manutenção de equipamento'
 'Gear that is retired is disabled by default.': 'Equipamento reformado é desativado por defeito.'
@@ -234,9 +243,11 @@ Imperial: Imperial
 'Increased compared to yesterday': 'Increased compared to yesterday'
 'Individual thresholds vary based on fitness level.': 'Thresholds individuais variam consoante o nível de forma.'
 'Inline Skate': 'Patinagem em Linha'
+Insights: Insights
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensity
 'Intensity minutes': 'Intensity minutes'
+'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.': 'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.'
 Jan: Jan
 Jul: Jul
 Jun: Jun
@@ -266,6 +277,7 @@ Load: Load
 'Load (CTL/ATL)': 'Carga (CTL/ATL)'
 Loading...: 'A carregar...'
 'Locations over the globe': 'Locais pelo globo'
+'Log in to Garmin': 'Log in to Garmin'
 'Long run': 'Corrida longa'
 'Longest activity': 'Longest activity'
 'Longest activity (h)': 'Actividade mais longa (h)'
@@ -301,6 +313,7 @@ Mon.: Mon.
 Monotony: Monotonia
 Monthly: Monthly
 'Monthly stats': 'Estatísticas mensais'
+More: More
 Morning: Manhã
 'Most elevation': 'Most elevation'
 'Most recent activities': 'Atividades mais recentes'
@@ -314,6 +327,7 @@ Morning: Manhã
 Name: Name
 Neutral: Neutral
 'New personal best for': 'New personal best for'
+Next: Next
 'Next milestone': 'Next milestone'
 Night: Noite
 'No activities': 'Sem atividades'
@@ -334,6 +348,7 @@ None: None
 'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Not supported'
+'Not synced yet': 'Not synced yet'
 Nov: Nov
 Now: Now
 'Number of activities': 'Number of activities'
@@ -354,6 +369,7 @@ Over-fatigued: Over-fatigued
 'Over-fatigued (–30)': 'Sobre-fatigado (–30)'
 'Overall weekly training stress': 'Stress de treino geral semanal'
 'Overdue by {amount}': 'Overdue by {amount}'
+Overview: Overview
 'PB badges': 'Emblemas de Recordes'
 'PET bottles produced': 'PET bottles produced'
 Pace: Ritmo
@@ -394,8 +410,10 @@ Ranking: Ranking
 'Recalculating your suffer score...': 'Recalculating your suffer score...'
 Recent: Recent
 'Recent effort': 'Recent effort'
+Recommended: Recommended
 'Recording device': 'Recording device'
 'Recording devices': 'Recording devices'
+Records: Records
 'Recovery Timeline': 'Recovery Timeline'
 'Recovery forecast': 'Recovery forecast'
 'Reduced carbon emission by commuting': 'Reduced carbon emission by commuting'
@@ -436,6 +454,7 @@ Shifting: Shifting
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure."
 Skateboard: Skate
 Skating: Patinagem
+'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
@@ -465,6 +484,11 @@ Stress: Stress
 Sun: Dom
 Sun.: Sun.
 Surfing: Surf
+'Synced just now': 'Synced just now'
+'Synced on {date}': 'Synced on {date}'
+'Synced {hours} h ago': 'Synced {hours} h ago'
+'Synced {minutes} min ago': 'Synced {minutes} min ago'
+Syncing…: Syncing…
 'TSB (Form)': 'TSB (Forma)'
 'TSB positive in': 'TSB positive in'
 'Table Tennis': 'Ténis de Mesa'
@@ -571,6 +595,7 @@ Tennis: Ténis
 Thinking...: Thinking...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
 'This feature is currently disabled': 'Esta funcionalidade está desabilitada'
+'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'This month'
 'This week': 'This week'
 Thu: Qui
@@ -591,18 +616,21 @@ Today: Today
 'Total moving time per month': 'Total moving time per month'
 'Trail Run': 'Trail Run'
 'Trail Runs': 'Corridas de Trilho'
+Training: Training
 'Training 4–5 days every week scores higher than doing everything in one or two days.': 'Training 4–5 days every week scores higher than doing everything in one or two days.'
 'Training Impulse - Training load metric that accounts for intensity and duration.': 'Impulso de Treino- Métrica de carga de treino que considera intensidade e duração.'
 'Training Load Analysis': 'Análise de Carga de Treino'
 'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.': 'Monotonia de Treino - Rácio da média diária de carga vs. desvio padrão. Indica variedade de treino.'
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Balanço de Stress de Treino (Forma) – A diferença entre (CTL) e fadiga (ATL). Reflecte prontidão para treinar ou competir.'
 'Training goals': 'Training goals'
+'Training load': 'Training load'
 'Training load is accumulating, recovery days are important': 'Training load is accumulating, recovery days are important'
 'Training readiness': 'Training readiness'
 Tue: Ter
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
 Unspecified: 'Não especificado'
+'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -643,7 +671,9 @@ Weight: Weight
 'Weight Training': 'Treino de Força'
 'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 'Weight history'
+'Welcome to Dreeve': 'Welcome to Dreeve'
 Wheelchair: 'Cadeira de Rodas'
+'Where does your data come from?': 'Where does your data come from?'
 'Wind Surf': Windsurf
 'Winter Sports': 'Desportos de Inverno'
 'With others': 'With others'
@@ -656,11 +686,14 @@ Year: Ano
 Yearly: Yearly
 'Yearly stats': 'Yearly stats'
 Yoga: Yoga
+'You can change this any time, under Settings.': 'You can change this any time, under Settings.'
 "You weren't alone out there": "You weren't alone out there"
 'Your Dreeve badge': 'O teu emblema do Dreeve'
 'Your PB badge': 'Medalha de Recordes'
 'Your Zwift badge': 'O teu emblema do Zwift'
+'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'O(s) teu(s) emblema(s)'
+'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
 'Your normal': 'Your normal'
 Z1: Z1

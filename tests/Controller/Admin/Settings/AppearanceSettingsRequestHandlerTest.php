@@ -27,6 +27,6 @@ class AppearanceSettingsRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(1, $settingsPanel);
         $selectedLink = $settingsPanel->filter('a[aria-selected="true"]');
         $this->assertCount(1, $selectedLink);
-        $this->assertStringContainsString('Appearance', $selectedLink->text());
+        $this->assertStringContainsString('Display', $selectedLink->text());
     }
 }

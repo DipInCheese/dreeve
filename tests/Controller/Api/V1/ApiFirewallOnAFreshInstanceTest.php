@@ -44,7 +44,7 @@ class ApiFirewallOnAFreshInstanceTest extends ControllerWebTestCase
     {
         $this->client->request('GET', '/');
 
-        $this->assertResponseRedirects('http://localhost/admin/settings/athlete');
+        $this->assertResponseRedirects('http://localhost/welcome');
     }
 
     #[\Override]

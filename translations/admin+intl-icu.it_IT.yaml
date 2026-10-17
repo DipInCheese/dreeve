@@ -63,7 +63,6 @@ Address: Address
 'App URL': 'App URL'
 'App subtitle': 'App subtitle'
 'App update available notification': 'App update available notification'
-Appearance: Appearance
 Applied: Applied
 Apply: Applica
 'Apply to existing activities': 'Apply to existing activities'
@@ -75,7 +74,6 @@ Apply: Applica
 'Are you sure you want to remove the {widget} widget?': 'Are you sure you want to remove the {widget} widget?'
 'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Assign gear'
-'Athlete settings': 'Athlete settings'
 'Attached to': 'Attached to'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.'
 'Automation rules': 'Automation rules'
@@ -84,13 +82,12 @@ Apply: Applica
 'Average heart rate (bpm)': 'Average heart rate (bpm)'
 'Average power': 'Average power'
 'Base URI': 'Base URI'
-'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.'
 Birthday: Birthday
 'Calculate energy (kJ)': 'Calculate energy (kJ)'
 Cancel: Cancel
 'Challenge name': 'Challenge name'
 'Changes still need to be processed before they appear on the app': 'Changes still need to be processed before they appear on the app'
-'Changes to these settings only take effect after you restart the daemon container.': 'Changes to these settings only take effect after you restart the daemon container.'
+'Changes take effect the next time Dreeve restarts.': 'Changes take effect the next time Dreeve restarts.'
 'Chat commands': 'Chat commands'
 'Choose the order the metrics are shown in.': 'Choose the order the metrics are shown in.'
 Clear: Clear
@@ -116,10 +113,8 @@ Connected.: Connected.
 'Continues to next rule': 'Continues to next rule'
 'Copy this API key': 'Copy this API key'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
-'Cron expression': 'Cron expression'
-"Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help."
 Custom: Custom
-Daemon: Daemon
+'Custom schedule ({expression})': 'Custom schedule ({expression})'
 'Dashboard layout': 'Dashboard layout'
 'Date range based': 'Date range based'
 'Define what needs doing and how often.': 'Define what needs doing and how often.'
@@ -137,6 +132,7 @@ Description: Description
 Disable: Disable
 Disabled: Disabled
 'Disconnect Garmin': 'Disconnect Garmin'
+Display: Display
 Distance: Distance
 Done: Done
 'Download original file': 'Download original file'
@@ -169,6 +165,13 @@ Endpoint: Endpoint
 'Enter your password': 'Enter your password'
 'Enter your username': 'Enter your username'
 Every: Every
+'Every Monday at 08:00': 'Every Monday at 08:00'
+'Every day at 04:00': 'Every day at 04:00'
+'Every day at 07:00': 'Every day at 07:00'
+'Every day at 08:00': 'Every day at 08:00'
+'Every day at 12:00': 'Every day at 12:00'
+'Every day at 18:00': 'Every day at 18:00'
+'Every day at 20:00': 'Every day at 20:00'
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 Everything: Everything
@@ -202,7 +205,6 @@ From: From
 'Gear management': 'Gear management'
 'Gear will appear here once you add them.': 'Gear will appear here once you add them.'
 Gender: Gender
-General: General
 'Generate an API key': 'Generate an API key'
 'Go to first page': 'Go to first page'
 'Go to last page': 'Go to last page'
@@ -229,7 +231,6 @@ Images: Images
 'Include retired gear': 'Include retired gear'
 Info: Info
 'Installed on': 'Installed on'
-Integrations: Integrations
 'Intro text': 'Intro text'
 'Invalid CSRF token.': 'Invalid CSRF token.'
 'Invite link': 'Invite link'
@@ -268,7 +269,6 @@ Match: Match
 'Max heart rate formula': 'Max heart rate formula'
 Message: Message
 'Metric display order': 'Metric display order'
-Metrics: Metrics
 Minutes: Minutes
 Mode: Mode
 Model: Model
@@ -301,6 +301,8 @@ Monday: Monday
 'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notes
 'Notification services': 'Notification services'
+'Notifications & AI': 'Notifications & AI'
+'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.': 'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.'
 'Notify when an import was successful': 'Notify when an import was successful'
 'Number of activities to display': 'Number of activities to display'
 'Number of challenges to display': 'Number of challenges to display'
@@ -332,6 +334,7 @@ Password: Password
 'Polyline color': 'Polyline color'
 'Preview selection': 'Preview selection'
 'Processed on': 'Processed on'
+Profile: Profile
 'Profile picture URL': 'Profile picture URL'
 Provider: Provider
 Queued: Queued
@@ -343,6 +346,7 @@ Radius: Radius
 'Recreate your containers': 'Recreate your containers'
 'Register maintenance': 'Register maintenance'
 'Remember me for 7 days': 'Remember me for 7 days'
+Reminders: Reminders
 Remove: Remove
 'Remove Eddington': 'Remove Eddington'
 'Remove action': 'Remove action'
@@ -378,7 +382,6 @@ Save: Save
 'Save settings': 'Save settings'
 Saved: Saved
 Saving...: Saving...
-'Scheduled actions the daemon runs at regular intervals.': 'Scheduled actions the daemon runs at regular intervals.'
 'Search by name, date or activity ID': 'Search by name, date or activity ID'
 Seconds: Seconds
 Security: Security
@@ -472,6 +475,7 @@ Tasks: Tasks
 'The distance': 'The distance'
 'The elapsed time': 'The elapsed time'
 'The elevation gain': 'The elevation gain'
+'The first day of every month at 08:00': 'The first day of every month at 08:00'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'The formula used to calculate your max heart rate. The default is Fox (220 − age).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'The formula used to calculate your resting heart rate. The default is an age-based estimate.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.'
@@ -519,6 +523,7 @@ To: To
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Total size exceeds {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.'
+'Training metrics': 'Training metrics'
 Tuesday: Tuesday
 'Turn gear maintenance tracking on or off.': 'Turn gear maintenance tracking on or off.'
 'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Turns on the AI-powered workout assistant, which can then be used from the command line.'
@@ -545,6 +550,7 @@ Weekdays: Weekdays
 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.': 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.'
 'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'What is my FTP?'
+When: When
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes."
 'When disabled, gear marked as retired is left out of the chart.': 'When disabled, gear marked as retired is left out of the chart.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'When disabled, scrolling over a map zooms it instead of scrolling the page.'

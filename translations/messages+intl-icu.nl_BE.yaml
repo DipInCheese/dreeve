@@ -1,4 +1,5 @@
 '# completed': '# voltooid'
+'.fit, .tcx or .gpx files from your watch or app, whenever you like.': '.fit, .tcx or .gpx files from your watch or app, whenever you like.'
 '1 year': '1 year'
 '3 months': '3 months'
 '30 days': '30 days'
@@ -16,6 +17,7 @@
 'A:C optimal in': 'A:C optimaal binnen'
 'AI integration settings': 'Instellingen AI-integratie'
 'ATL (Fatigue)': 'ATL (Vermoeidheid)'
+'About you': 'About you'
 'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Opgebouwde vermoeidheid'
 'Active days': 'Actieve dagen'
@@ -68,6 +70,7 @@ Body: Body
 Cadence: Cadans
 'Cadence sensor': Cadanssensor
 Cal.: Cal.
+Calendar: Calendar
 Calories: Calorieën
 'Calories burned': 'Verbrande calorieën'
 'Calories burnt': 'Verbrande calorieën'
@@ -79,6 +82,7 @@ Canoeing: Kanoën
 'Clear chat': 'Chat wissen'
 'Cluster tiles': Clustertegels
 Columns: Kolommen
+'Coming soon': 'Coming soon'
 Commute: Woon-werk
 Commutes: Woon-werkritten
 'Commutes only': 'Enkel woon-werk'
@@ -107,6 +111,7 @@ Cycling: Fietsen
 Dance: Dansen
 'Dark mode': 'Donkere modus'
 Dashboard: Dashboard
+'Data & settings': 'Data & settings'
 Date: Datum
 Day: Dag
 'Days completed': 'Days completed'
@@ -130,6 +135,7 @@ Distance: Afstand
 'Distance over time per gear': 'Afstand in tijd per gear'
 'Distance per month per gear': 'Afstand per maand per gear'
 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.': 'Een mix van fietsen, lopen, zwemmen en krachttraining verhoogt je variatiescore.'
+Done: Done
 Download: Download
 Duration: Duur
 'Dusting off the record books...': 'De recordboeken aan het afstoffen...'
@@ -169,6 +175,7 @@ Feb: Feb
 'Filter on country': 'Filteren op land'
 'Filter on sport type': 'Filteren op sporttype'
 'Filter on starred segments': 'Filteren op segmenten met ster'
+'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.': 'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.'
 'First activity in {countryName}': 'Eerste activiteit in {countryName}'
 'First-ever activity recorded': 'Allereerste geregistreerde activiteit'
 Firsts: 'Eerste keren'
@@ -183,6 +190,8 @@ Fri.: Vr.
 'Front rings': Kettingbladen
 'Front shifts': 'Schakelingen voor'
 GAP: GAP
+'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Uitrusting
 'Gear maintenance': 'Onderhoud van uitrusting'
 'Gear that is retired is disabled by default.': 'Uitrusting die niet meer actief is, wordt standaard uitgeschakeld.'
@@ -234,9 +243,11 @@ Imperial: Imperiaal
 'Increased compared to yesterday': 'Gestegen ten opzichte van gisteren'
 'Individual thresholds vary based on fitness level.': 'Individuele drempels verschillen naargelang het fitheidsniveau.'
 'Inline Skate': Inlineskaten
+Insights: Insights
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensiteit
 'Intensity minutes': 'Intensity minutes'
+'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.': 'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.'
 Jan: Jan
 Jul: Jul
 Jun: Jun
@@ -266,6 +277,7 @@ Load: Belasting
 'Load (CTL/ATL)': 'Belasting (CTL/ATL)'
 Loading...: 'Aan het laden...'
 'Locations over the globe': 'Locaties over de hele wereld'
+'Log in to Garmin': 'Log in to Garmin'
 'Long run': Duurloop
 'Longest activity': 'Langste activiteit'
 'Longest activity (h)': 'Langste activiteit (u)'
@@ -301,6 +313,7 @@ Mon.: Ma.
 Monotony: Monotonie
 Monthly: Maandelijks
 'Monthly stats': 'Maandelijkse stats'
+More: More
 Morning: Ochtend
 'Most elevation': 'Meeste hoogtemeters'
 'Most recent activities': 'Meest recente activiteiten'
@@ -314,6 +327,7 @@ Morning: Ochtend
 Name: Naam
 Neutral: Neutraal
 'New personal best for': 'Nieuw persoonlijk record voor'
+Next: Next
 'Next milestone': 'Volgende mijlpaal'
 Night: Nacht
 'No activities': 'Geen activiteiten'
@@ -334,6 +348,7 @@ None: Geen
 'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Niet ondersteund'
+'Not synced yet': 'Not synced yet'
 Nov: Nov
 Now: Nu
 'Number of activities': 'Aantal activiteiten'
@@ -354,6 +369,7 @@ Over-fatigued: Oververmoeid
 'Over-fatigued (–30)': 'Oververmoeid (–30)'
 'Overall weekly training stress': 'Totale wekelijkse trainingsstress'
 'Overdue by {amount}': '{amount} te laat'
+Overview: Overview
 'PB badges': PR-badges
 'PET bottles produced': 'Geproduceerde PET-flessen'
 Pace: Tempo
@@ -394,8 +410,10 @@ Ranking: Rangschikking
 'Recalculating your suffer score...': 'Je suffer score aan het herberekenen...'
 Recent: Recent
 'Recent effort': 'Recente prestatie'
+Recommended: Recommended
 'Recording device': 'Recording device'
 'Recording devices': Registratietoestellen
+Records: Records
 'Recovery Timeline': Hersteltijdlijn
 'Recovery forecast': Herstelprognose
 'Reduced carbon emission by commuting': 'Verminderde CO₂-uitstoot door woon-werkverkeer'
@@ -436,6 +454,7 @@ Shifting: Schakelen
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": 'Sinds ik {numberOfDaysAgo} geleden op {startDate} begon te sporten, heb ik {totalDaysOfWorkingOut} actieve dagen van training en avontuur gelogd.'
 Skateboard: Skateboarden
 Skating: Skaten
+'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Licht fris'
@@ -465,6 +484,11 @@ Stress: Stress
 Sun: Zon
 Sun.: Zo.
 Surfing: Surfen
+'Synced just now': 'Synced just now'
+'Synced on {date}': 'Synced on {date}'
+'Synced {hours} h ago': 'Synced {hours} h ago'
+'Synced {minutes} min ago': 'Synced {minutes} min ago'
+Syncing…: Syncing…
 'TSB (Form)': 'TSB (Vorm)'
 'TSB positive in': 'TSB positief binnen'
 'Table Tennis': Tafeltennis
@@ -571,6 +595,7 @@ Tennis: Tennis
 Thinking...: 'Aan het nadenken...'
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'Deze grafiek vat samen hoe je traint. Elke as geeft een andere genormaliseerde trainingsgewoonte weer, dus hogere waarden betekenen een sterkere nadruk.'
 'This feature is currently disabled': 'Deze functie is momenteel uitgeschakeld'
+'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'Deze maand'
 'This week': 'Deze week'
 Thu: Do
@@ -591,18 +616,21 @@ Today: Today
 'Total moving time per month': 'Totale beweegtijd per maand'
 'Trail Run': Trailrun
 'Trail Runs': Trailruns
+Training: Training
 'Training 4–5 days every week scores higher than doing everything in one or two days.': '4–5 dagen per week trainen scoort hoger dan alles op één of twee dagen doen.'
 'Training Impulse - Training load metric that accounts for intensity and duration.': 'Training Impulse - Maatstaf voor trainingsbelasting die rekening houdt met intensiteit en duur.'
 'Training Load Analysis': 'Analyse trainingsbelasting'
 'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.': 'Trainingsmonotonie - Verhouding tussen de gemiddelde dagelijkse belasting en de standaardafwijking. Geeft de variatie in training aan.'
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Training Stress Balance (Vorm) – Het verschil tussen fitheid (CTL) en vermoeidheid (ATL). Geeft aan hoe klaar je bent om te presteren.'
 'Training goals': Trainingsdoelen
+'Training load': 'Training load'
 'Training load is accumulating, recovery days are important': 'De trainingsbelasting stapelt zich op, hersteldagen zijn belangrijk'
 'Training readiness': 'Training readiness'
 Tue: Di
 Tue.: Di.
 'Unchanged compared to yesterday': 'Onveranderd ten opzichte van gisteren'
 Unspecified: 'Niet gespecificeerd'
+'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Komend onderhoud'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -643,7 +671,9 @@ Weight: Gewicht
 'Weight Training': Gewichtstraining
 'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': Gewichtshistoriek
+'Welcome to Dreeve': 'Welcome to Dreeve'
 Wheelchair: Rolstoel
+'Where does your data come from?': 'Where does your data come from?'
 'Wind Surf': Windsurfen
 'Winter Sports': Wintersport
 'With others': 'Met anderen'
@@ -656,11 +686,14 @@ Year: Jaar
 Yearly: Jaarlijks
 'Yearly stats': Jaarstatistieken
 Yoga: Yoga
+'You can change this any time, under Settings.': 'You can change this any time, under Settings.'
 "You weren't alone out there": 'Je was er niet alleen'
 'Your Dreeve badge': 'Je Dreeve-badge'
 'Your PB badge': 'Je PR-badge'
 'Your Zwift badge': 'Je Zwift-badge'
+'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'Je badge(s)'
+'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
 'Your normal': 'Your normal'
 Z1: Z1

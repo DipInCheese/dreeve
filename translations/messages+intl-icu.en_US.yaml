@@ -1,4 +1,5 @@
 '# completed': '# completed'
+'.fit, .tcx or .gpx files from your watch or app, whenever you like.': '.fit, .tcx or .gpx files from your watch or app, whenever you like.'
 '1 year': '1 year'
 '3 months': '3 months'
 '30 days': '30 days'
@@ -16,6 +17,7 @@
 'A:C optimal in': 'A:C optimal in'
 'AI integration settings': 'AI integration settings'
 'ATL (Fatigue)': 'ATL (Fatigue)'
+'About you': 'About you'
 'Above your normal': 'Above your normal'
 'Accumulated fatigue': 'Accumulated fatigue'
 'Active days': 'Active days'
@@ -68,6 +70,7 @@ Body: Body
 Cadence: Cadence
 'Cadence sensor': 'Cadence sensor'
 Cal.: Cal.
+Calendar: Calendar
 Calories: Calories
 'Calories burned': 'Calories burned'
 'Calories burnt': 'Calories burnt'
@@ -79,6 +82,7 @@ Canoeing: Canoeing
 'Clear chat': 'Clear chat'
 'Cluster tiles': 'Cluster tiles'
 Columns: Columns
+'Coming soon': 'Coming soon'
 Commute: Commute
 Commutes: Commutes
 'Commutes only': 'Commutes only'
@@ -107,6 +111,7 @@ Cycling: Cycling
 Dance: Dance
 'Dark mode': 'Dark mode'
 Dashboard: Dashboard
+'Data & settings': 'Data & settings'
 Date: Date
 Day: Day
 'Days completed': 'Days completed'
@@ -130,6 +135,7 @@ Distance: Distance
 'Distance over time per gear': 'Distance over time per gear'
 'Distance per month per gear': 'Distance per month per gear'
 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.': 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.'
+Done: Done
 Download: Download
 Duration: Duration
 'Dusting off the record books...': 'Dusting off the record books...'
@@ -169,6 +175,7 @@ Feb: Feb
 'Filter on country': 'Filter on country'
 'Filter on sport type': 'Filter on sport type'
 'Filter on starred segments': 'Filter on starred segments'
+'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.': 'First a few things about you. Your heart rate zones and training load are calculated from them. Everything else you can change later in Settings.'
 'First activity in {countryName}': 'First activity in {countryName}'
 'First-ever activity recorded': 'First-ever activity recorded'
 Firsts: Firsts
@@ -183,6 +190,8 @@ Fri.: Fri.
 'Front rings': 'Front rings'
 'Front shifts': 'Front shifts'
 GAP: GAP
+'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Gear
 'Gear maintenance': 'Gear maintenance'
 'Gear that is retired is disabled by default.': 'Gear that is retired is disabled by default.'
@@ -234,9 +243,11 @@ Imperial: Imperial
 'Increased compared to yesterday': 'Increased compared to yesterday'
 'Individual thresholds vary based on fitness level.': 'Individual thresholds vary based on fitness level.'
 'Inline Skate': 'Inline Skate'
+Insights: Insights
 'Installed on {component}': 'Installed on {component}'
 Intensity: Intensity
 'Intensity minutes': 'Intensity minutes'
+'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.': 'It will use AI only if you switch it on. Your health data would then go to the AI provider you choose; with a local model it never leaves your server.'
 Jan: Jan
 Jul: Jul
 Jun: Jun
@@ -266,6 +277,7 @@ Load: Load
 'Load (CTL/ATL)': 'Load (CTL/ATL)'
 Loading...: Loading...
 'Locations over the globe': 'Locations over the globe'
+'Log in to Garmin': 'Log in to Garmin'
 'Long run': 'Long run'
 'Longest activity': 'Longest activity'
 'Longest activity (h)': 'Longest activity (h)'
@@ -301,6 +313,7 @@ Mon.: Mon.
 Monotony: Monotony
 Monthly: Monthly
 'Monthly stats': 'Monthly stats'
+More: More
 Morning: Morning
 'Most elevation': 'Most elevation'
 'Most recent activities': 'Most recent activities'
@@ -314,6 +327,7 @@ Morning: Morning
 Name: Name
 Neutral: Neutral
 'New personal best for': 'New personal best for'
+Next: Next
 'Next milestone': 'Next milestone'
 Night: Night
 'No activities': 'No activities'
@@ -334,6 +348,7 @@ None: None
 'Not enough history yet': 'Not enough history yet'
 'Not fitted': 'Not fitted'
 'Not supported': 'Not supported'
+'Not synced yet': 'Not synced yet'
 Nov: Nov
 Now: Now
 'Number of activities': 'Number of activities'
@@ -354,6 +369,7 @@ Over-fatigued: Over-fatigued
 'Over-fatigued (–30)': 'Over-fatigued (–30)'
 'Overall weekly training stress': 'Overall weekly training stress'
 'Overdue by {amount}': 'Overdue by {amount}'
+Overview: Overview
 'PB badges': 'PB badges'
 'PET bottles produced': 'PET bottles produced'
 Pace: Pace
@@ -394,8 +410,10 @@ Ranking: Ranking
 'Recalculating your suffer score...': 'Recalculating your suffer score...'
 Recent: Recent
 'Recent effort': 'Recent effort'
+Recommended: Recommended
 'Recording device': 'Recording device'
 'Recording devices': 'Recording devices'
+Records: Records
 'Recovery Timeline': 'Recovery Timeline'
 'Recovery forecast': 'Recovery forecast'
 'Reduced carbon emission by commuting': 'Reduced carbon emission by commuting'
@@ -436,6 +454,7 @@ Shifting: Shifting
 "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": "Since I began working out {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure."
 Skateboard: Skateboard
 Skating: Skating
+'Skip for now and look around': 'Skip for now and look around'
 Sleep: Sleep
 'Sleep score': 'Sleep score'
 'Slightly fresh': 'Slightly fresh'
@@ -465,6 +484,11 @@ Stress: Stress
 Sun: Sun
 Sun.: Sun.
 Surfing: Surfing
+'Synced just now': 'Synced just now'
+'Synced on {date}': 'Synced on {date}'
+'Synced {hours} h ago': 'Synced {hours} h ago'
+'Synced {minutes} min ago': 'Synced {minutes} min ago'
+Syncing…: Syncing…
 'TSB (Form)': 'TSB (Form)'
 'TSB positive in': 'TSB positive in'
 'Table Tennis': 'Table Tennis'
@@ -571,6 +595,7 @@ Tennis: Tennis
 Thinking...: Thinking...
 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
 'This feature is currently disabled': 'This feature is currently disabled'
+'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.': 'This is where Dreeve will look at your sleep, recovery and training together: how your week went, what changed compared to your normal, and what to adjust.'
 'This month': 'This month'
 'This week': 'This week'
 Thu: Thu
@@ -591,18 +616,21 @@ Today: Today
 'Total moving time per month': 'Total moving time per month'
 'Trail Run': 'Trail Run'
 'Trail Runs': 'Trail Runs'
+Training: Training
 'Training 4–5 days every week scores higher than doing everything in one or two days.': 'Training 4–5 days every week scores higher than doing everything in one or two days.'
 'Training Impulse - Training load metric that accounts for intensity and duration.': 'Training Impulse - Training load metric that accounts for intensity and duration.'
 'Training Load Analysis': 'Training Load Analysis'
 'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.': 'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.'
 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': 'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.'
 'Training goals': 'Training goals'
+'Training load': 'Training load'
 'Training load is accumulating, recovery days are important': 'Training load is accumulating, recovery days are important'
 'Training readiness': 'Training readiness'
 Tue: Tue
 Tue.: Tue.
 'Unchanged compared to yesterday': 'Unchanged compared to yesterday'
 Unspecified: Unspecified
+'Until then, Today and Health already compare every number with your own normal.': 'Until then, Today and Health already compare every number with your own normal.'
 'Upcoming maintenance': 'Upcoming maintenance'
 'Upcoming numbers': 'Upcoming numbers'
 'Upload activity files': 'Upload activity files'
@@ -643,7 +671,9 @@ Weight: Weight
 'Weight Training': 'Weight Training'
 'Weight and body composition, from Garmin, a smart scale or what you typed in.': 'Weight and body composition, from Garmin, a smart scale or what you typed in.'
 'Weight history': 'Weight history'
+'Welcome to Dreeve': 'Welcome to Dreeve'
 Wheelchair: Wheelchair
+'Where does your data come from?': 'Where does your data come from?'
 'Wind Surf': 'Wind Surf'
 'Winter Sports': 'Winter Sports'
 'With others': 'With others'
@@ -656,11 +686,14 @@ Year: Year
 Yearly: Yearly
 'Yearly stats': 'Yearly stats'
 Yoga: Yoga
+'You can change this any time, under Settings.': 'You can change this any time, under Settings.'
 "You weren't alone out there": "You weren't alone out there"
 'Your Dreeve badge': 'Your Dreeve badge'
 'Your PB badge': 'Your PB badge'
 'Your Zwift badge': 'Your Zwift badge'
+'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.': 'Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour.'
 'Your badge(s)': 'Your badge(s)'
+'Your data': 'Your data'
 'Your health at a glance': 'Your health at a glance'
 'Your normal': 'Your normal'
 Z1: Z1

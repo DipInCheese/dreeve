@@ -1,0 +1,29 @@
+{% extends "html/admin/page/template.html.twig" %}
+{% set hideAdminNavigation = true %}
+{% block main %}
+    <div class="modal-like-form">
+        <div class="w-full max-w-2xl overflow-y-auto p-6 bg-white border border-gray-200 rounded-lg shadow-xl" data-welcome-step="connect">
+            {% include 'html/welcome/steps.html.twig' with {step: step} only %}
+            <div class="mb-6">
+                <h1 class="text-xl font-bold">{{ "Where does your data come from?"|trans }}</h1>
+                <p class="mt-1 text-sm text-gray-500">{{ "You can change this any time, under Settings."|trans }}</p>
+            </div>
+            <div class="flex flex-col gap-3">
+                {% if canConnectGarmin %}
+                    <a href="{{ relativeUrl(path('admin_garmin')) }}" class="block rounded-xl border-2 border-primary px-4 py-3 hover:bg-primary-soft" data-welcome-choice="garmin">
+                        <span class="font-semibold">{{ "Connect Garmin"|trans }}</span>
+                        <span class="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">{{ "Recommended"|trans }}</span>
+                        <span class="mt-1 block text-sm text-gray-600">{{ "Your activities, sleep, heart rate, stress and Body Battery, fetched automatically every hour."|trans }}</span>
+                    </a>
+                {% endif %}
+                <a href="{{ relativeUrl(path('admin_file_upload')) }}" class="block rounded-xl border border-gray-200 px-4 py-3 hover:border-primary hover:bg-gray-50" data-welcome-choice="upload">
+                    <span class="font-semibold">{{ "Upload activity files"|trans }}</span>
+                    <span class="mt-1 block text-sm text-gray-600">{{ ".fit, .tcx or .gpx files from your watch or app, whenever you like."|trans }}</span>
+                </a>
+                <a href="{{ relativeUrl(path('today')) }}" class="block px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900" data-welcome-choice="skip">
+                    {{ "Skip for now and look around"|trans }} →
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

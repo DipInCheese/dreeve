@@ -63,7 +63,6 @@ Address: Address
 'App URL': App-URL
 'App subtitle': App-ondertitel
 'App update available notification': 'Melding bij beschikbare app-update'
-Appearance: Weergave
 Applied: Toegepast
 Apply: Toepassen
 'Apply to existing activities': 'Toepassen op bestaande activiteiten'
@@ -75,7 +74,6 @@ Apply: Toepassen
 'Are you sure you want to remove the {widget} widget?': 'Ben je zeker dat je de widget {widget} wil verwijderen?'
 'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Uitrusting toewijzen'
-'Athlete settings': Atleetinstellingen
 'Attached to': 'Gekoppeld aan'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Vul automatisch uitrusting, woon-werk, sporttype en meer in bij nieuw geïmporteerde activiteiten. Regels worden van boven naar onder uitgevoerd en kunnen ook toegepast worden op activiteiten die je al geïmporteerd hebt.'
 'Automation rules': Automatiseringsregels
@@ -84,13 +82,12 @@ Apply: Toepassen
 'Average heart rate (bpm)': 'Gemiddelde hartslag (bpm)'
 'Average power': 'Gemiddeld vermogen'
 'Base URI': Basis-URI
-'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Voor je de app kan gebruiken, moeten we een paar dingen over je weten. Die worden gebruikt om je hartslagzones en trainingsbelasting te berekenen. Alle andere instellingen kan je later nog verfijnen.'
 Birthday: Geboortedatum
 'Calculate energy (kJ)': 'Energie berekenen (kJ)'
 Cancel: Annuleren
 'Challenge name': 'Naam uitdaging'
 'Changes still need to be processed before they appear on the app': 'Wijzigingen moeten nog verwerkt worden voor ze in de app verschijnen'
-'Changes to these settings only take effect after you restart the daemon container.': 'Wijzigingen aan deze instellingen worden pas actief nadat je de daemon-container herstart.'
+'Changes take effect the next time Dreeve restarts.': 'Changes take effect the next time Dreeve restarts.'
 'Chat commands': "Chatcommando's"
 'Choose the order the metrics are shown in.': 'Kies de volgorde waarin de meetwaarden getoond worden.'
 Clear: Wissen
@@ -116,10 +113,8 @@ Connected.: Connected.
 'Continues to next rule': 'Gaat verder naar de volgende regel'
 'Copy this API key': 'Kopieer deze API-sleutel'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
-'Cron expression': Cron-expressie
-"Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Cron-expressie die bepaalt wanneer de actie uitgevoerd wordt, bv. '0 14 * * *' wordt elke dag om 14:00 uitgevoerd. Zie crontab.guru voor hulp."
 Custom: Custom
-Daemon: Daemon
+'Custom schedule ({expression})': 'Custom schedule ({expression})'
 'Dashboard layout': Dashboardindeling
 'Date range based': 'Op basis van datumbereik'
 'Define what needs doing and how often.': 'Bepaal wat er moet gebeuren en hoe vaak.'
@@ -137,6 +132,7 @@ Description: Beschrijving
 Disable: Disable
 Disabled: Uitgeschakeld
 'Disconnect Garmin': 'Disconnect Garmin'
+Display: Display
 Distance: Afstand
 Done: Klaar
 'Download original file': 'Origineel bestand downloaden'
@@ -169,6 +165,13 @@ Endpoint: Endpoint
 'Enter your password': 'Geef je wachtwoord in'
 'Enter your username': 'Geef je gebruikersnaam in'
 Every: Elke
+'Every Monday at 08:00': 'Every Monday at 08:00'
+'Every day at 04:00': 'Every day at 04:00'
+'Every day at 07:00': 'Every day at 07:00'
+'Every day at 08:00': 'Every day at 08:00'
+'Every day at 12:00': 'Every day at 12:00'
+'Every day at 18:00': 'Every day at 18:00'
+'Every day at 20:00': 'Every day at 20:00'
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 Everything: Everything
@@ -202,7 +205,6 @@ From: Van
 'Gear management': Uitrustingsbeheer
 'Gear will appear here once you add them.': 'Uitrusting verschijnt hier zodra je ze toevoegt.'
 Gender: Geslacht
-General: Algemeen
 'Generate an API key': 'Een API-sleutel genereren'
 'Go to first page': 'Naar eerste pagina'
 'Go to last page': 'Naar laatste pagina'
@@ -229,7 +231,6 @@ Images: Afbeeldingen
 'Include retired gear': 'Uitrusting buiten gebruik meenemen'
 Info: Info
 'Installed on': 'Installed on'
-Integrations: Integraties
 'Intro text': Introtekst
 'Invalid CSRF token.': 'Ongeldig CSRF-token.'
 'Invite link': 'Invite link'
@@ -268,7 +269,6 @@ Match: Overeenkomst
 'Max heart rate formula': 'Formule maximale hartslag'
 Message: Bericht
 'Metric display order': 'Volgorde van meetwaarden'
-Metrics: Meetwaarden
 Minutes: Minuten
 Mode: Modus
 Model: Model
@@ -301,6 +301,8 @@ Monday: Maandag
 'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notes
 'Notification services': Meldingsdiensten
+'Notifications & AI': 'Notifications & AI'
+'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.': 'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.'
 'Notify when an import was successful': 'Melden wanneer een import geslaagd is'
 'Number of activities to display': 'Aantal te tonen activiteiten'
 'Number of challenges to display': 'Aantal te tonen uitdagingen'
@@ -332,6 +334,7 @@ Password: Wachtwoord
 'Polyline color': Routekleur
 'Preview selection': 'Selectie bekijken'
 'Processed on': 'Verwerkt op'
+Profile: Profile
 'Profile picture URL': 'URL profielfoto'
 Provider: Provider
 Queued: 'In wachtrij'
@@ -343,6 +346,7 @@ Radius: Straal
 'Recreate your containers': 'Maak je containers opnieuw aan'
 'Register maintenance': 'Onderhoud registreren'
 'Remember me for 7 days': 'Onthoud mij 7 dagen'
+Reminders: Reminders
 Remove: Verwijderen
 'Remove Eddington': 'Eddington verwijderen'
 'Remove action': 'Actie verwijderen'
@@ -378,7 +382,6 @@ Save: Opslaan
 'Save settings': 'Instellingen opslaan'
 Saved: Opgeslagen
 Saving...: 'Aan het opslaan...'
-'Scheduled actions the daemon runs at regular intervals.': 'Geplande acties die de daemon op regelmatige tijdstippen uitvoert.'
 'Search by name, date or activity ID': 'Zoeken op naam, datum of activiteits-ID'
 Seconds: Seconden
 Security: Beveiliging
@@ -472,6 +475,7 @@ Tasks: Taken
 'The distance': 'De afstand'
 'The elapsed time': 'De verstreken tijd'
 'The elevation gain': 'De hoogtewinst'
+'The first day of every month at 08:00': 'The first day of every month at 08:00'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'De formule om je maximale hartslag te berekenen. Standaard is Fox (220 − leeftijd).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'De formule om je rusthartslag te berekenen. Standaard is een schatting op basis van leeftijd.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'Met de sleutel kan een externe client activiteitsbestanden uploaden via HTTP. Het is het enige wat dat endpoint beveiligt, dus behandel hem als een wachtwoord.'
@@ -519,6 +523,7 @@ To: Tot
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Totale grootte is groter dan {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Volg het gebruik van je uitrusting op basis van je activiteiten en blijf op de hoogte van onderhoud op basis van gebruik en tijd.'
+'Training metrics': 'Training metrics'
 Tuesday: Dinsdag
 'Turn gear maintenance tracking on or off.': 'Het opvolgen van onderhoud van uitrusting in- of uitschakelen.'
 'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Schakelt de AI-gestuurde trainingsassistent in, die dan via de command line gebruikt kan worden.'
@@ -545,6 +550,7 @@ Weekdays: Weekdagen
 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.': 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.'
 'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Wat is mijn FTP?'
+When: When
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Indien aangevinkt, worden er geen verdere regels verwerkt zodra deze regel overeenkomt. Vink uit om latere regels ook te laten uitvoeren. Die kunnen de wijzigingen van deze regel overschrijven.'
 'When disabled, gear marked as retired is left out of the chart.': 'Indien uitgeschakeld, wordt uitrusting die buiten gebruik is weggelaten uit de grafiek.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Indien uitgeschakeld, zoomt scrollen over een kaart in plaats van de pagina te scrollen.'

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Garmin;
 
+use App\Controller\WelcomeRequestHandler;
 use App\Infrastructure\HealthSync\GarminHistory;
 use App\Infrastructure\HealthSync\GarminLogin;
 use App\Infrastructure\HealthSync\GarminStatus;
 use App\Infrastructure\HealthSync\HealthSync;
 use App\Infrastructure\HealthSync\HealthSyncFailed;
+use App\Infrastructure\HealthSync\SyncStatus;
 use App\Infrastructure\Http\HtmlResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +40,7 @@ final readonly class GarminConnectionRequestHandler
         private CsrfTokenManagerInterface $csrfTokenManager,
         private UrlGeneratorInterface $urlGenerator,
         private TranslatorInterface $translator,
+        private SyncStatus $syncStatus,
     ) {
     }
 
@@ -87,7 +90,7 @@ final readonly class GarminConnectionRequestHandler
             return $this->redirectToPage();
         }
 
-        return $this->redirectWithMessage($request, 'success', $this->translator->trans('Garmin is connected. Your activities are on their way, the first ones show up within minutes.', [], 'admin'));
+        return $this->connected($request);
     }
 
     #[Route(path: '/admin/garmin/code', name: 'admin_garmin_code', methods: ['POST'], priority: 10)]
@@ -104,7 +107,7 @@ final readonly class GarminConnectionRequestHandler
             return $this->redirectWithMessage($request, 'error', $this->explain($failure));
         }
 
-        return $this->redirectWithMessage($request, 'success', $this->translator->trans('Garmin is connected. Your activities are on their way, the first ones show up within minutes.', [], 'admin'));
+        return $this->connected($request);
     }
 
     #[Route(path: '/admin/garmin/sync', name: 'admin_garmin_sync', methods: ['POST'], priority: 10)]
@@ -139,6 +142,24 @@ final readonly class GarminConnectionRequestHandler
         }
 
         return $this->redirectWithMessage($request, 'success', $this->translator->trans('Garmin is disconnected. Your synced activities are kept.', [], 'admin'));
+    }
+
+    private function connected(Request $request): Response
+    {
+        $message = $this->translator->trans('Garmin is connected. Your activities are on their way, the first ones show up within minutes.', [], 'admin');
+        if (true !== $request->getSession()->remove(WelcomeRequestHandler::SESSION_KEY)) {
+            return $this->redirectWithMessage($request, 'success', $message);
+        }
+
+        // Connected from the welcome flow: that was the last step.
+        $session = $request->getSession();
+        if ($session instanceof FlashBagAwareSessionInterface) {
+            $session->getFlashBag()->add('success', $message);
+        }
+
+        $this->syncStatus->forget();
+
+        return $this->noStore(new RedirectResponse($this->urlGenerator->generate('today')));
     }
 
     private function explain(HealthSyncFailed $failure): string
@@ -179,6 +200,9 @@ final readonly class GarminConnectionRequestHandler
 
     private function redirectToPage(): Response
     {
+        // Whatever was done here, the header shows the new state right away.
+        $this->syncStatus->forget();
+
         return $this->noStore(new RedirectResponse($this->urlGenerator->generate('admin_garmin')));
     }
 

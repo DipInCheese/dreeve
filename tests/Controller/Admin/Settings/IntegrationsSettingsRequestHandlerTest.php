@@ -28,6 +28,6 @@ class IntegrationsSettingsRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(1, $settingsPanel);
         $selectedLink = $settingsPanel->filter('a[aria-selected="true"]');
         $this->assertCount(1, $selectedLink);
-        $this->assertStringContainsString('Integrations', $selectedLink->text());
+        $this->assertStringContainsString('Notifications & AI', $selectedLink->text());
     }
 }

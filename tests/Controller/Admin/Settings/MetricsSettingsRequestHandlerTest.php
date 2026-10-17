@@ -37,6 +37,6 @@ class MetricsSettingsRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(1, $settingsPanel);
         $selectedLink = $settingsPanel->filter('a[aria-selected="true"]');
         $this->assertCount(1, $selectedLink);
-        $this->assertStringContainsString('Metrics', $selectedLink->text());
+        $this->assertStringContainsString('Training metrics', $selectedLink->text());
     }
 }

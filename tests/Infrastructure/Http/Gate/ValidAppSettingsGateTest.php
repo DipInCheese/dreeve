@@ -44,7 +44,7 @@ class ValidAppSettingsGateTest extends ContainerTestCase
         $response = new ValidAppSettingsGate($this->urlGenerator, $this->settingsRepository)->handle(Request::create('/dashboard'))->getResponse();
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertSame('/admin/settings/athlete', $response->getTargetUrl());
+        $this->assertSame('/welcome', $response->getTargetUrl());
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
     }
 
@@ -64,7 +64,7 @@ class ValidAppSettingsGateTest extends ContainerTestCase
 
     public static function provideExemptPaths(): iterable
     {
-        yield 'the redirect target itself' => ['/admin/settings/athlete'];
+        yield 'the redirect target itself' => ['/welcome'];
         yield 'the login page' => ['/admin/login'];
         yield 'the logout endpoint' => ['/admin/logout'];
         yield 'the command endpoint the athlete form posts to' => ['/admin/dispatch-command'];
@@ -81,7 +81,7 @@ class ValidAppSettingsGateTest extends ContainerTestCase
         $response = new ValidAppSettingsGate($this->urlGenerator, $this->settingsRepository)->handle(Request::create($path))->getResponse();
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertSame('/admin/settings/athlete', $response->getTargetUrl());
+        $this->assertSame('/welcome', $response->getTargetUrl());
     }
 
     public static function provideGuardedAdminPaths(): iterable

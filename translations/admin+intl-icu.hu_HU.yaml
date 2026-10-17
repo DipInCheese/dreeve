@@ -63,7 +63,6 @@ Address: Address
 'App URL': 'Alkalmazás URL'
 'App subtitle': 'Alkalmazás alcíme'
 'App update available notification': 'Értesítés elérhető frissítésről'
-Appearance: Megjelenés
 Applied: Alkalmazva
 Apply: Alkalmaz
 'Apply to existing activities': 'Alkalmazás a meglévő tevékenységekre'
@@ -75,7 +74,6 @@ Apply: Alkalmaz
 'Are you sure you want to remove the {widget} widget?': 'Biztosan el szeretnéd távolítani a(z) {widget} widgetet?'
 'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Felszerelés hozzárendelése'
-'Athlete settings': 'Sportoló beállításai'
 'Attached to': 'Hozzárendelve ehhez'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Automatikusan kitölti a felszerelést, ingázást, sporttípust és továbbiakat az újonnan importált tevékenységeken. A szabályok fentről lefelé futnak, és a már importált tevékenységekre is alkalmazhatók.'
 'Automation rules': 'Automatizálási szabályok'
@@ -84,13 +82,12 @@ Apply: Alkalmaz
 'Average heart rate (bpm)': 'Average heart rate (bpm)'
 'Average power': 'Átlagos teljesítmény'
 'Base URI': 'Alap URI'
-'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Mielőtt használni tudnád az alkalmazást, néhány dolgot tudnunk kell rólad. Ezeket a pulzuszónáid és edzésterhelésed kiszámításához használjuk. A többi beállítást később finomhangolhatod.'
 Birthday: Születésnap
 'Calculate energy (kJ)': 'Energia számítása (kJ)'
 Cancel: Mégse
 'Challenge name': 'Kihívás neve'
 'Changes still need to be processed before they appear on the app': 'A változásokat még fel kell dolgozni, mielőtt megjelennek az alkalmazásban'
-'Changes to these settings only take effect after you restart the daemon container.': 'Ezek a beállítások csak a daemon konténer újraindítása után lépnek életbe.'
+'Changes take effect the next time Dreeve restarts.': 'Changes take effect the next time Dreeve restarts.'
 'Chat commands': Chat-parancsok
 'Choose the order the metrics are shown in.': 'Válaszd ki, milyen sorrendben jelenjenek meg a mérőszámok.'
 Clear: Törlés
@@ -116,10 +113,8 @@ Connected.: Connected.
 'Continues to next rule': 'Folytatja a következő szabállyal'
 'Copy this API key': 'Másold ki ezt az API-kulcsot'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
-'Cron expression': 'Cron kifejezés'
-"Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": 'Cron kifejezés, amely megadja, mikor fusson a művelet, pl. a „0 14 * * *" minden nap 14:00-kor fut. Segítségért lásd: crontab.guru.'
 Custom: Custom
-Daemon: Daemon
+'Custom schedule ({expression})': 'Custom schedule ({expression})'
 'Dashboard layout': 'Dashboard elrendezés'
 'Date range based': 'Dátumtartomány alapú'
 'Define what needs doing and how often.': 'Add meg, mit kell csinálni és milyen gyakran.'
@@ -137,6 +132,7 @@ Description: Leírás
 Disable: Disable
 Disabled: Letiltva
 'Disconnect Garmin': 'Disconnect Garmin'
+Display: Display
 Distance: Távolság
 Done: Kész
 'Download original file': 'Download original file'
@@ -169,6 +165,13 @@ Endpoint: Végpont
 'Enter your password': 'Add meg a jelszavad'
 'Enter your username': 'Add meg a felhasználóneved'
 Every: Minden
+'Every Monday at 08:00': 'Every Monday at 08:00'
+'Every day at 04:00': 'Every day at 04:00'
+'Every day at 07:00': 'Every day at 07:00'
+'Every day at 08:00': 'Every day at 08:00'
+'Every day at 12:00': 'Every day at 12:00'
+'Every day at 18:00': 'Every day at 18:00'
+'Every day at 20:00': 'Every day at 20:00'
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 Everything: Everything
@@ -202,7 +205,6 @@ From: Ettől
 'Gear management': 'Felszerelések kezelése'
 'Gear will appear here once you add them.': 'A felszerelések itt jelennek meg, miután hozzáadtad őket.'
 Gender: Nem
-General: Általános
 'Generate an API key': 'API-kulcs generálása'
 'Go to first page': 'Ugrás az első oldalra'
 'Go to last page': 'Ugrás az utolsó oldalra'
@@ -229,7 +231,6 @@ Images: Képek
 'Include retired gear': 'Nyugdíjazott felszerelés belefoglalása'
 Info: Infó
 'Installed on': 'Installed on'
-Integrations: Integrációk
 'Intro text': 'Bevezető szöveg'
 'Invalid CSRF token.': 'Érvénytelen CSRF-token.'
 'Invite link': 'Invite link'
@@ -268,7 +269,6 @@ Match: Illeszkedés
 'Max heart rate formula': 'Maximális pulzus képlete'
 Message: Üzenet
 'Metric display order': 'Mérőszámok megjelenítési sorrendje'
-Metrics: Mérőszámok
 Minutes: Perc
 Mode: Mód
 Model: Modell
@@ -301,6 +301,8 @@ Monday: Hétfő
 'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notes
 'Notification services': 'Értesítési szolgáltatások'
+'Notifications & AI': 'Notifications & AI'
+'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.': 'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.'
 'Notify when an import was successful': 'Értesítés sikeres importáláskor'
 'Number of activities to display': 'Megjelenítendő tevékenységek száma'
 'Number of challenges to display': 'Megjelenítendő kihívások száma'
@@ -332,6 +334,7 @@ Password: Jelszó
 'Polyline color': 'Vonallánc színe'
 'Preview selection': 'Kiválasztás előnézete'
 'Processed on': 'Feldolgozva ekkor'
+Profile: Profile
 'Profile picture URL': 'Profilkép URL'
 Provider: Szolgáltató
 Queued: Queued
@@ -343,6 +346,7 @@ Radius: Sugár
 'Recreate your containers': 'Hozd létre újra a konténereket'
 'Register maintenance': 'Karbantartás rögzítése'
 'Remember me for 7 days': 'Emlékezz rám 7 napig'
+Reminders: Reminders
 Remove: Eltávolítás
 'Remove Eddington': 'Eddington eltávolítása'
 'Remove action': 'Művelet eltávolítása'
@@ -378,7 +382,6 @@ Save: Mentés
 'Save settings': 'Beállítások mentése'
 Saved: Mentve
 Saving...: Mentés...
-'Scheduled actions the daemon runs at regular intervals.': 'Ütemezett műveletek, amelyeket a daemon rendszeres időközönként futtat.'
 'Search by name, date or activity ID': 'Keresés név, dátum vagy tevékenység-azonosító alapján'
 Seconds: Másodperc
 Security: Biztonság
@@ -472,6 +475,7 @@ Tasks: Feladatok
 'The distance': 'A távolság'
 'The elapsed time': 'Az eltelt idő'
 'The elevation gain': 'A szintemelkedés'
+'The first day of every month at 08:00': 'The first day of every month at 08:00'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'A maximális pulzusod kiszámításához használt képlet. Az alapértelmezett a Fox (220 − életkor).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'A nyugalmi pulzusod kiszámításához használt képlet. Az alapértelmezett egy életkor alapú becslés.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'A kulcs lehetővé teszi egy külső kliens számára, hogy HTTP-n keresztül tevékenységfájlokat töltsön fel. Ez az egyetlen, ami védi ezt a végpontot, ezért kezeld jelszóként.'
@@ -519,6 +523,7 @@ To: Eddig
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'A teljes méret meghaladja a(z) {max} MB-ot'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Kövesd a felszerelés használatát a tevékenységeidből, és tartsd kézben a használat- és időalapú karbantartást.'
+'Training metrics': 'Training metrics'
 Tuesday: Kedd
 'Turn gear maintenance tracking on or off.': 'A felszerelés-karbantartás követésének be- vagy kikapcsolása.'
 'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Bekapcsolja az AI-alapú edzésasszisztenst, amely ezután a parancssorból használható.'
@@ -545,6 +550,7 @@ Weekdays: 'Hét napjai'
 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.': 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.'
 'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Mi az én FTP-m?'
+When: When
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Ha be van jelölve, ennek a szabálynak az illeszkedése után nem kerül feldolgozásra több szabály. Szüntesd meg a jelölést, hogy a későbbi szabályok is fussanak. Ezek felülírhatják ennek a szabálynak a módosításait.'
 'When disabled, gear marked as retired is left out of the chart.': 'Ha ki van kapcsolva, a nyugdíjazottként megjelölt felszerelés kimarad a diagramból.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Ha ki van kapcsolva, a térkép feletti görgetés nagyítja azt, ahelyett hogy az oldalt görgetné.'

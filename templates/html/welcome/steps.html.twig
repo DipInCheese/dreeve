@@ -1,0 +1,10 @@
+{# The progress of the welcome flow. Expects: step (1 or 2). #}
+<ol class="mb-6 flex items-center gap-2 text-xs font-medium" aria-label="{{ "Progress"|trans }}">
+    {% for number, label in {1: "About you"|trans, 2: "Your data"|trans, 3: "Done"|trans} %}
+        <li class="flex items-center gap-2 {{ number <= step ? 'text-primary' : 'text-gray-400' }}"{% if number == step %} aria-current="step"{% endif %}>
+            <span class="grid size-6 place-items-center rounded-full {{ number < step ? 'bg-primary text-white' : (number == step ? 'border-2 border-primary' : 'border border-gray-300') }}">{{ number }}</span>
+            <span>{{ label }}</span>
+        </li>
+        {% if not loop.last %}<li class="h-px flex-1 bg-gray-200" aria-hidden="true"></li>{% endif %}
+    {% endfor %}
+</ol>

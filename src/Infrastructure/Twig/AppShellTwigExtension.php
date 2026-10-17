@@ -9,7 +9,9 @@ use App\Application\Navigation\SideBar;
 use App\Application\ProfilePictureUrl;
 use App\Domain\Athlete\Athlete;
 use App\Domain\Settings\SettingsRepository;
+use App\Infrastructure\HealthSync\GarminStatus;
 use App\Infrastructure\HealthSync\HealthSync;
+use App\Infrastructure\HealthSync\SyncStatus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Attribute\AsTwigFunction;
@@ -25,7 +27,20 @@ final readonly class AppShellTwigExtension
         private SettingsRepository $settingsRepository,
         private RequestStack $requestStack,
         private HealthSync $healthSync,
+        private SyncStatus $syncStatus,
     ) {
+    }
+
+    #[AsTwigFunction('garminSyncStatus')]
+    public function garminSyncStatus(): ?GarminStatus
+    {
+        return $this->syncStatus->current();
+    }
+
+    #[AsTwigFunction('describeSync')]
+    public function describeSync(GarminStatus $status): string
+    {
+        return $this->syncStatus->describe($status);
     }
 
     #[AsTwigFunction('canConnectGarmin')]

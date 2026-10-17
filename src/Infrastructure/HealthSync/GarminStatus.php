@@ -41,6 +41,27 @@ final readonly class GarminStatus
         );
     }
 
+    /**
+     * The same shape health-sync answers with, so a status can be cached and read back.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return [
+            'connected' => $this->connected,
+            'needsLogin' => $this->needsLogin,
+            'mfaPending' => $this->codePending,
+            'syncing' => $this->syncing,
+            'displayName' => $this->displayName,
+            'since' => $this->since?->format('Y-m-d'),
+            'lastSyncAt' => $this->lastSyncAt?->format(\DateTimeInterface::ATOM),
+            'lastError' => $this->lastError,
+            'activitiesSynced' => $this->activitiesSynced,
+            'backfilling' => $this->backfilling,
+        ];
+    }
+
     public function isConnected(): bool
     {
         return $this->connected;

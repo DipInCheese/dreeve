@@ -2,27 +2,37 @@
 
 {% block main %}
     {% set cron = settings.cron ?? {} %}
+    {% set schedules = {
+        '0 4 * * *': "Every day at 04:00"|trans({}, 'admin'),
+        '0 7 * * *': "Every day at 07:00"|trans({}, 'admin'),
+        '0 8 * * *': "Every day at 08:00"|trans({}, 'admin'),
+        '0 12 * * *': "Every day at 12:00"|trans({}, 'admin'),
+        '0 18 * * *': "Every day at 18:00"|trans({}, 'admin'),
+        '0 20 * * *': "Every day at 20:00"|trans({}, 'admin'),
+        '0 8 * * 1': "Every Monday at 08:00"|trans({}, 'admin'),
+        '0 8 1 * *': "The first day of every month at 08:00"|trans({}, 'admin'),
+    } %}
     <div class="flex flex-col gap-4">
         <form data-dispatch-command="{{ dispatchCommand }}" class="p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
             <input type="hidden" name="group" value="{{ group.value }}">
             <div class="mb-5">
-                <h3 class="text-lg font-semibold">{{ "Daemon"|trans({}, 'admin') }}</h3>
+                <h3 class="text-lg font-semibold">{{ "Reminders"|trans({}, 'admin') }}</h3>
                 <p class="description">
-                    {{ "Scheduled actions the daemon runs at regular intervals."|trans({}, 'admin') }}
+                    {{ "Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI."|trans({}, 'admin') }}
                 </p>
             </div>
             <div data-form-error class="form-error hidden" role="alert"></div>
             <div class="alert alert--info mb-4" role="alert">
                 <span class="sr-only">{{ "Info"|trans({}, 'admin') }}</span>
                 <div>
-                    {{ "Changes to these settings only take effect after you restart the daemon container."|trans({}, 'admin') }}
+                    {{ "Changes take effect the next time Dreeve restarts."|trans({}, 'admin') }}
                 </div>
             </div>
             <div class="flex flex-col gap-3">
                 {% for action in enum('App\\Infrastructure\\Daemon\\Cron\\CronActionId').cases() %}
                     {% set actionId = action.value %}
                     {% set stored = cron[actionId] ?? {} %}
-                    {% set defaultExpression = action.defaultCronExpression %}
+                    {% set current = stored.expression ?? action.defaultCronExpression %}
                     <div class="flex flex-col gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
                         <label class="flex items-center gap-2 mt-0! font-medium cursor-pointer">
                             <input type="checkbox" name="data[cron][{{ actionId }}][enabled]" value="1"
@@ -31,13 +41,15 @@
                         </label>
                         <p class="description mt-0!">{{ action|transDescription }}</p>
                         <div>
-                            <label for="cron-{{ actionId }}">{{ "Cron expression"|trans({}, 'admin') }}</label>
-                            <input type="text" id="cron-{{ actionId }}" name="data[cron][{{ actionId }}][expression]"
-                                   value="{{ stored.expression ?? defaultExpression }}" required
-                                   placeholder="{{ defaultExpression }}">
-                            <p class="description">
-                                {{ "Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help."|trans({}, 'admin') }}
-                            </p>
+                            <label for="cron-{{ actionId }}">{{ "When"|trans({}, 'admin') }}</label>
+                            <select id="cron-{{ actionId }}" name="data[cron][{{ actionId }}][expression]">
+                                {% if current not in schedules|keys %}
+                                    <option value="{{ current }}" selected>{{ "Custom schedule ({expression})"|trans({'{expression}': current}, 'admin') }}</option>
+                                {% endif %}
+                                {% for expression, label in schedules %}
+                                    <option value="{{ expression }}" {{ expression == current ? 'selected' : '' }}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 {% endfor %}

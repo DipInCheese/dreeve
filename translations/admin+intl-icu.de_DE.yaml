@@ -63,7 +63,6 @@ Address: Address
 'App URL': App-URL
 'App subtitle': 'App Untertitel'
 'App update available notification': 'Benachrichtigung über App-Update'
-Appearance: Darstellung
 Applied: Angewendet
 Apply: Anwenden
 'Apply to existing activities': 'Auf vorhandene Aktivitäten anwenden'
@@ -75,7 +74,6 @@ Apply: Anwenden
 'Are you sure you want to remove the {widget} widget?': 'Möchtest du das {widget} Widget entfernen?'
 'Are you sure you want to remove {name}?': 'Are you sure you want to remove {name}?'
 'Assign gear': 'Ausrüstung zuweisen'
-'Athlete settings': Athleteneinstellung
 'Attached to': 'Zugeordnet zu'
 'Automatically fill in gear, commute, sport type and more on newly imported activities. Rules run top to bottom, and can also be applied to activities you already imported.': 'Ausrüstung, Pendelstrecke, Sportart und mehr werden bei neu importierten Aktivitäten automatisch ausgefüllt. Die Regeln gelten von oben nach unten und können auch auf bereits importierte Aktivitäten angewendet werden.'
 'Automation rules': Automatisierungsregeln
@@ -84,13 +82,12 @@ Apply: Anwenden
 'Average heart rate (bpm)': 'Ø Herzfrequenz'
 'Average power': 'Ø Leistung'
 'Base URI': 'Base URI'
-'Before you can use the app, we need to know a few things about you. These are used to calculate your heart rate zones and training load. You can fine-tune all other settings later on.': 'Bevor Sie die App nutzen können, benötigen wir einige Informationen über Sie. Diese werden verwendet, um Ihre Herzfrequenzzonen und Ihre Trainingsbelastung zu berechnen. Alle weiteren Einstellungen können Sie später anpassen.'
 Birthday: Geburtstag
 'Calculate energy (kJ)': 'Energie (kJ) berechnen'
 Cancel: Abbrechen
 'Challenge name': Herausforderungsname
 'Changes still need to be processed before they appear on the app': 'Änderungen müssen noch verarbeitet werden, bevor sie in der App angezeigt werden'
-'Changes to these settings only take effect after you restart the daemon container.': 'Änderungen an diesen Einstellungen werden erst nach einem Neustart des Daemon-Containers wirksam.'
+'Changes take effect the next time Dreeve restarts.': 'Changes take effect the next time Dreeve restarts.'
 'Chat commands': Chatbefehle
 'Choose the order the metrics are shown in.': 'Wähle die Reihenfolge, in der die Metriken angezeigt werden.'
 Clear: Leeren
@@ -116,10 +113,8 @@ Connected.: Connected.
 'Continues to next rule': 'Fortsetzung mit der nächsten Regel'
 'Copy this API key': 'Diesen API-Schlüssel kopieren'
 'Creates a new invite link, e.g. to reset a forgotten password': 'Creates a new invite link, e.g. to reset a forgotten password'
-'Cron expression': Cron-Ausdruck
-"Cron expression specifying when the action should run, e.g. '0 14 * * *' runs every day at 14:00. See crontab.guru for help.": "Cron-Ausdruck, der angibt, wann die Aktion ausgeführt werden soll, z. B. führt '0 14 * * *' sie jeden Tag um 14:00 Uhr aus. Siehe crontab.guru für Hilfe."
 Custom: Custom
-Daemon: Daemon
+'Custom schedule ({expression})': 'Custom schedule ({expression})'
 'Dashboard layout': Dashboard-Layout
 'Date range based': 'Nach Datumsbereich'
 'Define what needs doing and how often.': 'Lege fest, was wie oft erledigt werden muss.'
@@ -137,6 +132,7 @@ Description: Beschreibung
 Disable: Disable
 Disabled: Deaktiviert
 'Disconnect Garmin': 'Disconnect Garmin'
+Display: Display
 Distance: Distanz
 Done: Done
 'Download original file': 'Originaldatei herunterladen'
@@ -169,6 +165,13 @@ Endpoint: Endpunkt
 'Enter your password': 'Gib dein Passwort ein'
 'Enter your username': 'Gib deinen Benutzernamen ein'
 Every: Alle
+'Every Monday at 08:00': 'Every Monday at 08:00'
+'Every day at 04:00': 'Every day at 04:00'
+'Every day at 07:00': 'Every day at 07:00'
+'Every day at 08:00': 'Every day at 08:00'
+'Every day at 12:00': 'Every day at 12:00'
+'Every day at 18:00': 'Every day at 18:00'
+'Every day at 20:00': 'Every day at 20:00'
 'Every page requires you to log in. Your data is only visible to you.': 'Every page requires you to log in. Your data is only visible to you.'
 'Every user has their own address, data and admin login. New users get an invite link to pick their password.': 'Every user has their own address, data and admin login. New users get an invite link to pick their password.'
 Everything: Everything
@@ -202,7 +205,6 @@ From: Von
 'Gear management': Ausrüstungsverwaltung
 'Gear will appear here once you add them.': 'Ausrüstung wird hier angezeigt, sobald du sie hinzufügst.'
 Gender: Geschlecht
-General: Allgemein
 'Generate an API key': 'API-Schlüssel generieren'
 'Go to first page': 'Zur ersten Seite'
 'Go to last page': 'Zur letzten Seite'
@@ -229,7 +231,6 @@ Images: Bilder
 'Include retired gear': 'Ausgemusterte Ausrüstung einbeziehen'
 Info: Info
 'Installed on': 'Hinzugefügt am'
-Integrations: Integrationen
 'Intro text': Einleitungstext
 'Invalid CSRF token.': 'Ungültiger CSRF token.'
 'Invite link': 'Invite link'
@@ -268,7 +269,6 @@ Match: Übereinstimmung
 'Max heart rate formula': 'Formel für max. Herzfrequenz'
 Message: Nachricht
 'Metric display order': 'Anzeigereihenfolge der Metriken'
-Metrics: Metriken
 Minutes: Minuten
 Mode: Modus
 Model: Modell
@@ -301,6 +301,8 @@ Monday: Montag
 'Not yet, the first sync starts in a moment.': 'Not yet, the first sync starts in a moment.'
 Notes: Notizen
 'Notification services': Benachrichtungsdienste
+'Notifications & AI': 'Notifications & AI'
+'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.': 'Notifications Dreeve sends you on a schedule. They need a notification service, set one up under Notifications & AI.'
 'Notify when an import was successful': 'Benachrichtigung bei erfolgreichem Import'
 'Number of activities to display': 'Anzahl der anzuzeigenden Aktivitäten'
 'Number of challenges to display': 'Anzahl der anzuzeigenden Herausforderungen'
@@ -332,6 +334,7 @@ Password: Passwort
 'Polyline color': Routenfarbe
 'Preview selection': Vorschaubereich
 'Processed on': 'Verarbeitet am'
+Profile: Profile
 'Profile picture URL': Profilbild-URL
 Provider: Anbieter
 Queued: 'in der Warteschlange'
@@ -343,6 +346,7 @@ Radius: Radius
 'Recreate your containers': 'Container neu erstellen'
 'Register maintenance': 'Wartung erfassen'
 'Remember me for 7 days': 'Für 7 Tage angemeldet bleiben'
+Reminders: Reminders
 Remove: Entfernen
 'Remove Eddington': 'Eddington entfernen'
 'Remove action': 'Aktion entfernen'
@@ -378,7 +382,6 @@ Save: Speichern
 'Save settings': 'Einstellungen speichern'
 Saved: gespeichert
 Saving...: 'Wird gespeichert...'
-'Scheduled actions the daemon runs at regular intervals.': 'Geplante Aktionen, die der Daemon in regelmäßigen Abständen ausführt.'
 'Search by name, date or activity ID': 'Nach Name, Datum oder Aktivitäts-ID suchen'
 Seconds: Sekunden
 Security: Sicherheit
@@ -472,6 +475,7 @@ Tasks: Aufgaben
 'The distance': 'Die Distanz'
 'The elapsed time': 'Die verstrichene Zeit'
 'The elevation gain': 'Die Höhenmeter'
+'The first day of every month at 08:00': 'The first day of every month at 08:00'
 'The formula used to calculate your max heart rate. The default is Fox (220 − age).': 'Die Formel zur Berechnung deiner maximalen Herzfrequenz. Der Standardwert ist Fox (220 − Alter).'
 'The formula used to calculate your resting heart rate. The default is an age-based estimate.': 'Die Formel zur Berechnung deines Ruhepulses. Der Standardwert ist eine altersbasierte Schätzung.'
 'The key lets an external client upload activity files over HTTP. It is the only thing guarding that endpoint, so treat it like a password.': 'Der Schlüssel ermöglicht einem externen Client, Aktivitätsdateien über HTTP hochzuladen. Er ist der einzige Schutz dieses Endpunktes, behandle ihn wie ein Passwort.'
@@ -519,6 +523,7 @@ To: bis
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Gesamtgröße überschreitet {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Verfolge die Nutzung deiner Ausrüstung anhand deiner Aktivitäten und behalte nutzungs- sowie zeitbasierte Wartungen im Blick.'
+'Training metrics': 'Training metrics'
 Tuesday: Dienstag
 'Turn gear maintenance tracking on or off.': 'Wartungsverfolgung für Ausrüstung ein- oder ausschalten.'
 'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Schaltet den KI-gestützten Trainingsassistenten ein, der dann über die Befehlszeile verwendet werden kann.'
@@ -545,6 +550,7 @@ Weekdays: Wochentage
 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.': 'Weights you enter by hand, in kg. Weigh-ins from Garmin are added automatically. Needed to calculate relative w/kg.'
 'Welcome {name}! Pick a password to sign in.': 'Welcome {name}! Pick a password to sign in.'
 'What is my FTP?': 'Was ist meine FTP?'
+When: When
 "When checked, no further rules are processed once this rule matches. Uncheck to let later rules run as well. They may overwrite this rule's changes.": 'Wenn diese Option aktiviert ist, werden keine weiteren Regeln verarbeitet, sobald diese Regel zutrifft. Deaktiviere die Option, damit auch spätere Regeln ausgeführt werden. Diese können die Änderungen dieser Regel überschreiben.'
 'When disabled, gear marked as retired is left out of the chart.': 'Wenn deaktiviert, wird als ausgemustert markierte Ausrüstung nicht im Diagramm angezeigt.'
 'When disabled, scrolling over a map zooms it instead of scrolling the page.': 'Wenn diese Option deaktiviert ist, wird beim Überfahren einer Karte mit der Maus die Karte gezoomt, anstatt die Seite zu scrollen.'

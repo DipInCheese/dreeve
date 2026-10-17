@@ -10,7 +10,6 @@ use App\Domain\Integration\AI\AIApiKey;
 use App\Domain\Settings\DbalSettingsRepository;
 use App\Domain\Settings\SettingsGroup;
 use App\Domain\Settings\SettingsRepository;
-use App\Domain\Settings\UpdateAthleteSettings\UpdateAthleteSettings;
 use App\Domain\Settings\UpdateSettings\UpdateSettings;
 use App\Infrastructure\Config\AdminAllowedIpAddresses;
 use App\Infrastructure\Http\ClientIpResolver;
@@ -51,15 +50,10 @@ final readonly class SettingsRequestHandler
     }
 
     #[Route(path: '/admin/settings/athlete', name: 'admin_settings_athlete', methods: ['GET'], priority: 10)]
-    public function athlete(): HtmlResponse
+    public function athlete(): RedirectResponse
     {
-        return new HtmlResponse($this->twig->render(
-            'html/admin/page/settings/athlete.html.twig',
-            [
-                'dispatchCommand' => UpdateAthleteSettings::getCommandName(),
-                'settings' => $this->settingsRepository->findGroup(SettingsGroup::GENERAL),
-            ],
-        ));
+        // The first questions about you moved into the welcome flow.
+        return new RedirectResponse($this->urlGenerator->generate('welcome'));
     }
 
     #[Route(path: '/admin/settings/{group}', name: 'admin_settings', methods: ['GET'], priority: 5)]

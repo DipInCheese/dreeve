@@ -28,6 +28,7 @@
     --color-orange-900: #652B19;
     --color-amber-50: oklch(98.7% 0.022 95.277);
     --color-amber-100: oklch(96.2% 0.059 95.617);
+    --color-amber-400: oklch(82.8% 0.189 84.429);
     --color-amber-500: oklch(76.9% 0.188 70.08);
     --color-amber-600: oklch(66.6% 0.179 58.318);
     --color-amber-800: oklch(47.3% 0.137 46.201);
@@ -1765,6 +1766,9 @@
   .h-full {
     height: 100%;
   }
+  .h-px {
+    height: 1px;
+  }
   .max-h-50 {
     max-height: calc(var(--spacing) * 50);
   }
@@ -2837,6 +2841,9 @@
   .bg-amber-100 {
     background-color: var(--color-amber-100);
   }
+  .bg-amber-400 {
+    background-color: var(--color-amber-400);
+  }
   .bg-black\/0 {
     background-color: color-mix(in srgb, #000000 0%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -2905,6 +2912,9 @@
   }
   .bg-green-200 {
     background-color: var(--color-green-200);
+  }
+  .bg-green-500 {
+    background-color: var(--color-green-500);
   }
   .bg-green-600 {
     background-color: var(--color-green-600);
@@ -3985,6 +3995,9 @@
     }
     .hover\:bg-red-50:hover {
       background-color: var(--color-red-50);
+    }
+    .hover\:bg-red-700:hover {
+      background-color: var(--color-red-700);
     }
     .hover\:bg-white:hover {
       background-color: var(--color-white);

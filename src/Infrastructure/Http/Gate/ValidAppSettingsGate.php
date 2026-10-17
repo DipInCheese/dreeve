@@ -37,6 +37,6 @@ final class ValidAppSettingsGate extends ConditionalRedirectGate
 
     protected function redirectToRouteName(): string
     {
-        return 'admin_settings_athlete';
+        return 'welcome';
     }
 }

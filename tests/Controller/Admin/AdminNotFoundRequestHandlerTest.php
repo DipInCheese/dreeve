@@ -19,7 +19,7 @@ class AdminNotFoundRequestHandlerTest extends AdminWebTestCase
     {
         $this->client->loginUser($this->adminUser());
 
-        $this->client->request('GET', '/admin/settings/athlete');
+        $this->client->request('GET', '/admin/settings/general');
 
         $this->assertResponseIsSuccessful();
     }

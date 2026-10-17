@@ -1,0 +1,8 @@
+{# Shown on every page while Garmin needs a new login: nothing syncs until then. #}
+{% set syncStatus = garminSyncStatus() %}
+{% if syncStatus and syncStatus.needsLogin() %}
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert" data-garmin-banner>
+        <span>{{ "Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost."|trans }}</span>
+        <a href="{{ relativeUrl(path('admin_garmin')) }}" class="rounded-lg bg-red-600 px-3 py-1.5 font-semibold text-white hover:bg-red-700">{{ "Log in to Garmin"|trans }}</a>
+    </div>
+{% endif %}

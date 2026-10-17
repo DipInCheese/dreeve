@@ -93,12 +93,12 @@
             <ul class="space-y-1">
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings', {'group': 'general'})) }}" {{ inGeneral ? 'aria-selected="true"' : '' }}>
-                        {{ "General"|trans({}, 'admin') }}
+                        {{ "Profile"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings', {'group': 'appearance'})) }}" {{ inAppearance ? 'aria-selected="true"' : '' }}>
-                        {{ "Appearance"|trans({}, 'admin') }}
+                        {{ "Display"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>
@@ -108,12 +108,12 @@
                 </li>
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings_dashboard')) }}" {{ inDashboard ? 'aria-selected="true"' : '' }}>
-                        {{ "Dashboard"|trans }}
+                        {{ "Dashboard layout"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings', {'group': 'metrics'})) }}" {{ inMetrics ? 'aria-selected="true"' : '' }}>
-                        {{ "Metrics"|trans({}, 'admin') }}
+                        {{ "Training metrics"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>
@@ -123,12 +123,12 @@
                 </li>
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings', {'group': 'integrations'})) }}" {{ inIntegrations ? 'aria-selected="true"' : '' }}>
-                        {{ "Integrations"|trans({}, 'admin') }}
+                        {{ "Notifications & AI"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ relativeUrl(path('admin_settings', {'group': 'daemon'})) }}" {{ inDaemon ? 'aria-selected="true"' : '' }}>
-                        {{ "Daemon"|trans({}, 'admin') }}
+                        {{ "Reminders"|trans({}, 'admin') }}
                     </a>
                 </li>
                 <li>

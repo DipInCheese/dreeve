@@ -50,7 +50,7 @@ final readonly class TrainingLoadRequestHandler
                 ttlInSeconds: $this->clock->getCurrentDateTimeImmutable()->getSecondsUntilMidnight(),
             ),
             render: fn (): string => $this->renderFor(),
-            navigationSection: NavigationSection::DASHBOARD,
+            navigationSection: NavigationSection::TRAINING_LOAD,
         );
     }
 

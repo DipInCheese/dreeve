@@ -48,13 +48,13 @@ final readonly class GarminHealthParser
         $dailySummary = new DailySummary(
             day: $day,
             source: self::SOURCE,
-            steps: self::int($summary['totalSteps'] ?? null),
-            distanceInMeters: self::int($summary['totalDistanceMeters'] ?? null),
+            steps: $this->int($summary['totalSteps'] ?? null),
+            distanceInMeters: $this->int($summary['totalDistanceMeters'] ?? null),
             floorsAscended: self::float($summary['floorsAscended'] ?? null),
-            activeKilocalories: self::int($summary['activeKilocalories'] ?? null),
-            totalKilocalories: self::int($summary['totalKilocalories'] ?? null),
-            moderateIntensityMinutes: self::int($summary['moderateIntensityMinutes'] ?? null),
-            vigorousIntensityMinutes: self::int($summary['vigorousIntensityMinutes'] ?? null),
+            activeKilocalories: $this->int($summary['activeKilocalories'] ?? null),
+            totalKilocalories: $this->int($summary['totalKilocalories'] ?? null),
+            moderateIntensityMinutes: $this->int($summary['moderateIntensityMinutes'] ?? null),
+            vigorousIntensityMinutes: $this->int($summary['vigorousIntensityMinutes'] ?? null),
             restingHeartRate: $this->positiveInt($summary['restingHeartRate'] ?? null),
             minHeartRate: $this->positiveInt($summary['minHeartRate'] ?? null),
             maxHeartRate: $this->positiveInt($summary['maxHeartRate'] ?? null),
@@ -66,9 +66,9 @@ final readonly class GarminHealthParser
             bodyBatteryCharged: $this->nonNegativeInt($summary['bodyBatteryChargedValue'] ?? null),
             bodyBatteryDrained: $this->nonNegativeInt($summary['bodyBatteryDrainedValue'] ?? null),
             bodyBatteryMostRecent: $this->nonNegativeInt($summary['bodyBatteryMostRecentValue'] ?? null),
-            averageSpo2: self::positiveFloat($summary['averageSpo2'] ?? null),
+            averageSpo2: $this->positiveFloat($summary['averageSpo2'] ?? null),
             lowestSpo2: $this->positiveInt($summary['lowestSpo2'] ?? null),
-            averageRespiration: self::positiveFloat($summary['avgWakingRespirationValue'] ?? null),
+            averageRespiration: $this->positiveFloat($summary['avgWakingRespirationValue'] ?? null),
         );
 
         if (null !== $dailySummary->steps || null !== $dailySummary->restingHeartRate || null !== $dailySummary->bodyBatteryHighest || null !== $dailySummary->averageStress) {
@@ -93,14 +93,14 @@ final readonly class GarminHealthParser
             startsAt: $this->localTime($dto['sleepStartTimestampLocal'] ?? null),
             endsAt: $this->localTime($dto['sleepEndTimestampLocal'] ?? null),
             sleepSeconds: $sleepSeconds,
-            deepSleepSeconds: self::int($dto['deepSleepSeconds'] ?? null),
-            lightSleepSeconds: self::int($dto['lightSleepSeconds'] ?? null),
-            remSleepSeconds: self::int($dto['remSleepSeconds'] ?? null),
-            awakeSeconds: self::int($dto['awakeSleepSeconds'] ?? null),
+            deepSleepSeconds: $this->int($dto['deepSleepSeconds'] ?? null),
+            lightSleepSeconds: $this->int($dto['lightSleepSeconds'] ?? null),
+            remSleepSeconds: $this->int($dto['remSleepSeconds'] ?? null),
+            awakeSeconds: $this->int($dto['awakeSleepSeconds'] ?? null),
             score: $this->positiveInt($this->map($this->map($dto['sleepScores'] ?? null)['overall'] ?? null)['value'] ?? null),
-            averageRespiration: self::positiveFloat($dto['averageRespirationValue'] ?? null),
-            averageHrv: self::positiveFloat($dto['avgSleepHRV'] ?? $sleep['avgOvernightHrv'] ?? null),
-            averageSpo2: self::positiveFloat($dto['avgSpO2'] ?? $dto['averageSpO2Value'] ?? null),
+            averageRespiration: $this->positiveFloat($dto['averageRespirationValue'] ?? null),
+            averageHrv: $this->positiveFloat($dto['avgSleepHRV'] ?? $sleep['avgOvernightHrv'] ?? null),
+            averageSpo2: $this->positiveFloat($dto['avgSpO2'] ?? $dto['averageSpO2Value'] ?? null),
         ));
     }
 
@@ -110,8 +110,8 @@ final readonly class GarminHealthParser
     private function parseHrv(string $day, array $hrv, HealthRecords $records): void
     {
         $summary = $this->map($hrv['hrvSummary'] ?? null);
-        $lastNight = self::positiveFloat($summary['lastNightAvg'] ?? null);
-        $weekly = self::positiveFloat($summary['weeklyAvg'] ?? null);
+        $lastNight = $this->positiveFloat($summary['lastNightAvg'] ?? null);
+        $weekly = $this->positiveFloat($summary['weeklyAvg'] ?? null);
         if (null === $lastNight && null === $weekly) {
             return;
         }
@@ -122,10 +122,10 @@ final readonly class GarminHealthParser
             source: self::SOURCE,
             lastNightAverage: $lastNight,
             weeklyAverage: $weekly,
-            lastNightHighest: self::positiveFloat($summary['lastNight5MinHigh'] ?? null),
+            lastNightHighest: $this->positiveFloat($summary['lastNight5MinHigh'] ?? null),
             status: is_string($summary['status'] ?? null) ? $summary['status'] : null,
-            balancedLow: self::positiveFloat($baseline['balancedLow'] ?? null),
-            balancedHigh: self::positiveFloat($baseline['balancedUpper'] ?? null),
+            balancedLow: $this->positiveFloat($baseline['balancedLow'] ?? null),
+            balancedHigh: $this->positiveFloat($baseline['balancedUpper'] ?? null),
         ));
     }
 
@@ -138,7 +138,7 @@ final readonly class GarminHealthParser
         $latest = null;
         foreach ($readiness as $snapshot) {
             $snapshot = $this->map($snapshot);
-            if (null === self::int($snapshot['score'] ?? null)) {
+            if (null === $this->int($snapshot['score'] ?? null)) {
                 continue;
             }
             if (null === $latest || (string) ($snapshot['timestamp'] ?? '') >= (string) ($latest['timestamp'] ?? '')) {
@@ -146,7 +146,7 @@ final readonly class GarminHealthParser
             }
         }
         if (null !== $latest) {
-            $records->addTrainingReadiness($day, (int) self::int($latest['score']), is_string($latest['level'] ?? null) ? $latest['level'] : null);
+            $records->addTrainingReadiness($day, (int) $this->int($latest['score']), is_string($latest['level'] ?? null) ? $latest['level'] : null);
         }
     }
 
@@ -163,8 +163,8 @@ final readonly class GarminHealthParser
             if (!is_string($day) || !$this->isDay($day)) {
                 continue;
             }
-            $running = self::positiveFloat($generic['vo2MaxPreciseValue'] ?? $generic['vo2MaxValue'] ?? null);
-            $cyclingValue = self::positiveFloat($cycling['vo2MaxPreciseValue'] ?? $cycling['vo2MaxValue'] ?? null);
+            $running = $this->positiveFloat($generic['vo2MaxPreciseValue'] ?? $generic['vo2MaxValue'] ?? null);
+            $cyclingValue = $this->positiveFloat($cycling['vo2MaxPreciseValue'] ?? $cycling['vo2MaxValue'] ?? null);
             if (null !== $running || null !== $cyclingValue) {
                 $records->addVo2Max($day, $running, $cyclingValue);
             }
@@ -197,12 +197,12 @@ final readonly class GarminHealthParser
                 day: $day,
                 measuredOn: $measuredOn,
                 weightInKg: $weight,
-                bmi: self::positiveFloat($weighIn['bmi'] ?? null),
-                bodyFatPercentage: self::positiveFloat($weighIn['bodyFat'] ?? null),
+                bmi: $this->positiveFloat($weighIn['bmi'] ?? null),
+                bodyFatPercentage: $this->positiveFloat($weighIn['bodyFat'] ?? null),
                 muscleMassInKg: $this->grams($weighIn['muscleMass'] ?? null),
                 boneMassInKg: $this->grams($weighIn['boneMass'] ?? null),
-                bodyWaterPercentage: self::positiveFloat($weighIn['bodyWater'] ?? null),
-                visceralFat: self::positiveFloat($weighIn['visceralFat'] ?? null),
+                bodyWaterPercentage: $this->positiveFloat($weighIn['bodyWater'] ?? null),
+                visceralFat: $this->positiveFloat($weighIn['visceralFat'] ?? null),
             ));
         }
     }
@@ -220,21 +220,21 @@ final readonly class GarminHealthParser
         return is_array($value) ? $value : [];
     }
 
-    private static function int(mixed $value): ?int
+    private function int(mixed $value): ?int
     {
         return is_int($value) || is_float($value) ? (int) round($value) : null;
     }
 
     private function positiveInt(mixed $value): ?int
     {
-        $int = self::int($value);
+        $int = $this->int($value);
 
         return null !== $int && $int > 0 ? $int : null;
     }
 
     private function nonNegativeInt(mixed $value): ?int
     {
-        $int = self::int($value);
+        $int = $this->int($value);
 
         return null !== $int && $int >= 0 ? $int : null;
     }
@@ -244,7 +244,7 @@ final readonly class GarminHealthParser
         return is_int($value) || is_float($value) ? (float) $value : null;
     }
 
-    private static function positiveFloat(mixed $value): ?float
+    private function positiveFloat(mixed $value): ?float
     {
         $float = self::float($value);
 
@@ -253,7 +253,7 @@ final readonly class GarminHealthParser
 
     private function grams(mixed $value): ?float
     {
-        $grams = self::positiveFloat($value);
+        $grams = $this->positiveFloat($value);
 
         return null === $grams ? null : round($grams / 1000, 2);
     }
@@ -263,7 +263,7 @@ final readonly class GarminHealthParser
      */
     private function localTime(mixed $value): ?string
     {
-        $milliseconds = self::int($value);
+        $milliseconds = $this->int($value);
 
         return null === $milliseconds || $milliseconds <= 0 ? null : gmdate('Y-m-d H:i:s', intdiv($milliseconds, 1000));
     }

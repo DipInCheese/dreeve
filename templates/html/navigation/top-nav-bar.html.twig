@@ -47,6 +47,7 @@
         </div>
         <div class="flex items-center text-gray-500 lg:order-2 gap-x-2">
             {% if inAppContext %}
+                {% include 'html/navigation/sync-status.html.twig' %}
                 <button id="profileDropdownMenuButton" data-dropdown="profileDropdownMenu" class="cursor-pointer flex rounded-full border" type="button">
                     <span class="sr-only">Open user menu</span>
                     {% if profilePictureUrl %}
