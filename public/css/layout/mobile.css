@@ -1,0 +1,188 @@
+/*
+ * Phones. Rules outside a layer on purpose: they win over utility classes such as text-sm,
+ * so controls stay thumb-sized and fields stay at 16px (smaller text makes iOS zoom in).
+ * The tab bar and the tabs are components, so md:hidden still hides them on wider screens.
+ */
+
+@layer components {
+.bottom-tab-bar {
+    @apply fixed inset-x-0 bottom-0 z-1000 flex bg-white border-t border-gray-200 px-1;
+    padding-bottom: env(safe-area-inset-bottom);
+
+    > :is(a, button) {
+        @apply flex flex-1 min-h-14 flex-col items-center justify-center gap-0.5 text-xs font-medium text-gray-600 cursor-pointer;
+
+        svg {
+            @apply size-6;
+        }
+
+        &[aria-current="page"] {
+            @apply font-semibold text-primary-dark;
+
+            svg {
+                @apply text-primary;
+            }
+        }
+    }
+}
+
+/* The sub menu of settings, gear and automation rules, as a row of tabs above the page. */
+.contextual-tabs {
+    @apply -mx-4 -mt-2 mb-4 px-4 pb-3 flex gap-2 overflow-x-auto whitespace-nowrap border-b border-gray-200;
+    scrollbar-width: none;
+
+    > p, button[data-collapse-toggle] {
+        @apply hidden;
+    }
+
+    ul, li {
+        display: contents;
+    }
+
+    a {
+        @apply flex shrink-0 items-center min-h-10 px-4 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-700;
+
+        &[aria-selected="true"] {
+            @apply border-gray-900 bg-gray-900 text-white;
+        }
+    }
+}
+}
+
+@media (width < 48rem) {
+    .contextual-tabs ul.hidden {
+        display: contents;
+    }
+
+    input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]),
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    input:is([type="checkbox"], [type="radio"]) {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    /* Labels around a checkbox are the tap area. */
+    label:has(> input:is([type="checkbox"], [type="radio"])) {
+        min-height: 2.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Icon buttons in table rows, and other small icon links. */
+    table.data-table .sticky-actions :is(a, button),
+    nav[aria-label="Breadcrumb"] a,
+    [data-fullscreen-trigger],
+    [data-tap-target] {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    [data-width-seg] > button {
+        min-width: 2.75rem;
+        min-height: 2.5rem;
+    }
+
+    .checkbox-multiselect__chip > button {
+        min-width: 2rem;
+        min-height: 2rem;
+    }
+
+    table.data-table .sticky-actions > div {
+        gap: 0;
+    }
+
+    /* On settings pages the drawer shows the whole menu with labels; the sub menu moves above the page. */
+    aside#drawer-navigation.sidebar--with-contextual-panel {
+        width: 16rem;
+
+        > div:nth-child(1) {
+            width: 100%;
+
+            > ul > li.sidebar-heading {
+                display: list-item;
+            }
+
+            > ul > li :is(a, button) {
+                justify-content: flex-start;
+
+                > span:nth-of-type(1) {
+                    position: static;
+                    width: auto;
+                    height: auto;
+                    margin: 0;
+                    overflow: visible;
+                    clip-path: none;
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        > .contextual-panel {
+            display: none;
+        }
+    }
+
+    /* Tables that turn into one card per row. */
+    table.data-table.data-table--cards {
+        thead {
+            @apply sr-only;
+        }
+
+        tbody tr {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.375rem 0.75rem;
+            position: relative;
+            padding: 0.75rem 0.25rem 0.75rem 0.75rem;
+
+            > :is(td, th) {
+                display: block;
+                padding: 0;
+                text-align: left;
+                white-space: normal;
+                background: transparent;
+            }
+
+            > td:first-child {
+                width: 100%;
+                padding-right: 8.5rem;
+                min-height: 2.75rem;
+                display: flex;
+                align-items: center;
+            }
+
+            > td:first-child a {
+                padding-block: 0.75rem;
+            }
+
+            > td.sticky-actions {
+                position: absolute;
+                top: 0.5rem;
+                right: 0;
+            }
+
+            > td[colspan] {
+                width: 100%;
+                padding-right: 0;
+            }
+
+            > td[data-label]::before {
+                content: attr(data-label) ": ";
+                @apply text-gray-500;
+            }
+        }
+    }
+
+    :root {
+        --text-xxs: 0.75rem;
+    }
+}

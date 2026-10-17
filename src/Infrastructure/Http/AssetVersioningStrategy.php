@@ -7,25 +7,38 @@ namespace App\Infrastructure\Http;
 use App\Application\AppVersion;
 use App\Infrastructure\Config\DevMode;
 use App\Infrastructure\ValueObject\Identifier\UuidFactory;
+use App\Infrastructure\ValueObject\String\KernelProjectDir;
 use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
-final readonly class AssetVersioningStrategy implements VersionStrategyInterface
+final class AssetVersioningStrategy implements VersionStrategyInterface
 {
     private const string FORMAT = '%s?%s';
+    /**
+     * The built files. When one changes, every asset gets a new version, so browsers fetch the new
+     * styles and scripts even when the app version stays the same (as it does for every image of a fork).
+     */
+    private const array BUILT_FILES = [
+        'public/css/dist/tailwind.min.css',
+        'public/js/dist/app.min.js',
+        'public/js/dist/admin.min.js',
+    ];
+
+    private ?string $version = null;
 
     public function __construct(
-        private DevMode $devMode,
-        private UuidFactory $uuidFactory,
+        private readonly DevMode $devMode,
+        private readonly UuidFactory $uuidFactory,
+        private readonly ?KernelProjectDir $projectDir = null,
     ) {
     }
 
     public function getVersion(string $path): string
     {
-        if (!$this->devMode->isEnabled()) {
-            return AppVersion::getSemanticVersion();
+        if ($this->devMode->isEnabled()) {
+            return $this->uuidFactory->random();
         }
 
-        return $this->uuidFactory->random();
+        return $this->version ??= $this->buildVersion();
     }
 
     public function applyVersion(string $path): string
@@ -37,5 +50,23 @@ final readonly class AssetVersioningStrategy implements VersionStrategyInterface
         }
 
         return $versionized;
+    }
+
+    private function buildVersion(): string
+    {
+        $version = AppVersion::getSemanticVersion();
+        if (!$this->projectDir instanceof KernelProjectDir) {
+            return $version;
+        }
+
+        $hashes = '';
+        foreach (self::BUILT_FILES as $file) {
+            $path = $this->projectDir.'/'.$file;
+            if (is_file($path)) {
+                $hashes .= (string) md5_file($path);
+            }
+        }
+
+        return '' === $hashes ? $version : $version.'-'.substr(md5($hashes), 0, 8);
     }
 }

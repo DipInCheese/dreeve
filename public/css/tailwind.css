@@ -17,6 +17,7 @@
 @import "./components/toast.css";
 @import "./layout/dashboard-layout.css";
 @import "./layout/sidebar.css";
+@import "./layout/mobile.css";
 @import "./theme/dark-mode.css";
 @import "./vendor/leaflet.css";
 
@@ -36,6 +37,7 @@
     --text-xxs: 0.625rem;
     --color-primary: #F26722;
     --color-primary-soft: #FFF1E9;
+    --color-primary-dark: #B8460F;
     --color-grey-yo: #cccccc;
 }
 

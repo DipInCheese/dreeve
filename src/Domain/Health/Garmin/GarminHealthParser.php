@@ -50,7 +50,7 @@ final readonly class GarminHealthParser
             source: self::SOURCE,
             steps: $this->int($summary['totalSteps'] ?? null),
             distanceInMeters: $this->int($summary['totalDistanceMeters'] ?? null),
-            floorsAscended: self::float($summary['floorsAscended'] ?? null),
+            floorsAscended: $this->float($summary['floorsAscended'] ?? null),
             activeKilocalories: $this->int($summary['activeKilocalories'] ?? null),
             totalKilocalories: $this->int($summary['totalKilocalories'] ?? null),
             moderateIntensityMinutes: $this->int($summary['moderateIntensityMinutes'] ?? null),
@@ -239,14 +239,14 @@ final readonly class GarminHealthParser
         return null !== $int && $int >= 0 ? $int : null;
     }
 
-    private static function float(mixed $value): ?float
+    private function float(mixed $value): ?float
     {
         return is_int($value) || is_float($value) ? (float) $value : null;
     }
 
     private function positiveFloat(mixed $value): ?float
     {
-        $float = self::float($value);
+        $float = $this->float($value);
 
         return null !== $float && $float > 0 ? $float : null;
     }

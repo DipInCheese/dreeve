@@ -36,8 +36,8 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
         $this->assertCount(0, $crawler->filter('[role="alert"][type="gated-panel"]'));
         $this->assertStringContainsString('No automation rules yet.', $crawler->filter('body')->text());
         $this->assertCount(0, $crawler->filter('[data-sortable-list]'));
-        $this->assertCount(0, $crawler->filter('a[href*="automation-rules/test"]'));
-        $this->assertCount(0, $crawler->filter('a[href*="automation-rules/backfill"]'));
+        $this->assertCount(0, $crawler->filter('nav.contextual-panel a[href*="automation-rules/test"]'));
+        $this->assertCount(0, $crawler->filter('nav.contextual-panel a[href*="automation-rules/backfill"]'));
 
         $panel = $crawler->filter('nav.contextual-panel[aria-label="Automation rules"]');
         $this->assertCount(1, $panel);
@@ -84,8 +84,8 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $this->assertCount(1, $crawler->filter('a[href*="automation-rules/test"]'));
-        $this->assertCount(1, $crawler->filter('a[href*="automation-rules/backfill"]'));
+        $this->assertCount(1, $crawler->filter('nav.contextual-panel a[href*="automation-rules/test"]'));
+        $this->assertCount(1, $crawler->filter('nav.contextual-panel a[href*="automation-rules/backfill"]'));
 
         $list = $crawler->filter('[data-sortable-list]');
         $this->assertCount(1, $list);
@@ -155,7 +155,7 @@ class ManageAutomationRuleOverviewRequestHandlerTest extends AdminWebTestCase
         $crawler = $this->client->request('GET', '/admin/automation-rules');
 
         $this->assertResponseIsSuccessful();
-        $this->assertCount(1, $crawler->filter('a[href*="automation-rules/backfill"]'));
+        $this->assertCount(1, $crawler->filter('nav.contextual-panel a[href*="automation-rules/backfill"]'));
         $this->assertStringContainsString(
             'These rules will be applied to your existing activities on the next import cycle.',
             $crawler->filter('body')->text()

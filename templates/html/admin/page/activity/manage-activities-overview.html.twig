@@ -75,7 +75,7 @@
             </form>
         {% endif %}
         <div class="relative overflow-x-auto">
-            <table class="data-table">
+            <table class="data-table data-table--cards">
                 <thead>
                 <tr>
                     <th scope="col" class="text-left">
@@ -155,10 +155,10 @@
                                 -
                             {% endif %}
                         </td>
-                        <td class="narrow whitespace-nowrap">
+                        <td class="narrow whitespace-nowrap" data-label="{{ "Commute"|trans({}, 'admin') }}">
                             {{ (activity.isCommute() ? "Yes" : "No")|trans }}
                         </td>
-                        <td class="narrow whitespace-nowrap">
+                        <td class="narrow whitespace-nowrap" data-label="{{ "Images"|trans({}, 'admin') }}">
                             {{ activity.getTotalImageCount() }}
                         </td>
                         <td class="narrow whitespace-nowrap sticky-actions">

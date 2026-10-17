@@ -1,11 +1,14 @@
 {% autoescape false %}
+    {% set asTabs = asTabs ?? false %}
+    {% set navClass = asTabs ? 'contextual-tabs md:hidden' : 'contextual-panel' %}
+    {% set idPrefix = asTabs ? 'tabs-' : '' %}
     {% if isActiveNavItem({'/admin/gear': false}) %}
         {% set inMaintenanceLog = isActiveNavItem({'/admin/gear/maintenance-logs': false}) %}
         {% set inMaintenanceConfig = isActiveNavItem({'/admin/gear/maintenance-config': false}) %}
         {% set inMaintenance = inMaintenanceLog or inMaintenanceConfig %}
         {% set inRecordingDevices = isActiveNavItem({'/admin/gear/recording-devices': false}) %}
         {% set inGearOverview = not inMaintenance and not inRecordingDevices %}
-        <nav class="contextual-panel" aria-label="{{ "Gear"|trans }}">
+        <nav class="{{ navClass }}" aria-label="{{ "Gear"|trans }}">
             <p class="px-2 pb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
                 {{ "Gear"|trans }}
             </p>
@@ -18,15 +21,15 @@
                 <li>
                     <button type="button"
                             class="unstyled group w-full justify-between"
-                            data-collapse-toggle="submenu-maintenance"
-                            aria-controls="submenu-maintenance"
+                            data-collapse-toggle="{{ idPrefix }}submenu-maintenance"
+                            aria-controls="{{ idPrefix }}submenu-maintenance"
                             aria-expanded="{{ inMaintenance ? 'true' : 'false' }}">
                         <span>{{ "Maintenance"|trans }}</span>
                         <svg class="size-3.5 shrink-0 transition-transform group-aria-expanded:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
                         </svg>
                     </button>
-                    <ul id="submenu-maintenance" class="{{ inMaintenance ? '' : 'hidden' }} mt-1 space-y-1">
+                    <ul id="{{ idPrefix }}submenu-maintenance" class="{{ inMaintenance ? '' : 'hidden' }} mt-1 space-y-1">
                         <li>
                             <a href="{{ relativeUrl(path('admin_manage_gear_maintenance_logs_overview')) }}" class="ps-5" {{ inMaintenanceLog ? 'aria-selected="true"' : '' }}>
                                 {{ "Log"|trans({}, 'admin') }}
@@ -51,7 +54,7 @@
         {% set inTestRules = isActiveNavItem({'/admin/automation-rules/test': false}) %}
         {% set inBackfill = isActiveNavItem({'/admin/automation-rules/backfill': false}) %}
         {% set inRules = not inTestRules and not inBackfill %}
-        <nav class="contextual-panel" aria-label="{{ "Automation rules"|trans({}, 'admin') }}">
+        <nav class="{{ navClass }}" aria-label="{{ "Automation rules"|trans({}, 'admin') }}">
             <p class="px-2 pb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
                 {{ "Automation rules"|trans({}, 'admin') }}
             </p>
@@ -86,7 +89,7 @@
         {% set inDaemon = isActiveNavItem({'/admin/settings/daemon': false}) %}
         {% set inSecurity = isActiveNavItem({'/admin/settings/security': false}) %}
         {% set inDashboard = isActiveNavItem({'/admin/settings/dashboard': false}) %}
-        <nav class="contextual-panel" aria-label="{{ "Settings"|trans({}, 'admin') }}">
+        <nav class="{{ navClass }}" aria-label="{{ "Settings"|trans({}, 'admin') }}">
             <p class="px-2 pb-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
                 {{ "Settings"|trans({}, 'admin') }}
             </p>

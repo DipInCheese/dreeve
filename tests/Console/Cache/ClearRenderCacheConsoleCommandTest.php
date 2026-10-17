@@ -2,7 +2,7 @@
 
 namespace App\Tests\Console\Cache;
 
-use App\Application\AppVersion;
+use App\Application\BuildVersion;
 use App\Console\Cache\ClearRenderCacheConsoleCommand;
 use App\Infrastructure\Cache\Cacheability;
 use App\Infrastructure\Cache\Render\Render;
@@ -29,12 +29,12 @@ class ClearRenderCacheConsoleCommandTest extends ConsoleCommandTestCase
 
         $this->assertStringContainsString('Cleared the render cache', $commandTester->getDisplay());
         $this->assertEquals('second', $this->renderARenderCachedPage('second')->getContent());
-        $this->assertEquals(AppVersion::getSemanticVersion(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
+        $this->assertEquals($this->getContainer()->get(BuildVersion::class)->get(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
     }
 
     public function testExecuteClearsEvenWhenTheMarkerMatches(): void
     {
-        $this->buildStorage->write(self::VERSION_MARKER_PATH, AppVersion::getSemanticVersion());
+        $this->buildStorage->write(self::VERSION_MARKER_PATH, $this->getContainer()->get(BuildVersion::class)->get());
         $this->renderARenderCachedPage('first');
 
         $commandTester = $this->execute();
@@ -69,7 +69,7 @@ class ClearRenderCacheConsoleCommandTest extends ConsoleCommandTestCase
 
         $this->assertStringContainsString('Cleared the render cache', $commandTester->getDisplay());
         $this->assertEquals('second', $this->renderARenderCachedPage('second')->getContent());
-        $this->assertEquals(AppVersion::getSemanticVersion(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
+        $this->assertEquals($this->getContainer()->get(BuildVersion::class)->get(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
     }
 
     public function testExecuteWithVersionCheckWhenTheMarkerIsAnotherVersion(): void
@@ -81,17 +81,17 @@ class ClearRenderCacheConsoleCommandTest extends ConsoleCommandTestCase
 
         $this->assertStringContainsString('Cleared the render cache', $commandTester->getDisplay());
         $this->assertEquals('second', $this->renderARenderCachedPage('second')->getContent());
-        $this->assertEquals(AppVersion::getSemanticVersion(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
+        $this->assertEquals($this->getContainer()->get(BuildVersion::class)->get(), $this->buildStorage->read(self::VERSION_MARKER_PATH));
     }
 
     public function testExecuteWithVersionCheckLeavesTheCacheAloneWhenTheMarkerMatches(): void
     {
-        $this->buildStorage->write(self::VERSION_MARKER_PATH, AppVersion::getSemanticVersion());
+        $this->buildStorage->write(self::VERSION_MARKER_PATH, $this->getContainer()->get(BuildVersion::class)->get());
         $this->renderARenderCachedPage('first');
 
         $commandTester = $this->execute(withVersionCheck: true);
 
-        $this->assertStringContainsString('matches the current app version', $commandTester->getDisplay());
+        $this->assertStringContainsString('matches the current build', $commandTester->getDisplay());
         $this->assertEquals('first', $this->renderARenderCachedPage('second')->getContent());
     }
 
@@ -101,7 +101,7 @@ class ClearRenderCacheConsoleCommandTest extends ConsoleCommandTestCase
         $this->assertStringContainsString('Cleared the render cache', $commandTester->getDisplay());
 
         $commandTester = $this->execute(withVersionCheck: true);
-        $this->assertStringContainsString('matches the current app version', $commandTester->getDisplay());
+        $this->assertStringContainsString('matches the current build', $commandTester->getDisplay());
     }
 
     private function execute(bool $withVersionCheck = false): CommandTester
@@ -141,7 +141,8 @@ class ClearRenderCacheConsoleCommandTest extends ConsoleCommandTestCase
     {
         return new ClearRenderCacheConsoleCommand(
             $this->renderCache,
-            $this->buildStorage
+            $this->buildStorage,
+            $this->getContainer()->get(BuildVersion::class),
         );
     }
 }

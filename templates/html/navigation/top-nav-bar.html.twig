@@ -1,4 +1,4 @@
-<nav class="text-gray-900 bg-white border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-1100 group">
+<nav class="text-gray-900 bg-white border-b border-gray-200 px-4 pb-1.5 md:pb-2.5 fixed left-0 right-0 top-0 z-1100 group pt-[max(0.625rem,env(safe-area-inset-top))] md:pt-2.5">
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
             {% if inAppContext %}
@@ -14,8 +14,8 @@
                 </button>
                 <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
                         aria-controls="drawer-navigation"
-                        class="md:hidden mr-3 inline-flex items-center justify-center text-gray-600 cursor-pointer select-none">
-                    <span aria-hidden="true" class="relative block w-3.5 h-5">
+                        class="unstyled md:hidden -ml-2.5 mr-1 inline-flex size-11 items-center justify-center rounded-lg text-gray-600 cursor-pointer select-none hover:bg-gray-100">
+                    <span aria-hidden="true" class="relative block w-5 h-5">
                         <span class="absolute inset-x-0 top-1 h-0.5 rounded-full bg-current transition-all duration-300 ease-in-out drawer-open:top-1/2 drawer-open:-translate-y-1/2 drawer-open:rotate-45"></span>
                         <span class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-current transition-all duration-300 ease-in-out drawer-open:opacity-0"></span>
                         <span class="absolute inset-x-0 bottom-1 h-0.5 rounded-full bg-current transition-all duration-300 ease-in-out drawer-open:bottom-1/2 drawer-open:translate-y-1/2 drawer-open:-rotate-45"></span>
@@ -48,10 +48,10 @@
         <div class="flex items-center text-gray-500 lg:order-2 gap-x-2">
             {% if inAppContext %}
                 {% include 'html/navigation/sync-status.html.twig' %}
-                <button id="profileDropdownMenuButton" data-dropdown="profileDropdownMenu" class="cursor-pointer flex rounded-full border" type="button">
+                <button id="profileDropdownMenuButton" data-dropdown="profileDropdownMenu" class="unstyled cursor-pointer flex size-11 -mr-1.5 items-center justify-center rounded-full" type="button">
                     <span class="sr-only">Open user menu</span>
                     {% if profilePictureUrl %}
-                        <img class="size-8 rounded-full bg-white" src="{{ profilePictureUrl }}" alt="Profile Picture">
+                        <img class="size-8 rounded-full border bg-white" src="{{ profilePictureUrl }}" alt="Profile Picture">
                     {% else %}
                         <div class="size-8 shrink-0 rounded-full border flex items-center justify-center bg-primary text-white text-xs p-1">
                             {{ athlete.getFirstLetterOfFirstName()|upper }}
@@ -62,7 +62,7 @@
                     <div class="p-2">
                         <div class="flex items-center px-2.5 p-2 space-x-1.5 text-sm bg-gray-50 rounded-sm">
                             {% if profilePictureUrl %}
-                                <img class="size-8 rounded-full bg-white" src="{{ profilePictureUrl }}" alt="Profile Picture">
+                                <img class="size-8 rounded-full border bg-white" src="{{ profilePictureUrl }}" alt="Profile Picture">
                             {% else %}
                                 <div class="size-8 shrink-0 rounded-full border flex items-center justify-center bg-primary text-white text-xs p-1">
                                     {{ athlete.getFirstLetterOfFirstName()|upper }}
