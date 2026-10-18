@@ -64,7 +64,7 @@ final class AssetVersioningStrategy implements VersionStrategyInterface
             $paths = glob($this->projectDir.'/'.$pattern) ?: [];
             sort($paths);
             foreach ($paths as $path) {
-                $hashes .= basename($path).(string) md5_file($path);
+                $hashes .= basename($path).md5_file($path);
             }
         }
 
