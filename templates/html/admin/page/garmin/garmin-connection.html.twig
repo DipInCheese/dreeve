@@ -43,6 +43,12 @@
                         {{ "The last sync failed, it is retried automatically:"|trans({}, 'admin') }} {{ status.getLastError() }}
                     </div>
                 {% endif %}
+                {% set staleWatch = describeStaleWatch(status) %}
+                {% if staleWatch %}
+                    <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status" data-stale-watch-hint>
+                        {{ staleWatch }}
+                    </div>
+                {% endif %}
                 <p class="mt-4 text-sm text-gray-600">
                     {{ "New activities are fetched every hour and imported right away."|trans({}, 'admin') }}
                 </p>

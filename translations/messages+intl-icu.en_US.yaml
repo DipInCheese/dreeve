@@ -196,6 +196,7 @@ GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Gear
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Gear maintenance'
 'Gear that is retired is disabled by default.': 'Gear that is retired is disabled by default.'
 'Go to activity': 'Go to activity'
@@ -666,6 +667,7 @@ Walk: Walk
 Walking: Walking
 Walks: Walks
 'Water Sports': 'Water Sports'
+'Watch not synced': 'Watch not synced'
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 'We detected following issues'
 Wed: Wed

@@ -35,6 +35,7 @@ final readonly class AppShell
             'content' => $content,
             'openGraph' => $openGraph,
             'sidebar' => $this->sideBar->render($navigationSection),
+            'isToday' => NavigationSection::TODAY === $navigationSection,
             'athlete' => $general->getAthlete(),
             'profilePictureUrl' => $general->getProfilePictureUrl(),
             'subTitle' => $general->getAppSubTitle(),

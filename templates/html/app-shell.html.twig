@@ -60,7 +60,7 @@
     </aside>
     <!-- MAIN -->
     <main class="p-4 md:ml-64 sidebar-collapsed:md:ml-16 h-auto min-h-screen pt-20 pb-28 md:pb-4 text-gray-900">
-        {% include 'html/navigation/garmin-banner.html.twig' %}
+        {% include 'html/navigation/garmin-banner.html.twig' %}{% if isToday ?? false %}{% include 'html/navigation/stale-watch-hint.html.twig' %}{% endif %}
         {% block main %}
             {{ content|raw }}
         {% endblock %}

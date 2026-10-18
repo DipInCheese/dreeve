@@ -43,6 +43,12 @@ final readonly class AppShellTwigExtension
         return $this->syncStatus->describe($status);
     }
 
+    #[AsTwigFunction('describeStaleWatch')]
+    public function describeStaleWatch(GarminStatus $status): ?string
+    {
+        return $this->syncStatus->describeStaleWatch($status);
+    }
+
     #[AsTwigFunction('canConnectGarmin')]
     public function canConnectGarmin(): bool
     {

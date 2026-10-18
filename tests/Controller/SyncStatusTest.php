@@ -2,8 +2,12 @@
 
 namespace App\Tests\Controller;
 
+use App\Domain\Health\DailySummary;
+use App\Domain\Health\HealthRecords;
+use App\Domain\Health\HealthRepository;
 use App\Infrastructure\HealthSync\HealthSync;
 use App\Infrastructure\HealthSync\HealthSyncFailed;
+use App\Infrastructure\HealthSync\SyncStatus;
 use App\Infrastructure\Time\Clock\Clock;
 use App\Tests\Controller\Admin\AdminWebTestCase;
 use App\Tests\Infrastructure\HealthSync\SpyHealthSync;
@@ -35,6 +39,68 @@ class SyncStatusTest extends AdminWebTestCase
         yield 'minutes' => ['-12 minutes', 'Synced 12 min ago'];
         yield 'hours' => ['-3 hours', 'Synced 3 h ago'];
         yield 'days' => ['-3 days', 'Synced on 14-10-2023'];
+    }
+
+    public function testItSaysWhenTheWatchHasNotUploadedToGarminForAWhile(): void
+    {
+        $now = $this->getContainer()->get(Clock::class)->getCurrentDateTimeImmutable();
+        $this->healthSync->status = ['connected' => true, 'lastSyncAt' => $now->format(\DateTimeInterface::ATOM)];
+        $this->seedWatchUpload($now->modify('-7 hours'));
+        $expected = "Garmin hasn't received data from your watch since 09:15. Open the Garmin Connect app on your phone to sync it.";
+
+        $crawler = $this->client->request('GET', '/today');
+        $this->assertSame($expected, $crawler->filter('[data-stale-watch-hint]')->text());
+        $this->assertSame($expected, $crawler->filter('[data-sync-status]')->attr('title'));
+        $this->assertCount(1, $crawler->filter('[data-sync-status] .bg-amber-400'));
+        $this->assertStringContainsString('Synced just now', $crawler->filter('[data-sync-status]')->text());
+
+        $crawler = $this->client->request('GET', '/admin/garmin');
+        $this->assertSame($expected, $crawler->filter('[data-stale-watch-hint]')->text());
+
+        // Only the Today page carries the full hint; the header still marks it everywhere.
+        $crawler = $this->client->request('GET', '/activities');
+        $this->assertCount(0, $crawler->filter('main [data-stale-watch-hint]'));
+        $this->assertCount(1, $crawler->filter('[data-sync-status] [data-stale-watch]'));
+    }
+
+    public function testItGivesTheDayWhenTheWatchLastUploadedBeforeToday(): void
+    {
+        $now = $this->getContainer()->get(Clock::class)->getCurrentDateTimeImmutable();
+        $this->healthSync->status = ['connected' => true, 'lastSyncAt' => $now->format(\DateTimeInterface::ATOM)];
+        $this->seedWatchUpload($now->modify('-1 day -2 hours'));
+
+        $crawler = $this->client->request('GET', '/today');
+
+        $this->assertStringContainsString('since 16-10-2023 14:15.', $crawler->filter('[data-stale-watch-hint]')->text());
+    }
+
+    public function testItSaysNothingAboutTheWatchWhenItUploadedRecently(): void
+    {
+        $now = $this->getContainer()->get(Clock::class)->getCurrentDateTimeImmutable();
+        $this->healthSync->status = ['connected' => true, 'lastSyncAt' => $now->format(\DateTimeInterface::ATOM)];
+        $this->seedWatchUpload($now->modify('-2 hours'));
+
+        $crawler = $this->client->request('GET', '/today');
+
+        $this->assertCount(0, $crawler->filter('[data-stale-watch-hint]'));
+        $this->assertCount(0, $crawler->filter('[data-stale-watch]'));
+        $this->assertCount(1, $crawler->filter('[data-sync-status] .bg-green-500'));
+    }
+
+    public function testItSaysNothingAboutTheWatchWhenTheUploadIsUnknownOrGarminIsNotConnected(): void
+    {
+        $now = $this->getContainer()->get(Clock::class)->getCurrentDateTimeImmutable();
+        $this->healthSync->status = ['connected' => true, 'lastSyncAt' => $now->format(\DateTimeInterface::ATOM)];
+
+        $crawler = $this->client->request('GET', '/today');
+        $this->assertCount(0, $crawler->filter('[data-stale-watch-hint]'));
+
+        $this->seedWatchUpload($now->modify('-2 days'));
+        $this->healthSync->status = ['needsLogin' => true];
+        $this->getContainer()->get(SyncStatus::class)->forget();
+
+        $crawler = $this->client->request('GET', '/today');
+        $this->assertCount(0, $crawler->filter('[data-stale-watch-hint]'));
     }
 
     public function testItShowsASyncInProgress(): void
@@ -74,6 +140,18 @@ class SyncStatusTest extends AdminWebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertCount(0, $crawler->filter('[data-sync-status]'));
+    }
+
+    private function seedWatchUpload(\DateTimeImmutable $uploadedAt): void
+    {
+        $records = HealthRecords::empty();
+        $records->addDailySummary(new DailySummary(
+            day: $uploadedAt->format('Y-m-d'),
+            source: 'garmin',
+            steps: 4200,
+            watchUploadedAt: $uploadedAt->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s'),
+        ));
+        $this->getContainer()->get(HealthRepository::class)->save($records);
     }
 
     #[\Override]

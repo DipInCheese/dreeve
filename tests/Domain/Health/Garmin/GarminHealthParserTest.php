@@ -39,6 +39,7 @@ class GarminHealthParserTest extends TestCase
                 'averageSpo2' => 95.0,
                 'lowestSpo2' => 88,
                 'avgWakingRespirationValue' => 14.0,
+                'lastSyncTimestampGMT' => '2026-10-16T19:42:07.0',
             ],
             'sleep' => [
                 'dailySleepDTO' => [
@@ -99,6 +100,7 @@ class GarminHealthParserTest extends TestCase
             averageSpo2: 95.0,
             lowestSpo2: 88,
             averageRespiration: 14.0,
+            watchUploadedAt: '2026-10-16 19:42:07',
         )], $records->getDailySummaries());
         $this->assertSame(50, $records->getDailySummaries()[0]->getIntensityMinutes());
 
@@ -130,6 +132,14 @@ class GarminHealthParserTest extends TestCase
 
         // The latest readiness snapshot of the day counts.
         $this->assertSame(['2026-10-16' => [74, 'HIGH']], $records->getTrainingReadiness());
+    }
+
+    public function testItLeavesTheWatchUploadOutWhenTheWatchHasNotUploadedThatDay(): void
+    {
+        $day = self::day();
+        $day['summary']['lastSyncTimestampGMT'] = null;
+
+        $this->assertNull(new GarminHealthParser()->parse($day)->getDailySummaries()[0]->watchUploadedAt);
     }
 
     public function testItLeavesOutWhatGarminDidNotMeasure(): void

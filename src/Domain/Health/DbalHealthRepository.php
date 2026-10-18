@@ -6,6 +6,7 @@ namespace App\Domain\Health;
 
 use App\Infrastructure\Repository\DbalRepository;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
+use App\Infrastructure\ValueObject\Time\SerializableTimezone;
 use Doctrine\DBAL\ParameterType;
 
 final readonly class DbalHealthRepository extends DbalRepository implements HealthRepository
@@ -103,6 +104,13 @@ final readonly class DbalHealthRepository extends DbalRepository implements Heal
         $row = $this->connection->fetchAssociative('SELECT * FROM BodyMeasurement WHERE weightInKg IS NOT NULL ORDER BY measuredOn DESC LIMIT 1');
 
         return false === $row ? null : new BodyMeasurement(...$row);
+    }
+
+    public function findLatestWatchUpload(): ?SerializableDateTime
+    {
+        $uploadedAt = $this->connection->fetchOne('SELECT MAX(watchUploadedAt) FROM DailySummary');
+
+        return is_string($uploadedAt) ? SerializableDateTime::fromString($uploadedAt, SerializableTimezone::UTC()) : null;
     }
 
     /**

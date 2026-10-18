@@ -58,6 +58,9 @@ final readonly class DailySummary
         public ?int $lowestSpo2 = null,
         #[ORM\Column(type: 'float', nullable: true)]
         public ?float $averageRespiration = null,
+        // When the watch last uploaded to Garmin, in UTC: Garmin only knows what the watch has sent it.
+        #[ORM\Column(type: 'string', nullable: true)]
+        public ?string $watchUploadedAt = null,
     ) {
     }
 

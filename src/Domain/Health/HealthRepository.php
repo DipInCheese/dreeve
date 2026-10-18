@@ -44,4 +44,9 @@ interface HealthRepository
     public function findBodyMeasurements(?SerializableDateTime $from = null, ?SerializableDateTime $till = null): array;
 
     public function findLatestBodyMeasurement(): ?BodyMeasurement;
+
+    /**
+     * When the watch last uploaded to Garmin, as far as the synced days tell.
+     */
+    public function findLatestWatchUpload(): ?SerializableDateTime;
 }

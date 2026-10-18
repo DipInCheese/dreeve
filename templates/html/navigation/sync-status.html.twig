@@ -1,13 +1,15 @@
 {# The Garmin connection in the header: a dot and how long ago it last synced. #}
 {% set syncStatus = garminSyncStatus() %}
 {% if syncStatus and (syncStatus.isConnected() or syncStatus.needsLogin()) %}
-    {% set problem = syncStatus.needsLogin() or syncStatus.getLastError() %}
-    <a href="{{ relativeUrl(path('admin_garmin')) }}" class="hidden sm:inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium hover:bg-gray-100" data-sync-status title="Garmin">
+    {% set staleWatch = describeStaleWatch(syncStatus) %}
+    {% set problem = syncStatus.needsLogin() or syncStatus.getLastError() or staleWatch %}
+    <a href="{{ relativeUrl(path('admin_garmin')) }}" class="hidden sm:inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium hover:bg-gray-100" data-sync-status title="{{ staleWatch ?? 'Garmin' }}">
         <span class="size-2 rounded-full {{ syncStatus.needsLogin() ? 'bg-red-500' : (problem ? 'bg-amber-400' : 'bg-green-500') }}" aria-hidden="true"></span>
         {% if syncStatus.needsLogin() %}
             {{ "Garmin needs a new login"|trans }}
         {% else %}
             {{ describeSync(syncStatus) }}
+            {% if staleWatch %}<span class="text-amber-700" data-stale-watch>· {{ "Watch not synced"|trans }}</span>{% endif %}
         {% endif %}
     </a>
 {% endif %}

@@ -69,6 +69,7 @@ final readonly class GarminHealthParser
             averageSpo2: $this->positiveFloat($summary['averageSpo2'] ?? null),
             lowestSpo2: $this->positiveInt($summary['lowestSpo2'] ?? null),
             averageRespiration: $this->positiveFloat($summary['avgWakingRespirationValue'] ?? null),
+            watchUploadedAt: $this->utcTime($summary['lastSyncTimestampGMT'] ?? null),
         );
 
         if (null !== $dailySummary->steps || null !== $dailySummary->restingHeartRate || null !== $dailySummary->bodyBatteryHighest || null !== $dailySummary->averageStress) {
