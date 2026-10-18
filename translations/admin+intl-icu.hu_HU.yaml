@@ -49,6 +49,7 @@ Activity: Tevékenység
 'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
+'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.': 'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.'
 'Admin username': 'Admin felhasználónév'
 'Advanced (per-date & per-sport-type overrides)': 'Speciális (dátum és sporttípus szerinti felülírások)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -58,7 +59,6 @@ Address: Address
 'All sport types': 'Minden sporttípus'
 'All sport types must belong to the same activity type.': 'Minden sporttípusnak ugyanahhoz a tevékenységtípushoz kell tartoznia.'
 'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
-'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Emellett elérhetővé teszi az edzésasszisztenst a webes felületen. Ehhez a fenti AI-integrációnak bekapcsolva kell lennie. Óvatosan használd, ha az alkalmazásod nyilvánosan elérhető.'
 'Any IP address': 'Bármely IP-cím'
 'App URL': 'Alkalmazás URL'
 'App subtitle': 'Alkalmazás alcíme'
@@ -418,12 +418,12 @@ Sensors: Érzékelők
 'Set {envVar} in your {envFile} file': 'Állítsd be a(z) {envVar} változót a(z) {envFile} fájlban'
 Settings: Beállítások
 'Short date format': 'Rövid dátumformátum'
-'Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash.': 'Gyorsparancsok, amelyeket a felhasználó kiválaszthat az edzésasszisztensben. Ne tedd perjel elé a parancsot.'
+'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.': 'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.'
 'Show in dashboard widget': 'Megjelenítés a dashboard widgetben'
 'Show last X years by default': 'Alapértelmezés szerint az utolsó X év megjelenítése'
 'Show options': 'Beállítások megjelenítése'
 'Show password': 'Jelszó megjelenítése'
-'Show the workout assistant in the UI.': 'Az edzésasszisztens megjelenítése a felületen.'
+'Show the AI coach in the app.': 'Show the AI coach in the app.'
 'Showing {first} - {last} of {total}': '{first} – {last} megjelenítve, összesen {total}'
 'Sign in': Bejelentkezés
 'Sign in to see your data': 'Sign in to see your data'
@@ -526,7 +526,7 @@ To: Eddig
 'Training metrics': 'Training metrics'
 Tuesday: Kedd
 'Turn gear maintenance tracking on or off.': 'A felszerelés-karbantartás követésének be- vagy kikapcsolása.'
-'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Bekapcsolja az AI-alapú edzésasszisztenst, amely ezután a parancssorból használható.'
+'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.': 'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.'
 Type: Típus
 URL: URL
 Unit: Mértékegység

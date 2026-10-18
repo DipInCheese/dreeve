@@ -16,7 +16,9 @@
 'A:C Ratio': 'Rácio A:C'
 'A:C optimal in': 'A:C optimal in'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI integration settings'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Fadiga)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: All
 'Alpine Ski': 'Esqui Alpino'
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: Abr
-'Ask Mark something...': 'Ask Mark something...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Athlete profile'
 Aug: Ago
 Average: Average
@@ -194,9 +196,9 @@ Fri.: Fri.
 'Front shifts': 'Front shifts'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Equipamento
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Manutenção de equipamento'
 'Gear that is retired is disabled by default.': 'Equipamento reformado é desativado por defeito.'
 'Go to activity': 'Ir para a atividade'
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Remo Virtual'
 'Virtual Run': 'Virtual Run'
 'Virtual Runs': 'Corridas Virtuais'
-'Virtual workout assistant': 'Virtual workout assistant'
 'Visited tiles': 'Quadrados visitados'
 Volleyball: Volleyball
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Walk
 Walking: Walking
 Walks: Passeios
-'Water Sports': 'Desportos Aquáticos'
 'Watch not synced': 'Watch not synced'
+'Water Sports': 'Desportos Aquáticos'
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 'Foram detectadas as seguintes situações'
 Wed: Qua
@@ -689,9 +690,10 @@ Wheelchair: 'Cadeira de Rodas'
 'With others': 'With others'
 'Within your normal': 'Within your normal'
 Workout: Treino
-'Workout assistant': 'Workout assistant'
 'Workout type': 'Tipo de exercício'
 World: World
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Ano
 Yearly: Yearly
 'Yearly stats': 'Yearly stats'

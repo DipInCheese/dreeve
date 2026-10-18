@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C arány'
 'A:C optimal in': 'A:C optimális ezután:'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI-integráció beállításai'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Fáradtság)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: Mind
 'Alpine Ski': 'Alpesi sí'
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: Ápr
-'Ask Mark something...': 'Kérdezz Marktól...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Sportoló profil'
 Aug: Aug
 Average: Átlag
@@ -194,9 +196,9 @@ Fri.: Pén.
 'Front shifts': 'Első váltások'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Felszerelés
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Felszerelés karbantartás'
 'Gear that is retired is disabled by default.': 'A visszavont felszerelés alapértelmezés szerint le van tiltva.'
 'Go to activity': 'Ugrás a tevékenységhez'
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Virtuális evezés'
 'Virtual Run': 'Virtuális futás'
 'Virtual Runs': 'Virtuális futások'
-'Virtual workout assistant': 'Virtuális edzési asszisztens'
 'Visited tiles': 'Meglátogatott csempék'
 Volleyball: Röplabda
 Volume: Mennyiség
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Séta
 Walking: Gyaloglás
 Walks: Séták
-'Water Sports': 'Vízi sportok'
 'Watch not synced': 'Watch not synced'
+'Water Sports': 'Vízi sportok'
 'Waxing the chain...': 'Lánc viaszolása...'
 'We detected following issues': 'A következő problémákat észleltük'
 Wed: Sze
@@ -689,9 +690,10 @@ Wheelchair: Kerekesszék
 'With others': Másokkal
 'Within your normal': 'Within your normal'
 Workout: Edzés
-'Workout assistant': 'Edzési asszisztens'
 'Workout type': 'Edzés típusa'
 World: Világ
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Év
 Yearly: Éves
 'Yearly stats': 'Éves statisztikák'

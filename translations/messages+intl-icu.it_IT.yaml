@@ -16,7 +16,9 @@
 'A:C Ratio': 'Rapporto A:C'
 'A:C optimal in': 'A:C ottimale tra'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI integration settings'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Fatica)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: Tutti
 'Alpine Ski': 'Sci alpino'
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: Apr
-'Ask Mark something...': 'Chiedi qualcosa a Mark...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Profilo atleta'
 Aug: Ago
 Average: Average
@@ -194,9 +196,9 @@ Fri.: Fri.
 'Front shifts': 'Front shifts'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Attrezzatura
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Manutenzione attrezzatura'
 'Gear that is retired is disabled by default.': "L'attrezzatura dismessa è disabilitata di default."
 'Go to activity': "Vai all'attività"
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Canottaggio virtuale'
 'Virtual Run': 'Virtual Run'
 'Virtual Runs': 'Corse virtuali'
-'Virtual workout assistant': 'Assistente virtuale agli allenamenti'
 'Visited tiles': 'Tessere visitate'
 Volleyball: Volleyball
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Walk
 Walking: Walking
 Walks: Passeggiate
-'Water Sports': 'Sport acquatici'
 'Watch not synced': 'Watch not synced'
+'Water Sports': 'Sport acquatici'
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 'Abbiamo rilevato i seguenti problemi'
 Wed: Mer
@@ -689,9 +690,10 @@ Wheelchair: 'Sedia a rotelle'
 'With others': 'With others'
 'Within your normal': 'Within your normal'
 Workout: Allenamento
-'Workout assistant': 'Assistente allenamento'
 'Workout type': 'Tipo di allenamento'
 World: World
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Anno
 Yearly: Yearly
 'Yearly stats': 'Statistiche annuali'

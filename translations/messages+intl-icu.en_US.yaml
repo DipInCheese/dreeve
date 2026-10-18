@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C Ratio'
 'A:C optimal in': 'A:C optimal in'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI integration settings'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Fatigue)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: All
 'Alpine Ski': 'Alpine Ski'
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: Apr
-'Ask Mark something...': 'Ask Mark something...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Athlete profile'
 Aug: Aug
 Average: Average
@@ -194,9 +196,9 @@ Fri.: Fri.
 'Front shifts': 'Front shifts'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Gear
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Gear maintenance'
 'Gear that is retired is disabled by default.': 'Gear that is retired is disabled by default.'
 'Go to activity': 'Go to activity'
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Virtual Row'
 'Virtual Run': 'Virtual Run'
 'Virtual Runs': 'Virtual Runs'
-'Virtual workout assistant': 'Virtual workout assistant'
 'Visited tiles': 'Visited tiles'
 Volleyball: Volleyball
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Walk
 Walking: Walking
 Walks: Walks
-'Water Sports': 'Water Sports'
 'Watch not synced': 'Watch not synced'
+'Water Sports': 'Water Sports'
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 'We detected following issues'
 Wed: Wed
@@ -689,9 +690,10 @@ Wheelchair: Wheelchair
 'With others': 'With others'
 'Within your normal': 'Within your normal'
 Workout: Workout
-'Workout assistant': 'Workout assistant'
 'Workout type': 'Workout type'
 World: World
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Year
 Yearly: Yearly
 'Yearly stats': 'Yearly stats'

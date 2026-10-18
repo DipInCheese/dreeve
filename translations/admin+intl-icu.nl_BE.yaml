@@ -49,6 +49,7 @@ Activity: Activiteit
 'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
+'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.': 'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.'
 'Admin username': 'Gebruikersnaam beheerder'
 'Advanced (per-date & per-sport-type overrides)': 'Geavanceerd (overschrijvingen per datum & per sporttype)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -58,7 +59,6 @@ Address: Address
 'All sport types': 'Alle sporttypes'
 'All sport types must belong to the same activity type.': 'Alle sporttypes moeten tot hetzelfde activiteitstype behoren.'
 'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
-'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Maakt de trainingsassistent ook beschikbaar in de webinterface. Vereist dat de AI-integratie hierboven ingeschakeld is. Wees voorzichtig als je app publiek toegankelijk is.'
 'Any IP address': 'Eender welk IP-adres'
 'App URL': App-URL
 'App subtitle': App-ondertitel
@@ -418,12 +418,12 @@ Sensors: Sensoren
 'Set {envVar} in your {envFile} file': 'Stel {envVar} in in je {envFile}-bestand'
 Settings: Instellingen
 'Short date format': 'Kort datumformaat'
-'Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash.': 'Snelkoppelingen die een gebruiker kan kiezen in de trainingsassistent. Zet geen slash voor het commando.'
+'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.': 'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.'
 'Show in dashboard widget': 'Tonen in dashboardwidget'
 'Show last X years by default': 'Standaard de laatste X jaar tonen'
 'Show options': 'Opties tonen'
 'Show password': 'Wachtwoord tonen'
-'Show the workout assistant in the UI.': 'Toon de trainingsassistent in de interface.'
+'Show the AI coach in the app.': 'Show the AI coach in the app.'
 'Showing {first} - {last} of {total}': '{first} - {last} van {total} getoond'
 'Sign in': Aanmelden
 'Sign in to see your data': 'Sign in to see your data'
@@ -526,7 +526,7 @@ To: Tot
 'Training metrics': 'Training metrics'
 Tuesday: Dinsdag
 'Turn gear maintenance tracking on or off.': 'Het opvolgen van onderhoud van uitrusting in- of uitschakelen.'
-'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Schakelt de AI-gestuurde trainingsassistent in, die dan via de command line gebruikt kan worden.'
+'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.': 'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.'
 Type: Type
 URL: URL
 Unit: Eenheid

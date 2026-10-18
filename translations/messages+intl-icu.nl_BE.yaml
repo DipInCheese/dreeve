@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C-ratio'
 'A:C optimal in': 'A:C optimaal binnen'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'Instellingen AI-integratie'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Vermoeidheid)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: Alle
 'Alpine Ski': Alpineskiën
 'Analyze with WindAhead': 'Analyseren met WindAhead'
 Apr: Apr
-'Ask Mark something...': 'Vraag Mark iets...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': Atletenprofiel
 Aug: Aug
 Average: Gemiddeld
@@ -194,9 +196,9 @@ Fri.: Vr.
 'Front shifts': 'Schakelingen voor'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Uitrusting
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Onderhoud van uitrusting'
 'Gear that is retired is disabled by default.': 'Uitrusting die niet meer actief is, wordt standaard uitgeschakeld.'
 'Go to activity': 'Naar activiteit'
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Virtueel roeien'
 'Virtual Run': 'Virtuele loop'
 'Virtual Runs': 'Virtuele loopsessies'
-'Virtual workout assistant': 'Virtuele trainingsassistent'
 'Visited tiles': 'Bezochte tegels'
 Volleyball: Volleybal
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarden
 Walk: Wandeling
 Walking: Wandelen
 Walks: Wandelingen
-'Water Sports': Watersport
 'Watch not synced': 'Watch not synced'
+'Water Sports': Watersport
 'Waxing the chain...': 'De ketting aan het waxen...'
 'We detected following issues': 'We hebben de volgende problemen gedetecteerd'
 Wed: Woe
@@ -689,9 +690,10 @@ Wheelchair: Rolstoel
 'With others': 'Met anderen'
 'Within your normal': 'Within your normal'
 Workout: Training
-'Workout assistant': Trainingsassistent
 'Workout type': 'Type training'
 World: Wereld
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Jaar
 Yearly: Jaarlijks
 'Yearly stats': Jaarstatistieken

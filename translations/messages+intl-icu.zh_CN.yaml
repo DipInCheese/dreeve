@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C 比值'
 'A:C optimal in': 'A:C optimal in'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI integration settings'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (疲劳)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: All
 'Alpine Ski': 高山滑雪
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: 四月
-'Ask Mark something...': 问问Mark...
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Athlete profile'
 Aug: 八月
 Average: Average
@@ -194,9 +196,9 @@ Fri.: Fri.
 'Front shifts': 'Front shifts'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: 装备
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 装备维护
 'Gear that is retired is disabled by default.': 退役的装备默认禁用。
 'Go to activity': 前往活动
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 虚拟划船
 'Virtual Run': 'Virtual Run'
 'Virtual Runs': 虚拟跑步
-'Virtual workout assistant': 虚拟锻炼助手
 'Visited tiles': 已访问方块
 Volleyball: Volleyball
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Walk
 Walking: 健步
 Walks: 散步
-'Water Sports': 水上运动
 'Watch not synced': 'Watch not synced'
+'Water Sports': 水上运动
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 检测到以下问题
 Wed: 周三
@@ -689,9 +690,10 @@ Wheelchair: 轮椅
 'With others': 'With others'
 'Within your normal': 'Within your normal'
 Workout: 锻炼
-'Workout assistant': 'Workout assistant'
 'Workout type': 锻炼类型
 World: World
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: 年
 Yearly: Yearly
 'Yearly stats': 年度统计

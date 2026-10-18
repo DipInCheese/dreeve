@@ -49,6 +49,7 @@ Activity: Activity
 'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
+'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.': 'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.'
 'Admin username': 'Admin username'
 'Advanced (per-date & per-sport-type overrides)': 'Advanced (per-date & per-sport-type overrides)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -58,7 +59,6 @@ Address: Address
 'All sport types': 'All sport types'
 'All sport types must belong to the same activity type.': 'All sport types must belong to the same activity type.'
 'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
-'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': 'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.'
 'Any IP address': 'Any IP address'
 'App URL': 'App URL'
 'App subtitle': 'App subtitle'
@@ -418,12 +418,12 @@ Sensors: Sensors
 'Set {envVar} in your {envFile} file': 'Set {envVar} in your {envFile} file'
 Settings: Settings
 'Short date format': 'Short date format'
-'Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash.': 'Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash.'
+'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.': 'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.'
 'Show in dashboard widget': 'Show in dashboard widget'
 'Show last X years by default': 'Show last X years by default'
 'Show options': 'Show options'
 'Show password': 'Show password'
-'Show the workout assistant in the UI.': 'Show the workout assistant in the UI.'
+'Show the AI coach in the app.': 'Show the AI coach in the app.'
 'Showing {first} - {last} of {total}': 'Showing {first} - {last} of {total}'
 'Sign in': 'Sign in'
 'Sign in to see your data': 'Sign in to see your data'
@@ -526,7 +526,7 @@ To: To
 'Training metrics': 'Training metrics'
 Tuesday: Tuesday
 'Turn gear maintenance tracking on or off.': 'Turn gear maintenance tracking on or off.'
-'Turns on the AI-powered workout assistant, which can then be used from the command line.': 'Turns on the AI-powered workout assistant, which can then be used from the command line.'
+'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.': 'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.'
 Type: Type
 URL: URL
 Unit: Unit

@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C Förhållande'
 'A:C optimal in': 'A:C optimal in'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': 'AI integration settings'
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Utmattning)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: Alla
 'Alpine Ski': Alpint
 'Analyze with WindAhead': 'Analyze with WindAhead'
 Apr: Apr
-'Ask Mark something...': 'Fråga Mark någonting...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': 'Athlete profile'
 Aug: Aug
 Average: Average
@@ -194,9 +196,9 @@ Fri.: Fri.
 'Front shifts': 'Front shifts'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Utrustning
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': 'Utrustning underhåll'
 'Gear that is retired is disabled by default.': 'Utrustning som är avställd blir inaktiverad.'
 'Go to activity': 'Gå till aktiviteten'
@@ -658,7 +660,6 @@ Usage: Usage
 'Virtual Row': 'Virtuell Rodd'
 'Virtual Run': 'Virtual Run'
 'Virtual Runs': 'Virtuell Löpning'
-'Virtual workout assistant': 'Virtuell tränings assistent'
 'Visited tiles': 'Besökta rutor'
 Volleyball: Volleyball
 Volume: Volume
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Walk
 Walking: Promenad
 Walks: Promenader
-'Water Sports': Vattensport
 'Watch not synced': 'Watch not synced'
+'Water Sports': Vattensport
 'Waxing the chain...': 'Waxing the chain...'
 'We detected following issues': 'Vi har upptäckt följande problem'
 Wed: Ons
@@ -689,9 +690,10 @@ Wheelchair: Rullstol
 'With others': 'With others'
 'Within your normal': 'Within your normal'
 Workout: Träning
-'Workout assistant': 'Workout assistant'
 'Workout type': Träningsform
 World: World
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: År
 Yearly: Yearly
 'Yearly stats': Årsstatistik

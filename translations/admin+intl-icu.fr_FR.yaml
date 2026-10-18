@@ -49,6 +49,7 @@ Activity: Activité
 'Add {fit}, {tcx} or {gpx} files. They are imported right away.': 'Add {fit}, {tcx} or {gpx} files. They are imported right away.'
 Adding...: Adding...
 Address: Address
+'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.': 'Adds the AI coach to the profile menu. Without it, the coach is only available from the command line.'
 'Admin username': "Nom d'utilisateur de l'admin"
 'Advanced (per-date & per-sport-type overrides)': 'Avancé (surcharges par date et par type de sport)'
 'Afterwards, sign in with username {name}.': 'Afterwards, sign in with username {name}.'
@@ -58,7 +59,6 @@ Address: Address
 'All sport types': 'Tous les types de sport'
 'All sport types must belong to the same activity type.': "Tous les types de sport doivent appartenir au même type d'activité."
 'Allowed IP addresses for the management pages': 'Allowed IP addresses for the management pages'
-'Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible.': "Affiche également l'assistant d'entraînement dans l'interface web. Nécessite que l'intégration IA ci-dessus soit activée. Soyez prudent en activant cette option si votre application est accessible publiquement."
 'Any IP address': "N'importe quelle adresse IP"
 'App URL': "URL de l'application"
 'App subtitle': "Sous-titre de l'application"
@@ -418,12 +418,12 @@ Sensors: Capteurs
 'Set {envVar} in your {envFile} file': 'Définissez {envVar} dans votre fichier {envFile}'
 Settings: Paramètres
 'Short date format': 'Format de date court'
-'Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash.': "Raccourcis qu'un utilisateur peut choisir dans l'assistant d'entraînement. Ne préfixez pas la commande par une barre oblique."
+'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.': 'Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash.'
 'Show in dashboard widget': 'Afficher dans le widget du tableau de bord'
 'Show last X years by default': 'Afficher les X dernières années par défaut'
 'Show options': 'Voir les options'
 'Show password': 'Voir le mot de passe'
-'Show the workout assistant in the UI.': "Afficher l'assistant d'entraînement dans l'interface."
+'Show the AI coach in the app.': 'Show the AI coach in the app.'
 'Showing {first} - {last} of {total}': 'Affichage de {first} à {last} sur {total}'
 'Sign in': Connexion
 'Sign in to see your data': 'Sign in to see your data'
@@ -526,7 +526,7 @@ To: Vers
 'Training metrics': 'Training metrics'
 Tuesday: Mardi
 'Turn gear maintenance tracking on or off.': 'Activer ou désactiver le suivi de la maintenance du matériel.'
-'Turns on the AI-powered workout assistant, which can then be used from the command line.': "Active l'assistant d'entraînement basé sur l'IA, qui peut ensuite être utilisé en ligne de commande."
+'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.': 'Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network.'
 Type: Type
 URL: URL
 Unit: Unité

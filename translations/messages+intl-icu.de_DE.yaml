@@ -16,7 +16,9 @@
 'A:C Ratio': 'A:C-Verhältnis'
 'A:C optimal in': 'A:C-Verhältnis optimal in'
 'AI analysis: coming soon': 'AI analysis: coming soon'
+'AI coach': 'AI coach'
 'AI integration settings': KI-Integrationseinstellungen
+'AI overview': 'AI overview'
 'ATL (Fatigue)': 'ATL (Ermüdung)'
 'About you': 'About you'
 'Above your normal': 'Above your normal'
@@ -39,7 +41,7 @@ All: Alle
 'Alpine Ski': 'Ski Alpin'
 'Analyze with WindAhead': 'Analysiere mit WindAhead'
 Apr: Apr
-'Ask Mark something...': 'Frag Mark etwas...'
+'Ask about your sleep, recovery or training...': 'Ask about your sleep, recovery or training...'
 'Athlete profile': Sportlerprofil
 Aug: Aug
 Average: Durchschnitt
@@ -194,9 +196,9 @@ Fri.: Fr.
 'Front shifts': 'Schaltvorgänge vorne'
 GAP: GAP
 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.': 'Garmin ended your session, so nothing is syncing. Log in again to continue; nothing synced so far is lost.'
+"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Garmin needs a new login': 'Garmin needs a new login'
 Gear: Ausrüstung
-"Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it.": "Garmin hasn't received data from your watch since {time}. Open the Garmin Connect app on your phone to sync it."
 'Gear maintenance': Ausrüstungswartung
 'Gear that is retired is disabled by default.': 'Ausgemusterte Ausrüstung ist standardmäßig deaktiviert.'
 'Go to activity': 'Zur Aktivität'
@@ -658,7 +660,6 @@ Usage: Verwendung
 'Virtual Row': 'Virtuelles Rudern'
 'Virtual Run': 'Virtueller Lauf'
 'Virtual Runs': 'Virtuelle Läufe'
-'Virtual workout assistant': 'Virtueller Workout Assistent'
 'Visited tiles': 'Besuchte Kacheln'
 Volleyball: Volleyball
 Volume: Umfang
@@ -666,8 +667,8 @@ Wakeboarding: Wakeboarding
 Walk: Spaziergang
 Walking: Gehen
 Walks: Spaziergänge
-'Water Sports': Wassersport
 'Watch not synced': 'Watch not synced'
+'Water Sports': Wassersport
 'Waxing the chain...': 'Kette wird gewachst...'
 'We detected following issues': 'Wir haben die folgenden Probleme festgestellt'
 Wed: Mi
@@ -689,9 +690,10 @@ Wheelchair: Rollstuhl
 'With others': 'Mit anderen'
 'Within your normal': 'Within your normal'
 Workout: Training
-'Workout assistant': Trainingsassistent
 'Workout type': Trainingseinheitstyp
 World: Welt
+'Written at {time}': 'Written at {time}'
+'Written yesterday at {time}': 'Written yesterday at {time}'
 Year: Jahr
 Yearly: Jährlich
 'Yearly stats': 'Jährliche Statistiken'
