@@ -81,7 +81,8 @@ class Syncer:
         try:
             account = self.garmin.resume(self.storage.tokens_dir(user))
             state.display_name = account.display_name() or state.display_name
-            today = started.date()
+            # The user's own day, not the UTC one: in Europe the new day would otherwise only start at 01:00 or 02:00.
+            today = started.astimezone().date()
             start = self._start_date(state, today)
             new = 0
             downloads = 0

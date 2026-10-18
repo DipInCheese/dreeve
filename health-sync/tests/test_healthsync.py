@@ -1,7 +1,9 @@
 import io
+import os
 import json
 import threading
 import tempfile
+import time
 import unittest
 import zipfile
 from datetime import date, datetime, timedelta, timezone
@@ -300,6 +302,22 @@ class SyncTest(HealthSyncTestCase):
 
 
 class HealthSyncTest(HealthSyncTestCase):
+    def test_the_day_starts_at_midnight_in_the_users_time_zone(self):
+        previous = os.environ.get("TZ")
+        os.environ["TZ"] = "Europe/Brussels"
+        time.tzset()
+        try:
+            # 23:30 UTC is already 01:30 the next day in Brussels.
+            self.now = datetime(2026, 10, 17, 23, 30, tzinfo=timezone.utc)
+            self.connect()
+            self.assertIn("garmin-day-2026-10-18.json", self.inbox_files())
+        finally:
+            if previous is None:
+                del os.environ["TZ"]
+            else:
+                os.environ["TZ"] = previous
+            time.tzset()
+
     def test_it_drops_the_last_days_in_the_inbox(self):
         self.garmin.health_days = {date(2026, 10, 15), date(2026, 10, 16)}
         self.connect()
