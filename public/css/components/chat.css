@@ -96,7 +96,8 @@
             }
 
             & table {
-                @apply w-full mb-3 border-collapse;
+                /* Wide tables scroll inside the message instead of running off a phone screen. */
+                @apply block w-full max-w-full overflow-x-auto mb-3 border-collapse;
 
                 & th, & td {
                     @apply border border-gray-300 px-3 py-2 text-left;

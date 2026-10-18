@@ -4913,8 +4913,11 @@
   }
   div.chat--wrapper div.message table {
     margin-bottom: calc(var(--spacing) * 3);
+    display: block;
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
+    overflow-x: auto;
     & th, & td {
       border-style: var(--tw-border-style);
       border-width: 1px;
