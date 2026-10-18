@@ -5,7 +5,8 @@ import {basePath} from "../../utils";
 export default class Chat {
     constructor(rootNode) {
         this.chatWrapper = rootNode.querySelector('.chat--wrapper');
-        this.form = rootNode.querySelector('form');
+        // Its own form: the page has others, like the sign-out form in the top bar.
+        this.form = rootNode.querySelector('form[data-chat-form]');
         this.button = this.form.querySelector('button.send-message');
         this.textInput = this.form.querySelector('input.message');
         this.spinner = this.form.querySelector('div.spinner');

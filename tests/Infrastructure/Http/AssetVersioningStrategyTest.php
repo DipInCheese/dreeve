@@ -56,6 +56,13 @@ class AssetVersioningStrategyTest extends TestCase
         $this->assertStringStartsWith(AppVersion::getSemanticVersion().'-', $before);
         $this->assertNotSame($before, $after);
 
+        // A script loaded on demand, like the chat's, counts too.
+        mkdir($projectDir.'/public/js/dist', 0o777, true);
+        file_put_contents($projectDir.'/public/js/dist/chat.min.js', 'x');
+        $withChat = new AssetVersioningStrategy(DevMode::fromString('0'), new FakeUuidFactory(), KernelProjectDir::fromString($projectDir))->getVersion('');
+        $this->assertNotSame($after, $withChat);
+
+        unlink($projectDir.'/public/js/dist/chat.min.js');
         unlink($projectDir.'/public/css/dist/tailwind.min.css');
     }
 }

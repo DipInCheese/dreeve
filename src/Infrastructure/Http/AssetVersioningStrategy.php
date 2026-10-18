@@ -14,13 +14,13 @@ final class AssetVersioningStrategy implements VersionStrategyInterface
 {
     private const string FORMAT = '%s?%s';
     /**
-     * The built files. When one changes, every asset gets a new version, so browsers fetch the new
-     * styles and scripts even when the app version stays the same (as it does for every image of a fork).
+     * The built files, every chunk included (pages load some scripts on demand, like the chat). When one
+     * changes, every asset gets a new version, so browsers fetch the new styles and scripts even when the
+     * app version stays the same (as it does for every image of a fork).
      */
     private const array BUILT_FILES = [
-        'public/css/dist/tailwind.min.css',
-        'public/js/dist/app.min.js',
-        'public/js/dist/admin.min.js',
+        'public/css/dist/*.css',
+        'public/js/dist/*.js',
     ];
 
     private ?string $version = null;
@@ -60,10 +60,11 @@ final class AssetVersioningStrategy implements VersionStrategyInterface
         }
 
         $hashes = '';
-        foreach (self::BUILT_FILES as $file) {
-            $path = $this->projectDir.'/'.$file;
-            if (is_file($path)) {
-                $hashes .= (string) md5_file($path);
+        foreach (self::BUILT_FILES as $pattern) {
+            $paths = glob($this->projectDir.'/'.$pattern) ?: [];
+            sort($paths);
+            foreach ($paths as $path) {
+                $hashes .= basename($path).(string) md5_file($path);
             }
         }
 

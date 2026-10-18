@@ -30,17 +30,17 @@
                         <span>{{ "Enable AI integration"|trans({}, 'admin') }}</span>
                     </label>
                     <p class="description">
-                        {{ "Turns on the AI-powered workout assistant, which can then be used from the command line."|trans({}, 'admin') }}
+                        {{ "Turns on the AI coach, which answers from your own health and training data. Your data goes to the AI provider below; with a local model it stays on your network."|trans({}, 'admin') }}
                     </p>
                 </div>
                 <div class="flex flex-col gap-4" data-dependent-on="aiEnabled" data-visible-when="checked">
                     <div>
                         <label class="flex items-center gap-2 mt-0! font-normal cursor-pointer">
                             <input type="checkbox" name="data[ai][enableUI]" value="1" {{ (ai.enableUI ?? false) ? 'checked' : '' }}>
-                            <span>{{ "Show the workout assistant in the UI."|trans({}, 'admin') }}</span>
+                            <span>{{ "Show the AI coach in the app."|trans({}, 'admin') }}</span>
                         </label>
                         <p class="description">
-                            {{ "Also exposes the workout assistant in the web interface. Requires the AI integration above to be enabled. Use caution when enabling this if your app is publicly accessible."|trans({}, 'admin') }}
+                            {{ "Adds the AI coach to the profile menu. Without it, the coach is only available from the command line."|trans({}, 'admin') }}
                         </p>
                     </div>
                     <div>
@@ -83,7 +83,7 @@
                  data-dependent-on="aiEnabled" data-visible-when="checked">
                 <label class="mt-0!">{{ "Chat commands"|trans({}, 'admin') }}</label>
                 <p class="description mb-2">
-                    {{ "Shortcuts a user can pick in the workout assistant. Do not prefix the command with a slash."|trans({}, 'admin') }}
+                    {{ "Shortcuts a user can pick in the AI coach. Do not prefix the command with a slash."|trans({}, 'admin') }}
                 </p>
                 <div class="flex flex-col gap-3"
                      data-repeater-list

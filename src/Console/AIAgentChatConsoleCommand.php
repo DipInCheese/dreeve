@@ -46,7 +46,7 @@ final class AIAgentChatConsoleCommand extends Command
 
         $io->block(
             messages: [
-                "Hi 👋, I'm Mark, your personal workout assistant.".PHP_EOL.
+                "Hi 👋, I'm your AI coach for health and training.".PHP_EOL.
                 'Feel free to ask me anything—whether it’s about your training history or tips to improve!',
                 'Type "exit" to close the conversation.',
             ],
@@ -63,7 +63,7 @@ final class AIAgentChatConsoleCommand extends Command
             }
 
             if ('exit' === $userInput) {
-                $output->writeln('<comment><Mark></comment> Mkey, bye 👋');
+                $output->writeln('<comment><Coach></comment> Mkey, bye 👋');
                 break;
             }
 
@@ -74,7 +74,7 @@ final class AIAgentChatConsoleCommand extends Command
                         continue;
                     }
                     if ($first) {
-                        $output->write('<comment><Mark></comment> ');
+                        $output->write('<comment><Coach></comment> ');
                         $first = false;
                     }
                     $output->write($chunk->content);
@@ -87,7 +87,7 @@ final class AIAgentChatConsoleCommand extends Command
                 }
 
                 $output->writeln('');
-                $output->writeln('<comment><Mark></comment> Oh no, I made a booboo...');
+                $output->writeln('<comment><Coach></comment> Oh no, I made a booboo...');
                 $output->writeln(sprintf(
                     '<error>%s</error>',
                     $message

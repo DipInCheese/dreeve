@@ -57,7 +57,8 @@ final readonly class MetricSnapshot
     {
         return [
             'metric' => $this->metric->value,
-            'unit' => $this->metric->unit(),
+            // Scores (sleep score, stress, Body Battery, readiness) have no unit; say what they are, or a model guesses "%".
+            'unit' => '' === $this->metric->unit() ? 'score from 0 to 100' : $this->metric->unit(),
             'average' => $this->average,
             'daysMeasured' => $this->daysMeasured,
             'normalRange' => null === $this->normalLow ? null : [$this->normalLow, $this->normalHigh],
