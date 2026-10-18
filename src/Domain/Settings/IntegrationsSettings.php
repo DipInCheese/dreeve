@@ -115,6 +115,11 @@ final readonly class IntegrationsSettings
         return $this->notifyOnSuccessfulImport;
     }
 
+    public function getAIProviderName(): string
+    {
+        return is_string($this->aiConfig['provider'] ?? null) ? $this->aiConfig['provider'] : '';
+    }
+
     public function getAIProvider(): AIProviderInterface
     {
         $providerName = $this->aiConfig['provider'];

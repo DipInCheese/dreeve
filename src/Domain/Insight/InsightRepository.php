@@ -8,5 +8,7 @@ interface InsightRepository
 {
     public function save(Insight $insight): void;
 
+    public function find(string $id): ?Insight;
+
     public function findLatest(string $type): ?Insight;
 }

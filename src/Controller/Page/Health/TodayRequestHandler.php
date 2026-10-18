@@ -13,6 +13,10 @@ use App\Domain\Health\HealthDataSet;
 use App\Domain\Health\HealthMetric;
 use App\Domain\Health\HealthRepository;
 use App\Domain\Health\MetricOverview;
+use App\Domain\Insight\Insight;
+use App\Domain\Insight\InsightProvider;
+use App\Domain\Insight\InsightRepository;
+use App\Domain\Insight\Overview\Overview;
 use App\Infrastructure\Cache\Cacheability;
 use App\Infrastructure\Cache\Context\AuthenticatedCacheContext;
 use App\Infrastructure\Cache\Context\CacheContexts;
@@ -47,6 +51,8 @@ final readonly class TodayRequestHandler
         private Clock $clock,
         private Environment $twig,
         private PageRenderer $pageRenderer,
+        private InsightRepository $insightRepository,
+        private InsightProvider $insightProvider,
     ) {
     }
 
@@ -57,7 +63,7 @@ final readonly class TodayRequestHandler
         return $this->pageRenderer->render(
             cacheability: Cacheability::for(
                 cacheKey: 'today',
-                cacheTags: CacheTags::of(RootCacheTag::HEALTH, RootCacheTag::ACTIVITIES),
+                cacheTags: CacheTags::of(RootCacheTag::HEALTH, RootCacheTag::ACTIVITIES, RootCacheTag::INSIGHTS, RootCacheTag::SETTINGS_INTEGRATIONS),
                 cacheContexts: CacheContexts::of(AuthenticatedCacheContext::class),
                 ttlInSeconds: $this->clock->getCurrentDateTimeImmutable()->getSecondsUntilMidnight(),
             ),
@@ -87,6 +93,20 @@ final readonly class TodayRequestHandler
             'latestActivity' => $this->activityRepository->findMostRecent(1)->getFirst(),
             'latestWeight' => [] === $weights ? null : reset($weights),
             'today' => $today,
+            'overview' => $this->latestOverview($today),
         ]);
+    }
+
+    /**
+     * The latest AI overview, when AI is on and it is from the last day: an older one says nothing about today.
+     */
+    private function latestOverview(\DateTimeImmutable $now): ?Overview
+    {
+        if (!$this->insightProvider->isEnabled() || !($insight = $this->insightRepository->findLatest(Overview::INSIGHT_TYPE)) instanceof Insight) {
+            return null;
+        }
+        $overview = Overview::fromInsight($insight);
+
+        return $overview instanceof Overview && $overview->writtenOn > $now->modify('-1 day') ? $overview : null;
     }
 }

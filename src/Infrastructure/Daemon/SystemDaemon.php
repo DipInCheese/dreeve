@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Daemon;
 
+use App\Console\AI\WriteOverviewConsoleCommand;
 use App\Console\Cache\PruneRenderCacheConsoleCommand;
 use App\Console\Import\RunAutomationRulesBackfillConsoleCommand;
 use App\Console\Import\RunFileImportConsoleCommand;
@@ -33,6 +34,7 @@ final class SystemDaemon implements Daemon
 
     private const string CRON_EVERY_5_MINUTES = '*/5 * * * *';
     private const string CRON_DAILY = '0 4 * * *';
+    private const string CRON_EVERY_15_MINUTES = '*/15 * * * *';
     private const float WATCH_INTERVAL_IN_SECONDS = 10.0;
 
     private bool $isImportingFiles = false;
@@ -180,6 +182,25 @@ final class SystemDaemon implements Daemon
                     clock: $this->clock,
                     output: $this->getConsoleOutput(),
                     command: sprintf('bin/console %s', PruneRenderCacheConsoleCommand::NAME),
+                );
+                $process->start();
+
+                return resolve(true);
+            }
+        );
+
+        // Writes the AI overview at 08:00, 13:00 and 20:00; the checks in between retry when the model was unreachable.
+        $extraConfiguredCronActionsOutput[] = sprintf('<info> - writeAiOverview: %s</info>', self::CRON_EVERY_15_MINUTES);
+        $actions[] = new Action(
+            key: 'writeAiOverview',
+            mutexTtl: 900,
+            expression: self::CRON_EVERY_15_MINUTES,
+            performer: function (): PromiseInterface {
+                $process = new CronProcess(
+                    cronActionId: 'writeAiOverview',
+                    clock: $this->clock,
+                    output: $this->getConsoleOutput(),
+                    command: sprintf('bin/console %s', WriteOverviewConsoleCommand::NAME),
                 );
                 $process->start();
 

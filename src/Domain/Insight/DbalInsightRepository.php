@@ -17,16 +17,28 @@ final readonly class DbalInsightRepository extends DbalRepository implements Ins
         );
     }
 
+    public function find(string $id): ?Insight
+    {
+        $row = $this->connection->fetchAssociative('SELECT * FROM Insight WHERE id = :id', ['id' => $id]);
+
+        return false === $row ? null : $this->hydrate($row);
+    }
+
     public function findLatest(string $type): ?Insight
     {
         $row = $this->connection->fetchAssociative(
-            'SELECT * FROM Insight WHERE type = :type ORDER BY periodEnd DESC, createdOn DESC LIMIT 1',
+            'SELECT * FROM Insight WHERE type = :type ORDER BY createdOn DESC LIMIT 1',
             ['type' => $type],
         );
-        if (false === $row) {
-            return null;
-        }
 
+        return false === $row ? null : $this->hydrate($row);
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     */
+    private function hydrate(array $row): Insight
+    {
         return new Insight(
             id: (string) $row['id'],
             type: (string) $row['type'],

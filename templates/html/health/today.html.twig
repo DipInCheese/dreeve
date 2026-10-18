@@ -3,6 +3,10 @@
     <span class="text-sm text-gray-500">{{ today|date('l d F Y') }}</span>
 </div>
 
+{% if overview %}
+    {% include 'html/health/ai-overview.html.twig' with {overview: overview, today: today} only %}
+{% endif %}
+
 {% if not hasHealthData %}
     <div class="mb-4 p-6 bg-white border border-gray-200 rounded-lg shadow-xs" data-health-empty-state>
         <h2 class="text-lg font-semibold text-gray-900">{{ "Your health at a glance"|trans }}</h2>
