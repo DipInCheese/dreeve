@@ -9,6 +9,7 @@ use App\Application\Import\FileImport\ImportActivityFiles\Pipeline\ImportActivit
 use App\Application\Import\FileImport\ImportActivityFiles\Pipeline\SkipDuplicateActivity;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
+use App\Domain\Activity\ImportSource;
 use App\Domain\Activity\Lap\ActivityLapRepository;
 use App\Domain\Activity\Scan\ActivityScan;
 use App\Domain\Activity\Scan\ActivityScanRepository;
@@ -22,6 +23,7 @@ use App\Domain\Import\FileImportStatus;
 use App\Domain\Import\FileParser\CouldNotParseActivityFile;
 use App\Domain\Import\FileParser\RawActivityFile;
 use App\Domain\Import\FileParser\UnsupportedFileType;
+use App\Domain\Import\SupportedFileExtension;
 use App\Domain\Import\WatchDirectory;
 use App\Infrastructure\CQRS\Command\Command;
 use App\Infrastructure\CQRS\Command\CommandHandler;
@@ -113,6 +115,23 @@ final readonly class ImportActivityFilesCommandHandler implements CommandHandler
                 $this->watchDirectory->deleteFile($filePath);
 
                 $output->writeln(sprintf('  => <error>[%d/%d] Could not import "%s": %s</error>', $delta, $countTotalFilesInWatchDirectory, $filePath->getFilename(), $e->getMessage()));
+                ++$countFailed;
+                continue;
+            } catch (\Throwable $e) {
+                // Anything unexpected: set the file aside, or it would block every import after it,
+                // the health data included, every time the import runs.
+                $this->fileImportRepository->add(FileImport::create(
+                    fileImportId: FileImportId::random(),
+                    originalFilename: $filePath->getFilename(),
+                    source: SupportedFileExtension::tryFrom($filePath->getExtension())?->getImportSource() ?? ImportSource::FIT_FILE,
+                    status: FileImportStatus::FAILED,
+                    errorMessage: $e->getMessage(),
+                    activityId: null,
+                    importedOn: $this->clock->getCurrentDateTimeImmutable(),
+                ));
+                $this->watchDirectory->moveToFailed($filePath);
+
+                $output->writeln(sprintf('  => <error>[%d/%d] Could not import "%s", moved it to watch/failed: %s</error>', $delta, $countTotalFilesInWatchDirectory, $filePath->getFilename(), $e->getMessage()));
                 ++$countFailed;
                 continue;
             }

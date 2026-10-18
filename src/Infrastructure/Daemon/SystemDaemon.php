@@ -36,6 +36,7 @@ final class SystemDaemon implements Daemon
     private const float WATCH_INTERVAL_IN_SECONDS = 10.0;
 
     private bool $isImportingFiles = false;
+    private bool $lastImportWasActivities = false;
 
     public function __construct(
         private readonly Clock $clock,
@@ -52,10 +53,15 @@ final class SystemDaemon implements Daemon
             if ($this->isImportingFiles) {
                 return;
             }
-            // One import at a time: activities first, then health data.
-            if ($this->watchDirectory->hasFilesThatCanBeProcessed()) {
+            // One import at a time. When both activities and health data are waiting they take turns,
+            // so a steady stream of activity files never holds the health data back.
+            $hasActivities = $this->watchDirectory->hasFilesThatCanBeProcessed();
+            $hasHealthData = $this->healthInbox->hasFiles();
+            if ($hasActivities && (!$hasHealthData || !$this->lastImportWasActivities)) {
+                $this->lastImportWasActivities = true;
                 $this->startFileImport('importNewFiles');
-            } elseif ($this->healthInbox->hasFiles()) {
+            } elseif ($hasHealthData) {
+                $this->lastImportWasActivities = false;
                 $this->startImport('importHealthData', RunHealthImportConsoleCommand::NAME);
             }
         });

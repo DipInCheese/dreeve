@@ -193,14 +193,25 @@ class Syncer:
     def run_forever(self, stop: threading.Event) -> None:
         """Checks every minute who is due. Users are synced one after the other, to stay gentle on Garmin."""
         while not stop.is_set():
-            for user in self.storage.users_with_a_garmin_session():
-                if stop.is_set():
-                    break
-                if self.is_due(user):
-                    self.sync(user)
-                    # Spreads requests out, so many users never hit Garmin at the same moment.
-                    stop.wait(random.uniform(5, 30))
+            try:
+                self._sync_who_is_due(stop)
+            except Exception as error:  # noqa: BLE001 - the loop must survive anything, or syncing stops for good
+                log.exception("sync loop error, trying again in a minute: %s", error)
             stop.wait(60)
+
+    def _sync_who_is_due(self, stop: threading.Event) -> None:
+        for user in self.storage.users_with_a_garmin_session():
+            if stop.is_set():
+                return
+            try:
+                due = self.is_due(user)
+            except Exception as error:  # noqa: BLE001 - e.g. a damaged state file: skip this user, keep the others going
+                log.exception("[%s] could not check when to sync: %s", user, error)
+                continue
+            if due:
+                self.sync(user)
+                # Spreads requests out, so many users never hit Garmin at the same moment.
+                stop.wait(random.uniform(5, 30))
 
 
 def _has_data(health: dict) -> bool:

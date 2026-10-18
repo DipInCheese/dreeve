@@ -25,6 +25,16 @@ class WatchDirectoryTest extends TestCase
         $this->assertTrue($this->watchDirectory->exists());
     }
 
+    public function testAFileThatBrokeTheImportIsSetAsideAndNoLongerWaits(): void
+    {
+        $this->filesystem->write('watch/broken.fit', 'raw-fit-bytes');
+
+        $this->watchDirectory->moveToFailed(Path::fromString('/var/www/watch/broken.fit'));
+
+        $this->assertFalse($this->watchDirectory->hasFilesThatCanBeProcessed());
+        $this->assertSame('raw-fit-bytes', $this->filesystem->read('watch/failed/broken.fit'));
+    }
+
     public function testExistsWhenFolderIsAbsent(): void
     {
         $this->assertFalse($this->watchDirectory->exists());

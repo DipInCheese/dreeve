@@ -1,5 +1,6 @@
 import io
 import json
+import threading
 import tempfile
 import unittest
 import zipfile
@@ -276,6 +277,26 @@ class SyncTest(HealthSyncTestCase):
         self.assertFalse(self.syncer.is_due("alice"))
         self.now += timedelta(minutes=61)
         self.assertTrue(self.syncer.is_due("alice"))
+
+    def test_the_hourly_loop_keeps_syncing_after_the_first_time(self):
+        self.connect()
+        first = self.call("GET", "/v1/users/alice/status")[1]["lastSyncAt"]
+        stop = threading.Event()
+
+        self.now += timedelta(minutes=61)
+        self.syncer._sync_who_is_due(stop)
+
+        self.assertNotEqual(first, self.call("GET", "/v1/users/alice/status")[1]["lastSyncAt"])
+
+    def test_one_damaged_state_file_does_not_stop_the_loop(self):
+        self.connect()
+        (self.data / "alice" / "garmin" / "state.json").write_text('{"last_attempt_at": "not a date"}')
+        stop = threading.Event()
+
+        # Neither raises: the loop thread must never die, or syncing stops for good.
+        self.syncer._sync_who_is_due(stop)
+        stop.set()
+        self.syncer.run_forever(stop)
 
 
 class HealthSyncTest(HealthSyncTestCase):

@@ -14,6 +14,7 @@ final readonly class WatchDirectory
 {
     private const string FOLDER_NAME = 'watch';
     private const string STAGING_FOLDER_NAME = self::FOLDER_NAME.'/.uploads';
+    public const string FAILED_FOLDER_NAME = self::FOLDER_NAME.'/failed';
 
     public function __construct(
         private DataDir $dataDir,
@@ -68,6 +69,19 @@ final readonly class WatchDirectory
         $this->defaultStorage->move($stagedPath, self::FOLDER_NAME.'/'.$availableFilename);
 
         return $availableFilename;
+    }
+
+    /**
+     * Moves a file that broke the import out of the way, so it can not block the files after it.
+     * It is kept, for a look later.
+     */
+    public function moveToFailed(Path $filePath): void
+    {
+        $target = self::FAILED_FOLDER_NAME.'/'.$filePath->getBasename();
+        if ($this->defaultStorage->fileExists($target)) {
+            $this->defaultStorage->delete($target);
+        }
+        $this->defaultStorage->move(self::FOLDER_NAME.'/'.$filePath->getBasename(), $target);
     }
 
     public function deleteFile(Path $filePath): void
