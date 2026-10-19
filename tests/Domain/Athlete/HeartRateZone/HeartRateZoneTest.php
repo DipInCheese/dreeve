@@ -96,11 +96,11 @@ class HeartRateZoneTest extends TestCase
     public static function provideTestColorData(): array
     {
         return [
-            [HeartRateZone::ONE, '#DF584A'],
-            [HeartRateZone::TWO, '#D63522'],
-            [HeartRateZone::THREE, '#BD2D22'],
-            [HeartRateZone::FOUR, '#942319'],
-            [HeartRateZone::FIVE, '#6A1009'],
+            [HeartRateZone::ONE, '#8C949C'],
+            [HeartRateZone::TWO, '#2B88D8'],
+            [HeartRateZone::THREE, '#45A847'],
+            [HeartRateZone::FOUR, '#F08C1C'],
+            [HeartRateZone::FIVE, '#E0322B'],
         ];
     }
 

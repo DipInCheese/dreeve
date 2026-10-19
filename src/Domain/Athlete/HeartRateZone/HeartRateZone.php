@@ -13,14 +13,16 @@ final readonly class HeartRateZone
     public const string FIVE = 'zone5';
 
     /**
+     * Garmin's zone colours: grey, blue, green, orange, red.
+     *
      * @var array<string, string>
      */
     public const array COLORS = [
-        self::ONE => '#DF584A',
-        self::TWO => '#D63522',
-        self::THREE => '#BD2D22',
-        self::FOUR => '#942319',
-        self::FIVE => '#6A1009',
+        self::ONE => '#8C949C',
+        self::TWO => '#2B88D8',
+        self::THREE => '#45A847',
+        self::FOUR => '#F08C1C',
+        self::FIVE => '#E0322B',
     ];
 
     public function __construct(

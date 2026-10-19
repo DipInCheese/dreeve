@@ -68,23 +68,23 @@ class CombinedStreamProfileChartsTest extends ContainerTestCase
                         ['xAxis' => 'max', 'yAxis' => 100],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 112, 'itemStyle' => ['color' => '#DF584A', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 112, 'itemStyle' => ['color' => '#8C949C', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 100],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 131, 'itemStyle' => ['color' => '#D63522', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 131, 'itemStyle' => ['color' => '#2B88D8', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 112],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 149, 'itemStyle' => ['color' => '#BD2D22', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 149, 'itemStyle' => ['color' => '#45A847', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 131],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 168, 'itemStyle' => ['color' => '#942319', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 168, 'itemStyle' => ['color' => '#F08C1C', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 149],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 183, 'itemStyle' => ['color' => '#6A1009', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 183, 'itemStyle' => ['color' => '#E0322B', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 168],
                     ],
                 ],
@@ -136,11 +136,11 @@ class CombinedStreamProfileChartsTest extends ContainerTestCase
                         ['xAxis' => 'max', 'yAxis' => 150],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 168, 'itemStyle' => ['color' => '#942319', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 168, 'itemStyle' => ['color' => '#F08C1C', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 150],
                     ],
                     [
-                        ['xAxis' => 'min', 'yAxis' => 178, 'itemStyle' => ['color' => '#6A1009', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
+                        ['xAxis' => 'min', 'yAxis' => 178, 'itemStyle' => ['color' => '#E0322B', 'opacity' => 0.35], 'emphasis' => ['disabled' => true]],
                         ['xAxis' => 'max', 'yAxis' => 168],
                     ],
                 ],
