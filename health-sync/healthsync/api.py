@@ -23,7 +23,7 @@ from .sync import SINCE_OPTIONS, Syncer, since_date
 
 log = logging.getLogger("health-sync")
 
-ROUTE = re.compile(r"^/v1/users/([^/]+)/(login|mfa|status|sync|disconnect)$")
+ROUTE = re.compile(r"^/v1/users/([^/]+)/(login|mfa|status|sync|weigh-ins|disconnect)$")
 MFA_TIMEOUT = 300
 MAX_LOGIN_ATTEMPTS = 5
 LOGIN_ATTEMPT_WINDOW = 900
@@ -85,6 +85,7 @@ class HealthSyncApi:
                 "mfa": self._finish_mfa,
                 "status": self._status,
                 "sync": self._sync,
+                "weigh-ins": self._refetch_weigh_ins,
                 "disconnect": self._disconnect,
             }
             return handlers[action](user, payload)
@@ -193,6 +194,16 @@ class HealthSyncApi:
     def _sync(self, user: str, payload: dict) -> tuple[HTTPStatus, dict]:
         if not self.storage.has_session(user):
             raise ApiError(HTTPStatus.CONFLICT, "not_connected", "Garmin is not connected.")
+        self.run_in_background(lambda: self.syncer.sync(user))
+        return HTTPStatus.ACCEPTED, {"status": "started"}
+
+    def _refetch_weigh_ins(self, user: str, payload: dict) -> tuple[HTTPStatus, dict]:
+        """Fetches every weigh-in again, e.g. after an older scale history was copied to Garmin."""
+        if not self.storage.has_session(user):
+            raise ApiError(HTTPStatus.CONFLICT, "not_connected", "Garmin is not connected.")
+        state = self.storage.read_state(user)
+        state.refetch_weigh_ins = True
+        self.storage.write_state(user, state)
         self.run_in_background(lambda: self.syncer.sync(user))
         return HTTPStatus.ACCEPTED, {"status": "started"}
 

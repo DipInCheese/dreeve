@@ -26,6 +26,10 @@ HEALTH_DAYS_PER_SYNC = 14
 HEALTH_PAUSE_IN_SECONDS = 1.0
 # Older health data is rarely useful and costs four requests a day to fetch.
 MAX_HEALTH_HISTORY = timedelta(days=730)
+# Weigh-ins can reach Garmin days late (a scale app syncing later, a bridge like eufy-sync): one request covers
+# a month, so every sync looks back that far. Fetching them all again goes per year, newest first.
+WEIGH_IN_LOOKBACK = timedelta(days=30)
+WEIGH_IN_CHUNK = timedelta(days=365)
 MAX_BACKOFF = timedelta(hours=12)
 # Garmin rewrites activities for a while after they are recorded (e.g. late uploads from the watch).
 OVERLAP = timedelta(days=2)
@@ -106,6 +110,7 @@ class Syncer:
                 self.pause(DOWNLOAD_PAUSE_IN_SECONDS)
             if self._sync_health(user, account, state, today):
                 state.backfilling = True
+            self._sync_weigh_ins(user, account, state, today)
             state.last_sync_at = started.isoformat(timespec="seconds")
             state.last_error = None
             state.consecutive_failures = 0
@@ -143,6 +148,28 @@ class Syncer:
             self.storage.write_state(user, state)
 
         return date.fromisoformat(state.health_oldest_date) > since
+
+    def _sync_weigh_ins(self, user: str, account, state: SyncState, today: date) -> None:
+        """The weigh-ins of the last month on every sync; all of them when the app asked for it."""
+        oldest = today - WEIGH_IN_LOOKBACK
+        if state.refetch_weigh_ins:
+            oldest = max(self._since(state, today), today - MAX_HEALTH_HISTORY)
+        end = today
+        while end >= oldest:
+            start = max(oldest, end - WEIGH_IN_CHUNK + timedelta(days=1))
+            self.storage.drop_health(user, f"garmin-weigh-ins-{start.isoformat()}-{end.isoformat()}.json", {
+                "source": "garmin",
+                "kind": "range",
+                "start": start.isoformat(),
+                "end": end.isoformat(),
+                "fetchedAt": self.now().isoformat(timespec="seconds"),
+                **account.weigh_ins(start, end),
+            })
+            self.pause(HEALTH_PAUSE_IN_SECONDS)
+            end = start - timedelta(days=1)
+        if state.refetch_weigh_ins:
+            state.refetch_weigh_ins = False
+            log.info("[%s] fetched all weigh-ins again", user)
 
     def _fetch_health(self, user: str, account, start: date, end: date) -> bool:
         fetched_at = self.now().isoformat(timespec="seconds")

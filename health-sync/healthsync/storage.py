@@ -39,6 +39,8 @@ class SyncState:
     # The oldest day of health data fetched so far. The history is fetched backwards from today.
     health_oldest_date: str | None = None
     consecutive_failures: int = 0
+    # Set from the app: fetch every weigh-in again on the next sync (e.g. after an old scale history reached Garmin).
+    refetch_weigh_ins: bool = False
     activities_synced: int = 0
     synced_activity_ids: list[int] = field(default_factory=list)
 

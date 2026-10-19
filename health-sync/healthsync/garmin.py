@@ -126,6 +126,12 @@ class _Account:
             "bodyComposition": self._optional(lambda: self.client.get_body_composition(start.isoformat(), end.isoformat())),
         }
 
+    def weigh_ins(self, start: date, end: date) -> dict[str, Any]:
+        """Only the weigh-ins of a date range, in one request."""
+        return {
+            "bodyComposition": self._optional(lambda: self.client.get_body_composition(start.isoformat(), end.isoformat())),
+        }
+
     def _optional(self, request: Any) -> Any:
         """Not every watch records everything: data Garmin does not have for a day is simply absent."""
         from garminconnect import GarminConnectNotFoundError

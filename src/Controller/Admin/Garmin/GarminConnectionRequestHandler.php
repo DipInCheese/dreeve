@@ -127,6 +127,23 @@ final readonly class GarminConnectionRequestHandler
         return $this->redirectWithMessage($request, 'success', $this->translator->trans('Syncing with Garmin. New activities show up as soon as they are fetched.', [], 'admin'));
     }
 
+    #[Route(path: '/admin/garmin/weigh-ins', name: 'admin_garmin_weigh_ins', methods: ['POST'], priority: 10)]
+    public function refetchWeighIns(Request $request): Response
+    {
+        $this->guardAvailable();
+        if (!$this->hasValidCsrfToken($request)) {
+            return $this->redirectWithMessage($request, 'error', $this->translator->trans('Your form expired, please try again.', [], 'admin'));
+        }
+
+        try {
+            $this->healthSync->refetchWeighIns();
+        } catch (HealthSyncFailed $failure) {
+            return $this->redirectWithMessage($request, 'error', $this->explain($failure));
+        }
+
+        return $this->redirectWithMessage($request, 'success', $this->translator->trans('Fetching all your weigh-ins from Garmin again. They show up within a few minutes.', [], 'admin'));
+    }
+
     #[Route(path: '/admin/garmin/disconnect', name: 'admin_garmin_disconnect', methods: ['POST'], priority: 10)]
     public function disconnect(Request $request): Response
     {

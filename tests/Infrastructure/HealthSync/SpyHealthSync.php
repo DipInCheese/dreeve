@@ -52,6 +52,12 @@ final class SpyHealthSync implements HealthSync
         $this->failIfAsked();
     }
 
+    public function refetchWeighIns(): void
+    {
+        $this->calls[] = ['refetchWeighIns', []];
+        $this->failIfAsked();
+    }
+
     public function disconnect(): void
     {
         $this->calls[] = ['disconnect', []];

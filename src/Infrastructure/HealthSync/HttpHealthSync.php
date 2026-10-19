@@ -73,6 +73,11 @@ final readonly class HttpHealthSync implements HealthSync
         $this->request('POST', 'sync');
     }
 
+    public function refetchWeighIns(): void
+    {
+        $this->request('POST', 'weigh-ins');
+    }
+
     public function disconnect(): void
     {
         $this->request('POST', 'disconnect');

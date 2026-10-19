@@ -45,6 +45,10 @@ class FakeAccount:
     def range_health(self, start, end):
         return {"maxMetrics": [], "bodyComposition": None}
 
+    def weigh_ins(self, start, end):
+        self.garmin.weigh_in_ranges.append((start, end))
+        return {"bodyComposition": None}
+
 
 class FakeGarmin:
     def __init__(self):
@@ -56,6 +60,7 @@ class FakeGarmin:
         self.activities = []
         self.without_fit = set()
         self.requested = []
+        self.weigh_in_ranges = []
         self.health_days = set()
         self.health_requested = []
 
@@ -302,6 +307,28 @@ class SyncTest(HealthSyncTestCase):
 
 
 class HealthSyncTest(HealthSyncTestCase):
+    def test_every_sync_looks_back_a_month_for_weigh_ins(self):
+        self.connect()
+
+        self.assertEqual([(date(2026, 9, 16), date(2026, 10, 16))], self.garmin.weigh_in_ranges)
+        self.assertIn("garmin-weigh-ins-2026-09-16-2026-10-16.json", self.inbox_files())
+
+    def test_the_app_can_ask_for_every_weigh_in_again(self):
+        self.connect(since="all")
+        self.garmin.weigh_in_ranges.clear()
+
+        status, body = self.call("POST", "/v1/users/alice/weigh-ins")
+        for job in self.background:
+            job()
+
+        self.assertEqual((HTTPStatus.ACCEPTED, {"status": "started"}), (status, body))
+        # Back to the start of the health history (two years), a year per request, newest first.
+        self.assertEqual(
+            [(date(2025, 10, 17), date(2026, 10, 16)), (date(2024, 10, 17), date(2025, 10, 16)), (date(2024, 10, 16), date(2024, 10, 16))],
+            self.garmin.weigh_in_ranges,
+        )
+        self.assertFalse(self.storage.read_state("alice").refetch_weigh_ins, "Only once")
+
     def test_the_day_starts_at_midnight_in_the_users_time_zone(self):
         previous = os.environ.get("TZ")
         os.environ["TZ"] = "Europe/Brussels"

@@ -160,6 +160,18 @@ class GarminConnectionRequestHandlerTest extends AdminWebTestCase
         $this->assertSame(['syncNow', 'disconnect'], array_column($this->healthSync->calls, 0));
     }
 
+    public function testFetchingAllWeighInsAgain(): void
+    {
+        $this->healthSync->status = ['connected' => true];
+        $crawler = $this->client->request('GET', '/admin/garmin');
+
+        $this->client->submit($crawler->filter('form[data-refetch-weigh-ins]')->form());
+
+        $this->assertResponseRedirects('/admin/garmin');
+        $this->assertFlash('Fetching all your weigh-ins from Garmin again.');
+        $this->assertSame(['refetchWeighIns'], array_column($this->healthSync->calls, 0));
+    }
+
     public function testItSaysSoWhenTheServiceCanNotBeReached(): void
     {
         $this->healthSync->failure = HealthSyncFailed::unreachable();

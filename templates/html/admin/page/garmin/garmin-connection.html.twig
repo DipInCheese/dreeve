@@ -57,6 +57,11 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
                         <button type="submit" class="btn--primary">{{ "Sync now"|trans({}, 'admin') }}</button>
                     </form>
+                    {# For weigh-ins that reached Garmin later, e.g. an older scale history copied there. #}
+                    <form method="post" action="{{ relativeUrl(path('admin_garmin_weigh_ins')) }}" data-refetch-weigh-ins>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
+                        <button type="submit">{{ "Fetch all weigh-ins again"|trans({}, 'admin') }}</button>
+                    </form>
                     <form method="post" action="{{ relativeUrl(path('admin_garmin_disconnect')) }}">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrfTokenId) }}">
                         <button type="submit" class="btn--danger">{{ "Disconnect Garmin"|trans({}, 'admin') }}</button>

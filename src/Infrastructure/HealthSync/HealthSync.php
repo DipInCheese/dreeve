@@ -34,6 +34,13 @@ interface HealthSync
     public function syncNow(): void;
 
     /**
+     * Fetches every weigh-in from Garmin again, e.g. after an older scale history was copied there.
+     *
+     * @throws HealthSyncFailed
+     */
+    public function refetchWeighIns(): void;
+
+    /**
      * @throws HealthSyncFailed
      */
     public function disconnect(): void;
