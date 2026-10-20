@@ -68,6 +68,21 @@ class BaselineCalculatorTest extends TestCase
         $this->assertSame(Comparison::WITHIN, $baseline->compare());
     }
 
+    public function testANormalRangeStaysWithinWhatTheMetricCanBe(): void
+    {
+        $values = [];
+        for ($day = 1; $day <= 20; ++$day) {
+            // A Body Battery that swings between 45 and 100.
+            $values[sprintf('2026-09-%02d', $day)] = 0 === $day % 2 ? 100 : 45;
+        }
+        $values['2026-09-21'] = 63;
+
+        $baseline = new BaselineCalculator()->calculate($values, highest: 100.0);
+
+        $this->assertLessThanOrEqual(100.0, $baseline->normalHigh);
+        $this->assertGreaterThanOrEqual(0.0, $baseline->normalLow);
+    }
+
     public function testMissingDaysAreIgnored(): void
     {
         $this->assertFalse(new BaselineCalculator()->calculate(['2026-09-01' => null])->hasLatest());

@@ -473,6 +473,7 @@ Tasks: Taken
 'The code took too long. Log in again to get a new one.': 'The code took too long. Log in again to get a new one.'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'De kleur van de routes op elke kaart. Aanvaardt elke geldige CSS-kleur, bv. red, #FF0000 of rgb(255,0,0).'
 'The current name of the activity': 'De huidige naam van de activiteit'
+'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.': 'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.'
 'The device used to record the activity': 'Het toestel waarmee de activiteit geregistreerd werd'
 'The distance': 'De afstand'
 'The elapsed time': 'De verstreken tijd'
@@ -525,6 +526,7 @@ To: Tot
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'Totale grootte is groter dan {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Volg het gebruik van je uitrusting op basis van je activiteiten en blijf op de hoogte van onderhoud op basis van gebruik en tijd.'
+'Training days': 'Training days'
 'Training metrics': 'Training metrics'
 Tuesday: Dinsdag
 'Turn gear maintenance tracking on or off.': 'Het opvolgen van onderhoud van uitrusting in- of uitschakelen.'

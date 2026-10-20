@@ -104,6 +104,17 @@ enum HealthMetric: string implements TranslatableInterface
         return in_array($this, [self::SLEEP_DURATION, self::DEEP_SLEEP, self::REM_SLEEP], true);
     }
 
+    /**
+     * The highest value the metric can have, for scores; null when there is no ceiling.
+     */
+    public function highestValue(): ?float
+    {
+        return match ($this) {
+            self::SLEEP_SCORE, self::STRESS, self::BODY_BATTERY_HIGH, self::BODY_BATTERY_LOW, self::TRAINING_READINESS => 100.0,
+            default => null,
+        };
+    }
+
     public function decimals(): int
     {
         return match ($this) {

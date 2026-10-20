@@ -30,7 +30,7 @@ final readonly class MetricOverview
     public static function for(HealthMetric $metric, HealthDataSet $data): self
     {
         $series = $metric->seriesFrom($data);
-        $baseline = new BaselineCalculator()->calculate($series);
+        $baseline = new BaselineCalculator()->calculate($series, $metric->highestValue());
 
         // For HRV, Garmin has its own balanced range for you, based on weeks of overnight readings.
         if (HealthMetric::HRV === $metric && null !== $baseline->latestDay) {

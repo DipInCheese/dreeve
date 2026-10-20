@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Domain\Insight\Overview;
 
 use App\Domain\Activity\ActivityRepository;
+use App\Domain\Activity\DailyTrainingLoad;
 use App\Domain\Health\HealthRepository;
 use App\Domain\Health\Snapshot\HealthSnapshotBuilder;
+use App\Domain\Settings\SettingsRepository;
+use App\Infrastructure\ValueObject\Time\DateRange;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 
 /**
@@ -19,6 +22,8 @@ final readonly class OverviewFacts
         private HealthSnapshotBuilder $healthSnapshotBuilder,
         private HealthRepository $healthRepository,
         private ActivityRepository $activityRepository,
+        private DailyTrainingLoad $dailyTrainingLoad,
+        private SettingsRepository $settingsRepository,
     ) {
     }
 
@@ -69,8 +74,51 @@ final readonly class OverviewFacts
                 'hrvStatus' => $hrv?->status,
                 'trainingReadiness' => $fitness?->trainingReadiness,
             ],
+            'training' => $this->training($now),
             'last7Days' => $this->healthSnapshotBuilder->lastDays(7, $now)->toArray(),
             'scoresAreFrom0To100' => ['sleepScore', 'averageStress', 'bodyBattery', 'trainingReadiness'],
+        ];
+    }
+
+    /**
+     * The user's plan for today and how hard the last week was, so advice fits both: after a hard
+     * session, or on a planned rest day, recovery comes first.
+     *
+     * @return array<string, mixed>
+     */
+    private function training(SerializableDateTime $now): array
+    {
+        $general = $this->settingsRepository->general();
+        $weekAgo = SerializableDateTime::fromString($now->modify('-6 days')->format('Y-m-d 00:00:00'));
+        $loadPerDay = $this->dailyTrainingLoad->calculateForDateRange(DateRange::fromDates($weekAgo, $now));
+
+        $recent = [];
+        foreach ($this->activityRepository->findByDateRange($weekAgo, $now) as $activity) {
+            $day = $activity->getStartDate()->format('Y-m-d');
+            $recent[] = [
+                'day' => $day,
+                'weekday' => $activity->getStartDate()->format('l'),
+                'daysAgo' => (int) SerializableDateTime::fromString($day)->diff(SerializableDateTime::fromString($now->format('Y-m-d')))->days,
+                'name' => $activity->getName(),
+                'sport' => $activity->getSportType()->value,
+                'minutes' => round($activity->getMovingTimeInSeconds() / 60),
+                'distanceInKm' => round($activity->getDistance()->toFloat(), 1),
+                'averageHeartRate' => $activity->getAverageHeartRate(),
+            ];
+        }
+        usort($recent, static fn (array $a, array $b): int => $a['daysAgo'] <=> $b['daysAgo']);
+
+        $lastActivity = $this->activityRepository->findMostRecent(1)->getFirst();
+
+        return [
+            'today' => $now->format('l'),
+            // null when the user did not set training days.
+            'todayIsAPlannedRestDay' => $general->isPlannedRestDay($now),
+            'plannedTrainingDays' => $general->getTrainingDays(),
+            'daysSinceLastActivity' => null === $lastActivity ? null : (int) SerializableDateTime::fromString($lastActivity->getStartDate()->format('Y-m-d'))->diff(SerializableDateTime::fromString($now->format('Y-m-d')))->days,
+            // Per day, about 100 is an hour at threshold effort; 0 is a day without training.
+            'trainingLoadPerDay' => $loadPerDay,
+            'activitiesLast7Days' => $recent,
         ];
     }
 

@@ -12,6 +12,8 @@ use App\Domain\Insight\Overview\OverviewFacts;
 use App\Domain\Insight\Overview\OverviewSlot;
 use App\Domain\Insight\Overview\OverviewWriter;
 use App\Domain\Insight\WrittenInsight;
+use App\Domain\Settings\SettingsGroup;
+use App\Domain\Settings\SettingsRepository;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use App\Tests\ContainerTestCase;
 
@@ -37,6 +39,21 @@ class OverviewWriterTest extends ContainerTestCase
         $this->assertSame('afternoon', $this->provider->lastFacts['moment']);
         $this->assertArrayHasKey('metrics', $this->provider->lastFacts['last7Days']);
         $this->assertStringContainsString('early afternoon', $this->provider->lastInstructions);
+    }
+
+    public function testTheModelKnowsTodayIsAPlannedRestDay(): void
+    {
+        $this->seedToday();
+        $settings = $this->getContainer()->get(SettingsRepository::class);
+        $settings->saveGroup(SettingsGroup::GENERAL, [...$settings->findGroup(SettingsGroup::GENERAL), 'trainingDays' => ['monday', 'wednesday']]);
+
+        // 2026-10-18 is a Sunday.
+        $this->writer->write(OverviewSlot::MORNING, SerializableDateTime::fromString('2026-10-18 08:00:00'));
+
+        $this->assertTrue($this->provider->lastFacts['training']['todayIsAPlannedRestDay']);
+        $this->assertSame(['monday', 'wednesday'], $this->provider->lastFacts['training']['plannedTrainingDays']);
+        $this->assertArrayHasKey('trainingLoadPerDay', $this->provider->lastFacts['training']);
+        $this->assertStringContainsString('rest day', $this->provider->lastInstructions);
     }
 
     public function testNothingIsDueWhenAiIsOff(): void

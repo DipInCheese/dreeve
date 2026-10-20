@@ -15,8 +15,11 @@ use App\Domain\Ftp\FtpHistory;
 
 final readonly class GeneralSettings
 {
+    public const array WEEKDAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
     /**
      * @param array<string, mixed> $weightHistory
+     * @param list<string>         $trainingDays
      */
     private function __construct(
         private ?AppSubTitle $appSubTitle,
@@ -25,6 +28,7 @@ final readonly class GeneralSettings
         private HeartRateZoneConfiguration $heartRateZoneConfiguration,
         private FtpHistory $ftpHistory,
         private array $weightHistory,
+        private array $trainingDays,
     ) {
     }
 
@@ -79,6 +83,7 @@ final readonly class GeneralSettings
             heartRateZoneConfiguration: HeartRateZoneConfiguration::fromArray($data['heartRateZones'] ?? []),
             ftpHistory: FtpHistory::fromArray($data['ftpHistory'] ?? []),
             weightHistory: $data['weightHistory'] ?? [],
+            trainingDays: array_values(array_intersect(self::WEEKDAYS, is_array($data['trainingDays'] ?? null) ? $data['trainingDays'] : [])),
         );
     }
 
@@ -115,5 +120,28 @@ final readonly class GeneralSettings
     public function getWeightHistory(): array
     {
         return $this->weightHistory;
+    }
+
+    /**
+     * The weekdays the user plans to train ("monday", ...); the other days are rest days.
+     * Empty when the user did not say: then there is no plan to follow.
+     *
+     * @return list<string>
+     */
+    public function getTrainingDays(): array
+    {
+        return $this->trainingDays;
+    }
+
+    /**
+     * Whether the day is a planned rest day, or null when the user has no plan.
+     */
+    public function isPlannedRestDay(\DateTimeInterface $day): ?bool
+    {
+        if ([] === $this->trainingDays) {
+            return null;
+        }
+
+        return !in_array(strtolower($day->format('l')), $this->trainingDays, true);
     }
 }

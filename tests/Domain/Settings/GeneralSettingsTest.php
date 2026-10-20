@@ -28,6 +28,20 @@ class GeneralSettingsTest extends TestCase
         ];
     }
 
+    public function testTheTrainingDaysMakeTheOtherDaysRestDays(): void
+    {
+        $settings = GeneralSettings::fromArray([...self::validData(), 'trainingDays' => ['monday', 'thursday', 'not-a-day']]);
+
+        $this->assertSame(['monday', 'thursday'], $settings->getTrainingDays());
+        $this->assertFalse($settings->isPlannedRestDay(new \DateTimeImmutable('2026-10-19')), 'A Monday');
+        $this->assertTrue($settings->isPlannedRestDay(new \DateTimeImmutable('2026-10-20')), 'A Tuesday');
+    }
+
+    public function testWithoutTrainingDaysThereIsNoPlan(): void
+    {
+        $this->assertNull(GeneralSettings::fromArray(self::validData())->isPlannedRestDay(new \DateTimeImmutable('2026-10-20')));
+    }
+
     public function testItBuildsTheAthleteFromTheSettings(): void
     {
         $athlete = GeneralSettings::fromArray(self::validData())->getAthlete();

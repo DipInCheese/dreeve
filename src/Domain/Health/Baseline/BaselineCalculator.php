@@ -19,8 +19,9 @@ final readonly class BaselineCalculator
 
     /**
      * @param array<string, int|float|null> $valuesPerDay keyed by day (Y-m-d)
+     * @param float|null                    $highest      the highest possible value, e.g. 100 for a score
      */
-    public function calculate(array $valuesPerDay): Baseline
+    public function calculate(array $valuesPerDay, ?float $highest = null): Baseline
     {
         $values = array_filter($valuesPerDay, static fn (int|float|null $value): bool => null !== $value);
         if ([] === $values) {
@@ -47,8 +48,9 @@ final readonly class BaselineCalculator
             $median = $this->median($history);
             $deviation = $this->median(array_map(static fn (int|float $value): float => abs($value - $median), $history));
             $spread = max($deviation * self::MAD_TO_STANDARD_DEVIATION, abs($median) * self::MINIMUM_SPREAD_RATIO);
-            $normalLow = round($median - $spread, 1);
-            $normalHigh = round($median + $spread, 1);
+            // A normal range never goes past what the metric can be: no Body Battery of 103, no negative minutes.
+            $normalLow = round(max(0.0, $median - $spread), 1);
+            $normalHigh = round(null === $highest ? $median + $spread : min($highest, $median + $spread), 1);
         }
 
         return new Baseline(

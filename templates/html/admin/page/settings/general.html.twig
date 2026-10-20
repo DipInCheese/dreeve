@@ -37,6 +37,19 @@
                     athlete: settings,
                 } only %}
             </div>
+            <fieldset class="mt-6 border-t border-gray-200 pt-6" data-training-days>
+                <legend class="text-sm font-medium text-gray-700">{{ "Training days"|trans({}, 'admin') }}</legend>
+                <p class="description">{{ "The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout."|trans({}, 'admin') }}</p>
+                {% set trainingDays = settings.trainingDays ?? [] %}
+                <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1">
+                    {% for weekday in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+                        <label class="flex items-center gap-2 mt-0! font-normal">
+                            <input type="checkbox" name="data[trainingDays][]" value="{{ weekday }}" {{ weekday in trainingDays ? 'checked' : '' }}>
+                            <span>{{ weekday|capitalize|trans({}, 'admin') }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
             <div class="mt-6 flex flex-col gap-6 border-t border-gray-200 pt-6">
                 {{ editor.historyEditor(
                     'data[weightHistory]',

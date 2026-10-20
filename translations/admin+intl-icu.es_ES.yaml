@@ -473,6 +473,7 @@ Tasks: Tareas
 'The code took too long. Log in again to get a new one.': 'The code took too long. Log in again to get a new one.'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'El color de las rutas dibujadas en cada mapa. Acepta cualquier color CSS válido, por ejemplo, red, #FF0000 o rgb(255,0,0).'
 'The current name of the activity': 'El nombre actual de la actividad'
+'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.': 'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.'
 'The device used to record the activity': 'El dispositivo usado para grabar la actividad'
 'The distance': 'La distancia'
 'The elapsed time': 'El tiempo transcurrido'
@@ -525,6 +526,7 @@ To: Hasta
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'El tamaño total supera los {max} MB'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Haz un seguimiento del uso del equipamiento a partir de tus actividades y mantente al día con el mantenimiento basado en uso y tiempo.'
+'Training days': 'Training days'
 'Training metrics': 'Training metrics'
 Tuesday: Martes
 'Turn gear maintenance tracking on or off.': 'Activa o desactiva el seguimiento del mantenimiento del equipamiento.'

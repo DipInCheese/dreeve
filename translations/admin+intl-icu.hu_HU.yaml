@@ -473,6 +473,7 @@ Tasks: Feladatok
 'The code took too long. Log in again to get a new one.': 'The code took too long. Log in again to get a new one.'
 'The color of the routes drawn on every map. Accepts any valid CSS color, e.g. red, #FF0000 or rgb(255,0,0).': 'A minden térképen megrajzolt útvonalak színe. Bármilyen érvényes CSS-színt elfogad, pl. red, #FF0000 vagy rgb(255,0,0).'
 'The current name of the activity': 'A tevékenység jelenlegi neve'
+'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.': 'The days you plan to train. The other days are rest days: the AI overview and the AI coach then suggest recovery instead of a workout.'
 'The device used to record the activity': 'A tevékenység rögzítéséhez használt eszköz'
 'The distance': 'A távolság'
 'The elapsed time': 'Az eltelt idő'
@@ -525,6 +526,7 @@ To: Eddig
 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.': 'Too many attempts. Wait 15 minutes, so Garmin does not lock your account.'
 'Total size exceeds {max} MB': 'A teljes méret meghaladja a(z) {max} MB-ot'
 'Track gear usage from your activities and stay on top of usage- and time-based maintenance.': 'Kövesd a felszerelés használatát a tevékenységeidből, és tartsd kézben a használat- és időalapú karbantartást.'
+'Training days': 'Training days'
 'Training metrics': 'Training metrics'
 Tuesday: Kedd
 'Turn gear maintenance tracking on or off.': 'A felszerelés-karbantartás követésének be- vagy kikapcsolása.'

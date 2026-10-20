@@ -65,7 +65,7 @@ final readonly class HealthSnapshotBuilder
             $inPeriod = $this->valuesBetween($series, $periodStart, $periodEnd);
             $previous = $this->valuesBetween($series, $previousStart, $from->modify('-1 day')->format('Y-m-d'));
             // The normal from before the period: the day before it counts as the "latest" day.
-            $normal = new BaselineCalculator()->calculate(array_filter($series, static fn (string $day): bool => $day < $periodStart, ARRAY_FILTER_USE_KEY));
+            $normal = new BaselineCalculator()->calculate(array_filter($series, static fn (string $day): bool => $day < $periodStart, ARRAY_FILTER_USE_KEY), $metric->highestValue());
 
             $metrics[] = new MetricSnapshot(
                 metric: $metric,
