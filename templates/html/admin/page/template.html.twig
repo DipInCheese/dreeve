@@ -16,7 +16,7 @@
         <link href="{{ relativeUrl(asset('css/dist/tailwind.min.css')) }}" rel="stylesheet"/>
         {% block stylesheets %}{% endblock %}
         <script>
-            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
             if (localStorage.getItem('sideNavCollapsed') === 'true') {
                 document.documentElement.setAttribute('data-sidebar-collapsed', '');
             }

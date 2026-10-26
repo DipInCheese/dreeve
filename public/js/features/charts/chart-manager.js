@@ -3,6 +3,25 @@ import {resolveEchartsCallbacks} from "./echarts-callbacks";
 import {loadEcharts} from "./echarts-loader";
 import {serialize} from "../data-table/filter-url";
 
+// Charts grow into place, draw on the glass (no background of their own) and get rounded bars,
+// unless a chart says otherwise.
+const withMotion = (options) => {
+    const series = Array.isArray(options.series) ? options.series : (options.series ? [options.series] : []);
+    series.forEach((serie) => {
+        if ('bar' === serie.type) {
+            serie.itemStyle = {borderRadius: [6, 6, 0, 0], ...(serie.itemStyle || {})};
+        }
+    });
+
+    return {
+        backgroundColor: 'transparent',
+        animationDuration: 1100,
+        animationEasing: 'cubicOut',
+        animationDurationUpdate: 600,
+        ...options,
+    };
+};
+
 export default class ChartManager {
     constructor() {
         this.allCharts = [];
@@ -39,7 +58,7 @@ export default class ChartManager {
 
             loadOptions.then(chartOptions => {
                 resolveEchartsCallbacks(chartOptions);
-                chart.setOption(chartOptions);
+                chart.setOption(withMotion(chartOptions));
             }).catch(error => {
                 console.error('Failed to load chart data:', error);
             }).finally(() => {

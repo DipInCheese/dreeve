@@ -15,6 +15,7 @@ import ScrollTo from "./components/scroll-to";
 import MilestoneFilter from "./features/milestones/milestone-filter";
 import DarkModeManager from "./components/dark-mode";
 import initDropdowns from "./components/dropdown";
+import initCountUp from "./components/count-up";
 import {initAccordions, initPopovers, initDrawers} from "flowbite";
 
 registerEchartsCallbacks();
@@ -45,6 +46,7 @@ const initElements = (rootNode) => {
     initLightGalleries(rootNode);
     scrollTo.init(rootNode);
     initAsyncContent(rootNode);
+    initCountUp(rootNode);
 }
 
 initSidebar();

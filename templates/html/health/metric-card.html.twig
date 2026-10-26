@@ -12,13 +12,13 @@
     {% set current = current ?? null %}
     {% if baseline.hasLatest() and current is not null %}
         <div class="flex items-baseline gap-1.5" data-current>
-            <span class="text-3xl font-extrabold text-gray-900">{{ overview.format(current) }}</span>
+            <span class="text-3xl font-extrabold text-gray-900" data-count-up>{{ overview.format(current) }}</span>
             <span class="text-sm text-gray-500">{{ "now"|trans }}</span>
         </div>
         <div class="text-sm text-gray-700">{{ "Charged to {value} today"|trans({'{value}': overview.formatLatest()}) }}</div>
     {% elseif baseline.hasLatest() %}
         <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl font-extrabold text-gray-900">{{ overview.formatLatest() }}</span>
+            <span class="text-3xl font-extrabold text-gray-900" data-count-up>{{ overview.formatLatest() }}</span>
             {% if overview.unit() %}<span class="text-sm text-gray-500">{{ overview.unit() }}</span>{% endif %}
         </div>
     {% endif %}
