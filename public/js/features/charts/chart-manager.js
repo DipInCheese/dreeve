@@ -8,6 +8,8 @@ const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion:
 // Line and bar charts with a modest amount of data load in: lines draw from left to right and
 // bars grow up one after another. Big charts (activity streams) stay still, so they open fast.
 const MAX_ANIMATED_POINTS = 3000;
+// The longest a chart takes to load in: a line's sweep, or the last bar's delay plus its growth.
+const INTRO_MS = 1700;
 const animatesIn = (series) => 0 < series.length
     && series.every((serie) => ['line', 'bar'].includes(serie.type))
     && series.reduce((total, serie) => total + (Array.isArray(serie.data) ? serie.data.length : 0), 0) <= MAX_ANIMATED_POINTS;
@@ -74,6 +76,9 @@ export default class ChartManager {
         this.allCharts = [];
         this.theme = null;
         this.pendingTheme = new Set();
+        this.sizes = new WeakMap();
+        this.introEnds = new WeakMap();
+        this.pendingResize = new WeakMap();
         this.resizeObserver = new ResizeObserver(entries => {
             for (const entry of entries) {
                 const chart = echarts.getInstanceByDom(entry.target);
@@ -82,6 +87,20 @@ export default class ChartManager {
                 }
                 if (this.pendingTheme.delete(chart)) {
                     chart.setTheme(this.theme);
+                }
+                // A resize redraws without animation, which would cut a line's left-to-right sweep short,
+                // so only resize when the size really changed (the observer also reports the first size).
+                const size = `${Math.round(entry.contentRect.width)}x${Math.round(entry.contentRect.height)}`;
+                if (this.sizes.get(entry.target) === size) {
+                    continue;
+                }
+                this.sizes.set(entry.target, size);
+                // While a chart is still loading in, the resize waits until the animation is done.
+                const wait = (this.introEnds.get(chart) ?? 0) - performance.now();
+                if (0 < wait) {
+                    clearTimeout(this.pendingResize.get(chart));
+                    this.pendingResize.set(chart, setTimeout(() => chart.resize(), wait));
+                    continue;
                 }
                 chart.resize();
             }
@@ -96,6 +115,11 @@ export default class ChartManager {
 
         loadEcharts().then(() => chartNodes.forEach(chartNode => {
             const chart = echarts.init(chartNode, this.theme);
+            const box = chartNode.getBoundingClientRect();
+            const style = getComputedStyle(chartNode);
+            const padX = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+            const padY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+            this.sizes.set(chartNode, `${Math.round(box.width - padX)}x${Math.round(box.height - padY)}`);
             const chartOptionsUrl = chartNode.getAttribute('data-echarts-options-url');
 
             const loadOptions = chartOptionsUrl
@@ -105,7 +129,11 @@ export default class ChartManager {
 
             loadOptions.then(chartOptions => {
                 resolveEchartsCallbacks(chartOptions);
-                chart.setOption(withMotion(chartOptions));
+                const options = withMotion(chartOptions);
+                if (false !== options.animation) {
+                    this.introEnds.set(chart, performance.now() + INTRO_MS);
+                }
+                chart.setOption(options);
             }).catch(error => {
                 console.error('Failed to load chart data:', error);
             }).finally(() => {
