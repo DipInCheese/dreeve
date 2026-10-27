@@ -348,18 +348,19 @@ const v5Theme = () => {
 const v5DarkTheme = () => {
     const base = v5Theme();
     const backgroundColor = 'transparent';
-    const contrastColor = '#B9B8CE';
+    // Warm and faint, so the charts sit on the smoky glass instead of on top of it.
+    const contrastColor = '#E6DCD2';
 
     const axisCommon = function () {
         return {
             axisLine: {
                 lineStyle: {
-                    color: contrastColor
+                    color: 'rgba(255, 240, 225, 0.22)'
                 }
             },
             splitLine: {
                 lineStyle: {
-                    color: '#484753'
+                    color: 'rgba(255, 240, 225, 0.09)'
                 }
             },
             splitArea: {
@@ -369,7 +370,7 @@ const v5DarkTheme = () => {
             },
             minorSplitLine: {
                 lineStyle: {
-                    color: '#20203B'
+                    color: 'rgba(255, 240, 225, 0.04)'
                 }
             }
         };
@@ -385,10 +386,11 @@ const v5DarkTheme = () => {
         axisPointer: {
             ...base.axisPointer,
             lineStyle: {
-                color: '#817f91'
+                color: 'rgba(255, 240, 225, 0.45)',
+                type: 'dashed'
             },
             crossStyle: {
-                color: '#817f91'
+                color: 'rgba(255, 240, 225, 0.45)'
             },
             label: {
                 color: '#fff'
@@ -420,9 +422,10 @@ const v5DarkTheme = () => {
             }
         },
         tooltip: {
-            backgroundColor: '#2a313c',
-            borderColor: '#3d444d',
-            textStyle: { color: '#f0f6fc' }
+            backgroundColor: 'rgba(60, 48, 38, 0.78)',
+            borderColor: 'rgba(255, 240, 225, 0.25)',
+            textStyle: { color: '#ffffff' },
+            extraCssText: 'border-radius: 14px; backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); box-shadow: 0 12px 28px -12px rgba(30, 18, 10, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.14);'
         },
         timeAxis: axisCommon(),
         logAxis: axisCommon(),
@@ -436,7 +439,7 @@ const v5DarkTheme = () => {
         })(),
         grid: {
             ...base.grid,
-            borderColor: '#3d444d'
+            borderColor: 'rgba(255, 240, 225, 0.12)'
         },
         visualMap: {
             ...base.visualMap,
@@ -461,11 +464,19 @@ const v5DarkTheme = () => {
         },
         dataZoom: {
             ...base.dataZoom,
-            borderColor: '#3d444d',
-            backgroundColor: 'rgba(33,40,48,0)',
-            handleStyle: { color: '#c9d1d9', borderColor: '#656c76' },
-            textStyle: { color: '#c9d1d9' },
-            selectedDataBackground: { areaStyle: { color: '#539bf520', opacity: 0.2 } }
+            // A slim glass pill with an orange window and round handles.
+            height: 18,
+            borderColor: 'rgba(255, 240, 225, 0.18)',
+            borderRadius: 9,
+            backgroundColor: 'rgba(255, 240, 225, 0.08)',
+            fillerColor: 'rgba(242, 103, 34, 0.28)',
+            handleIcon: 'path://M512,512m-448,0a448,448,0,1,0,896,0a448,448,0,1,0,-896,0Z',
+            handleSize: '110%',
+            handleStyle: { color: 'rgba(255, 255, 255, 0.92)', borderColor: 'rgba(255, 240, 225, 0.4)' },
+            moveHandleSize: 0,
+            textStyle: { color: contrastColor },
+            dataBackground: { lineStyle: { color: 'rgba(255, 240, 225, 0.25)' }, areaStyle: { color: 'rgba(255, 240, 225, 0.08)' } },
+            selectedDataBackground: { lineStyle: { color: 'rgba(255, 170, 120, 0.6)' }, areaStyle: { color: 'rgba(242, 103, 34, 0.18)' } }
         }
     };
 

@@ -13,6 +13,16 @@ const withMotion = (options) => {
         }
     });
 
+    // Grid lines in ECharts' default light grey are left to the theme, so they stay faint on the dark glass.
+    ['xAxis', 'yAxis'].forEach((key) => {
+        const axes = Array.isArray(options[key]) ? options[key] : (options[key] ? [options[key]] : []);
+        axes.forEach((axis) => {
+            if (axis.splitLine?.lineStyle?.color?.toUpperCase?.() === '#E0E6F1') {
+                delete axis.splitLine.lineStyle.color;
+            }
+        });
+    });
+
     return {
         backgroundColor: 'transparent',
         animationDuration: 1100,

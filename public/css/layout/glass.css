@@ -15,6 +15,8 @@
     --glass-bg-inset: rgb(255 255 255 / 0.42);
     --glass-border: rgb(255 255 255 / 0.72);
     --glass-highlight: rgb(255 255 255 / 0.75);
+    --glass-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.28) 0%, rgb(255 255 255 / 0) 42%);
+    --glass-rim: inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgb(255 255 255 / 0.18), inset 0 -1px 0 rgb(84 56 28 / 0.06);
     --glass-shadow: 0 12px 32px -14px rgb(84 56 28 / 0.22), 0 2px 6px -2px rgb(84 56 28 / 0.08);
     --glass-shadow-hover: 0 22px 44px -16px rgb(84 56 28 / 0.30), 0 4px 10px -4px rgb(84 56 28 / 0.10);
     --glass-backdrop:
@@ -36,7 +38,11 @@
     --glass-bg-strong: rgb(92 78 66 / 0.80);
     --glass-bg-inset: rgb(255 240 225 / 0.08);
     --glass-border: rgb(255 240 225 / 0.16);
-    --glass-highlight: rgb(255 255 255 / 0.14);
+    --glass-highlight: rgb(255 255 255 / 0.2);
+    --glass-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0) 38%);
+    --glass-rim: inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgb(255 240 225 / 0.05), inset 0 -1px 0 rgb(30 18 10 / 0.18);
+    --glass-chip: linear-gradient(180deg, rgb(255 255 255 / 0.12) 0%, rgb(255 255 255 / 0.03) 100%), rgb(255 240 225 / 0.06);
+    --glass-chip-active: linear-gradient(180deg, rgb(255 190 150 / 0.32) 0%, rgb(242 103 34 / 0.22) 100%), rgb(242 103 34 / 0.12);
     --glass-shadow: 0 18px 40px -18px rgb(30 18 10 / 0.55), 0 2px 8px -2px rgb(30 18 10 / 0.25);
     --glass-shadow-hover: 0 28px 54px -18px rgb(30 18 10 / 0.65), 0 4px 12px -4px rgb(30 18 10 / 0.3);
     --glass-backdrop: linear-gradient(180deg, #7b6a5c 0%, #988776 45%, #b4a593 75%, #a6978a 100%);
@@ -107,10 +113,11 @@ html:not([data-theme="dark"]) body {
 
 /* Cards. */
 :is(div, section, article, a, form, li, aside, dl, fieldset, details, figure).bg-white:is(.border, [class*="shadow"], .rounded-lg, .rounded-xl):not(.rounded-md, .rounded-full, .rounded) {
-    background: var(--glass-bg);
+    /* Liquid glass: a soft sheen across the top and a bright rim where the light catches the edge. */
+    background: var(--glass-sheen), var(--glass-bg);
     border-color: var(--glass-border);
     border-radius: var(--glass-radius);
-    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+    box-shadow: var(--glass-rim), var(--glass-shadow);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
     backdrop-filter: blur(var(--glass-blur)) saturate(160%);
 }
@@ -228,7 +235,7 @@ main :is(.grid, .flex) > :nth-child(n+9) { animation-delay: 480ms; }
     main :is(.grid, .flex) > :is(div, section, article, a).bg-white:is(.border, [class*="shadow"], .rounded-lg, .rounded-xl):not(.rounded-md, .rounded-full, .rounded):hover,
     main a.bg-white:is(.border, [class*="shadow"], .rounded-lg, .rounded-xl):not(.rounded-md, .rounded-full, .rounded):hover {
         transform: translateY(-4px);
-        box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow-hover);
+        box-shadow: var(--glass-rim), var(--glass-shadow-hover);
     }
 }
 
@@ -244,7 +251,244 @@ main :is(.grid, .flex) > :nth-child(n+9) { animation-delay: 480ms; }
 }
 
 /* Thin, see-through scrollbars on the glass. */
+:is(aside#drawer-navigation, .contextual-panel, main),
 :is(aside#drawer-navigation, .contextual-panel, main) * {
     scrollbar-width: thin;
     scrollbar-color: rgb(127 127 127 / 0.35) transparent;
+}
+
+:root[data-theme="dark"] :is(aside#drawer-navigation, .contextual-panel, main),
+:root[data-theme="dark"] :is(aside#drawer-navigation, .contextual-panel, main) * {
+    scrollbar-color: rgb(255 240 225 / 0.28) transparent;
+}
+
+/*
+ * The parts that still drew solid on the dark glass: tables, chips and filters, links, pills, the map
+ * and the settings menu. Light mode keeps its own look.
+ */
+
+/* Tables: rows let the glass through, with hairlines between them. */
+:root[data-theme="dark"] :is(tr, td, th).bg-white:not(.sticky, [class*="sticky"]) {
+    background: transparent;
+}
+
+:root[data-theme="dark"] :is(tr.border-b, table.data-table tbody tr) {
+    border-color: rgb(255 240 225 / 0.1);
+}
+
+/* Columns and headers that stay put while the table scrolls need a fill, so it is the stronger glass. */
+:root[data-theme="dark"] :is(td, th):is(.sticky, [class*="sticky"]):is(.bg-white, .bg-gray-50),
+:root[data-theme="dark"] table.data-table :is(td, th).sticky-actions,
+:root[data-theme="dark"] table.data-table thead,
+:root[data-theme="dark"] thead.sticky {
+    background: rgb(110 94 80 / 0.42);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Up and down pills: tinted glass instead of solid bricks. */
+:root[data-theme="dark"] .pill {
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 1px var(--pill-ring, rgb(255 240 225 / 0.2));
+}
+
+:root[data-theme="dark"] .pill--success { background: rgb(134 239 172 / 0.16); color: #e3fbe9; --pill-ring: rgb(134 239 172 / 0.32); }
+:root[data-theme="dark"] .pill--danger { background: rgb(239 68 68 / 0.22); color: #ffe1e1; --pill-ring: rgb(252 165 165 / 0.35); }
+:root[data-theme="dark"] .pill--warning { background: rgb(251 191 36 / 0.18); color: #fff1c7; --pill-ring: rgb(252 211 77 / 0.35); }
+:root[data-theme="dark"] .pill--info { background: rgb(96 165 250 / 0.18); color: #e0eeff; --pill-ring: rgb(147 197 253 / 0.32); }
+:root[data-theme="dark"] .pill--neutral { background: rgb(255 240 225 / 0.1); color: #fbf4ec; }
+
+/* Links are warm white with an orange underline, not a cold blue. */
+:root[data-theme="dark"] a:is(.text-blue-600, .text-blue-700) {
+    color: #ffffff;
+    text-decoration-color: rgb(242 103 34 / 0.75);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+}
+
+/* The numbers in the overview's intro read as bold text, not as code. */
+:root[data-theme="dark"] p kbd {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #ffd2b8;
+}
+
+/* Liquid chips: filter buttons, choice labels and tab pills. */
+:root[data-theme="dark"] :is(
+    div.filter-dropdown > button[data-dropdown],
+    label.bg-white.border.cursor-pointer,
+    .contextual-tabs a
+) {
+    border: 1px solid rgb(255 240 225 / 0.2);
+    border-radius: 9999px;
+    background: var(--glass-chip);
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16), 0 4px 12px -6px rgb(30 18 10 / 0.5);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+:root[data-theme="dark"] :is(
+    div.filter-dropdown > button[data-dropdown]:is(.active, .bg-primary-soft, [aria-expanded="true"]),
+    input:checked + label.bg-white.border.cursor-pointer,
+    .contextual-tabs a[aria-selected="true"]
+) {
+    border-color: rgb(255 170 120 / 0.6);
+    background: var(--glass-chip-active);
+    color: #ffffff;
+}
+
+@media (hover: hover) {
+    :root[data-theme="dark"] :is(div.filter-dropdown > button[data-dropdown], label.bg-white.border.cursor-pointer):hover {
+        border-color: rgb(255 240 225 / 0.36);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), 0 6px 18px -6px rgb(242 103 34 / 0.35);
+    }
+}
+
+/* The menus that open from them are the stronger glass, so the choices stay easy to read. */
+:root[data-theme="dark"] div.filter-dropdown > div {
+    background: var(--glass-bg-strong);
+    border-radius: 1.125rem;
+}
+
+/* Segmented pills (date ranges, tabs): a glass track with a bright pill on the chosen one. */
+:root[data-theme="dark"] :is(nav:has(> a[href^="?range="]), ul.tabs.tabs--pills, ul.tabs.tabs--menu-item) {
+    padding: 0.25rem;
+    gap: 0.125rem;
+    border: 1px solid rgb(255 240 225 / 0.2);
+    border-radius: 9999px;
+    background: var(--glass-chip);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+
+:root[data-theme="dark"] ul.tabs.tabs--pills {
+    display: inline-flex;
+}
+
+:root[data-theme="dark"] ul.tabs.tabs--pills > li {
+    border: 0;
+    border-radius: 9999px;
+    background: transparent;
+}
+
+:root[data-theme="dark"] :is(nav:has(> a[href^="?range="]) > a, ul.tabs.tabs--pills > li > a, ul.tabs.tabs--menu-item > li > a) {
+    border-radius: 9999px;
+    transition: background 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s ease;
+}
+
+:root[data-theme="dark"] :is(nav:has(> a[href^="?range="]) > a[aria-current="page"], ul.tabs.tabs--pills > li > a.active, ul.tabs.tabs--pills > li > a[aria-selected="true"], ul.tabs.tabs--menu-item > li > a.active) {
+    background: rgb(255 240 225 / 0.92);
+    color: #3b2e24;
+    font-weight: 700;
+    box-shadow: inset 0 1px 0 #ffffff, 0 4px 12px -4px rgb(30 18 10 / 0.45);
+}
+
+/* Form fields: glass wells with a warm glow when in use. */
+:root[data-theme="dark"] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]), select, textarea) {
+    border-radius: 0.875rem;
+    background-color: rgb(40 30 22 / 0.28);
+    box-shadow: inset 0 1px 2px rgb(20 12 6 / 0.25), inset 0 -1px 0 rgb(255 255 255 / 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+:root[data-theme="dark"] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]), select, textarea):focus {
+    border-color: rgb(255 170 120 / 0.6);
+    outline: none;
+    box-shadow: inset 0 1px 2px rgb(20 12 6 / 0.25), 0 0 0 3px rgb(242 103 34 / 0.28);
+}
+
+/* The primary button catches the light like the cards do. */
+:root[data-theme="dark"] .btn--primary {
+    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0) 55%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 0 0 1px rgb(255 200 170 / 0.35), 0 6px 18px -6px rgb(242 103 34 / 0.55);
+}
+
+/* Maps: a night map with warm tones, so it sits behind the glass instead of glaring through it. */
+:root[data-theme="dark"] .leaflet-container {
+    background: #2a211a;
+}
+
+:root[data-theme="dark"] #heatmap {
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Only street maps are turned to night; satellite photos would look wrong inverted. */
+:root[data-theme="dark"] img.leaflet-tile:is([src*="openstreetmap"], [src*="light_all"], [src*="voyager"]) {
+    filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9) sepia(0.35) saturate(0.85);
+}
+
+:root[data-theme="dark"] :is(.leaflet-bar, .leaflet-control--custom) {
+    overflow: hidden;
+    border: 1px solid rgb(255 240 225 / 0.22);
+    border-radius: 1.25rem;
+    background: rgb(60 48 38 / 0.58);
+    background-clip: border-box;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16), 0 8px 20px -8px rgb(20 12 6 / 0.6);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(150%);
+}
+
+:root[data-theme="dark"] :is(.leaflet-bar a, .leaflet-control--custom li) {
+    border-color: rgb(255 240 225 / 0.16);
+    background: transparent;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] :is(.leaflet-bar a:hover, .leaflet-control--custom li:hover) {
+    background: rgb(255 240 225 / 0.12);
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution {
+    border-radius: 0.5rem 0 0 0;
+    background: rgb(40 30 22 / 0.55);
+    color: #e6dcd2;
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution a {
+    color: #ffd2b8;
+}
+
+@media (width >= 48rem) {
+    /* Settings and other pages with a sub menu float the menu like every other page. */
+    aside#drawer-navigation.sidebar--with-contextual-panel {
+        top: 4.25rem;
+        left: 0.75rem;
+        height: calc(100vh - 5rem);
+        padding-top: 0;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--glass-radius);
+        box-shadow: var(--glass-rim), var(--glass-shadow);
+
+        > .contextual-panel {
+            width: 14rem;
+            border-color: var(--glass-border);
+        }
+    }
+}
+
+@media (width < 48rem) {
+    /* The chosen tab sits in a small glass pill, which slides in as you switch. */
+    .bottom-tab-bar > :is(a, button) {
+        margin: 0.375rem 0.125rem;
+        min-height: 3rem;
+        border-radius: 1.125rem;
+        transition: background 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+    }
+
+    .bottom-tab-bar > :is(a, button)[aria-current="page"] {
+        background: rgb(255 240 225 / 0.14);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), inset 0 0 0 1px rgb(255 240 225 / 0.1);
+    }
+
+    html:not([data-theme="dark"]) .bottom-tab-bar > :is(a, button)[aria-current="page"] {
+        background: rgb(242 103 34 / 0.1);
+    }
 }

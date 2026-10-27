@@ -31,16 +31,24 @@ final readonly class HealthChart
             'type' => $isBar ? 'bar' : 'line',
             'color' => ['#E34902'],
             'connectNulls' => true,
-            'smooth' => false,
+            'smooth' => 0.3,
             'showSymbol' => count($points) <= 31,
             'symbolSize' => 5,
-            'lineStyle' => ['width' => 2],
+            'lineStyle' => ['width' => 2.5],
             'data' => $points,
         ];
+        if (!$isBar) {
+            // A soft glow under the line that fades out towards the axis.
+            $line['areaStyle'] = ['color' => [
+                'type' => 'linear', 'x' => 0, 'y' => 0, 'x2' => 0, 'y2' => 1,
+                'colorStops' => [['offset' => 0, 'color' => 'rgba(242, 103, 34, 0.35)'], ['offset' => 1, 'color' => 'rgba(242, 103, 34, 0)']],
+            ]];
+        }
         if ($baseline->hasNormalRange()) {
             $line['markArea'] = [
                 'silent' => true,
-                'itemStyle' => ['color' => 'rgba(34, 197, 94, 0.12)'],
+                'itemStyle' => ['color' => 'rgba(255, 200, 150, 0.14)'],
+                'label' => ['position' => 'insideTopRight', 'color' => '#d8c8b8', 'fontSize' => 11, 'textBorderWidth' => 0],
                 'data' => [[
                     ['name' => $translator->trans('Your normal'), 'yAxis' => $baseline->normalLow],
                     ['yAxis' => $baseline->normalHigh],
@@ -57,12 +65,12 @@ final readonly class HealthChart
                 'type' => 'time',
                 'boundaryGap' => false,
                 'axisTick' => ['show' => false],
-                'splitLine' => ['show' => true, 'lineStyle' => ['color' => '#E0E6F1']],
+                'splitLine' => ['show' => false],
             ]],
             'yAxis' => [[
                 'type' => 'value',
                 'scale' => !$isBar,
-                'splitLine' => ['show' => false],
+                'splitLine' => ['show' => true],
                 'axisLabel' => ['formatter' => '{value}'.$unit],
             ]],
             'series' => [$line],
