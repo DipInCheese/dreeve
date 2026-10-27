@@ -358,6 +358,9 @@ const v5DarkTheme = () => {
                     color: 'rgba(255, 240, 225, 0.22)'
                 }
             },
+            axisLabel: {
+                color: 'rgba(255, 245, 235, 0.78)'
+            },
             splitLine: {
                 lineStyle: {
                     color: 'rgba(255, 240, 225, 0.09)'
@@ -422,10 +425,10 @@ const v5DarkTheme = () => {
             }
         },
         tooltip: {
-            backgroundColor: 'rgba(60, 48, 38, 0.78)',
-            borderColor: 'rgba(255, 240, 225, 0.25)',
+            backgroundColor: 'rgba(60, 44, 32, 0.6)',
+            borderColor: 'rgba(255, 255, 255, 0.18)',
             textStyle: { color: '#ffffff' },
-            extraCssText: 'border-radius: 14px; backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); box-shadow: 0 12px 28px -12px rgba(30, 18, 10, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.14);'
+            extraCssText: 'border-radius: 16px; backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); box-shadow: 0 16px 32px -14px rgba(10, 5, 2, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.5);'
         },
         timeAxis: axisCommon(),
         logAxis: axisCommon(),

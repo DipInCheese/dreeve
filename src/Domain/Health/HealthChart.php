@@ -29,15 +29,23 @@ final readonly class HealthChart
         $line = [
             'name' => $metric->trans($translator),
             'type' => $isBar ? 'bar' : 'line',
-            'color' => ['#E34902'],
+            'color' => ['#F26722'],
             'connectNulls' => true,
-            'smooth' => 0.3,
+            'smooth' => 0.35,
+            // Smooth, but never dipping past the real values between two days.
+            'smoothMonotone' => 'x',
             'showSymbol' => count($points) <= 31,
-            'symbolSize' => 5,
-            'lineStyle' => ['width' => 2.5],
+            'symbolSize' => 6,
+            'lineStyle' => ['width' => 3, 'cap' => 'round', 'join' => 'round'],
             'data' => $points,
         ];
-        if (!$isBar) {
+        if ($isBar) {
+            // Bars catch the light at the top, like the glass around them.
+            $line['itemStyle'] = ['borderRadius' => [8, 8, 0, 0], 'color' => [
+                'type' => 'linear', 'x' => 0, 'y' => 0, 'x2' => 0, 'y2' => 1,
+                'colorStops' => [['offset' => 0, 'color' => '#FFB07A'], ['offset' => 1, 'color' => '#D2561A']],
+            ]];
+        } else {
             // A soft glow under the line that fades out towards the axis.
             $line['areaStyle'] = ['color' => [
                 'type' => 'linear', 'x' => 0, 'y' => 0, 'x2' => 0, 'y2' => 1,
