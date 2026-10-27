@@ -65,7 +65,7 @@ final readonly class HealthChart
         }
 
         return [
-            'animation' => false,
+            'animation' => true,
             'backgroundColor' => null,
             'tooltip' => ['trigger' => 'axis'],
             'grid' => ['top' => '8%', 'left' => '3%', 'right' => '4%', 'bottom' => '3%', 'containLabel' => true],

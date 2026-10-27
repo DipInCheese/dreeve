@@ -3,6 +3,15 @@ import {resolveEchartsCallbacks} from "./echarts-callbacks";
 import {loadEcharts} from "./echarts-loader";
 import {serialize} from "../data-table/filter-url";
 
+const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+// Line and bar charts with a modest amount of data load in: lines draw from left to right and
+// bars grow up one after another. Big charts (activity streams) stay still, so they open fast.
+const MAX_ANIMATED_POINTS = 3000;
+const animatesIn = (series) => 0 < series.length
+    && series.every((serie) => ['line', 'bar'].includes(serie.type))
+    && series.reduce((total, serie) => total + (Array.isArray(serie.data) ? serie.data.length : 0), 0) <= MAX_ANIMATED_POINTS;
+
 // Charts grow into place, draw on the glass (no background of their own) and get rounded bars,
 // unless a chart says otherwise.
 const withMotion = (options) => {
@@ -12,6 +21,34 @@ const withMotion = (options) => {
             serie.itemStyle = {borderRadius: [6, 6, 0, 0], ...(serie.itemStyle || {})};
         }
     });
+
+    if (prefersReducedMotion()) {
+        return {backgroundColor: 'transparent', ...options, animation: false};
+    }
+
+    if (animatesIn(series)) {
+        series.forEach((serie) => {
+            if ('bar' === serie.type) {
+                // Left to right, the whole row in under a second however many bars there are.
+                const count = Array.isArray(serie.data) ? serie.data.length : 0;
+                const step = Math.min(45, 900 / Math.max(count, 1));
+                serie.animationDuration ??= 700;
+                serie.animationEasing ??= 'backOut';
+                serie.animationDelay ??= (index) => index * step;
+            } else {
+                // ECharts reveals a line from left to right on its first draw.
+                serie.animationDuration ??= 1400;
+                serie.animationEasing ??= 'cubicInOut';
+            }
+        });
+
+        return {
+            backgroundColor: 'transparent',
+            animationDurationUpdate: 600,
+            ...options,
+            animation: true,
+        };
+    }
 
     // Grid lines in ECharts' default light grey are left to the theme, so they stay faint on the dark glass.
     ['xAxis', 'yAxis'].forEach((key) => {
